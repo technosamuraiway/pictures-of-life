@@ -16,14 +16,13 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   )
 }
 
-
 export const getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
 export interface RootObject {
-	userId: number;
-	id: number;
-	title: string;
-	body: string;
+  id: number
+  userId: number
+  body: string
+  title: string
 }
