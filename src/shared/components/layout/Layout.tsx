@@ -21,8 +21,8 @@ export const getLayout = (page: ReactElement) => {
 }
 
 export interface RootObject {
-  id: number
-  userId: number
   body: string
+  id: number
   title: string
+  userId: number
 }
