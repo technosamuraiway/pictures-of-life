@@ -10,10 +10,15 @@ const nextConfig = {
   //     }
   //   ]
   // },
-  i18n: {
-    locales: ["en", "ru"],
-    defaultLocale: "ru",
-  },
+  i18n: {    
+    locales: ['en', 'ru'],
+    defaultLocale: 'ru',    
+    domains: [
+        {            
+          domain: 'pictures-of-life.online',
+          defaultLocale: 'en'        
+        }
+    ]},
 };
 
 export default nextConfig;
