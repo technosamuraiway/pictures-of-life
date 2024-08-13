@@ -1,13 +1,13 @@
 import LeftArrowTerms from '@/shared/assets/icons/LeftArrowTerms'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
-import { useRouterLocaleDefination } from '@/shared/hooks/useRouterLocaleDefination'
+import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 import { Typography } from '@commonaccount2024/inctagram-ui-kit'
 import Link from 'next/link'
 
 import s from './termsOfService.module.scss'
 
 export default function TermsOfService() {
-  const routerLocale = useRouterLocaleDefination()
+  const routerLocale = useRouterLocaleDefinition()
 
   return (
     <>

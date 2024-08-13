@@ -10,13 +10,13 @@ const nextConfig = {
   //     }
   //   ]
   // },
-  i18n: {    
+  i18n: {
     locales: ['en', 'ru'],
-    defaultLocale: 'ru',    
+    defaultLocale: 'ru',
     domains: [
-        {            
+        {
           domain: 'pictures-of-life.online',
-          defaultLocale: 'en'        
+          defaultLocale: 'en'
         }
     ]},
 };
