@@ -1,8 +1,8 @@
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
-import { useRouterLocaleDefination } from '@/shared/hooks/useRouterLocaleDefination'
+import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 
 export default function CreateNewPassword() {
-  const routerLocale = useRouterLocaleDefination()
+  const routerLocale = useRouterLocaleDefinition()
 
   return (
     <>
