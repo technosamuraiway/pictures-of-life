@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { SendEmailRequestBody } from '@/feature/auth/api/auth.types'
 import { useSendEmailMutation } from '@/feature/auth/api/authApi'
 import { OAuth } from '@/feature/oAuth/oAuth'
-import { useRouterLocaleDefination } from '@/shared/hooks/useRouterLocaleDefination'
+import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 import { authHandleError } from '@/shared/utils/authHandleError'
 import { Button, Card, Checkbox, Typography } from '@commonaccount2024/inctagram-ui-kit'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -27,7 +27,7 @@ export function RegistrationForm() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [ifExists, setIfExists] = useState('')
   const [userEmail, setUserEmail] = useState('')
-  const routerLocale = useRouterLocaleDefination()
+  const routerLocale = useRouterLocaleDefinition()
   const handleError = authHandleError()
 
   const {
