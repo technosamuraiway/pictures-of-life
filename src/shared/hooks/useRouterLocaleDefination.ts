@@ -5,5 +5,9 @@ import { useRouter } from 'next/router'
 export function useRouterLocaleDefination() {
   const router = useRouter()
 
+  if (!router.locale) {
+    return en
+  }
+
   return router.locale === 'en' ? en : ru
 }
