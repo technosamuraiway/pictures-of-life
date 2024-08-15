@@ -1,14 +1,17 @@
-import { RegistrationForm } from '../../components/SignUpForm'
 import { HeadMeta } from '../../components/headMeta/HeadMeta'
+import { getLayout } from '../../components/layout/Layout'
 import { useRouterLocaleDefinition } from '../../hooks/useRouterLocaleDefinition'
 
-export default function SignUp() {
+const SignUp = () => {
   const routerLocale = useRouterLocaleDefinition()
 
   return (
     <>
       <HeadMeta title={routerLocale.signUpPage.title} />
-      <RegistrationForm />
+      <h2>Hello, i am SignUp page</h2>
     </>
   )
 }
+
+SignUp.getLayout = getLayout
+export default SignUp

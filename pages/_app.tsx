@@ -1,44 +1,25 @@
+import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
-import { Provider } from 'react-redux'
-import { ToastContainer } from 'react-toastify'
+import type { ReactElement, ReactNode } from 'react'
 
-import { store } from '@/application/store'
-import { Inter } from 'next/font/google'
-
-import '@/styles/_colors.scss'
-import '@/styles/_typography.scss'
-import '@/styles/globals.scss'
 import '@commonaccount2024/inctagram-ui-kit/dist/style.css'
+import 'styles/_colors.scss'
+import 'styles/_typography.scss'
+import 'styles/globals.scss'
 
 import { Header } from '../components/Header'
-import { Layout } from '../components/layout/Layout'
 
-const inter = Inter({ subsets: ['latin'] })
+export type NextPageWithLayout<P = {}, IP = P> = {
+  getLayout?: (page: ReactElement) => ReactNode
+} & NextPage<P, IP>
 
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <main className={inter.className}>
-      <Provider store={store}>
-        <ToastContainer
-          closeOnClick
-          draggable={false}
-          hideProgressBar
-          limit={3}
-          newestOnTop
-          pauseOnFocusLoss={false}
-          pauseOnHover={false}
-          position={'top-center'}
-          rtl={false}
-          // autoClose={3000}
-          // theme={'colored'}
-        />
+type AppPropsWithLayout = {
+  Component: NextPageWithLayout
+} & AppProps
 
-        <Header />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </Provider>
-    </main>
-  )
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? (page => page)
+
+  return getLayout(<Component {...pageProps} />)
 }

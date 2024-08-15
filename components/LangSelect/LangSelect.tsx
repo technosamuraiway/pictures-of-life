@@ -1,6 +1,5 @@
 import { ChangeEvent } from 'react'
 
-import flagUK from '@/shared/assets/icons/flagUK.svg'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
@@ -17,7 +16,13 @@ function LangSelect() {
 
   return (
     <div className={s.langSelect}>
-      <Image alt={'flag'} className={s.flag} height={24} src={flagUK} width={24} />
+      <Image
+        alt={'locale flag'}
+        className={s.flag}
+        height={24}
+        src={locale === 'en' ? '/icons/flagUK.svg' : '/icons/flagRus.svg'}
+        width={24}
+      />
       <select className={s.select} defaultValue={locale} onChange={changeLangHandler}>
         {locales?.map(l => {
           return (

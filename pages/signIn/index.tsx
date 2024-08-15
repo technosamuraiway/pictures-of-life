@@ -1,14 +1,17 @@
-import LoginForm from '../../components/LoginForm/LoginForm'
 import { HeadMeta } from '../../components/headMeta/HeadMeta'
+import { getLayout } from '../../components/layout/Layout'
 import { useRouterLocaleDefinition } from '../../hooks/useRouterLocaleDefinition'
 
-export default function SignIn() {
+const SignIn = () => {
   const routerLocale = useRouterLocaleDefinition()
 
   return (
     <>
       <HeadMeta title={routerLocale.signInPage.title} />
-      <LoginForm />
+      <h2>Hello, i am SignIn page</h2>
     </>
   )
 }
+
+SignIn.getLayout = getLayout
+export default SignIn

@@ -6,24 +6,21 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import s from './layout.module.scss'
 
+import { Header } from '../Header'
 import { NavBar } from '../navBar/NavBar'
 
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   return (
-    <div className={s.layout}>
-      <NavBar />
-      {children}
-    </div>
+    <>
+      <Header />
+      <main className={s.layout}>
+        <NavBar />
+        {children}
+      </main>
+    </>
   )
 }
 
 export const getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
-}
-
-export interface RootObject {
-  body: string
-  id: number
-  title: string
-  userId: number
 }
