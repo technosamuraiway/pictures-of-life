@@ -13,12 +13,6 @@ const nextConfig = {
   i18n: {
     locales: ['en', 'ru'],
     defaultLocale: 'en',
-    domains: [
-        {
-          domain: 'pictures-of-life.online',
-          defaultLocale: 'en'
-        }
-    ]},
 };
 
 export default nextConfig;
