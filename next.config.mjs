@@ -12,7 +12,7 @@ const nextConfig = {
   // },
   i18n: {
     locales: ['en', 'ru'],
-    defaultLocale: 'ru',
+    defaultLocale: 'en',
     domains: [
         {
           domain: 'pictures-of-life.online',
