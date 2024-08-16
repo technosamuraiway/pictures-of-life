@@ -1,9 +1,9 @@
 import ForgotPasswordForm from '@/shared/components/ForgotPassword/ForgotPasswordForm'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { useRouterLocaleDefination } from '@/shared/hooks/useRouterLocaleDefination'
 
 export default function ForgotPassword() {
-  const routerLocale = useRouterLocaleDefinition()
+  const routerLocale = useRouterLocaleDefination()
 
   return (
     <>

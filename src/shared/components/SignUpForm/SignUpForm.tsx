@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { SendEmailRequestBody } from '@/feature/auth/api/auth.types'
 import { useSendEmailMutation } from '@/feature/auth/api/authApi'
 import { OAuth } from '@/feature/oAuth/oAuth'
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { useRouterLocaleDefination } from '@/shared/hooks/useRouterLocaleDefination'
 import { authHandleError } from '@/shared/utils/authHandleError'
 import { Button, Card, Checkbox, Typography } from '@commonaccount2024/inctagram-ui-kit'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -27,7 +27,7 @@ export function RegistrationForm() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [ifExists, setIfExists] = useState('')
   const [userEmail, setUserEmail] = useState('')
-  const routerLocale = useRouterLocaleDefinition()
+  const routerLocale = useRouterLocaleDefination()
   const handleError = authHandleError()
 
   const {
@@ -63,7 +63,7 @@ export function RegistrationForm() {
     setUserEmail('')
   }
 
-  const onModalClose = () => setIsModalOpen(prev => (prev ? false : true))
+  const onModalClose = () => setIsModalOpen(prev => !prev)
 
   const onSubmit: SubmitHandler<SignUpFormFields> = async data => {
     clearInput()
@@ -113,9 +113,7 @@ export function RegistrationForm() {
               placeholder={'Username'}
             />
             {ifExists === 'userName' && !errors.userName && (
-              <Typography className={s.error} variant={'regular-text-14'}>
-                User with this username is already registered
-              </Typography>
+              <span className={s.error}>User with this username is already registered</span>
             )}
             <ControlledTextField
               className={s.form_input}
@@ -127,9 +125,7 @@ export function RegistrationForm() {
               placeholder={'Email'}
             />
             {ifExists === 'email' && !errors.email && (
-              <Typography className={s.error} variant={'regular-text-14'}>
-                User with this email is already registered
-              </Typography>
+              <span className={s.error}>User with this email is already registered</span>
             )}
             <ControlledTextField
               className={s.form_input}

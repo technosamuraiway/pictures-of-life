@@ -11,6 +11,7 @@ import LinkConfrimOK from '@/shared/assets/img/LinkConfrimOK'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { authHandleError } from '@/shared/utils/authHandleError'
 import { Button, Typography } from '@commonaccount2024/inctagram-ui-kit'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 

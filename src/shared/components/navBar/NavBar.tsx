@@ -1,10 +1,10 @@
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { useRouterLocaleDefination } from '@/shared/hooks/useRouterLocaleDefination'
 import Link from 'next/link'
 
 import s from '@/shared/components/navBar/navBar.module.scss'
 
 export const NavBar = () => {
-  const routerLocale = useRouterLocaleDefinition()
+  const routerLocale = useRouterLocaleDefination()
 
   return (
     <div className={s.navBar}>

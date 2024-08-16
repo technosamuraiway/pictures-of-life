@@ -6,7 +6,7 @@ import { ControlledCheckbox } from '@/shared/components/controlled/controlledChe
 import { ControlledTextField } from '@/shared/components/controlled/controlledTextField/controlledTextField'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { paths } from '@/shared/constans/paths'
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { useRouterLocaleDefination } from '@/shared/hooks/useRouterLocaleDefination'
 import { Button } from '@commonaccount2024/inctagram-ui-kit'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 import s from './Home.module.scss'
 
 export default function Home() {
-  const routerLocale = useRouterLocaleDefinition()
+  const routerLocale = useRouterLocaleDefination()
 
   const router = useRouter()
   const googlePath = paths.urlGoogleLogin
