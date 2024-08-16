@@ -7,8 +7,8 @@
     "build": "next build",
     "build:production": "env-cmd -f .env.production npm run build",
     "start": "next start",
-    "format": "prettier --write src",
-    "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input"
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix ./{,*/}*.{scss,css} --allow-empty-input"
   },
   "dependencies": {
     "@commonaccount2024/inctagram-ui-kit": "^0.0.11",
