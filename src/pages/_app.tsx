@@ -34,9 +34,9 @@ export default function App({ Component, pageProps }: AppProps) {
         />
 
         <Header />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        {/* <Layout> */}
+        <Component {...pageProps} />
+        {/* </Layout> */}
       </Provider>
     </main>
   )
