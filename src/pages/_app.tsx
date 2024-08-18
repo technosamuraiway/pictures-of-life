@@ -31,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
           rtl={false}
           // autoClose={3000}
           // theme={'colored'}
+          // for commit
         />
 
         <Header />
