@@ -1,25 +1,27 @@
-import { useRouter } from "next/router";
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react'
+
+import { useRouter } from 'next/router'
 
 export const LangSelect = () => {
-  const { locale, push, pathname, query, asPath, locales } = useRouter();
+  const { asPath, locale, locales, pathname, push, query } = useRouter()
 
   const changeLangHandler = (event: ChangeEvent<HTMLSelectElement>) => {
-    const locale = event.currentTarget.value;
-    push({ pathname, query }, asPath, { locale });
-  };
+    const locale = event.currentTarget.value
+
+    push({ pathname, query }, asPath, { locale })
+  }
 
   return (
     <div>
-      <select onChange={changeLangHandler} defaultValue={locale}>
-        {locales?.map((l) => {
+      <select defaultValue={locale} onChange={changeLangHandler}>
+        {locales?.map(l => {
           return (
-            <option value={l} key={l}>
+            <option key={l} value={l}>
               {l}
             </option>
-          );
+          )
         })}
       </select>
     </div>
-  );
-};
+  )
+}
