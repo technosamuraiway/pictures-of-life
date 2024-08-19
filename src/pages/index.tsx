@@ -6,7 +6,7 @@ import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/Home.module.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,12 +21,13 @@ export default function Home() {
         <meta content={'width=device-width, initial-scale=1'} name={'viewport'} />
         <link href={'/favicon.ico'} rel={'icon'} />
       </Head>
-      <div>{<LangSelect />}</div>
-      <main>
-        <div>{t.title}</div>
-        <div>{t.passwordRecoveryPage.title}</div>
-        <div>my deploy case</div>
-      </main>
+      <div className={styles.body}>
+        <div>{<LangSelect />}</div>
+        <main>
+          <div>{t.title}</div>
+          <div>{t.passwordRecoveryPage.title}</div>
+        </main>
+      </div>
     </>
   )
 }
