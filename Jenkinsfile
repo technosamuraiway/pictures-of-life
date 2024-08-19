@@ -4,8 +4,8 @@ pipeline {
     agent any
     environment {
         ENV_TYPE = "production"
-        PORT = 3493
-        NAMESPACE = "www-pictures-of-life-online"
+        PORT = 3494
+        NAMESPACE = "pictures-of-life-online"
         REGISTRY_HOSTNAME = "technosamurai"
         REGISTRY = "registry.hub.docker.com"
         PROJECT = "pictures-of-life"
@@ -33,7 +33,7 @@ pipeline {
              steps {
                  echo "Push image started..."
                      script {
-                          docker.withRegistry("https://${env.REGISTRY}", 'www-pictures-of-life-online') {
+                          docker.withRegistry("https://${env.REGISTRY}", 'pictures-of-life-online') {
                             app.push("${env.IMAGE_NAME}")
                         }
                      }
