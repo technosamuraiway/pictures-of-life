@@ -1,17 +1,17 @@
+import { LangSelect } from '@/shared/components/LangSelect/LangSelect'
+import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { en } from '@/shared/locales/en'
+import { ru } from '@/shared/locales/ru'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import styles from '@/styles/Home.module.css'
-import { useRouter } from 'next/router';
-import { en } from '@/shared/locales/en';
-import { ru } from '@/shared/locales/ru';
-import { LangSelect } from '@/shared/components/LangSelect/LangSelect';
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const t = useRouterLocaleDefinition();
+  const t = useRouterLocaleDefinition()
 
   return (
     <>
@@ -21,12 +21,11 @@ export default function Home() {
         <meta content={'width=device-width, initial-scale=1'} name={'viewport'} />
         <link href={'/favicon.ico'} rel={'icon'} />
       </Head>
-      <div>
-        {<LangSelect />}
-      </div>
+      <div>{<LangSelect />}</div>
       <main>
         <div>{t.title}</div>
         <div>{t.passwordRecoveryPage.title}</div>
+        <div>my deploy case</div>
       </main>
     </>
   )
