@@ -25,6 +25,7 @@ export default function Home() {
       <main>
         <div>{t.title}</div>
         <div>{t.passwordRecoveryPage.title}</div>
+        <div>my deploy case</div>
       </main>
     </>
   )
