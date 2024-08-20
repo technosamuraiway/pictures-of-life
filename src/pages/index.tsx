@@ -2,13 +2,14 @@ import { LangSelect } from '@/shared/components/LangSelect/LangSelect'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 import { en } from '@/shared/locales/en'
 import { ru } from '@/shared/locales/ru'
+import { Button } from '@technosamurai/techno-ui-kit'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import styles from '@/styles/Home.module.scss'
-import { Button } from '@technosamurai/techno-ui-kit'
 import '@technosamurai/techno-ui-kit/dist/style.css'
+
+import styles from '@/styles/Home.module.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,7 +28,7 @@ export default function Home() {
         <div>{<LangSelect />}</div>
         <main>
           <div>{t.title}</div>
-          <Button type='button'>{t.passwordRecoveryPage.title}</Button>
+          <Button type={'button'}>{t.passwordRecoveryPage.title}</Button>
         </main>
       </div>
     </>
