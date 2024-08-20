@@ -11,7 +11,7 @@
     "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input"
   },
   "dependencies": {
-    "@next/font": "^14.2.5",
+    "@technosamurai/techno-ui-kit": "^0.0.2",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"
