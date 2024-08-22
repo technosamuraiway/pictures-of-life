@@ -1,5 +1,7 @@
-import React, { PropsWithChildren, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
+
 import { NextPage } from 'next'
+
 import s from '@styles/Layout.module.scss'
 
 type Props = {
