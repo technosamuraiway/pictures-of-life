@@ -9,11 +9,11 @@ import { useRouter } from 'next/router'
 
 import '@technosamurai/techno-ui-kit/dist/style.css'
 
-import styles from '@/styles/Home.module.scss'
+import styles from './Home.module.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export function Home() {
   const t = useRouterLocaleDefinition()
 
   return (

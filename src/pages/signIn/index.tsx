@@ -2,7 +2,7 @@
 // import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 // import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 
-export default function SignIn() {
+export function SignIn() {
   // const routerLocale = useRouterLocaleDefinition()
 
   return (
