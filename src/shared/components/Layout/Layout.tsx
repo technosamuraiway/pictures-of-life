@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 
 import { NextPage } from 'next'
 
-import s from '@styles/Layout.module.scss'
+import s from '@/shared/components/Layout/Layout.module.scss'
 
 type Props = {
   children: ReactNode
