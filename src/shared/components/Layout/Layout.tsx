@@ -1,10 +1,9 @@
 import React, { ReactNode } from 'react'
 
+import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
 
-import { Header } from '@technosamurai/techno-ui-kit'
 import s from '@/shared/components/Layout/Layout.module.scss'
-
 
 type Props = {
   children: ReactNode
