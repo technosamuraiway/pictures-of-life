@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
 
 # IDE webstorm-idea ignore
-.idead
+.idea

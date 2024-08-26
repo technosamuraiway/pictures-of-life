@@ -8,10 +8,8 @@ import '@/styles/globals.scss'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </main>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   )
 }

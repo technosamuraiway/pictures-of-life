@@ -13,7 +13,7 @@ const Layout: NextPage<Props> = ({ children }) => {
   return (
     <div className={s.layout}>
       <Header />
-      {children}
+      <main>{children}</main>
     </div>
   )
 }
