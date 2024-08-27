@@ -3,8 +3,8 @@ import React, { ReactNode } from 'react'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import s from '@/shared/components/Layout/Layout.module.scss'
 
