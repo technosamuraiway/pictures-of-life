@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from '@/shared/components/Layout/Layout.module.scss'
@@ -27,6 +28,9 @@ const Layout: NextPage<Props> = ({ children }) => {
   return (
     <div className={s.layout}>
       <Header changeLangHandler={changeLangHandler} onLogoClick={handleLogoClick} />
+      {/* Link - временные ссылки, чтобы показать работу NextTopLoader */}
+      <Link href={'/'}>Home</Link>
+      <Link href={'/signin'}>Sign-in</Link>
       <main>{children}</main>
     </div>
   )
