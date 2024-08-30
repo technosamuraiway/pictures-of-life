@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { MetaHead } from '@/shared/components/MetaHead/MetaHead'
 import { Trans } from '@/shared/components/Trans/Trans'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
-import { Card, TextField, Typography } from '@technosamurai/techno-ui-kit'
+import { Button, Card, Checkbox, TextField, Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -14,6 +14,8 @@ import googleIcon from '../../../public/singUp/google.svg'
 
 export default function SignUp() {
   const t = useRouterLocaleDefinition()
+
+  const [checkBox, setCheckBox] = useState(false)
 
   return (
     <>
@@ -36,6 +38,7 @@ export default function SignUp() {
           <TextField label={t.signUpPage.password} type={'password'} />
           <TextField label={t.signUpPage.passwordConfirmation} type={'password'} />
           <div className={s.checkBoxWrapper}>
+            <Checkbox checked={checkBox} onCheckedChange={() => setCheckBox(!checkBox)} />
             <Typography variant={'small-text'}>
               <Trans
                 tags={{
@@ -54,7 +57,16 @@ export default function SignUp() {
               />
             </Typography>
           </div>
+          <Button className={s.submitButton} type={'submit'}>
+            {t.signUpPage.title}
+          </Button>
         </form>
+        <div className={s.questionWrapper}>
+          <Typography variant={'regular-text-16'}>{t.signUpPage.haveAccountQuestion}</Typography>
+          <Button type={'button'} variant={'textButton'}>
+            {t.signInPage.title}
+          </Button>
+        </div>
       </Card>
     </>
   )

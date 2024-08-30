@@ -22,4 +22,24 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  margin-bottom: 1.125rem;
+}
+
+.checkBoxWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitButton {
+  margin-top: -0.75rem;
+}
+
+.questionWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  align-items: center;
+  justify-content: center;
 }
