@@ -3,9 +3,14 @@ import React from 'react'
 import { MetaHead } from '@/shared/components/MetaHead/MetaHead'
 import { Trans } from '@/shared/components/Trans/Trans'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { Card, TextField, Typography } from '@technosamurai/techno-ui-kit'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import s from './SignUp.module.scss'
+
+import gitHubIcon from '../../../public/singUp/gitHub.svg'
+import googleIcon from '../../../public/singUp/google.svg'
 
 export default function SignUp() {
   const t = useRouterLocaleDefinition()
@@ -13,24 +18,44 @@ export default function SignUp() {
   return (
     <>
       <MetaHead title={t.signUpPage.title} />
-      <div>SignUP page</div>
-      <p>
-        <Trans
-          tags={{
-            1: () => (
-              <Link href={'/'} style={{ color: 'red' }}>
-                {t.termsOfService.title}
-              </Link>
-            ),
-            2: () => (
-              <Link href={'/'} style={{ color: 'green' }}>
-                {t.privacyPolicy.title}
-              </Link>
-            ),
-          }}
-          text={t.signUpPage.serviceAndPolicyAgreement}
-        />
-      </p>
+      <Card className={s.cardContainer}>
+        <div className={s.headerWrapper}>
+          <Typography variant={'h1'}>{t.signUpPage.title}</Typography>
+          <div className={s.linksWrapper}>
+            <Link href={'https://www.google.com/'} title={t.signUpPage.googleLinkTitle}>
+              <Image alt={t.signUpPage.googleLinkAlt} height={36} src={googleIcon} width={36} />
+            </Link>
+            <Link href={'https://github.com/'} title={t.signUpPage.gitHubLinkTitle}>
+              <Image alt={t.signUpPage.gitHubLinkAlt} height={36} src={gitHubIcon} width={36} />
+            </Link>
+          </div>
+        </div>
+        <form className={s.formWrapper}>
+          <TextField label={t.signUpPage.username} type={'text'} />
+          <TextField label={t.signUpPage.email} type={'email'} />
+          <TextField label={t.signUpPage.password} type={'password'} />
+          <TextField label={t.signUpPage.passwordConfirmation} type={'password'} />
+          <div className={s.checkBoxWrapper}>
+            <Typography variant={'small-text'}>
+              <Trans
+                tags={{
+                  1: () => (
+                    <Typography as={Link} href={'/'} variant={'regular-link'}>
+                      {t.signUpPage.serviceLink}
+                    </Typography>
+                  ),
+                  2: () => (
+                    <Typography as={Link} href={'/'} variant={'regular-link'}>
+                      {t.signUpPage.policyLink}
+                    </Typography>
+                  ),
+                }}
+                text={t.signUpPage.serviceAndPolicyAgreement}
+              />
+            </Typography>
+          </div>
+        </form>
+      </Card>
     </>
   )
 }
