@@ -15,10 +15,16 @@ export const en: LocaleType = {
     title: 'Privacy Policy',
   },
   signInPage: {
-    title: 'Sign in',
+    title: 'Sign In',
   },
   signUpPage: {
-    title: 'Sign up',
+    Password: 'Password',
+    email: 'Email',
+    haveAccountQuestion: 'Do you have an account?',
+    passwordConfirmation: 'Password Confirmation',
+    serviceAndPolicyAgreement: 'I agree to the <1>service</1> and <2>policy</2>',
+    title: 'Sign Up',
+    username: 'Username',
   },
   termsOfService: {
     backToSign: 'Back to Sign Up',

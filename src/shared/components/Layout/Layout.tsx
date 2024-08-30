@@ -31,6 +31,7 @@ const Layout: NextPage<Props> = ({ children }) => {
       {/* Link - временные ссылки, чтобы показать работу NextTopLoader */}
       <Link href={'/'}>Home</Link>
       <Link href={'/signin'}>Sign-in</Link>
+      <Link href={'/signup'}>Sign-up</Link>
       <main>{children}</main>
     </div>
   )
@@ -39,4 +40,5 @@ const Layout: NextPage<Props> = ({ children }) => {
 export const getLayout = (page: ReactNode) => {
   return <Layout>{page}</Layout>
 }
+
 export default Layout
