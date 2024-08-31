@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 import { MetaHead } from '@/shared/components/MetaHead/MetaHead'
+import { QuestionBlock } from '@/shared/components/QuestionBlock/QuestionBlock'
 import { SignInIcons } from '@/shared/components/SignInIcons/SignInIcons'
 import { Trans } from '@/shared/components/Trans/Trans'
-import { QuestionBlock } from '@/shared/components/questionBlock/QuestionBlock'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 import { Button, Card, Checkbox, TextField, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -55,14 +55,9 @@ export default function SignUp() {
         </form>
         <QuestionBlock
           buttonTitle={t.signInPage.title}
+          linkHref={'/'}
           question={t.signUpPage.haveAccountQuestion}
         />
-        {/*<div className={s.questionWrapper}>*/}
-        {/*  <Typography variant={'regular-text-16'}>{t.signUpPage.haveAccountQuestion}</Typography>*/}
-        {/*  <Button type={'button'} variant={'textButton'}>*/}
-        {/*    {t.signInPage.title}*/}
-        {/*  </Button>*/}
-        {/*</div>*/}
       </Card>
     </>
   )

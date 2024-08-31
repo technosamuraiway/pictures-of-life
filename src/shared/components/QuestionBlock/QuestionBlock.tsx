@@ -8,16 +8,17 @@ import s from './QuestionBlock.module.scss'
 
 interface IProps extends ComponentPropsWithoutRef<'div'> {
   buttonTitle: string
+  linkHref: string
   question: string
 }
 
 export const QuestionBlock = (props: IProps) => {
-  const { buttonTitle, className, question, ...rest } = props
+  const { buttonTitle, className, linkHref, question, ...rest } = props
 
   return (
     <div className={clsx(s.wrapper, className)} {...rest}>
       <Typography variant={'regular-text-16'}>{question}</Typography>
-      <Button as={Link} className={s.button} href={'/'} variant={'textButton'}>
+      <Button as={Link} className={s.button} href={linkHref} variant={'textButton'}>
         {buttonTitle}
       </Button>
     </div>

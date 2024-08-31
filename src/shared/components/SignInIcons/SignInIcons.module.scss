@@ -13,3 +13,14 @@
   flex-direction: row;
   gap: 3.75rem;
 }
+
+.linkIcon {
+  transform: translateY(0);
+  opacity: 0.5;
+  transition: 0.5s;
+
+  &:hover {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
