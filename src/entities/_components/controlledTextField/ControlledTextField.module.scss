@@ -1,0 +1,10 @@
+.wrapper {
+  position: relative;
+}
+
+.error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: var(--Danger-500);
+}

@@ -1,0 +1,17 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.625rem;
+  margin-bottom: 1.125rem;
+}
+
+.checkBoxWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitButton {
+  margin-top: -0.75rem;
+}

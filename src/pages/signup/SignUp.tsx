@@ -1,19 +1,20 @@
-import { useState } from 'react'
-
-import { MetaHead } from '@/shared/components/MetaHead/MetaHead'
-import { QuestionBlock } from '@/shared/components/QuestionBlock/QuestionBlock'
-import { SignInIcons } from '@/shared/components/SignInIcons/SignInIcons'
-import { Trans } from '@/shared/components/Trans/Trans'
+import { SignUpForm } from '@/entities'
+import { useZodValidation } from '@/entities/hooks/useZodValidation'
+import { MetaHead } from '@/shared/components/metaHead/MetaHead'
+import { QuestionBlock } from '@/shared/components/questionBlock/QuestionBlock'
+import { SignInIcons } from '@/shared/components/signInIcons/SignInIcons'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
-import { Button, Card, Checkbox, TextField, Typography } from '@technosamurai/techno-ui-kit'
-import Link from 'next/link'
+import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'
 
 export default function SignUp() {
   const t = useRouterLocaleDefinition()
+  const { values } = useZodValidation()
 
-  const [checkBox, setCheckBox] = useState(false)
+  const signUpSubmitHandler = (data: typeof values.signUp) => {
+    console.log(data)
+  }
 
   return (
     <>
@@ -24,35 +25,7 @@ export default function SignUp() {
           googleTitle={t.signUpPage.googleLinkTitle}
           pageTitle={t.signUpPage.title}
         />
-        <form className={s.formWrapper}>
-          <TextField label={t.signUpPage.username} type={'text'} />
-          <TextField label={t.signUpPage.email} type={'email'} />
-          <TextField label={t.signUpPage.password} type={'password'} />
-          <TextField label={t.signUpPage.passwordConfirmation} type={'password'} />
-          <div className={s.checkBoxWrapper}>
-            <Checkbox checked={checkBox} onCheckedChange={() => setCheckBox(!checkBox)} />
-            <Typography variant={'small-text'}>
-              <Trans
-                tags={{
-                  1: () => (
-                    <Typography as={Link} href={'/'} variant={'regular-link'}>
-                      {t.signUpPage.serviceLink}
-                    </Typography>
-                  ),
-                  2: () => (
-                    <Typography as={Link} href={'/'} variant={'regular-link'}>
-                      {t.signUpPage.policyLink}
-                    </Typography>
-                  ),
-                }}
-                text={t.signUpPage.serviceAndPolicyAgreement}
-              />
-            </Typography>
-          </div>
-          <Button className={s.submitButton} type={'submit'}>
-            {t.signUpPage.title}
-          </Button>
-        </form>
+        <SignUpForm onSubmit={signUpSubmitHandler} />
         <QuestionBlock
           buttonTitle={t.signInPage.title}
           linkHref={'/'}

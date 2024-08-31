@@ -17,7 +17,9 @@ export const QuestionBlock = (props: IProps) => {
 
   return (
     <div className={clsx(s.wrapper, className)} {...rest}>
-      <Typography variant={'regular-text-16'}>{question}</Typography>
+      <Typography className={s.text} variant={'regular-text-16'}>
+        {question}
+      </Typography>
       <Button as={Link} className={s.button} href={linkHref} variant={'textButton'}>
         {buttonTitle}
       </Button>

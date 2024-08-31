@@ -37,4 +37,12 @@ export const en: LocaleType = {
     title: 'Terms of Service',
   },
   title: 'Main page',
+  validationSchemes: {
+    confirmPassword: 'Passwords must match',
+    emailRequired: 'Email is required',
+    emailScheme: 'The email must match the format example@example.com',
+    maximumNumber: 'Maximum number of characters',
+    minimumNumber: 'Minimum number of characters',
+    password: 'Password must contain',
+  },
 }

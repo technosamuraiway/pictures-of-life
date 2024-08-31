@@ -1,5 +1,5 @@
 import { LangSelect } from '@/shared/components/LangSelect/LangSelect'
-import { MetaHead } from '@/shared/components/MetaHead/MetaHead'
+import { MetaHead } from '@/shared/components/metaHead/MetaHead'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 import { Button } from '@technosamurai/techno-ui-kit'
 import { Inter } from 'next/font/google'
