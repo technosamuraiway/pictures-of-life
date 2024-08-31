@@ -1,20 +1,18 @@
-import { FC, Fragment, ReactNode } from 'react'
+import { Fragment, ReactNode } from 'react'
 
 const tagsRegex = /(<\d+>[^<>]*<\/\d+>)/
 const openCloseTagRegex = /<(\d+)>([^<>]*)<\/(\d+)>/
 
-type TransType = {
+interface IProps {
   tags?: Record<string, (str: string) => ReactNode>
   text: string
 }
 
-export const Trans: FC<TransType> = props => {
+export const Trans = (props: IProps) => {
   return <>{interpolateTags(props)}</>
 }
 
-const interpolateTags = (data: TransType) => {
-  const { tags, text } = data
-
+const interpolateTags = ({ tags, text }: IProps) => {
   if (!tags) {
     return text
   }

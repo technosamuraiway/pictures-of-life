@@ -9,8 +9,11 @@ importers:
   .:
     dependencies:
       '@technosamurai/techno-ui-kit':
-        specifier: ^0.0.6
-        version: 0.0.6(@types/react-dom@18.3.0)(@types/react@18.3.3)
+        specifier: ^0.0.7
+        version: 0.0.7(@types/react-dom@18.3.0)(@types/react@18.3.3)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       next:
         specifier: 14.2.5
         version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)
@@ -581,8 +584,8 @@ packages:
   '@swc/helpers@0.5.5':
     resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
 
-  '@technosamurai/techno-ui-kit@0.0.6':
-    resolution: {integrity: sha512-fXexicJWn4pnMRAhrGaYrfl9u2aICCgRS8yL6laTbQV9jK/HsUzDiKfLT/8i88YUpA3iUvnM0egwkHyAUHrAqA==}
+  '@technosamurai/techno-ui-kit@0.0.7':
+    resolution: {integrity: sha512-wbcDx9wNExde+oVWquJ3eGd0wubapAq4FfwbB2CyRSEiBold0coxXEzm2ML6YC5BEytsmv74CatGUgNJIfiY7g==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -2769,7 +2772,7 @@ snapshots:
       '@swc/counter': 0.1.3
       tslib: 2.6.3
 
-  '@technosamurai/techno-ui-kit@0.0.6(@types/react-dom@18.3.0)(@types/react@18.3.3)':
+  '@technosamurai/techno-ui-kit@0.0.7(@types/react-dom@18.3.0)(@types/react@18.3.3)':
     dependencies:
       '@fontsource/roboto': 5.0.14
       '@heroicons/react': 2.1.5(react@18.3.1)

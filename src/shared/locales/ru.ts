@@ -18,9 +18,9 @@ export const ru = {
   signUpPage: {
     email: 'Электронная почта',
     gitHubLinkAlt: 'Иконка GitHub',
-    gitHubLinkTitle: 'Войти с помощью GitHub',
+    gitHubLinkTitle: 'Зарегистрироваться с помощью GitHub',
     googleLinkAlt: 'Иконка Google',
-    googleLinkTitle: 'Войти с помощью Google',
+    googleLinkTitle: 'Зарегистрироваться с помощью Google',
     haveAccountQuestion: 'У вас есть аккаунт?',
     password: 'Пароль',
     passwordConfirmation: 'Подтвердите пароль',

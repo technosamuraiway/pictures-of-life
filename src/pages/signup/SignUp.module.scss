@@ -2,22 +2,6 @@
   padding: 1.5rem;
 }
 
-.headerWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8125rem;
-  align-items: center;
-  justify-content: center;
-
-  margin-bottom: 1.5rem;
-}
-
-.linksWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 3.75rem;
-}
-
 .formWrapper {
   display: flex;
   flex-direction: column;
@@ -34,12 +18,4 @@
 
 .submitButton {
   margin-top: -0.75rem;
-}
-
-.questionWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-  align-items: center;
-  justify-content: center;
 }
