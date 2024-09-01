@@ -1,9 +1,8 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { useZodValidation } from '@/entities'
 import { ControlledCheckbox } from '@/entities/_components/controlledCheckbox/ControlledCheckbox'
 import { ControlledTextField } from '@/entities/_components/controlledTextField/ControlledTextField'
-import { useZodValidation } from '@/entities/hooks/useZodValidation'
 import { Trans } from '@/shared/components/trans/Trans'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 import { zodResolver } from '@hookform/resolvers/zod'

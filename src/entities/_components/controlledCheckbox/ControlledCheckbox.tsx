@@ -6,7 +6,7 @@ import s from './ControlledCheckbox.module.scss'
 
 type ControlledCheckboxProps<T extends FieldValues> = Omit<
   CheckboxProps,
-  'checked' | 'id' | 'onChange' | 'onCheckedChange' | 'value'
+  'checked' | 'onChange' | 'onCheckedChange' | 'value'
 > &
   UseControllerProps<T>
 

@@ -1,5 +1,4 @@
-import { SignUpForm } from '@/entities'
-import { useZodValidation } from '@/entities/hooks/useZodValidation'
+import { SignUpForm, useZodValidation } from '@/entities'
 import { MetaHead } from '@/shared/components/metaHead/MetaHead'
 import { QuestionBlock } from '@/shared/components/questionBlock/QuestionBlock'
 import { SignInIcons } from '@/shared/components/signInIcons/SignInIcons'
