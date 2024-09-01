@@ -23,8 +23,8 @@ export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => a
 
     /* если ошибка относится к auth + есть ответ от сервера */
     if (serverError.data?.statusCode === 400) {
-      // console.log(serverError.data?.error)
-      // console.log(serverError.data?.messages[0].message)
+      console.log(serverError.data?.error)
+      console.log(serverError.data?.messages[0].message)
     }
 
     /* если нет ответа от сервера */

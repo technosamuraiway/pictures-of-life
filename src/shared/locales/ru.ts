@@ -2,6 +2,10 @@ export const ru = {
   createNewPasswordPage: {
     title: 'Создания нового пароля',
   },
+  emailSent: {
+    text: 'Мы отправили ссылку с подтверждением вашей электронной почты на адрес: <1>email</1>',
+    title: 'Электронное письмо отправлено',
+  },
   forgotPasswordPage: {
     title: 'Забыл пароль',
   },

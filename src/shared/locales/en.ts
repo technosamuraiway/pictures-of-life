@@ -4,6 +4,10 @@ export const en: LocaleType = {
   createNewPasswordPage: {
     title: 'Create new password page',
   },
+  emailSent: {
+    text: 'We have sent a link to confirm your email to: <1>email</1>',
+    title: 'Email Sent',
+  },
   forgotPasswordPage: {
     title: 'Forgot password page',
   },

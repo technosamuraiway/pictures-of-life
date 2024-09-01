@@ -13,10 +13,11 @@ import Link from 'next/link'
 import s from './SignUpForm.module.scss'
 
 interface IProps {
+  buttonDisabled: boolean
   onSubmit: (data: any) => void
 }
 
-export const SignUpForm = ({ onSubmit }: IProps) => {
+export const SignUpForm = ({ buttonDisabled, onSubmit }: IProps) => {
   const t = useRouterLocaleDefinition()
   const { authSchemes, values } = useZodValidation()
 
@@ -86,7 +87,7 @@ export const SignUpForm = ({ onSubmit }: IProps) => {
           />
         </Typography>
       </div>
-      <Button className={s.submitButton} disabled={isSubmitting} type={'submit'}>
+      <Button className={s.submitButton} disabled={buttonDisabled} type={'submit'}>
         {t.signUpPage.title}
       </Button>
     </form>
