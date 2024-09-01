@@ -5,7 +5,7 @@ export const useZodValidation = () => {
   const t = useRouterLocaleDefinition()
 
   const passwordRegex = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g
-
+  const usernameRegex = /^[a-zA-Z0-9_-]*$/g
   // ----------- Схемы валидаций полей ---------------
   const email = z
     .string()
@@ -27,6 +27,9 @@ export const useZodValidation = () => {
     .trim()
     .min(6, `${t.validationSchemes.minimumNumber} 6`)
     .max(30, `${t.validationSchemes.maximumNumber} 30`)
+    .regex(usernameRegex, {
+      message: `${t.validationSchemes.username} a-z, A-Z, 0-9, -`,
+    })
 
   const confirmPassword = z.string().trim()
   const isAgree = z.boolean().refine(value => value)

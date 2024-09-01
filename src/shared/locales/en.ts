@@ -44,5 +44,6 @@ export const en: LocaleType = {
     maximumNumber: 'Maximum number of characters',
     minimumNumber: 'Minimum number of characters',
     password: 'Password must contain',
+    username: 'Username must contain',
   },
 }

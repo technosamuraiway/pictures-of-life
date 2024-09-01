@@ -1,4 +1,5 @@
 import { SignUpForm, useZodValidation } from '@/entities'
+import { useSignUpMutation } from '@/services/flow/auth.service'
 import { MetaHead } from '@/shared/components/metaHead/MetaHead'
 import { QuestionBlock } from '@/shared/components/questionBlock/QuestionBlock'
 import { SignInIcons } from '@/shared/components/signInIcons/SignInIcons'
@@ -11,8 +12,14 @@ export default function SignUp() {
   const t = useRouterLocaleDefinition()
   const { values } = useZodValidation()
 
+  const [signUp] = useSignUpMutation()
+
   const signUpSubmitHandler = (data: typeof values.signUp) => {
-    console.log(data)
+    signUp({
+      email: data.email,
+      password: data.password,
+      userName: data.username,
+    })
   }
 
   return (
