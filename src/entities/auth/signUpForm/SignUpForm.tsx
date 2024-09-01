@@ -17,15 +17,13 @@ interface IProps {
   onSubmit: (data: any) => void
 }
 
-export const SignUpForm = ({ buttonDisabled, onSubmit }: IProps) => {
+export const SignUpForm = (props: IProps) => {
+  const { buttonDisabled, onSubmit } = props
+
   const t = useRouterLocaleDefinition()
   const { authSchemes, values } = useZodValidation()
 
-  const {
-    control,
-    formState: { isSubmitting },
-    handleSubmit,
-  } = useForm<typeof values.signUp>({
+  const { control, handleSubmit } = useForm<typeof values.signUp>({
     defaultValues: {
       confirmPassword: '',
       email: '',

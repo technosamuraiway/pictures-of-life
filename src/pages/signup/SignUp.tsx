@@ -16,7 +16,7 @@ const response =
 
 export default function SignUp() {
   const t = useRouterLocaleDefinition()
-  const [openModal, setOpenModal] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
   const [email, setEmail] = useState('YourEmail@gmail.com')
   const { values } = useZodValidation()
 
@@ -49,7 +49,7 @@ export default function SignUp() {
           question={t.signUpPage.haveAccountQuestion}
         />
       </Card>
-      <EmailSentModal email={email} isOpen={openModal} />
+      <EmailSentModal email={email} isOpen={openModal} setOpenModal={setOpenModal} />
     </>
   )
 }

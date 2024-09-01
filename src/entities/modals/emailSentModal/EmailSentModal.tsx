@@ -1,26 +1,26 @@
 import { Trans } from '@/shared/components/trans/Trans'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
-import { PATH } from '@/shared/utils/pathVariables'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
 
 import s from './EmailSentModal.module.scss'
 
 interface IProps {
   email: string
   isOpen: boolean
+  setOpenModal: (isOpen: boolean) => void
 }
 
-export const EmailSentModal = ({ email, isOpen }: IProps) => {
-  const t = useRouterLocaleDefinition()
-  const { replace } = useRouter()
+export const EmailSentModal = (props: IProps) => {
+  const { email, isOpen, setOpenModal } = props
 
-  const navigateToSignInClickHandler = () => {
-    replace(PATH.SIGNIN)
+  const t = useRouterLocaleDefinition()
+
+  const onClickCloseModalHandler = () => {
+    setOpenModal(false)
   }
 
   return (
-    <Modal onOpenChange={navigateToSignInClickHandler} open={isOpen} title={t.emailSent.title}>
+    <Modal onOpenChange={onClickCloseModalHandler} open={isOpen} title={t.emailSent.title}>
       <div className={s.wrapper}>
         <Typography variant={'regular-text-16'}>
           <Trans
@@ -30,7 +30,7 @@ export const EmailSentModal = ({ email, isOpen }: IProps) => {
             text={t.emailSent.text}
           />
         </Typography>
-        <Button className={s.button} onClick={navigateToSignInClickHandler}>
+        <Button className={s.button} onClick={onClickCloseModalHandler}>
           OK
         </Button>
       </div>
