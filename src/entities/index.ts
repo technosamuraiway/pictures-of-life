@@ -1,4 +1,5 @@
 // ============================== [ auth ] =======================================
+export { ServicePrivacy } from './auth/servicePrivacy/ServicePrivacy'
 export { SignUpForm } from './auth/signUpForm/SignUpForm'
 
 // ============================== [ hooks ] =======================================

@@ -4,6 +4,7 @@ import { MetaHead } from '@/shared/components/metaHead/MetaHead'
 import { QuestionBlock } from '@/shared/components/questionBlock/QuestionBlock'
 import { SignInIcons } from '@/shared/components/signInIcons/SignInIcons'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { PATH } from '@/shared/utils/pathVariables'
 import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'
@@ -34,7 +35,7 @@ export default function SignUp() {
         <SignUpForm onSubmit={signUpSubmitHandler} />
         <QuestionBlock
           buttonTitle={t.signInPage.title}
-          linkHref={'/'}
+          linkHref={PATH.SIGNIN}
           question={t.signUpPage.haveAccountQuestion}
         />
       </Card>

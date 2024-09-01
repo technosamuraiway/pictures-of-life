@@ -5,6 +5,7 @@ import { ControlledCheckbox } from '@/entities/_components/controlledCheckbox/Co
 import { ControlledTextField } from '@/entities/_components/controlledTextField/ControlledTextField'
 import { Trans } from '@/shared/components/trans/Trans'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { PATH } from '@/shared/utils/pathVariables'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -71,12 +72,12 @@ export const SignUpForm = ({ onSubmit }: IProps) => {
           <Trans
             tags={{
               1: () => (
-                <Typography as={Link} href={'/'} variant={'regular-link'}>
+                <Typography as={Link} href={PATH.TERMSOFSRVICE} variant={'regular-link'}>
                   {t.signUpPage.serviceLink}
                 </Typography>
               ),
               2: () => (
-                <Typography as={Link} href={'/'} variant={'regular-link'}>
+                <Typography as={Link} href={PATH.PRIVACYPOLICY} variant={'regular-link'}>
                   {t.signUpPage.policyLink}
                 </Typography>
               ),

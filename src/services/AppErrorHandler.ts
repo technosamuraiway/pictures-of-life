@@ -10,6 +10,7 @@ interface ServerError {
 
 export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => action => {
   if (api) {
+    // console.log('Api')
   }
 
   if (isRejected(action)) {
@@ -22,13 +23,13 @@ export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => a
 
     /* если ошибка относится к auth + есть ответ от сервера */
     if (serverError.data?.statusCode === 400) {
-      console.log(serverError.data?.error)
-      console.log(serverError.data?.messages[0].message)
+      // console.log(serverError.data?.error)
+      // console.log(serverError.data?.messages[0].message)
     }
 
     /* если нет ответа от сервера */
     if (!serverError.data) {
-      console.log('Network Error')
+      // console.log('Network Error')
     }
   }
 

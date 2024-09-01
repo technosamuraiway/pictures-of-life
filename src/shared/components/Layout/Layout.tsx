@@ -1,6 +1,7 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { PATH } from '@/shared/utils/pathVariables'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -8,11 +9,11 @@ import { useRouter } from 'next/router'
 
 import s from '@/shared/components/Layout/Layout.module.scss'
 
-type Props = {
+interface IProps {
   children: ReactNode
 }
 
-const Layout: NextPage<Props> = ({ children }) => {
+const Layout: NextPage<IProps> = ({ children }) => {
   const router = useRouter()
   const t = useRouterLocaleDefinition()
   const changeLangHandler = (locale: string) => {
@@ -22,16 +23,16 @@ const Layout: NextPage<Props> = ({ children }) => {
   }
 
   const handleLogoClick = () => {
-    router.push('/')
+    router.push(PATH.HOME)
   }
 
   return (
     <div className={s.layout}>
       <Header changeLangHandler={changeLangHandler} onLogoClick={handleLogoClick} />
       {/* Link - временные ссылки, чтобы показать работу NextTopLoader */}
-      <Link href={'/'}>Home</Link>
-      <Link href={'/signin'}>Sign-in</Link>
-      <Link href={'/signup'}>Sign-up</Link>
+      <Link href={PATH.HOME}>Home</Link>
+      <Link href={PATH.SIGNIN}>Sign-in</Link>
+      <Link href={PATH.SIGNUP}>Sign-up</Link>
       <main>{children}</main>
     </div>
   )

@@ -1,4 +1,3 @@
-import { useGetPublicPostsQuery } from '@/services/api/inctagram.api'
 import { LangSelect } from '@/shared/components/LangSelect/LangSelect'
 import { MetaHead } from '@/shared/components/metaHead/MetaHead'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
