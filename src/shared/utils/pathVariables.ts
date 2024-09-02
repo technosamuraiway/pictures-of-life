@@ -1,7 +1,9 @@
 export const PATH = {
+  AUTH: {
+    PRIVACYPOLICY: '/auth/privacypolicy',
+    SIGNIN: '/auth/signin',
+    SIGNUP: '/auth/signup',
+    TERMSOFSRVICE: '/auth/termsofservice',
+  },
   HOME: '/',
-  PRIVACYPOLICY: '/privacypolicy',
-  SIGNIN: '/signin',
-  SIGNUP: '/signup',
-  TERMSOFSRVICE: '/termsofservice',
 } as const

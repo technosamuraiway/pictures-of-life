@@ -22,7 +22,7 @@ export default function SignUp() {
 
   const [signUp, { isLoading: SignUpIsLoading }] = useSignUpMutation()
 
-  const signUpSubmitHandler = (data: typeof values.signUp) => {
+  const signUpSubmitHandler = (data: typeof values.signUp, resetForm: () => void) => {
     setEmail(data.email)
     signUp({
       email: data.email,
@@ -30,6 +30,7 @@ export default function SignUp() {
       userName: data.username,
     }).then(() => {
       setOpenModal(true)
+      resetForm()
     })
   }
 
@@ -45,7 +46,7 @@ export default function SignUp() {
         <SignUpForm buttonDisabled={SignUpIsLoading} onSubmit={signUpSubmitHandler} />
         <QuestionBlock
           buttonTitle={t.signInPage.title}
-          linkHref={PATH.SIGNIN}
+          linkHref={PATH.AUTH.SIGNIN}
           question={t.signUpPage.haveAccountQuestion}
         />
       </Card>

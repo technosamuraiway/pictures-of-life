@@ -14,7 +14,7 @@ import s from './SignUpForm.module.scss'
 
 interface IProps {
   buttonDisabled: boolean
-  onSubmit: (data: any) => void
+  onSubmit: (data: any, resetForm: () => void) => void
 }
 
 export const SignUpForm = (props: IProps) => {
@@ -23,7 +23,7 @@ export const SignUpForm = (props: IProps) => {
   const t = useRouterLocaleDefinition()
   const { authSchemes, values } = useZodValidation()
 
-  const { control, handleSubmit } = useForm<typeof values.signUp>({
+  const { control, handleSubmit, reset } = useForm<typeof values.signUp>({
     defaultValues: {
       confirmPassword: '',
       email: '',
@@ -34,8 +34,12 @@ export const SignUpForm = (props: IProps) => {
     resolver: zodResolver(authSchemes.signUp),
   })
 
+  const onSubmitFormHandler = (data: typeof values.signUp) => {
+    onSubmit(data, reset)
+  }
+
   return (
-    <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmit)}>
+    <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitFormHandler)}>
       <ControlledTextField
         control={control}
         label={t.signUpPage.username}
@@ -71,12 +75,12 @@ export const SignUpForm = (props: IProps) => {
           <Trans
             tags={{
               1: () => (
-                <Typography as={Link} href={PATH.TERMSOFSRVICE} variant={'regular-link'}>
+                <Typography as={Link} href={PATH.AUTH.TERMSOFSRVICE} variant={'regular-link'}>
                   {t.signUpPage.serviceLink}
                 </Typography>
               ),
               2: () => (
-                <Typography as={Link} href={PATH.PRIVACYPOLICY} variant={'regular-link'}>
+                <Typography as={Link} href={PATH.AUTH.PRIVACYPOLICY} variant={'regular-link'}>
                   {t.signUpPage.policyLink}
                 </Typography>
               ),

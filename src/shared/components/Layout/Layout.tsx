@@ -32,8 +32,8 @@ const Layout: NextPage<IProps> = ({ children }) => {
       {/* Link - временные ссылки, чтобы показать работу NextTopLoader */}
       <div className={s.links}>
         <Link href={PATH.HOME}>Home</Link>
-        <Link href={PATH.SIGNIN}>Sign-in</Link>
-        <Link href={PATH.SIGNUP}>Sign-up</Link>
+        <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
+        <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
       </div>
       <main>{children}</main>
     </div>

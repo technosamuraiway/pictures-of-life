@@ -20,7 +20,7 @@ export const ServicePrivacy = (props: IProps) => {
   return (
     <div className={s.wrapper}>
       <MetaHead title={pageTitle} />
-      <Button as={Link} className={s.backToSign} href={PATH.SIGNUP} variant={'textButton'}>
+      <Button as={Link} className={s.backToSign} href={PATH.AUTH.SIGNUP} variant={'textButton'}>
         <Image alt={'Arrow Back'} src={arrowBack} />
         {buttonBackTitle}
       </Button>
