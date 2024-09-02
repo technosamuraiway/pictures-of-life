@@ -4,9 +4,13 @@ export const en: LocaleType = {
   createNewPasswordPage: {
     title: 'Create new password page',
   },
-  emailSent: {
-    text: 'We have sent a link to confirm your email to: <1>email</1>',
-    title: 'Email Sent',
+  expiredEmailLink: {
+    buttonText: 'Resend verification link',
+    imgAltText: 'Please, try again',
+    mainText:
+      'Looks like the verification link has expired. Not to worry, we can send the link again',
+    pageHeader: 'Email verification link expired',
+    title: 'Confirmation Link Expired',
   },
   forgotPasswordPage: {
     title: 'Forgot password page',
@@ -38,6 +42,8 @@ export const en: LocaleType = {
     googleLinkAlt: 'Google icon',
     googleLinkTitle: 'Sing Up with Google',
     haveAccountQuestion: 'Do you have an account?',
+    modalText: 'We have sent a link to confirm your email to: <1>email</1>',
+    modalTitle: 'Email Sent',
     password: 'Password',
     passwordConfirmation: 'Password Confirmation',
     policyLink: 'Privacy Policy',
@@ -45,6 +51,13 @@ export const en: LocaleType = {
     serviceLink: 'Terms of Service',
     title: 'Sign Up',
     username: 'Username',
+  },
+  successConfirmEmail: {
+    buttonText: 'Sign In',
+    imgAltText: 'Beautiful Life',
+    mainText: 'Your email has been confirmed',
+    pageHeader: 'Congratulations!',
+    title: 'Email Confirmation',
   },
   termsOfService: {
     backToSign: 'Back to Sign Up',

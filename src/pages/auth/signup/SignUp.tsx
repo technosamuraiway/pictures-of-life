@@ -11,9 +11,6 @@ import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'
 
-const response =
-  '/auth/registration-confirmation?code=8a380576-f7f3-459f-8754-bd3134f33cc1&email=zarechnev5021@gmail.com'
-
 export default function SignUp() {
   const t = useRouterLocaleDefinition()
   const [openModal, setOpenModal] = useState(false)

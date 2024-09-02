@@ -20,14 +20,14 @@ export const EmailSentModal = (props: IProps) => {
   }
 
   return (
-    <Modal onOpenChange={onClickCloseModalHandler} open={isOpen} title={t.emailSent.title}>
+    <Modal onOpenChange={onClickCloseModalHandler} open={isOpen} title={t.signUpPage.modalTitle}>
       <div className={s.wrapper}>
         <Typography variant={'regular-text-16'}>
           <Trans
             tags={{
               1: () => <Typography className={s.email}>{email}</Typography>,
             }}
-            text={t.emailSent.text}
+            text={t.signUpPage.modalText}
           />
         </Typography>
         <Button className={s.button} onClick={onClickCloseModalHandler}>

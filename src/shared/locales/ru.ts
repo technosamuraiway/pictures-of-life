@@ -2,9 +2,13 @@ export const ru = {
   createNewPasswordPage: {
     title: 'Создания нового пароля',
   },
-  emailSent: {
-    text: 'Мы отправили ссылку с подтверждением вашей электронной почты на адрес: <1>email</1>',
-    title: 'Электронное письмо отправлено',
+  expiredEmailLink: {
+    buttonText: 'Отправить новую ссылку',
+    imgAltText: 'Пожалуйста, попытайтесь снова',
+    mainText:
+      'Похоже, что срок действия ссылки с подтверждением электронной почты истек. Не волнуйтесь, мы можем отправить новую ссылку',
+    pageHeader: 'Срок действия ссылки истек',
+    title: 'Срок действия ссылки истек',
   },
   forgotPasswordPage: {
     title: 'Забыл пароль',
@@ -36,6 +40,9 @@ export const ru = {
     googleLinkAlt: 'Иконка Google',
     googleLinkTitle: 'Зарегистрироваться с помощью Google',
     haveAccountQuestion: 'У вас есть аккаунт?',
+    modalText:
+      'Мы отправили ссылку с подтверждением вашей электронной почты на адрес: <1>email</1>',
+    modalTitle: 'Электронное письмо отправлено',
     password: 'Пароль',
     passwordConfirmation: 'Подтвердите пароль',
     policyLink: 'Политикой конфиденциальности',
@@ -43,6 +50,13 @@ export const ru = {
     serviceLink: 'Условиями использования',
     title: 'Регистрация',
     username: 'Имя пользователя',
+  },
+  successConfirmEmail: {
+    buttonText: 'Авторизация',
+    imgAltText: 'Жизнь прекрасна',
+    mainText: 'Ваша электронная почта подтверждена',
+    pageHeader: 'Наши поздравления!',
+    title: 'Подтверждение электронной почты',
   },
   termsOfService: {
     backToSign: 'Вернуться к регистрации',
