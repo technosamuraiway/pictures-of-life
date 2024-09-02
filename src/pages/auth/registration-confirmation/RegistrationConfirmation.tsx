@@ -25,6 +25,7 @@ export default function RegistrationConfirmation() {
           setConfirmResult(true)
         })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const expiredLinkButtonClickHandler = async () => {
