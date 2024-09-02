@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { EmailSentModal, SignUpForm, useZodValidation } from '@/entities'
-import { useSignUpMutation } from '@/services/flow/auth.service'
+import { useSignUpMutation } from '@/services'
 import { MetaHead } from '@/shared/components/metaHead/MetaHead'
 import { QuestionBlock } from '@/shared/components/questionBlock/QuestionBlock'
 import { SignInIcons } from '@/shared/components/signInIcons/SignInIcons'
@@ -25,10 +25,12 @@ export default function SignUp() {
       email: data.email,
       password: data.password,
       userName: data.username,
-    }).then(() => {
-      setOpenModal(true)
-      resetForm()
     })
+      .unwrap()
+      .then(() => {
+        setOpenModal(true)
+        resetForm()
+      })
   }
 
   return (

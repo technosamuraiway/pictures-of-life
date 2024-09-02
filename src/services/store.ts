@@ -1,10 +1,10 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-import { inctagramApi } from '@/services/api/inctagram.api'
 import { configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 
 import { rtkQueryErrorLogger } from './AppErrorHandler'
+import { inctagramApi } from './api/inctagram.api'
 
 const makeStore = () =>
   configureStore({
