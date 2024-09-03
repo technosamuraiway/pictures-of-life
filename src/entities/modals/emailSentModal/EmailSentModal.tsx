@@ -7,17 +7,13 @@ import s from './EmailSentModal.module.scss'
 interface IProps {
   email: string | string[]
   isOpen: boolean
-  setOpenModal: (isOpen: boolean) => void
+  onClickCloseModalHandler: () => void
 }
 
 export const EmailSentModal = (props: IProps) => {
-  const { email, isOpen, setOpenModal } = props
+  const { email, isOpen, onClickCloseModalHandler } = props
 
   const t = useRouterLocaleDefinition()
-
-  const onClickCloseModalHandler = () => {
-    setOpenModal(false)
-  }
 
   return (
     <Modal onOpenChange={onClickCloseModalHandler} open={isOpen} title={t.signUpPage.modalTitle}>

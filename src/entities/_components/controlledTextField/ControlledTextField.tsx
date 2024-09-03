@@ -31,7 +31,11 @@ export const ControlledTextField = <T extends FieldValues>({
 
   return (
     <div className={s.wrapper}>
-      <TextField {...field} {...{ ...rest, id: name, onChange, value }} />
+      <TextField
+        {...field}
+        {...{ ...rest, id: name, onChange, value }}
+        inputClassName={error && s.textField}
+      />
       {error && (
         <Typography className={s.error} variant={'small-text'}>
           {error.message}

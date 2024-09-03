@@ -33,6 +33,10 @@ export default function SignUp() {
       })
   }
 
+  const onClickCloseModal = () => {
+    setOpenModal(false)
+  }
+
   return (
     <>
       <MetaHead title={t.signUpPage.title} />
@@ -49,7 +53,11 @@ export default function SignUp() {
           question={t.signUpPage.haveAccountQuestion}
         />
       </Card>
-      <EmailSentModal email={email} isOpen={openModal} setOpenModal={setOpenModal} />
+      <EmailSentModal
+        email={email}
+        isOpen={openModal}
+        onClickCloseModalHandler={onClickCloseModal}
+      />
     </>
   )
 }
