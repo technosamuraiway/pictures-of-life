@@ -13,8 +13,14 @@ export default function RegistrationConfirmation() {
   const { query, replace } = useRouter()
   const [openModal, setOpenModal] = useState(false)
 
-  const [confirmEmail, { isLoading: confirmEmailIsLoading, isSuccess: confirmEmailIsSuccess }] =
-    useConfirmEmailMutation()
+  const [
+    confirmEmail,
+    {
+      isError: confirmEmailIsError,
+      isLoading: confirmEmailIsLoading,
+      isSuccess: confirmEmailIsSuccess,
+    },
+  ] = useConfirmEmailMutation()
   const [resendLink, { isLoading: resendLinkIsLoading }] = useResendConfirmEmailMutation()
 
   useEffect(() => {
@@ -41,7 +47,8 @@ export default function RegistrationConfirmation() {
 
   return (
     <>
-      {confirmEmailIsSuccess ? (
+      {confirmEmailIsLoading && <div>Место для шикарного лоадера!</div>}
+      {confirmEmailIsSuccess && (
         <Confirmation
           buttonText={t.successConfirmEmail.buttonText}
           imgAltText={t.successConfirmEmail.imgAltText}
@@ -53,26 +60,29 @@ export default function RegistrationConfirmation() {
           pageHeader={t.successConfirmEmail.pageHeader}
           pageTitle={t.successConfirmEmail.title}
         />
-      ) : (
-        <Confirmation
-          buttonDisable={resendLinkIsLoading}
-          buttonText={t.expiredEmailLink.buttonText}
-          imgAltText={t.expiredEmailLink.imgAltText}
-          imgHeight={352}
-          imgPngSrc={pngExpired}
-          imgWidth={473}
-          mainText={t.expiredEmailLink.mainText}
-          onButtonClick={expiredLinkButtonClickHandler}
-          pageHeader={t.expiredEmailLink.pageHeader}
-          pageTitle={t.expiredEmailLink.title}
-        />
       )}
-      {query.email && (
-        <EmailSentModal
-          email={query.email}
-          isOpen={openModal}
-          onClickCloseModalHandler={onClickRedirectToSignIn}
-        />
+      {confirmEmailIsError && (
+        <>
+          <Confirmation
+            buttonDisable={resendLinkIsLoading}
+            buttonText={t.expiredEmailLink.buttonText}
+            imgAltText={t.expiredEmailLink.imgAltText}
+            imgHeight={352}
+            imgPngSrc={pngExpired}
+            imgWidth={473}
+            mainText={t.expiredEmailLink.mainText}
+            onButtonClick={expiredLinkButtonClickHandler}
+            pageHeader={t.expiredEmailLink.pageHeader}
+            pageTitle={t.expiredEmailLink.title}
+          />
+          {query.email && (
+            <EmailSentModal
+              email={query.email}
+              isOpen={openModal}
+              onClickCloseModalHandler={onClickRedirectToSignIn}
+            />
+          )}
+        </>
       )}
     </>
   )
