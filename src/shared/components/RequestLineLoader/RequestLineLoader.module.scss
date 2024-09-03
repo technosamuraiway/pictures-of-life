@@ -1,0 +1,36 @@
+.lineLoader {
+  position: fixed; /* Изменено на fixed для фиксации на экране */
+  z-index: 100000; /* Убедитесь, что z-index достаточно высок, чтобы быть над другими элементами */
+  top: 0; /* Располагаем лоадер вверху экрана */
+  left: 0; /* Располагаем лоадер слева от края экрана */
+
+  overflow: hidden;
+
+  width: 100%;
+  height: 3px;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    right: 100%; /* Начальное положение слева */
+
+    width: 40%; /* Ширина анимированного элемента */
+    height: 100%;
+
+    background-color: var(--Primary-100); /* Цвет анимированного элемента */
+    border-radius: 20px;
+
+    animation: animate 0.8s linear infinite;
+  }
+}
+
+@keyframes animate {
+  0% {
+    right: 100%;
+  }
+
+  100% {
+    right: -40%; /* Конечное положение, выходит полностью за правую границу - должно совпадать с шириной элемента */
+  }
+}
