@@ -5,7 +5,7 @@ import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 import s from './EmailSentModal.module.scss'
 
 interface IProps {
-  email: string
+  email: string | string[]
   isOpen: boolean
   setOpenModal: (isOpen: boolean) => void
 }

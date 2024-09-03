@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Confirmation } from '@/entities'
+import { Confirmation, EmailSentModal } from '@/entities'
 import { useConfirmEmailMutation, useResendConfirmEmailMutation } from '@/services'
 import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
 import { PATH } from '@/shared/utils/pathVariables'
@@ -12,18 +12,14 @@ export default function RegistrationConfirmation() {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
-  const [confirmResult, setConfirmResult] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
 
-  const [confirmEmail] = useConfirmEmailMutation()
+  const [confirmEmail, { isSuccess: confirmEmailIsSuccess }] = useConfirmEmailMutation()
   const [resendLink, { isLoading: resendLinkIsLoading }] = useResendConfirmEmailMutation()
 
   useEffect(() => {
     if (router.query.code) {
-      confirmEmail({ confirmationCode: router.query.code })
-        .unwrap()
-        .then(() => {
-          setConfirmResult(true)
-        })
+      confirmEmail({ confirmationCode: router.query.code }).unwrap()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -32,6 +28,7 @@ export default function RegistrationConfirmation() {
     try {
       if (router.query.email) {
         await resendLink({ email: router.query.email }).unwrap()
+        setOpenModal(true)
       }
     } catch (e) {
       await router.replace(PATH.AUTH.SIGNIN)
@@ -44,7 +41,7 @@ export default function RegistrationConfirmation() {
 
   return (
     <>
-      {confirmResult ? (
+      {confirmEmailIsSuccess ? (
         <Confirmation
           buttonText={t.successConfirmEmail.buttonText}
           imgAltText={t.successConfirmEmail.imgAltText}
@@ -69,6 +66,9 @@ export default function RegistrationConfirmation() {
           pageHeader={t.expiredEmailLink.pageHeader}
           pageTitle={t.expiredEmailLink.title}
         />
+      )}
+      {router.query.email && (
+        <EmailSentModal email={router.query.email} isOpen={openModal} setOpenModal={setOpenModal} />
       )}
     </>
   )
