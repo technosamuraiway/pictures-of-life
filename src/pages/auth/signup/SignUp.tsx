@@ -2,7 +2,14 @@ import { useState } from 'react'
 
 import { EmailSentModal, SignUpForm, useZodValidation } from '@/entities'
 import { useSignUpMutation } from '@/services'
-import { MetaHead, PATH, QuestionBlock, SignInIcons, useRouterLocaleDefinition } from '@/shared'
+import {
+  MetaHead,
+  PATH,
+  QuestionBlock,
+  RequestLineLoader,
+  SignInIcons,
+  useRouterLocaleDefinition,
+} from '@/shared'
 import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'
@@ -35,6 +42,7 @@ export default function SignUp() {
 
   return (
     <>
+      {SignUpIsLoading && <RequestLineLoader />}
       <MetaHead title={t.signUpPage.title} />
       <Card className={s.cardContainer}>
         <SignInIcons
