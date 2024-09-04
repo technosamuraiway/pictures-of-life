@@ -1,0 +1,1 @@
+export { useRouterLocaleDefinition } from './useRouterLocaleDefinition'

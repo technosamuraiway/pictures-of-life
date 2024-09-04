@@ -1,0 +1,14 @@
+.wrapper {
+  position: relative;
+}
+
+.textField {
+  border-color: var(--Danger-500);
+}
+
+.error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: var(--Danger-500);
+}

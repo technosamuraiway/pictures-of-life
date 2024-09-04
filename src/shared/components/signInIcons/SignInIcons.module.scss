@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8125rem;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 1.5rem;
+}
+
+.linksWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 3.75rem;
+}
+
+.linkIcon {
+  transform: translateY(0);
+  opacity: 0.5;
+  transition: 0.5s;
+
+  &:hover {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
