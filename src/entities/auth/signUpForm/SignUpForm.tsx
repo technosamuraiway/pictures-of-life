@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 
-import { useZodValidation } from '@/entities'
+import { ISignUp, SignUpFormValues, signUpScheme } from '@/entities'
 import { PATH, Trans, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
@@ -13,16 +13,33 @@ import { ControlledTextField } from '../../controlled/controlledTextField/Contro
 
 interface IProps {
   buttonDisabled: boolean
-  onSubmit: (data: any, resetForm: () => void) => void
+  onSubmit: (data: SignUpFormValues, resetForm: () => void) => void
 }
 
 export const SignUpForm = (props: IProps) => {
   const { buttonDisabled, onSubmit } = props
 
   const t = useRouterLocaleDefinition()
-  const { authSchemes, values } = useZodValidation()
 
-  const { control, handleSubmit, reset } = useForm<typeof values.signUp>({
+  const signUpTranslate: ISignUp = {
+    confirmPassword: t.validationSchemes.confirmPassword,
+    email: {
+      emailRequired: t.validationSchemes.emailRequired,
+      emailScheme: t.validationSchemes.emailScheme,
+    },
+    password: {
+      maximumNumber: t.validationSchemes.maximumNumber,
+      minimumNumber: t.validationSchemes.minimumNumber,
+      password: t.validationSchemes.password,
+    },
+    username: {
+      maximumNumber: t.validationSchemes.maximumNumber,
+      minimumNumber: t.validationSchemes.minimumNumber,
+      username: t.validationSchemes.username,
+    },
+  }
+
+  const { control, handleSubmit, reset } = useForm<SignUpFormValues>({
     defaultValues: {
       confirmPassword: '',
       email: '',
@@ -31,10 +48,10 @@ export const SignUpForm = (props: IProps) => {
       username: '',
     },
     mode: 'onTouched',
-    resolver: zodResolver(authSchemes.signUp),
+    resolver: zodResolver(signUpScheme(signUpTranslate)),
   })
 
-  const onSubmitFormHandler = (data: typeof values.signUp) => {
+  const onSubmitFormHandler = (data: SignUpFormValues) => {
     onSubmit(data, reset)
   }
 
