@@ -1,4 +1,4 @@
-import { browserTheme } from '@/shared/utils'
+import { browserTheme } from '@/shared'
 import Head from 'next/head'
 
 interface IProps {

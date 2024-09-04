@@ -1,16 +1,15 @@
 import { useForm } from 'react-hook-form'
 
 import { useZodValidation } from '@/entities'
-import { ControlledCheckbox } from '@/entities/controlled/controlledCheckbox/ControlledCheckbox'
-import { ControlledTextField } from '@/entities/controlled/controlledTextField/ControlledTextField'
-import { Trans } from '@/shared/components'
-import { useRouterLocaleDefinition } from '@/shared/hooks'
-import { PATH } from '@/shared/utils'
+import { PATH, Trans, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
 
 import s from './SignUpForm.module.scss'
+
+import { ControlledCheckbox } from '../../controlled/controlledCheckbox/ControlledCheckbox'
+import { ControlledTextField } from '../../controlled/controlledTextField/ControlledTextField'
 
 interface IProps {
   buttonDisabled: boolean

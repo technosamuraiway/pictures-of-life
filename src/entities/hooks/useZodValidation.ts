@@ -1,4 +1,4 @@
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { useRouterLocaleDefinition } from '@/shared'
 import { z } from 'zod'
 
 export const useZodValidation = () => {

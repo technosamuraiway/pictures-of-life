@@ -1,13 +1,12 @@
 import { ReactNode } from 'react'
 
-import { useRouterLocaleDefinition } from '@/shared/hooks'
-import { PATH } from '@/shared/utils'
+import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import s from '@/shared/components/layout/Layout.module.scss'
+import s from './Layout.module.scss'
 
 interface IProps {
   children: ReactNode
