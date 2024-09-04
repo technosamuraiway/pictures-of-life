@@ -1,19 +1,24 @@
 import type { AppProps } from 'next/app'
 
-import React from 'react'
+import { Provider } from 'react-redux'
 
-import Layout from '@/shared/components/Layout/Layout'
+import { wrapper } from '@/services/store'
+import Layout from '@/shared/components'
 import NextTopLoader from 'nextjs-toploader'
 
 import '@/styles/_colors.scss'
 import '@/styles/_typography.scss'
 import '@/styles/globals.scss'
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, ...rest }: AppProps) {
+  const { props, store } = wrapper.useWrappedStore(rest)
+
   return (
-    <Layout>
-      <NextTopLoader color={'#73a5ff'} />
-      <Component {...pageProps} />
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        <NextTopLoader color={'#73a5ff'} />
+        <Component {...props.pageProps} />
+      </Layout>
+    </Provider>
   )
 }

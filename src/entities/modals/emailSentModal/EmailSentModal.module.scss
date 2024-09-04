@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.0625rem;
+  padding: 1.875rem 1.4375rem;
+}
+
+.email {
+  color: var(--Primary-500);
+}
+
+.button {
+  align-self: flex-end;
+  padding: 0.375rem 2.1875rem;
+}
