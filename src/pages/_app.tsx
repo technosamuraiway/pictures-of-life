@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 
 import { wrapper } from '@/services/store'
-import Layout from '@/shared/components/Layout/Layout'
+import Layout from '@/shared/components'
 import NextTopLoader from 'nextjs-toploader'
 
 import '@/styles/_colors.scss'

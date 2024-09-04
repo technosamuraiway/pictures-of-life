@@ -2,10 +2,8 @@ import { useState } from 'react'
 
 import { EmailSentModal, SignUpForm, useZodValidation } from '@/entities'
 import { useSignUpMutation } from '@/services'
-import { MetaHead } from '@/shared/components/metaHead/MetaHead'
-import { QuestionBlock } from '@/shared/components/questionBlock/QuestionBlock'
-import { SignInIcons } from '@/shared/components/signInIcons/SignInIcons'
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { MetaHead, QuestionBlock, SignInIcons } from '@/shared/components'
+import { useRouterLocaleDefinition } from '@/shared/hooks'
 import { PATH } from '@/shared/utils/pathVariables'
 import { Card } from '@technosamurai/techno-ui-kit'
 

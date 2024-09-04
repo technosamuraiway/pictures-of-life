@@ -6,7 +6,7 @@ import s from './ControlledTextField.module.scss'
 
 type ControlledTextFieldProps<T extends FieldValues> = Omit<
   TextFieldProps,
-  'error' | 'id' | 'onChange' | 'value'
+  'error' | 'id' | 'onBlur' | 'onChange' | 'value'
 > &
   UseControllerProps<T>
 

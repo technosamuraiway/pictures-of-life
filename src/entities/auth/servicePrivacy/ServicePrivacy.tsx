@@ -1,5 +1,5 @@
-import { MetaHead } from '@/shared/components/metaHead/MetaHead'
-import { PATH } from '@/shared/utils/pathVariables'
+import { MetaHead } from '@/shared/components'
+import { PATH } from '@/shared/utils'
 import arrowBack from '@public/arrowBack.svg'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'

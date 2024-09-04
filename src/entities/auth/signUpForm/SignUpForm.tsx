@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 
 import { useZodValidation } from '@/entities'
-import { ControlledCheckbox } from '@/entities/_components/controlledCheckbox/ControlledCheckbox'
-import { ControlledTextField } from '@/entities/_components/controlledTextField/ControlledTextField'
-import { Trans } from '@/shared/components/trans/Trans'
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
-import { PATH } from '@/shared/utils/pathVariables'
+import { ControlledCheckbox } from '@/entities/controlled/controlledCheckbox/ControlledCheckbox'
+import { ControlledTextField } from '@/entities/controlled/controlledTextField/ControlledTextField'
+import { Trans } from '@/shared/components'
+import { useRouterLocaleDefinition } from '@/shared/hooks'
+import { PATH } from '@/shared/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -31,6 +31,7 @@ export const SignUpForm = (props: IProps) => {
       password: '',
       username: '',
     },
+    mode: 'onTouched',
     resolver: zodResolver(authSchemes.signUp),
   })
 

@@ -1,7 +1,5 @@
-import React from 'react'
-
 import { ServicePrivacy } from '@/entities'
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { useRouterLocaleDefinition } from '@/shared/hooks'
 
 export default function PrivacyPolicy() {
   const t = useRouterLocaleDefinition()

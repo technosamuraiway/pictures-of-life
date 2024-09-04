@@ -1,6 +1,6 @@
 import { Middleware, MiddlewareAPI, isRejected } from '@reduxjs/toolkit'
 
-interface ServerError {
+interface IServerError {
   data?: {
     error: string
     messages: Array<{ field: string; message: string }>
@@ -8,13 +8,9 @@ interface ServerError {
   }
 }
 
-export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => action => {
-  if (api) {
-    // console.log('Api')
-  }
-
+export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => action => {
   if (isRejected(action)) {
-    const serverError = action.payload as ServerError
+    const serverError = action.payload as IServerError
 
     // /* если не связанно с auth + есть ответ от сервера */
     // if (!(serverError.data?.statusCode === 401) && serverError.data) {

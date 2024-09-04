@@ -1,5 +1,5 @@
-import { Trans } from '@/shared/components/trans/Trans'
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { Trans } from '@/shared/components'
+import { useRouterLocaleDefinition } from '@/shared/hooks'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './EmailSentModal.module.scss'

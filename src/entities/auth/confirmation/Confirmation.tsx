@@ -1,4 +1,4 @@
-import { MetaHead } from '@/shared/components/metaHead/MetaHead'
+import { MetaHead } from '@/shared/components'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Image, { StaticImageData } from 'next/image'
 

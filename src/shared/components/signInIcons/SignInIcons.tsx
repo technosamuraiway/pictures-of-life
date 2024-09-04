@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
-import { IconLink } from '@/shared/components/iconLink/IconLink'
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { IconLink } from '@/shared/components'
+import { useRouterLocaleDefinition } from '@/shared/hooks'
 import gitHubIcon from '@public/singIn/gitHub.svg'
 import googleIcon from '@public/singIn/google.svg'
 import { Typography } from '@technosamurai/techno-ui-kit'

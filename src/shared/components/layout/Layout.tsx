@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
 
-import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
-import { PATH } from '@/shared/utils/pathVariables'
+import { useRouterLocaleDefinition } from '@/shared/hooks'
+import { PATH } from '@/shared/utils'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import s from '@/shared/components/Layout/Layout.module.scss'
+import s from '@/shared/components/layout/Layout.module.scss'
 
 interface IProps {
   children: ReactNode
@@ -34,7 +34,6 @@ const Layout: NextPage<IProps> = ({ children }) => {
         <Link href={PATH.HOME}>Home</Link>
         <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
         <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
-        <Link href={PATH.AUTH.REGISTRATIONCONFIRMATION}>REGISTRATION-CONFIRMATION</Link>
       </div>
       <main>{children}</main>
     </div>
