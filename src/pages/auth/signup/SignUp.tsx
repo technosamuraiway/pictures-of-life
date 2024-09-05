@@ -49,7 +49,7 @@ export default function SignUp() {
           googleTitle={t.signUpPage.googleLinkTitle}
           pageTitle={t.signUpPage.title}
         />
-        <SignUpForm buttonDisabled={SignUpIsLoading} onSubmit={signUpSubmitHandler} />
+        <SignUpForm buttonDisabled={SignUpIsLoading} onSubmitSignUpForm={signUpSubmitHandler} />
         <QuestionBlock
           buttonTitle={t.signInPage.title}
           linkHref={PATH.AUTH.SIGNIN}

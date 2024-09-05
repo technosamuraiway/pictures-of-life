@@ -13,11 +13,11 @@ import { ControlledTextField } from '../../controlled/controlledTextField/Contro
 
 interface IProps {
   buttonDisabled: boolean
-  onSubmit: (data: SignUpFormValues, resetForm: () => void) => void
+  onSubmitSignUpForm: (data: SignUpFormValues, resetForm: () => void) => void
 }
 
 export const SignUpForm = (props: IProps) => {
-  const { buttonDisabled, onSubmit } = props
+  const { buttonDisabled, onSubmitSignUpForm } = props
 
   const t = useRouterLocaleDefinition()
 
@@ -52,7 +52,7 @@ export const SignUpForm = (props: IProps) => {
   })
 
   const onSubmitFormHandler = (data: SignUpFormValues) => {
-    onSubmit(data, reset)
+    onSubmitSignUpForm(data, reset)
   }
 
   return (

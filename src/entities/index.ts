@@ -4,9 +4,9 @@ export { ServicePrivacy } from './auth/servicePrivacy/ServicePrivacy'
 export { SignUpForm } from './auth/signUpForm/SignUpForm'
 
 // ============================== [ zod ] =======================================
-export type { ISignUp } from './useZodValidation'
-export type { SignUpFormValues } from './useZodValidation'
-export { signUpScheme } from './useZodValidation'
+export type { ISignUp } from './zodValidationScheme'
+export type { SignUpFormValues } from './zodValidationScheme'
+export { signUpScheme } from './zodValidationScheme'
 
 // ============================== [ modals ] ======================================
 export { EmailSentModal } from '@/entities/modals/emailSentModal/EmailSentModal'
