@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { Confirmation, EmailSentModal } from '@/entities'
 import { useConfirmEmailMutation, useResendConfirmEmailMutation } from '@/services'
-import { useRouterLocaleDefinition } from '@/shared/hooks'
-import { PATH } from '@/shared/utils'
+import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import pngExpired from '@public/confirmEmail/expiredConfirm.png'
 import pngSuccess from '@public/confirmEmail/successConfirm.png'
 import { useRouter } from 'next/router'
@@ -47,7 +46,7 @@ export default function RegistrationConfirmation() {
 
   return (
     <>
-      {confirmEmailIsLoading && <div>Место для шикарного лоадера!</div>}
+      {(confirmEmailIsLoading || resendLinkIsLoading) && <RequestLineLoader />}
       {confirmEmailIsSuccess && (
         <Confirmation
           buttonText={t.successConfirmEmail.buttonText}

@@ -1,10 +1,15 @@
 import { useState } from 'react'
 
-import { EmailSentModal, SignUpForm, useZodValidation } from '@/entities'
+import { EmailSentModal, SignUpForm, SignUpFormValues } from '@/entities'
 import { useSignUpMutation } from '@/services'
-import { MetaHead, QuestionBlock, SignInIcons } from '@/shared/components'
-import { useRouterLocaleDefinition } from '@/shared/hooks'
-import { PATH } from '@/shared/utils/pathVariables'
+import {
+  MetaHead,
+  PATH,
+  QuestionBlock,
+  RequestLineLoader,
+  SignInIcons,
+  useRouterLocaleDefinition,
+} from '@/shared'
 import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'
@@ -13,11 +18,10 @@ export default function SignUp() {
   const t = useRouterLocaleDefinition()
   const [openModal, setOpenModal] = useState(false)
   const [email, setEmail] = useState('YourEmail@gmail.com')
-  const { values } = useZodValidation()
 
   const [signUp, { isLoading: SignUpIsLoading }] = useSignUpMutation()
 
-  const signUpSubmitHandler = (data: typeof values.signUp, resetForm: () => void) => {
+  const signUpSubmitHandler = (data: SignUpFormValues, resetForm: () => void) => {
     setEmail(data.email)
     signUp({
       email: data.email,
@@ -37,6 +41,7 @@ export default function SignUp() {
 
   return (
     <>
+      {SignUpIsLoading && <RequestLineLoader />}
       <MetaHead title={t.signUpPage.title} />
       <Card className={s.cardContainer}>
         <SignInIcons

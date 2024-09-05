@@ -1,10 +1,9 @@
-import { MetaHead } from '@/shared/components'
+import { MetaHead, useRouterLocaleDefinition } from '@/shared'
 import { LangSelect } from '@/shared/components/LangSelect/LangSelect'
-import { useRouterLocaleDefinition } from '@/shared/hooks'
 import { Button } from '@technosamurai/techno-ui-kit'
 import { Inter } from 'next/font/google'
 
-import s from '@/pages/_home/Home.module.scss'
+import s from './Home.module.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 
