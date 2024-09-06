@@ -1,4 +1,4 @@
-import { MetaHead } from '@/shared/components'
+import { MetaHead } from '@/shared'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Image, { StaticImageData } from 'next/image'
 
@@ -17,20 +17,18 @@ interface IProps {
   pageTitle: string
 }
 
-export const Confirmation = (props: IProps) => {
-  const {
-    buttonDisable,
-    buttonText,
-    imgAltText,
-    imgHeight = 300,
-    imgPngSrc,
-    imgWidth = 430,
-    mainText,
-    onButtonClick,
-    pageHeader,
-    pageTitle,
-  } = props
-
+export const Confirmation = ({
+  buttonDisable,
+  buttonText,
+  imgAltText,
+  imgHeight = 300,
+  imgPngSrc,
+  imgWidth = 430,
+  mainText,
+  onButtonClick,
+  pageHeader,
+  pageTitle,
+}: IProps) => {
   return (
     <div className={s.wrapper}>
       <MetaHead title={pageTitle} />

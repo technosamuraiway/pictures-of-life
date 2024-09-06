@@ -1,5 +1,4 @@
-import { en } from '@/shared/locales/en'
-import { ru } from '@/shared/locales/ru'
+import { en, ru } from '@/shared'
 import { useRouter } from 'next/router'
 
 export function useRouterLocaleDefinition() {

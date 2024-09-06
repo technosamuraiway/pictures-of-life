@@ -1,5 +1,5 @@
 import { ServicePrivacy } from '@/entities'
-import { useRouterLocaleDefinition } from '@/shared/hooks'
+import { useRouterLocaleDefinition } from '@/shared'
 
 export default function TermsOfService() {
   const t = useRouterLocaleDefinition()

@@ -10,9 +10,15 @@ interface IProps {
   linkTitle?: string
 }
 
-export const IconLink = (props: IProps) => {
-  const { altText, className, dimensions = 24, imgSrc, linkHref, linkTitle, ...rest } = props
-
+export const IconLink = ({
+  altText,
+  className,
+  dimensions = 24,
+  imgSrc,
+  linkHref,
+  linkTitle,
+  ...rest
+}: IProps) => {
   return (
     <Link className={className} href={linkHref} title={linkTitle} {...rest}>
       <Image alt={altText} height={dimensions} src={imgSrc} width={dimensions} />

@@ -1,5 +1,4 @@
-import { Trans } from '@/shared/components'
-import { useRouterLocaleDefinition } from '@/shared/hooks'
+import { Trans, useRouterLocaleDefinition } from '@/shared'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './EmailSentModal.module.scss'
@@ -10,9 +9,7 @@ interface IProps {
   onClickCloseModalHandler: () => void
 }
 
-export const EmailSentModal = (props: IProps) => {
-  const { email, isOpen, onClickCloseModalHandler } = props
-
+export const EmailSentModal = ({ email, isOpen, onClickCloseModalHandler }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   return (
