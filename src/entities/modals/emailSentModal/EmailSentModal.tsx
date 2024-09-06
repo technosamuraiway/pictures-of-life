@@ -9,9 +9,7 @@ interface IProps {
   onClickCloseModalHandler: () => void
 }
 
-export const EmailSentModal = (props: IProps) => {
-  const { email, isOpen, onClickCloseModalHandler } = props
-
+export const EmailSentModal = ({ email, isOpen, onClickCloseModalHandler }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   return (

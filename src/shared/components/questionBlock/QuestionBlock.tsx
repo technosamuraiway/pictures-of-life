@@ -12,9 +12,7 @@ interface IProps extends ComponentPropsWithoutRef<'div'> {
   question: string
 }
 
-export const QuestionBlock = (props: IProps) => {
-  const { buttonTitle, className, linkHref, question, ...rest } = props
-
+export const QuestionBlock = ({ buttonTitle, className, linkHref, question, ...rest }: IProps) => {
   return (
     <div className={clsx(s.wrapper, className)} {...rest}>
       <Typography className={s.text} variant={'regular-text-16'}>
