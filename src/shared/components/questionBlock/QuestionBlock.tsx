@@ -1,8 +1,8 @@
 import { ComponentPropsWithoutRef } from 'react'
 
-import { Button, Typography } from '@technosamurai/techno-ui-kit'
+import { ButtonLink } from '@/shared'
+import { Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
-import Link from 'next/link'
 
 import s from './QuestionBlock.module.scss'
 
@@ -20,9 +20,7 @@ export const QuestionBlock = (props: IProps) => {
       <Typography className={s.text} variant={'regular-text-16'}>
         {question}
       </Typography>
-      <Button as={Link} className={s.button} href={linkHref} variant={'textButton'}>
-        {buttonTitle}
-      </Button>
+      <ButtonLink linkHref={linkHref} title={buttonTitle} />
     </div>
   )
 }

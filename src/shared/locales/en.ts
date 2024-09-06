@@ -16,7 +16,7 @@ export const en: LocaleType = {
     backToSignInButtonText: 'Back to Sign In',
     email: 'Email',
     mainText: 'Enter your email address and we will send you further instructions',
-    recaptcha: 'I am not a robot',
+    recaptcha: 'I’m not a robot',
     submitButtonText: 'Send Link',
     title: 'Forgot Password',
   },

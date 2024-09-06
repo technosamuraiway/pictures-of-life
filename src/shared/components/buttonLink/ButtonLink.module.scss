@@ -1,0 +1,31 @@
+.button {
+  align-self: center;
+  color: var(--Primary-500);
+
+  &:visited {
+    color: var(--Primary-500);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--Primary-900);
+  }
+
+  &:hover {
+    color: var(--Primary-100);
+  }
+
+  &:active:enabled {
+    color: var(--Primary-700);
+  }
+
+  &:focus-visible:enabled {
+    color: var(--Primary-500);
+    border: 2px solid var(--Primary-700);
+  }
+
+  &.fullWidth {
+    justify-content: center;
+    width: 100%;
+  }
+}

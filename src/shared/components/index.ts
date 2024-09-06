@@ -1,3 +1,4 @@
+export { ButtonLink } from './buttonLink/ButtonLink'
 export { IconLink } from './iconLink/IconLink'
 export { MetaHead } from './metaHead/MetaHead'
 export { QuestionBlock } from './questionBlock/QuestionBlock'
