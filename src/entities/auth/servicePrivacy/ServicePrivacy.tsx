@@ -1,5 +1,4 @@
-import { MetaHead } from '@/shared/components'
-import { PATH } from '@/shared/utils'
+import { MetaHead, PATH } from '@/shared'
 import arrowBack from '@public/arrowBack.svg'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
@@ -14,9 +13,7 @@ interface IProps {
   textTitle: string
 }
 
-export const ServicePrivacy = (props: IProps) => {
-  const { buttonBackTitle, mainText, pageTitle, textTitle } = props
-
+export const ServicePrivacy = ({ buttonBackTitle, mainText, pageTitle, textTitle }: IProps) => {
   return (
     <div className={s.wrapper}>
       <MetaHead title={pageTitle} />
