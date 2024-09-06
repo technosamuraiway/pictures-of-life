@@ -11,7 +11,13 @@ export const ru = {
     title: 'Срок действия ссылки истек',
   },
   forgotPasswordPage: {
-    title: 'Забыл пароль',
+    backToSignInButtonText: 'Вернуться к авторизации',
+    email: 'Электронная почта',
+    mainText:
+      'Введите адрес вашей электронной почты и мы отправим ссылку с дальнейшими инструкциями',
+    recaptcha: 'Я не робот',
+    submitButtonText: 'Отправить ссылку',
+    title: 'Забыли пароль',
   },
   passwordRecoveryPage: {
     title: 'Восстановления пароля',

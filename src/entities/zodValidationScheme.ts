@@ -50,7 +50,7 @@ const username = (username: IUserName) => {
 }
 
 const confirmPassword = z.string().trim()
-const isAgree = z.boolean().refine(value => value)
+const isBoolean = z.boolean().refine(value => value)
 
 // ============= Схемы валидаций форм ==================
 
@@ -61,12 +61,16 @@ export interface ISignUp {
   username: IUserName
 }
 
+export interface IForgotPassword {
+  email: IEmail
+}
+
 export const signUpScheme = (signUp: ISignUp) => {
   return z
     .object({
       confirmPassword,
       email: email(signUp.email),
-      isAgree,
+      isAgree: isBoolean,
       password: password(signUp.password),
       username: username(signUp.username),
     })
@@ -76,5 +80,13 @@ export const signUpScheme = (signUp: ISignUp) => {
     })
 }
 
+export const forgotPasswordScheme = (forgotPassword: IForgotPassword) => {
+  return z.object({
+    email: email(forgotPassword.email),
+    isRobot: isBoolean,
+  })
+}
+
 // ============= Типы валидаций форм ==================
 export type SignUpFormValues = z.infer<ReturnType<typeof signUpScheme>>
+export type ForgotPasswordFormValues = z.infer<ReturnType<typeof forgotPasswordScheme>>
