@@ -5,9 +5,14 @@ import { Middleware, MiddlewareAPI, isRejected } from '@reduxjs/toolkit'
 export interface IServerError {
   data?: {
     error: string
-    messages: Array<{ field: string; message: string }>
+    messages: Array<IMessagesFromError>
     statusCode: number
   }
+}
+
+export interface IMessagesFromError {
+  field: string
+  message: string
 }
 
 export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => action => {

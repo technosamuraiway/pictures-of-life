@@ -49,7 +49,7 @@ export const CreateNewPasswordForm = ({
       onSubmit={handleSubmit(onSubmitCreateNewPasswordForm)}
     >
       <ControlledTextField
-        autoComplete={'new-password'}
+        autoComplete={'recovery'}
         control={control}
         label={t.newPasswordPage.newPassword}
         maxLength={21}
@@ -57,7 +57,7 @@ export const CreateNewPasswordForm = ({
         type={'password'}
       />
       <ControlledTextField
-        autoComplete={'new-password'}
+        autoComplete={'recovery'}
         control={control}
         label={t.newPasswordPage.passwordConfirmation}
         name={'confirmPassword'}

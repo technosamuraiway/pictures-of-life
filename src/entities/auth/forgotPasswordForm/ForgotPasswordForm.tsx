@@ -1,22 +1,22 @@
+// eslint-disable-next-line import/no-named-as-default
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
 import { ForgotPasswordFormValues, IForgotPassword, forgotPasswordScheme } from '@/entities'
+import { IMessagesFromError } from '@/services/AppErrorHandler'
 import { ButtonLink, PATH, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
-import recaptchaImg from '@public/recaptcha.png'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
-import Image from 'next/image'
 
 import s from './ForgotPasswordForm.module.scss'
 
-import { ControlledCheckbox } from '../../controlled/controlledCheckbox/ControlledCheckbox'
 import { ControlledTextField } from '../../controlled/controlledTextField/ControlledTextField'
 
 interface IProps {
   isButtonDisabled: boolean
   isSendLinkAgain: boolean
   onSubmitForgotPasswordForm: (data: ForgotPasswordFormValues) => void
-  textFieldError: string
+  textFieldError?: Array<IMessagesFromError>
 }
 
 export const ForgotPasswordForm = ({
@@ -34,20 +34,32 @@ export const ForgotPasswordForm = ({
     },
   }
 
-  const { control, handleSubmit } = useForm<ForgotPasswordFormValues>({
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+  } = useForm<ForgotPasswordFormValues>({
     defaultValues: {
       email: '',
-      isRobot: false,
+      recaptcha: undefined,
     },
     mode: 'onTouched',
     resolver: zodResolver(forgotPasswordScheme(signUpTranslate)),
   })
 
+  const onRecaptchaChange = (recaptchaValue: null | string) => {
+    setValue('recaptcha', recaptchaValue || '', { shouldValidate: true })
+  }
+
+  const errorEmail =
+    textFieldError && (textFieldError[0].field === 'email' ? textFieldError[0].message : undefined)
+
   return (
     <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitForgotPasswordForm)}>
       <ControlledTextField
         control={control}
-        error={textFieldError}
+        error={errorEmail}
         label={t.forgotPasswordPage.email}
         maxLength={31}
         name={'email'}
@@ -71,12 +83,20 @@ export const ForgotPasswordForm = ({
         title={t.forgotPasswordPage.backToSignInButtonText}
       />
       {!isSendLinkAgain && (
-        <div className={s.recaptchaBox}>
-          <div className={s.checkBoxWrapper}>
-            <ControlledCheckbox control={control} name={'isRobot'} />
-            <Typography variant={'small-text'}>{t.forgotPasswordPage.recaptcha}</Typography>
-          </div>
-          <Image alt={'recaptcha - picture'} height={55} src={recaptchaImg} width={44} />
+        <div className={s.recaptchaWrapper}>
+          <ReCAPTCHA
+            aria-required
+            className={s.recaptcha}
+            onChange={onRecaptchaChange}
+            sitekey={'6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ'}
+            size={'normal'}
+            theme={'dark'}
+          />
+          {(errors.recaptcha || (textFieldError && textFieldError[0].field === 'recaptcha')) && (
+            <Typography className={s.recaptchaError} variant={'regular-text-14'}>
+              {errors.recaptcha?.message || (textFieldError && textFieldError[0].message)}
+            </Typography>
+          )}
         </div>
       )}
     </form>

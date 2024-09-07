@@ -63,6 +63,7 @@ export interface ISignUp {
 
 export interface IForgotPassword {
   email: IEmail
+  recaptcha?: string
 }
 
 export interface ICreateNewPassword {
@@ -88,7 +89,7 @@ export const signUpScheme = (signUp: ISignUp) => {
 export const forgotPasswordScheme = (forgotPassword: IForgotPassword) => {
   return z.object({
     email: email(forgotPassword.email),
-    isRobot: isBoolean,
+    recaptcha: z.string(),
   })
 }
 

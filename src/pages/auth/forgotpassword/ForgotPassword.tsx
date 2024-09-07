@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { EmailSentModal, ForgotPasswordForm, ForgotPasswordFormValues } from '@/entities'
 import { useForgotPasswordMutation } from '@/services'
-import { IServerError } from '@/services/AppErrorHandler'
+import { IMessagesFromError, IServerError } from '@/services/AppErrorHandler'
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { Card, Typography } from '@technosamurai/techno-ui-kit'
 
@@ -14,21 +14,21 @@ export default function ForgotPassword() {
   const [sentLinkAgain, setSentLinkAgain] = useState(false)
 
   const [email, setEmail] = useState('YourEmail@gmail.com')
-  const [textFieldError, setTextFieldError] = useState('')
+  const [textFieldError, setTextFieldError] = useState<Array<IMessagesFromError>>()
 
   const [forgotPassword, { isLoading: forgotPasswordIsLoading }] = useForgotPasswordMutation()
 
   const forgotPasswordSubmitHandler = (data: ForgotPasswordFormValues) => {
     setEmail(data.email)
 
-    forgotPassword({ email: data.email, recaptcha: 'recaptcha' })
+    forgotPassword({ email: data.email, recaptcha: data.recaptcha })
       .unwrap()
       .then(() => {
         setOpenModal(true)
       })
       .catch((err: IServerError) => {
-        if (err.data?.statusCode === 500) {
-          setTextFieldError(err.data?.messages[0].message)
+        if (err.data) {
+          setTextFieldError(err.data.messages)
         }
       })
   }

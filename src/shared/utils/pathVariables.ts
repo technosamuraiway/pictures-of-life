@@ -1,6 +1,6 @@
 export const PATH = {
   AUTH: {
-    CREATENEWPASSWORD: '/auth/new-password',
+    CREATENEWPASSWORD: '/auth/recovery',
     FORGOTPASSWORD: '/auth/forgotpassword',
     PRIVACYPOLICY: '/auth/privacypolicy',
     SIGNIN: '/auth/signin',

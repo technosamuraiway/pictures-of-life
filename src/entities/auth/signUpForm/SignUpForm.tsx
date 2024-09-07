@@ -70,7 +70,7 @@ export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => 
         type={'email'}
       />
       <ControlledTextField
-        autoComplete={'new-password'}
+        autoComplete={'recovery'}
         control={control}
         label={t.signUpPage.password}
         maxLength={21}
@@ -78,7 +78,7 @@ export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => 
         type={'password'}
       />
       <ControlledTextField
-        autoComplete={'new-password'}
+        autoComplete={'recovery'}
         control={control}
         label={t.signUpPage.passwordConfirmation}
         name={'confirmPassword'}
