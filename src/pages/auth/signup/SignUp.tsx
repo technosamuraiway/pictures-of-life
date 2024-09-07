@@ -35,7 +35,7 @@ export default function SignUp() {
       })
   }
 
-  const onClickCloseModal = () => {
+  const onClickCloseModalHandler = () => {
     setOpenModal(false)
   }
 
@@ -49,7 +49,7 @@ export default function SignUp() {
           googleTitle={t.signUpPage.googleLinkTitle}
           pageTitle={t.signUpPage.title}
         />
-        <SignUpForm buttonDisabled={SignUpIsLoading} onSubmitSignUpForm={signUpSubmitHandler} />
+        <SignUpForm isButtonDisabled={SignUpIsLoading} onSubmitSignUpForm={signUpSubmitHandler} />
         <QuestionBlock
           buttonTitle={t.signInPage.title}
           linkHref={PATH.AUTH.SIGNIN}
@@ -59,7 +59,7 @@ export default function SignUp() {
       <EmailSentModal
         email={email}
         isOpen={openModal}
-        onClickCloseModalHandler={onClickCloseModal}
+        onClickCloseModal={onClickCloseModalHandler}
       />
     </>
   )

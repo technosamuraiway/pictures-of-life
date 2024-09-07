@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { ToastContainer } from 'react-toastify'
+import { Slide, ToastContainer } from 'react-toastify'
 
 import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { Header } from '@technosamurai/techno-ui-kit'
@@ -50,6 +50,7 @@ const Layout: NextPage<IProps> = ({ children }) => {
         position={'bottom-left'}
         rtl={false}
         theme={'dark'}
+        transition={Slide}
       />
     </div>
   )

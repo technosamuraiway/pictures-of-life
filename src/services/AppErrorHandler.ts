@@ -2,7 +2,7 @@ import { toast } from 'react-toastify'
 
 import { Middleware, MiddlewareAPI, isRejected } from '@reduxjs/toolkit'
 
-interface IServerError {
+export interface IServerError {
   data?: {
     error: string
     messages: Array<{ field: string; message: string }>

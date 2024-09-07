@@ -6,14 +6,14 @@ import s from './EmailSentModal.module.scss'
 interface IProps {
   email: string | string[]
   isOpen: boolean
-  onClickCloseModalHandler: () => void
+  onClickCloseModal: () => void
 }
 
-export const EmailSentModal = ({ email, isOpen, onClickCloseModalHandler }: IProps) => {
+export const EmailSentModal = ({ email, isOpen, onClickCloseModal }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   return (
-    <Modal onOpenChange={onClickCloseModalHandler} open={isOpen} title={t.signUpPage.modalTitle}>
+    <Modal onOpenChange={onClickCloseModal} open={isOpen} title={t.signUpPage.modalTitle}>
       <div className={s.wrapper}>
         <Typography variant={'regular-text-16'}>
           <Trans
@@ -23,7 +23,7 @@ export const EmailSentModal = ({ email, isOpen, onClickCloseModalHandler }: IPro
             text={t.signUpPage.modalText}
           />
         </Typography>
-        <Button className={s.button} onClick={onClickCloseModalHandler}>
+        <Button className={s.button} onClick={onClickCloseModal}>
           OK
         </Button>
       </div>

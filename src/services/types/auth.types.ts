@@ -13,3 +13,7 @@ export interface IResendConfirmEmailArgs {
   baseUrl?: string
   email: string | string[]
 }
+
+export interface IForgotPasswordArgs extends IResendConfirmEmailArgs {
+  recaptcha: string
+}

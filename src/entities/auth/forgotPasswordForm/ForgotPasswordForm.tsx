@@ -6,14 +6,25 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import recaptchaImg from '@public/recaptcha.png'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
-import Link from 'next/link'
 
 import s from './ForgotPasswordForm.module.scss'
 
 import { ControlledCheckbox } from '../../controlled/controlledCheckbox/ControlledCheckbox'
 import { ControlledTextField } from '../../controlled/controlledTextField/ControlledTextField'
 
-export const ForgotPasswordForm = () => {
+interface IProps {
+  isButtonDisabled: boolean
+  isSendLinkAgain: boolean
+  onSubmitForgotPasswordForm: (data: ForgotPasswordFormValues) => void
+  textFieldError: string
+}
+
+export const ForgotPasswordForm = ({
+  isButtonDisabled,
+  isSendLinkAgain,
+  onSubmitForgotPasswordForm,
+  textFieldError,
+}: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const signUpTranslate: IForgotPassword = {
@@ -32,14 +43,11 @@ export const ForgotPasswordForm = () => {
     resolver: zodResolver(forgotPasswordScheme(signUpTranslate)),
   })
 
-  const onSubmitFormHandler = (data: ForgotPasswordFormValues) => {
-    //console.log(data)
-  }
-
   return (
-    <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitFormHandler)}>
+    <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitForgotPasswordForm)}>
       <ControlledTextField
         control={control}
+        error={textFieldError}
         label={t.forgotPasswordPage.email}
         maxLength={31}
         name={'email'}
@@ -48,7 +56,12 @@ export const ForgotPasswordForm = () => {
       <Typography className={s.mainText} variant={'regular-text-14'}>
         {t.forgotPasswordPage.mainText}
       </Typography>
-      <Button disabled={false} type={'submit'}>
+      {isSendLinkAgain && (
+        <Typography className={s.additionalText} variant={'regular-text-14'}>
+          {t.forgotPasswordPage.additionalText}
+        </Typography>
+      )}
+      <Button disabled={isButtonDisabled} type={'submit'}>
         {t.forgotPasswordPage.submitButtonText}
       </Button>
 
@@ -57,13 +70,15 @@ export const ForgotPasswordForm = () => {
         linkHref={PATH.AUTH.SIGNIN}
         title={t.forgotPasswordPage.backToSignInButtonText}
       />
-      <div className={s.recaptchaBox}>
-        <div className={s.checkBoxWrapper}>
-          <ControlledCheckbox control={control} name={'isRobot'} />
-          <Typography variant={'small-text'}>{t.forgotPasswordPage.recaptcha}</Typography>
+      {!isSendLinkAgain && (
+        <div className={s.recaptchaBox}>
+          <div className={s.checkBoxWrapper}>
+            <ControlledCheckbox control={control} name={'isRobot'} />
+            <Typography variant={'small-text'}>{t.forgotPasswordPage.recaptcha}</Typography>
+          </div>
+          <Image alt={'recaptcha - picture'} height={55} src={recaptchaImg} width={44} />
         </div>
-        <Image alt={'recaptcha - picture'} height={55} src={recaptchaImg} width={44} />
-      </div>
+      )}
     </form>
   )
 }

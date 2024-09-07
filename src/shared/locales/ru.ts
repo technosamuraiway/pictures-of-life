@@ -11,6 +11,8 @@ export const ru = {
     title: 'Срок действия ссылки истек',
   },
   forgotPasswordPage: {
+    additionalText:
+      'Ссылка была отправлена на ваш адрес электронной почты. Если вы не получили ссылку, то можете отправить её снова',
     backToSignInButtonText: 'Вернуться к авторизации',
     email: 'Электронная почта',
     mainText:

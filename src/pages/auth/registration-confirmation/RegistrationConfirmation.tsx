@@ -78,7 +78,7 @@ export default function RegistrationConfirmation() {
             <EmailSentModal
               email={query.email}
               isOpen={openModal}
-              onClickCloseModalHandler={onClickRedirectToSignIn}
+              onClickCloseModal={onClickRedirectToSignIn}
             />
           )}
         </>

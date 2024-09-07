@@ -12,11 +12,11 @@ import { ControlledCheckbox } from '../../controlled/controlledCheckbox/Controll
 import { ControlledTextField } from '../../controlled/controlledTextField/ControlledTextField'
 
 interface IProps {
-  buttonDisabled: boolean
+  isButtonDisabled: boolean
   onSubmitSignUpForm: (data: SignUpFormValues, resetForm: () => void) => void
 }
 
-export const SignUpForm = ({ buttonDisabled, onSubmitSignUpForm }: IProps) => {
+export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const signUpTranslate: ISignUp = {
@@ -104,7 +104,7 @@ export const SignUpForm = ({ buttonDisabled, onSubmitSignUpForm }: IProps) => {
           />
         </Typography>
       </div>
-      <Button className={s.submitButton} disabled={buttonDisabled} type={'submit'}>
+      <Button className={s.submitButton} disabled={isButtonDisabled} type={'submit'}>
         {t.signUpPage.title}
       </Button>
     </form>

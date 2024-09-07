@@ -13,6 +13,8 @@ export const en: LocaleType = {
     title: 'Confirmation Link Expired',
   },
   forgotPasswordPage: {
+    additionalText:
+      'The link has been sent by email. If you don’t receive an email send link again',
     backToSignInButtonText: 'Back to Sign In',
     email: 'Email',
     mainText: 'Enter your email address and we will send you further instructions',

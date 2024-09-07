@@ -1,5 +1,10 @@
 import { inctagramApi } from '../api/inctagram.api'
-import { IConfirmEmailArgs, IResendConfirmEmailArgs, ISignUpArgs } from '../types/auth.types'
+import {
+  IConfirmEmailArgs,
+  IForgotPasswordArgs,
+  IResendConfirmEmailArgs,
+  ISignUpArgs,
+} from '../types/auth.types'
 
 export const authService = inctagramApi.injectEndpoints({
   endpoints: builder => {
@@ -9,6 +14,13 @@ export const authService = inctagramApi.injectEndpoints({
           body: args,
           method: 'POST',
           url: `v1/auth/registration-confirmation`,
+        }),
+      }),
+      forgotPassword: builder.mutation<void, IForgotPasswordArgs>({
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `v1/auth/password-recovery`,
         }),
       }),
       resendConfirmEmail: builder.mutation<void, IResendConfirmEmailArgs>({
@@ -29,5 +41,9 @@ export const authService = inctagramApi.injectEndpoints({
   },
 })
 
-export const { useConfirmEmailMutation, useResendConfirmEmailMutation, useSignUpMutation } =
-  authService
+export const {
+  useConfirmEmailMutation,
+  useForgotPasswordMutation,
+  useResendConfirmEmailMutation,
+  useSignUpMutation,
+} = authService
