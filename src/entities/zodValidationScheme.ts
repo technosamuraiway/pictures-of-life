@@ -65,6 +65,11 @@ export interface IForgotPassword {
   email: IEmail
 }
 
+export interface ICreateNewPassword {
+  confirmPassword: string
+  newPassword: IPassword
+}
+
 export const signUpScheme = (signUp: ISignUp) => {
   return z
     .object({
@@ -87,6 +92,19 @@ export const forgotPasswordScheme = (forgotPassword: IForgotPassword) => {
   })
 }
 
+export const createNewPasswordScheme = (createNewPassword: ICreateNewPassword) => {
+  return z
+    .object({
+      confirmPassword,
+      newPassword: password(createNewPassword.newPassword),
+    })
+    .refine(data => data.newPassword === data.confirmPassword, {
+      message: createNewPassword.confirmPassword,
+      path: ['confirmPassword'],
+    })
+}
+
 // ============= Типы валидаций форм ==================
 export type SignUpFormValues = z.infer<ReturnType<typeof signUpScheme>>
 export type ForgotPasswordFormValues = z.infer<ReturnType<typeof forgotPasswordScheme>>
+export type CreateNewPasswordFormValues = z.infer<ReturnType<typeof createNewPasswordScheme>>

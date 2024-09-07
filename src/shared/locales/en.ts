@@ -1,9 +1,6 @@
 import { LocaleType } from './ru'
 
 export const en: LocaleType = {
-  createNewPasswordPage: {
-    title: 'Create new password page',
-  },
   expiredEmailLink: {
     buttonText: 'Resend verification link',
     imgAltText: 'Please, try again',
@@ -22,8 +19,13 @@ export const en: LocaleType = {
     submitButtonText: 'Send Link',
     title: 'Forgot Password',
   },
-  passwordRecoveryPage: {
-    title: 'Password recovery page',
+  newPasswordPage: {
+    buttonText: 'Create new password',
+    mainText: 'Your password must be between 6 and 20 characters ',
+    newPassword: 'New password',
+    passwordConfirmation: 'Password confirmation',
+    successMessage: 'Your password has been successfully changed!',
+    title: 'Create New Password',
   },
   privacyPolicy: {
     backToSign: 'Back to Sign Up',

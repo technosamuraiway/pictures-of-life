@@ -16,7 +16,6 @@ export default function Home() {
       <div className={s.body}>
         <div>{<LangSelect />}</div>
         <div>{t.title}</div>
-        <Button type={'button'}>{t.passwordRecoveryPage.title}</Button>
       </div>
     </>
   )

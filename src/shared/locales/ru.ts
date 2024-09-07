@@ -1,7 +1,4 @@
 export const ru = {
-  createNewPasswordPage: {
-    title: 'Создания нового пароля',
-  },
   expiredEmailLink: {
     buttonText: 'Отправить новую ссылку',
     imgAltText: 'Пожалуйста, попытайтесь снова',
@@ -21,8 +18,13 @@ export const ru = {
     submitButtonText: 'Отправить ссылку',
     title: 'Забыли пароль',
   },
-  passwordRecoveryPage: {
-    title: 'Восстановления пароля',
+  newPasswordPage: {
+    buttonText: 'Создать новый пароль',
+    mainText: 'Ваш пароль должен быть от 6 до 20 символов',
+    newPassword: 'Новый пароль',
+    passwordConfirmation: 'Подтвердите пароль',
+    successMessage: 'Новый пароль создан!',
+    title: 'Создать новый пароль',
   },
   privacyPolicy: {
     backToSign: 'Вернуться к регистрации',

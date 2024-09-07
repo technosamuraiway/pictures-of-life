@@ -1,8 +1,8 @@
 export const PATH = {
   AUTH: {
+    CREATENEWPASSWORD: '/auth/new-password',
     FORGOTPASSWORD: '/auth/forgotpassword',
     PRIVACYPOLICY: '/auth/privacypolicy',
-    REGISTRATIONCONFIRMATION: '/auth/registration-confirmation',
     SIGNIN: '/auth/signin',
     SIGNUP: '/auth/signup',
     TERMSOFSRVICE: '/auth/termsofservice',

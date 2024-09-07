@@ -17,3 +17,11 @@ export interface IResendConfirmEmailArgs {
 export interface IForgotPasswordArgs extends IResendConfirmEmailArgs {
   recaptcha: string
 }
+
+export interface ICreateNewPasswordArgs extends ICheckRecoveryCodeArgs {
+  newPassword: string
+}
+
+export interface ICheckRecoveryCodeArgs {
+  recoveryCode: string | string[]
+}
