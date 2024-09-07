@@ -14,9 +14,13 @@ interface IProps extends ComponentPropsWithoutRef<'div'> {
   pageTitle: string
 }
 
-export const SignInIcons = (props: IProps) => {
-  const { className, gitHubTitle, googleTitle, pageTitle, ...rest } = props
-
+export const SignInIcons = ({
+  className,
+  gitHubTitle,
+  googleTitle,
+  pageTitle,
+  ...rest
+}: IProps) => {
   const t = useRouterLocaleDefinition()
 
   return (

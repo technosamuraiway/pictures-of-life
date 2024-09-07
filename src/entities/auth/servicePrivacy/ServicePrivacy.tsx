@@ -13,9 +13,7 @@ interface IProps {
   textTitle: string
 }
 
-export const ServicePrivacy = (props: IProps) => {
-  const { buttonBackTitle, mainText, pageTitle, textTitle } = props
-
+export const ServicePrivacy = ({ buttonBackTitle, mainText, pageTitle, textTitle }: IProps) => {
   return (
     <div className={s.wrapper}>
       <MetaHead title={pageTitle} />

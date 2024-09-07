@@ -16,9 +16,7 @@ interface IProps {
   onSubmitSignUpForm: (data: SignUpFormValues, resetForm: () => void) => void
 }
 
-export const SignUpForm = (props: IProps) => {
-  const { buttonDisabled, onSubmitSignUpForm } = props
-
+export const SignUpForm = ({ buttonDisabled, onSubmitSignUpForm }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const signUpTranslate: ISignUp = {
