@@ -88,7 +88,7 @@ export const ForgotPasswordForm = ({
             aria-required
             className={s.recaptcha}
             onChange={onRecaptchaChange}
-            sitekey={'6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ'}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
             size={'normal'}
             theme={'dark'}
           />
