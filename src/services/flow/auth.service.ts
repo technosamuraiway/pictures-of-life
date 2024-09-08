@@ -53,6 +53,13 @@ export const authService = inctagramApi.injectEndpoints({
           url: `v1/auth/registration`,
         }),
       }),
+      updateTokens: builder.mutation<void, void>({
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `v1/auth/update-tokens`,
+        }),
+      }),
     }
   },
 })
@@ -64,4 +71,5 @@ export const {
   useForgotPasswordMutation,
   useResendConfirmEmailMutation,
   useSignUpMutation,
+  useUpdateTokensMutation,
 } = authService

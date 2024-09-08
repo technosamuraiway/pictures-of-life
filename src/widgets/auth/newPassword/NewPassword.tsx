@@ -1,8 +1,7 @@
-import React from 'react'
 import { toast } from 'react-toastify'
 
 import { CreateNewPasswordForm, CreateNewPasswordFormValues } from '@/entities'
-import { useCreateNewPasswordMutation } from '@/services'
+import { useCreateNewPasswordMutation, useUpdateTokensMutation } from '@/services'
 import { MetaHead, PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { Card, Typography } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
@@ -15,19 +14,21 @@ export const NewPassword = () => {
 
   const [createNewPassword, { isLoading: createNewPasswordIsLoading }] =
     useCreateNewPasswordMutation()
+  const [updateTokens, { isLoading: updateTokensIsLoading }] = useUpdateTokensMutation()
 
-  const createNewPasswordSubmitHandler = (data: CreateNewPasswordFormValues) => {
+  const createNewPasswordSubmitHandler = async (data: CreateNewPasswordFormValues) => {
     if (query.code) {
-      createNewPassword({ newPassword: data.newPassword, recoveryCode: query.code }).unwrap()
+      await createNewPassword({ newPassword: data.newPassword, recoveryCode: query.code }).unwrap()
       toast.success(t.newPasswordPage.successMessage)
 
+      await updateTokens().unwrap()
       replace(PATH.AUTH.SIGNIN)
     }
   }
 
   return (
     <>
-      {createNewPasswordIsLoading && <RequestLineLoader />}
+      {(createNewPasswordIsLoading || updateTokensIsLoading) && <RequestLineLoader />}
       <MetaHead title={t.newPasswordPage.title} />
       <Card className={s.wrapper}>
         <Typography className={s.mainTitle} variant={'h1'}>

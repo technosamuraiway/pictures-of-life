@@ -15,7 +15,7 @@ export interface IResendConfirmEmailArgs {
 }
 
 export interface IForgotPasswordArgs extends IResendConfirmEmailArgs {
-  recaptcha: string
+  recaptcha?: string
 }
 
 export interface ICreateNewPasswordArgs extends ICheckRecoveryCodeArgs {
