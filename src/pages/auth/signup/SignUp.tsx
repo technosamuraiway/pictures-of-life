@@ -13,6 +13,7 @@ import {
 import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'
+import { OAuth } from '@/entities/auth/oAuth/oAuth'
 
 export default function SignUp() {
   const t = useRouterLocaleDefinition()
@@ -44,11 +45,7 @@ export default function SignUp() {
       {SignUpIsLoading && <RequestLineLoader />}
       <MetaHead title={t.signUpPage.title} />
       <Card className={s.cardContainer}>
-        <SignInIcons
-          gitHubTitle={t.signUpPage.gitHubLinkTitle}
-          googleTitle={t.signUpPage.googleLinkTitle}
-          pageTitle={t.signUpPage.title}
-        />
+        <OAuth />
         <SignUpForm buttonDisabled={SignUpIsLoading} onSubmitSignUpForm={signUpSubmitHandler} />
         <QuestionBlock
           buttonTitle={t.signInPage.title}

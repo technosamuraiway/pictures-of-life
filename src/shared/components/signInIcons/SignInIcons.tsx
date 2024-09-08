@@ -1,3 +1,4 @@
+import { paths } from '@/shared/constants/paths'
 import { ComponentPropsWithoutRef } from 'react'
 
 import { IconLink, useRouterLocaleDefinition } from '@/shared'
@@ -12,6 +13,19 @@ interface IProps extends ComponentPropsWithoutRef<'div'> {
   gitHubTitle: string
   googleTitle: string
   pageTitle: string
+}
+
+const registerWithGoogle = (): void => {
+  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID_GOOGLE
+  const REDIRECT_URL = 'http://localhost:3000'
+  const scope = 'email profile' //data which we need in request
+  const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=${scope}&response_type=code&redirect_uri=${REDIRECT_URL}&client_id=${CLIENT_ID}`
+
+  window.location.assign(url)
+}
+
+const registerGitHubLogin = () => {
+  window.location.assign(paths.urlGitHubLogin)
 }
 
 export const SignInIcons = ({
@@ -32,16 +46,16 @@ export const SignInIcons = ({
           className={s.linkIcon}
           dimensions={36}
           imgSrc={googleIcon}
-          linkHref={'https://www.google.com/'}
           linkTitle={googleTitle}
+          onClick={registerWithGoogle}
         />
         <IconLink
           altText={t.signUpPage.gitHubLinkAlt}
           className={s.linkIcon}
           dimensions={36}
           imgSrc={gitHubIcon}
-          linkHref={'https://github.com/'}
           linkTitle={gitHubTitle}
+          onClick={registerGitHubLogin}
         />
       </div>
     </div>
