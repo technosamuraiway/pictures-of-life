@@ -1,7 +1,6 @@
-
 import { SignInIcons, useRouterLocaleDefinition } from '@/shared'
 
-export const OAuth = () => {
+export function OAuth() {
   const t = useRouterLocaleDefinition()
 
   return (
@@ -11,8 +10,6 @@ export const OAuth = () => {
         googleTitle={t.signUpPage.googleLinkTitle}
         pageTitle={t.signUpPage.title}
       />
-      {/* <Image alt={'Google icon'} onClick={registerWithGoogle} src={googleIcon} />
-      <Image alt={'GitHub icon'} onClick={registerGitHubLogin} src={gitHubIcon} /> */}
     </>
   )
 }

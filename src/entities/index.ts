@@ -1,5 +1,6 @@
 // ============================== [ auth ] =======================================
 export { Confirmation } from './auth/confirmation/Confirmation'
+export { OAuth } from './auth/oAuth'
 export { ServicePrivacy } from './auth/servicePrivacy/ServicePrivacy'
 export { SignUpForm } from './auth/signUpForm/SignUpForm'
 

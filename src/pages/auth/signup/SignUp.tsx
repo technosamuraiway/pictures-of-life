@@ -1,19 +1,18 @@
 import { useState } from 'react'
 
 import { EmailSentModal, SignUpForm, SignUpFormValues } from '@/entities'
+import { OAuth } from '@/entities/auth/oAuth'
 import { useSignUpMutation } from '@/services'
 import {
   MetaHead,
   PATH,
   QuestionBlock,
   RequestLineLoader,
-  SignInIcons,
   useRouterLocaleDefinition,
 } from '@/shared'
 import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'
-import { OAuth } from '@/entities/auth/oAuth/oAuth'
 
 export default function SignUp() {
   const t = useRouterLocaleDefinition()
