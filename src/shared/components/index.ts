@@ -1,7 +1,7 @@
 export { ButtonLink } from './buttonLink/ButtonLink'
 export { IconLink } from './iconLink/IconLink'
 export { MetaHead } from './metaHead/MetaHead'
-export { QuestionBlock } from './questionBlock/QuestionBlock'
+export { FormQuestionBlock } from './questionBlock/FormQuestionBlock'
 export { SignInIcons } from './signInIcons/SignInIcons'
 export { Trans } from './trans/Trans'
 export { default } from '@/shared/components/layout/Layout'

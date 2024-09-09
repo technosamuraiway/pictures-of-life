@@ -4,9 +4,9 @@ import { EmailSentModal, SignUpForm, SignUpFormValues } from '@/entities'
 import { OAuth } from '@/entities/auth/oAuth'
 import { useSignUpMutation } from '@/services'
 import {
+  FormQuestionBlock,
   MetaHead,
   PATH,
-  QuestionBlock,
   RequestLineLoader,
   useRouterLocaleDefinition,
 } from '@/shared'
@@ -45,14 +45,8 @@ export default function SignUp() {
       <MetaHead title={t.signUpPage.title} />
       <Card className={s.cardContainer}>
         <OAuth />
-        <SignUpForm buttonDisabled={SignUpIsLoading} onSubmitSignUpForm={signUpSubmitHandler} />
-        <SignInIcons
-          gitHubTitle={t.signUpPage.gitHubLinkTitle}
-          googleTitle={t.signUpPage.googleLinkTitle}
-          pageTitle={t.signUpPage.title}
-        />
         <SignUpForm isButtonDisabled={SignUpIsLoading} onSubmitSignUpForm={signUpSubmitHandler} />
-        <QuestionBlock
+        <FormQuestionBlock
           buttonTitle={t.signInPage.title}
           linkHref={PATH.AUTH.SIGNIN}
           question={t.signUpPage.haveAccountQuestion}
