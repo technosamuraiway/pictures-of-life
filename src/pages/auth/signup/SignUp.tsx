@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
 import { EmailSentModal, SignUpForm, SignUpFormValues } from '@/entities'
+import { OAuth } from '@/entities/auth/oAuth'
 import { useSignUpMutation } from '@/services'
 import {
   MetaHead,
   PATH,
   QuestionBlock,
   RequestLineLoader,
-  SignInIcons,
   useRouterLocaleDefinition,
 } from '@/shared'
 import { Card } from '@technosamurai/techno-ui-kit'
@@ -44,11 +44,7 @@ export default function SignUp() {
       {SignUpIsLoading && <RequestLineLoader />}
       <MetaHead title={t.signUpPage.title} />
       <Card className={s.cardContainer}>
-        <SignInIcons
-          gitHubTitle={t.signUpPage.gitHubLinkTitle}
-          googleTitle={t.signUpPage.googleLinkTitle}
-          pageTitle={t.signUpPage.title}
-        />
+        <OAuth />
         <SignUpForm buttonDisabled={SignUpIsLoading} onSubmitSignUpForm={signUpSubmitHandler} />
         <QuestionBlock
           buttonTitle={t.signInPage.title}
