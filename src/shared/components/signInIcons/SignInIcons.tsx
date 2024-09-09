@@ -1,4 +1,3 @@
-
 import { ComponentPropsWithoutRef } from 'react'
 
 import { IconLink, PATH, useRouterLocaleDefinition } from '@/shared'
