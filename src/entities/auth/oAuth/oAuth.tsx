@@ -1,6 +1,10 @@
 import { SignInIcons, useRouterLocaleDefinition } from '@/shared'
 
-export function OAuth() {
+interface IProps {
+  title?: string
+}
+
+export function OAuth({ title }: IProps) {
   const t = useRouterLocaleDefinition()
 
   return (
@@ -8,7 +12,7 @@ export function OAuth() {
       <SignInIcons
         gitHubTitle={t.signUpPage.gitHubLinkTitle}
         googleTitle={t.signUpPage.googleLinkTitle}
-        pageTitle={t.signUpPage.title}
+        pageTitle={title || t.signUpPage.title}
       />
     </>
   )

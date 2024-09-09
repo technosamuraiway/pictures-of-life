@@ -1,7 +1,7 @@
-import { paths } from '@/shared/constants/paths'
+
 import { ComponentPropsWithoutRef } from 'react'
 
-import { IconLink, useRouterLocaleDefinition } from '@/shared'
+import { IconLink, PATH, useRouterLocaleDefinition } from '@/shared'
 import gitHubIcon from '@public/singIn/gitHub.svg'
 import googleIcon from '@public/singIn/google.svg'
 import { Typography } from '@technosamurai/techno-ui-kit'
@@ -25,7 +25,7 @@ const registerWithGoogle = (): void => {
 }
 
 const registerGitHubLogin = () => {
-  window.location.assign(paths.urlGitHubLogin)
+  window.location.assign(PATH.AUTH.URLGITHUBLOGIN)
 }
 
 export const SignInIcons = ({
