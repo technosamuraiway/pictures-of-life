@@ -1,6 +1,6 @@
 import { MetaHead, useRouterLocaleDefinition } from '@/shared'
 import { LangSelect } from '@/shared/components/LangSelect/LangSelect'
-import { Button } from '@technosamurai/techno-ui-kit'
+import { Button, MyDatePicker } from '@technosamurai/techno-ui-kit'
 import { Inter } from 'next/font/google'
 
 import s from './Home.module.scss'
@@ -17,6 +17,7 @@ export default function Home() {
         <div>{<LangSelect />}</div>
         <div>{t.title}</div>
         <Button type={'button'}>{t.passwordRecoveryPage.title}</Button>
+        <MyDatePicker locale={t.locale} />
       </div>
     </>
   )
