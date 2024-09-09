@@ -33,6 +33,13 @@ export const en: LocaleType = {
     title: 'Privacy Policy',
   },
   signInPage: {
+    email: 'Email',
+    gitHubLinkAlt: 'GitHub icon',
+    gitHubLinkTitle: 'Sing Up with GitHub',
+    googleLinkAlt: 'Google icon',
+    googleLinkTitle: 'Sing Up with Google',
+    password: 'Password',
+    signInButton: 'Sign In',
     title: 'Sign In',
   },
   signUpPage: {

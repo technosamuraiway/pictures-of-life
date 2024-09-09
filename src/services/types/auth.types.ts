@@ -13,3 +13,13 @@ export interface IResendConfirmEmailArgs {
   baseUrl?: string
   email: string | string[]
 }
+
+export interface ISignInArgs {
+  email: string
+  password: string
+}
+
+export interface ISignInResponse {
+  accessToken: string
+  userId: string
+}

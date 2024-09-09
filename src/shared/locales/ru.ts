@@ -31,6 +31,13 @@ export const ru = {
     title: 'Политика конфиденциальности',
   },
   signInPage: {
+    email: 'Электронная почта',
+    gitHubLinkAlt: 'Иконка GitHub',
+    gitHubLinkTitle: 'Зарегистрироваться с помощью GitHub',
+    googleLinkAlt: 'Иконка Google',
+    googleLinkTitle: 'Зарегистрироваться с помощью Google',
+    password: 'Пароль',
+    signInButton: 'Войти',
     title: 'Авторизация',
   },
   signUpPage: {

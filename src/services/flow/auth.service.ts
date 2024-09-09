@@ -1,5 +1,11 @@
 import { inctagramApi } from '../api/inctagram.api'
-import { IConfirmEmailArgs, IResendConfirmEmailArgs, ISignUpArgs } from '../types/auth.types'
+import {
+  IConfirmEmailArgs,
+  IResendConfirmEmailArgs,
+  ISignInArgs,
+  ISignInResponse,
+  ISignUpArgs,
+} from '../types/auth.types'
 
 export const authService = inctagramApi.injectEndpoints({
   endpoints: builder => {
@@ -18,7 +24,14 @@ export const authService = inctagramApi.injectEndpoints({
           url: `v1/auth/registration-email-resending`,
         }),
       }),
-      signUp: builder.mutation<void, ISignUpArgs>({
+      signIn: builder.mutation<ISignInResponse, ISignInArgs>({
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `v1/auth/login`,
+        }),
+      }),
+      signUp: builder.mutation<ISignInResponse, ISignInArgs>({
         query: args => ({
           body: args,
           method: 'POST',
@@ -29,5 +42,9 @@ export const authService = inctagramApi.injectEndpoints({
   },
 })
 
-export const { useConfirmEmailMutation, useResendConfirmEmailMutation, useSignUpMutation } =
-  authService
+export const {
+  useConfirmEmailMutation,
+  useResendConfirmEmailMutation,
+  useSignInMutation,
+  useSignUpMutation,
+} = authService

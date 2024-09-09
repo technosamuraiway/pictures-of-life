@@ -76,5 +76,18 @@ export const signUpScheme = (signUp: ISignUp) => {
     })
 }
 
+export interface ISignIn {
+  email: IEmail
+  password: IPassword
+}
+
+export const signInScheme = (signIn: ISignIn) => {
+  return z.object({
+    email: email(signIn.email),
+    password: password(signIn.password),
+  })
+}
+
 // ============= Типы валидаций форм ==================
 export type SignUpFormValues = z.infer<ReturnType<typeof signUpScheme>>
+export type SignInFormValues = z.infer<ReturnType<typeof signInScheme>>
