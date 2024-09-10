@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { ISignUp, SignUpFormValues, signUpScheme } from '@/entities'
-import { PATH, Trans, useRouterLocaleDefinition } from '@/shared'
+import { AdaptiveTranslation, PATH, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -87,7 +87,7 @@ export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => 
       <div className={s.checkBoxWrapper}>
         <ControlledCheckbox control={control} name={'isAgree'} />
         <Typography variant={'small-text'}>
-          <Trans
+          <AdaptiveTranslation
             tags={{
               1: () => (
                 <Typography as={Link} href={PATH.AUTH.TERMSOFSRVICE} variant={'regular-link'}>

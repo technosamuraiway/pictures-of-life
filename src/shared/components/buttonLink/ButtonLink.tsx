@@ -10,9 +10,7 @@ interface IProps {
   title: string
 }
 
-export const ButtonLink = (props: IProps) => {
-  const { className, linkHref, title } = props
-
+export const ButtonLink = ({ className, linkHref, title }: IProps) => {
   return (
     <Button as={Link} className={clsx(s.button, className)} href={linkHref} variant={'textButton'}>
       {title}
