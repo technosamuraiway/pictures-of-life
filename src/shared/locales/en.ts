@@ -75,6 +75,8 @@ export const en: LocaleType = {
     title: 'Terms of Service',
   },
   title: 'Main page',
+  loginSuccess: 'You are logged in!',
+  loginError: 'You are not logged in, try again...',
   validationSchemes: {
     confirmPassword: 'Passwords must match',
     emailRequired: 'Email is required',

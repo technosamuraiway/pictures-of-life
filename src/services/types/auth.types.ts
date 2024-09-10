@@ -13,3 +13,13 @@ export interface IResendConfirmEmailArgs {
   baseUrl?: string
   email: string | string[]
 }
+
+export interface IGoogleSignUpArgs {
+  baseUrl?: string
+  code: string | string[] | undefined
+}
+
+export interface IGoogleSignUpResponse {
+  accessToken: string
+  email: string
+}

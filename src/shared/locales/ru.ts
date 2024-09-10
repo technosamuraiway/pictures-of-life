@@ -74,6 +74,8 @@ export const ru = {
     title: 'Условия использования',
   },
   title: 'Главная страница',
+  loginSuccess: 'Вы вошли в систему!',
+  loginError: 'Вы не авторизованы, попробуйте еще раз...',
   validationSchemes: {
     confirmPassword: 'Пароли должны совпадать',
     emailRequired: 'Электронная почта обязательна',
