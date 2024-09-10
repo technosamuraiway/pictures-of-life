@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import { Confirmation, EmailSentModal } from '@/entities'
+import { Confirmation } from '@/entities'
 import { useConfirmEmailMutation, useResendConfirmEmailMutation } from '@/services'
 import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import pngExpired from '@public/confirmEmail/expiredConfirm.png'
+import { ResendLink } from '@/widgets'
 import pngSuccess from '@public/confirmEmail/successConfirm.png'
 import { useRouter } from 'next/router'
 
@@ -61,27 +61,12 @@ export default function RegistrationConfirmation() {
         />
       )}
       {confirmEmailIsError && (
-        <>
-          <Confirmation
-            buttonDisable={resendLinkIsLoading}
-            buttonText={t.expiredEmailLink.buttonText}
-            imgAltText={t.expiredEmailLink.imgAltText}
-            imgHeight={352}
-            imgPngSrc={pngExpired}
-            imgWidth={473}
-            mainText={t.expiredEmailLink.mainText}
-            onButtonClick={expiredLinkButtonClickHandler}
-            pageHeader={t.expiredEmailLink.pageHeader}
-            pageTitle={t.expiredEmailLink.title}
-          />
-          {query.email && (
-            <EmailSentModal
-              email={query.email}
-              isOpen={openModal}
-              onClickCloseModalHandler={onClickRedirectToSignIn}
-            />
-          )}
-        </>
+        <ResendLink
+          isButtonDisable={resendLinkIsLoading}
+          isOpenModal={openModal}
+          onClickCloseModal={onClickRedirectToSignIn}
+          onResendButtonClick={expiredLinkButtonClickHandler}
+        />
       )}
     </>
   )

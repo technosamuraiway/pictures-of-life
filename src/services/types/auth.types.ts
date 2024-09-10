@@ -14,6 +14,18 @@ export interface IResendConfirmEmailArgs {
   email: string | string[]
 }
 
+export interface IForgotPasswordArgs extends IResendConfirmEmailArgs {
+  recaptcha?: string
+}
+
+export interface ICreateNewPasswordArgs extends ICheckRecoveryCodeArgs {
+  newPassword: string
+}
+
+export interface ICheckRecoveryCodeArgs {
+  recoveryCode: string | string[]
+}
+
 export interface IGoogleSignUpArgs {
   baseUrl?: string
   code: string | string[] | undefined

@@ -5,12 +5,12 @@ import Image, { StaticImageData } from 'next/image'
 import s from './Confirmation.module.scss'
 
 interface IProps {
-  buttonDisable?: boolean
   buttonText: string
   imgAltText: string
   imgHeight?: number
   imgPngSrc: StaticImageData
   imgWidth?: number
+  isButtonDisable?: boolean
   mainText: string
   onButtonClick: () => void
   pageHeader: string
@@ -18,12 +18,12 @@ interface IProps {
 }
 
 export const Confirmation = ({
-  buttonDisable,
   buttonText,
   imgAltText,
   imgHeight = 300,
   imgPngSrc,
   imgWidth = 430,
+  isButtonDisable,
   mainText,
   onButtonClick,
   pageHeader,
@@ -34,7 +34,7 @@ export const Confirmation = ({
       <MetaHead title={pageTitle} />
       <Typography variant={'h1'}>{pageHeader}</Typography>
       <Typography className={s.mainText}>{mainText}</Typography>
-      <Button className={s.button} disabled={buttonDisable} onClick={onButtonClick}>
+      <Button className={s.button} disabled={isButtonDisable} onClick={onButtonClick}>
         {buttonText}
       </Button>
       <Image alt={imgAltText} height={imgHeight} src={imgPngSrc} width={imgWidth} />

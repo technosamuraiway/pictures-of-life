@@ -1,12 +1,11 @@
 import { useState } from 'react'
 
-import { EmailSentModal, SignUpForm, SignUpFormValues } from '@/entities'
-import { OAuth } from '@/entities/auth/oAuth'
+import { EmailSentModal, OAuth, SignUpForm, SignUpFormValues } from '@/entities'
 import { useSignUpMutation } from '@/services'
 import {
+  FormQuestionBlock,
   MetaHead,
   PATH,
-  QuestionBlock,
   RequestLineLoader,
   useRouterLocaleDefinition,
 } from '@/shared'
@@ -35,7 +34,7 @@ export default function SignUp() {
       })
   }
 
-  const onClickCloseModal = () => {
+  const onClickCloseModalHandler = () => {
     setOpenModal(false)
   }
 
@@ -45,8 +44,8 @@ export default function SignUp() {
       <MetaHead title={t.signUpPage.title} />
       <Card className={s.cardContainer}>
         <OAuth />
-        <SignUpForm buttonDisabled={SignUpIsLoading} onSubmitSignUpForm={signUpSubmitHandler} />
-        <QuestionBlock
+        <SignUpForm isButtonDisabled={SignUpIsLoading} onSubmitSignUpForm={signUpSubmitHandler} />
+        <FormQuestionBlock
           buttonTitle={t.signInPage.title}
           linkHref={PATH.AUTH.SIGNIN}
           question={t.signUpPage.haveAccountQuestion}
@@ -55,7 +54,7 @@ export default function SignUp() {
       <EmailSentModal
         email={email}
         isOpen={openModal}
-        onClickCloseModalHandler={onClickCloseModal}
+        onClickCloseModal={onClickCloseModalHandler}
       />
     </>
   )

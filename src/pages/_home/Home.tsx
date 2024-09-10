@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { useGoogleSignUpMutation } from '@/services'
-import { MetaHead, PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { MetaHead, PATH, useRouterLocaleDefinition } from '@/shared'
 import { useRouter } from 'next/router'
 
 import s from './Home.module.scss'
@@ -45,7 +45,6 @@ export default function Home() {
 
   return (
     <>
-      {isGoogleSignLoading && <RequestLineLoader />}
       <MetaHead title={'Pictures-Of-Life'} />
       <div className={s.body}>
         <h1>{t.title}</h1>

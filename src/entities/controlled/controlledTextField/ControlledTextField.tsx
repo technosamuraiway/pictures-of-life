@@ -6,13 +6,14 @@ import s from './ControlledTextField.module.scss'
 
 type ControlledTextFieldProps<T extends FieldValues> = Omit<
   TextFieldProps,
-  'error' | 'id' | 'onBlur' | 'onChange' | 'value'
+  'id' | 'onBlur' | 'onChange' | 'value'
 > &
   UseControllerProps<T>
 
 export const ControlledTextField = <T extends FieldValues>({
   control,
   defaultValue,
+  error: errorField,
   name,
   rules,
   shouldUnregister,
@@ -34,11 +35,11 @@ export const ControlledTextField = <T extends FieldValues>({
       <TextField
         {...field}
         {...{ ...rest, id: name, onChange, value }}
-        inputClassName={error && s.textField}
+        inputClassName={(error || errorField) && s.textField}
       />
-      {error && (
+      {(error || errorField) && (
         <Typography className={s.error} variant={'small-text'}>
-          {error.message}
+          {error?.message || errorField}
         </Typography>
       )}
     </div>
