@@ -13,6 +13,8 @@ export const ru = {
   forgotPasswordPage: {
     title: 'Забыл пароль',
   },
+  loginError: 'Вы не авторизованы, попробуйте еще раз...',
+  loginSuccess: 'Вы вошли в систему!',
   passwordRecoveryPage: {
     title: 'Восстановления пароля',
   },

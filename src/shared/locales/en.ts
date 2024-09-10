@@ -15,6 +15,8 @@ export const en: LocaleType = {
   forgotPasswordPage: {
     title: 'Forgot password page',
   },
+  loginError: 'You are not logged in, try again...',
+  loginSuccess: 'You are logged in!',
   passwordRecoveryPage: {
     title: 'Password recovery page',
   },
