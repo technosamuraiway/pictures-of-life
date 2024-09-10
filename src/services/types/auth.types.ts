@@ -19,7 +19,7 @@ export interface IGoogleSignUpArgs {
   code: string | string[] | undefined
 }
 
-export interface IGoogleSignUpResponse {
+export interface IGoogleSignResponse {
   accessToken: string
   email: string
 }

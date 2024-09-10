@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { useGoogleSignUpMutation } from '@/services'
-import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { MetaHead, PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { useRouter } from 'next/router'
 
 import s from './Home.module.scss'
@@ -21,20 +21,17 @@ export default function Home() {
       })
         .unwrap()
         .then(({ accessToken, email }) => {
-          if (accessToken && email) {
-            localStorage.setItem('accessToken', accessToken)
-          }
+          localStorage.setItem('accessToken', accessToken)
           toast.success(t.loginSuccess)
-          
-        })
-        .then(() =>{
-          if(!isGoogleSignLoading && localStorage.getItem('accessToken')) router.push('/')
+          setIsLoggedIn(true)
+          if (!isGoogleSignLoading && localStorage.getItem('accessToken')) {
+            router.replace(PATH.HOME)
+          }
         })
         .catch(err => {
-          toast.error('Something wrong, try again')
-          router.push('auth/signin')
+          toast.error(t.loginError)
+          router.replace(PATH.AUTH.SIGNIN)
         })
-
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code])

@@ -1,8 +1,8 @@
 import { inctagramApi } from '../api/inctagram.api'
 import {
   IConfirmEmailArgs,
+  IGoogleSignResponse,
   IGoogleSignUpArgs,
-  IGoogleSignUpResponse,
   IResendConfirmEmailArgs,
   ISignUpArgs,
 } from '../types/auth.types'
@@ -17,7 +17,7 @@ export const authService = inctagramApi.injectEndpoints({
           url: `v1/auth/registration-confirmation`,
         }),
       }),
-      googleSignUp: builder.mutation<IGoogleSignUpResponse, IGoogleSignUpArgs>({
+      googleSignUp: builder.mutation<IGoogleSignResponse, IGoogleSignUpArgs>({
         query: args => ({
           body: args,
           method: 'POST',

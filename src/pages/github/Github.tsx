@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-import { useRouterLocaleDefinition } from '@/shared'
+import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { useRouter } from 'next/router'
 
 export default function GithubPage() {
@@ -14,7 +14,7 @@ export default function GithubPage() {
     if (accessToken && email) {
       localStorage.setItem('accessToken', accessToken as string)
       toast.success(t.loginSuccess)
-      router.push(`/`)
+      router.replace(PATH.HOME)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken])
