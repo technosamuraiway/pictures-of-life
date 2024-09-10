@@ -21,6 +21,8 @@ export const en: LocaleType = {
     submitButtonText: 'Send Link',
     title: 'Forgot Password',
   },
+  loginError: 'You are not logged in, try again...',
+  loginSuccess: 'You are logged in!',
   newPasswordPage: {
     buttonText: 'Create new password',
     mainText: 'Your password must be between 6 and 20 characters ',
@@ -28,7 +30,7 @@ export const en: LocaleType = {
     passwordConfirmation: 'Password confirmation',
     successMessage: 'Your password has been successfully changed!',
     title: 'Create New Password',
- },
+  },
   passwordRecoveryPage: {
     title: 'Password recovery page',
   },
@@ -98,6 +100,4 @@ export const en: LocaleType = {
     password: 'Password must contain',
     username: 'Username must contain',
   },
-    loginError: 'You are not logged in, try again...',
-    loginSuccess: 'You are logged in!',
 }

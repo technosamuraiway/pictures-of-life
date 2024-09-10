@@ -1,14 +1,14 @@
 import { inctagramApi } from '../api/inctagram.api'
 import {
+  ICheckRecoveryCodeArgs,
   IConfirmEmailArgs,
+  ICreateNewPasswordArgs,
+  IForgotPasswordArgs,
   IGoogleSignResponse,
   IGoogleSignUpArgs,
   IResendConfirmEmailArgs,
-  ISignUpArgs,ICreateNewPasswordArgs,
-  IForgotPasswordArgs,
-  ICheckRecoveryCodeArgs,
+  ISignUpArgs,
 } from '../types/auth.types'
-
 
 export const authService = inctagramApi.injectEndpoints({
   endpoints: builder => {
@@ -27,13 +27,6 @@ export const authService = inctagramApi.injectEndpoints({
           url: `v1/auth/registration-confirmation`,
         }),
       }),
-      googleSignUp: builder.mutation<IGoogleSignResponse, IGoogleSignUpArgs>({
-        query: args => ({
-          body: args,
-          method: 'POST',
-          url: `v1/auth/google/login`,
-        }),
-      }),
       createNewPassword: builder.mutation<void, ICreateNewPasswordArgs>({
         query: args => ({
           body: args,
@@ -46,6 +39,13 @@ export const authService = inctagramApi.injectEndpoints({
           body: args,
           method: 'POST',
           url: `v1/auth/password-recovery`,
+        }),
+      }),
+      googleSignUp: builder.mutation<IGoogleSignResponse, IGoogleSignUpArgs>({
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `v1/auth/google/login`,
         }),
       }),
       resendConfirmEmail: builder.mutation<void, IResendConfirmEmailArgs>({
@@ -78,7 +78,8 @@ export const {
   useConfirmEmailMutation,
   useCreateNewPasswordMutation,
   useForgotPasswordMutation,
+  useGoogleSignUpMutation,
   useResendConfirmEmailMutation,
   useSignUpMutation,
-  useUpdateTokensMutation,useGoogleSignUpMutation,,
+  useUpdateTokensMutation,
 } = authService

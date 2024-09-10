@@ -20,6 +20,8 @@ export const ru = {
     submitButtonText: 'Отправить ссылку',
     title: 'Забыли пароль',
   },
+  loginError: 'Вы не авторизованы, попробуйте еще раз...',
+  loginSuccess: 'Вы вошли в систему!',
   newPasswordPage: {
     buttonText: 'Создать новый пароль',
     mainText: 'Ваш пароль должен быть от 6 до 20 символов',
@@ -27,6 +29,9 @@ export const ru = {
     passwordConfirmation: 'Подтвердите пароль',
     successMessage: 'Новый пароль создан!',
     title: 'Создать новый пароль',
+  },
+  passwordRecoveryPage: {
+    title: 'Восстановления пароля',
   },
   privacyPolicy: {
     backToSign: 'Вернуться к регистрации',
@@ -70,6 +75,7 @@ export const ru = {
     pageHeader: 'Наши поздравления!',
     title: 'Подтверждение электронной почты',
   },
+
   termsOfService: {
     backToSign: 'Вернуться к регистрации',
     text: `Добро пожаловать на наш веб-сайт. Продолжая использовать этот сайт, вы соглашаетесь с нашими условиями использования. Пожалуйста, ознакомьтесь с ними внимательно.
@@ -94,12 +100,6 @@ export const ru = {
     minimumNumber: 'Минимальное число символов',
     password: 'Пароль должен состоять из',
     username: 'Имя пользователя должно состоять из',
-  },
-
-  loginError: 'Вы не авторизованы, попробуйте еще раз...',
-  loginSuccess: 'Вы вошли в систему!',
-  passwordRecoveryPage: {
-    title: 'Восстановления пароля',
   },
 }
 
