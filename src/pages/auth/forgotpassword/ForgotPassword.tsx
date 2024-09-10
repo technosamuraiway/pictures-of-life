@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
 import { EmailSentModal, ForgotPasswordForm, ForgotPasswordFormValues } from '@/entities'
-import { useForgotPasswordMutation } from '@/services'
-import { IMessagesFromError, IServerError } from '@/services/AppErrorHandler'
+import { IMessagesFromError, IServerError, useForgotPasswordMutation } from '@/services'
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { Card, Typography } from '@technosamurai/techno-ui-kit'
 

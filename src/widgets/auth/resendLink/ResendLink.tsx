@@ -22,7 +22,7 @@ export const ResendLink = ({
   return (
     <>
       <Confirmation
-        buttonText={t.expiredEmailLink.buttonText}
+        buttonText={t.expiredEmailLink.buttonEmailVerificationText}
         imgAltText={t.expiredEmailLink.imgAltText}
         imgHeight={352}
         imgPngSrc={pngExpired}
@@ -30,7 +30,7 @@ export const ResendLink = ({
         isButtonDisable={isButtonDisable}
         mainText={t.expiredEmailLink.mainText}
         onButtonClick={onResendButtonClick}
-        pageHeader={t.expiredEmailLink.pageHeader}
+        pageHeader={t.expiredEmailLink.emailVerificationPageHeader}
         pageTitle={t.expiredEmailLink.title}
       />
       {query.email && (

@@ -2,11 +2,13 @@ import { LocaleType } from './ru'
 
 export const en: LocaleType = {
   expiredEmailLink: {
-    buttonText: 'Resend verification link',
+    buttonEmailVerificationText: 'Resend verification link',
+    buttonPasswordVerificationText: 'Resend password recovery link',
+    emailVerificationPageHeader: 'Email verification link expired',
     imgAltText: 'Please, try again',
     mainText:
       'Looks like the verification link has expired. Not to worry, we can send the link again',
-    pageHeader: 'Email verification link expired',
+    passwordVerificationPageHeader: 'Password recovery link expired',
     title: 'Confirmation Link Expired',
   },
   forgotPasswordPage: {

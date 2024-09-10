@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
-import { EmailSentModal, SignUpForm, SignUpFormValues } from '@/entities'
-import { OAuth } from '@/entities/auth/oAuth'
+import { EmailSentModal, OAuth, SignUpForm, SignUpFormValues } from '@/entities'
 import { useSignUpMutation } from '@/services'
 import {
   FormQuestionBlock,

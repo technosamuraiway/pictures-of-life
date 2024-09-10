@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
+import { Confirmation } from '@/entities'
 import { useCheckRecoveryCodeMutation } from '@/services'
-import { PATH, RequestLineLoader } from '@/shared'
-import { NewPassword, ResendLink } from '@/widgets'
+import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { NewPassword } from '@/widgets'
+import pngExpired from '@public/confirmEmail/expiredConfirm.png'
 import { useRouter } from 'next/router'
 
 export default function RecoveryPassword() {
+  const t = useRouterLocaleDefinition()
   const { query, replace } = useRouter()
-  const [openModal, setOpenModal] = useState(false)
 
   const [
     checkRecoveryCode,
@@ -25,12 +27,9 @@ export default function RecoveryPassword() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.code])
 
-  const onClickCloseModalHandler = () => {
-    setOpenModal(false)
-    replace(PATH.AUTH.SIGNIN)
+  const onResendButtonClickHandler = () => {
+    replace(PATH.AUTH.FORGOTPASSWORD)
   }
-
-  const onResendButtonClickHandler = () => {}
 
   return (
     <>
@@ -38,11 +37,16 @@ export default function RecoveryPassword() {
 
       {checkRecoveryCodeIsSuccess && <NewPassword />}
       {checkRecoveryCodeIsError && (
-        <ResendLink
-          isButtonDisable={false}
-          isOpenModal={openModal}
-          onClickCloseModal={onClickCloseModalHandler}
-          onResendButtonClick={onResendButtonClickHandler}
+        <Confirmation
+          buttonText={t.expiredEmailLink.buttonPasswordVerificationText}
+          imgAltText={t.expiredEmailLink.imgAltText}
+          imgHeight={352}
+          imgPngSrc={pngExpired}
+          imgWidth={473}
+          mainText={t.expiredEmailLink.mainText}
+          onButtonClick={onResendButtonClickHandler}
+          pageHeader={t.expiredEmailLink.passwordVerificationPageHeader}
+          pageTitle={t.expiredEmailLink.title}
         />
       )}
     </>

@@ -1,12 +1,14 @@
+import { useRef } from 'react'
 // eslint-disable-next-line import/no-named-as-default
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
 import { ForgotPasswordFormValues, IForgotPassword, forgotPasswordScheme } from '@/entities'
-import { IMessagesFromError } from '@/services/AppErrorHandler'
+import { IMessagesFromError } from '@/services'
 import { ButtonLink, PATH, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
+import clsx from 'clsx'
 
 import s from './ForgotPasswordForm.module.scss'
 
@@ -51,12 +53,21 @@ export const ForgotPasswordForm = ({
   const onRecaptchaChange = (recaptchaValue: null | string) => {
     setValue('recaptcha', recaptchaValue || '', { shouldValidate: true })
   }
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
+  const onSubmitForgotPasswordFormHandler = (data: ForgotPasswordFormValues) => {
+    onSubmitForgotPasswordForm(data)
+    recaptchaRef.current?.reset()
+  }
 
   const errorEmail =
     textFieldError && (textFieldError[0].field === 'email' ? textFieldError[0].message : undefined)
 
   return (
-    <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitForgotPasswordForm)}>
+    <form
+      className={s.formWrapper}
+      noValidate
+      onSubmit={handleSubmit(onSubmitForgotPasswordFormHandler)}
+    >
       <ControlledTextField
         control={control}
         error={errorEmail}
@@ -82,23 +93,22 @@ export const ForgotPasswordForm = ({
         linkHref={PATH.AUTH.SIGNIN}
         title={t.forgotPasswordPage.backToSignInButtonText}
       />
-      {!isSendLinkAgain && (
-        <div className={s.recaptchaWrapper}>
-          <ReCAPTCHA
-            aria-required
-            className={s.recaptcha}
-            onChange={onRecaptchaChange}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
-            size={'normal'}
-            theme={'dark'}
-          />
-          {(errors.recaptcha || (textFieldError && textFieldError[0].field === 'recaptcha')) && (
-            <Typography className={s.recaptchaError} variant={'regular-text-14'}>
-              {errors.recaptcha?.message || (textFieldError && textFieldError[0].message)}
-            </Typography>
-          )}
-        </div>
-      )}
+      <div className={s.recaptchaWrapper}>
+        <ReCAPTCHA
+          aria-required
+          className={clsx(s.recaptcha, isButtonDisabled && s.disableRecaptcha)}
+          onChange={onRecaptchaChange}
+          ref={recaptchaRef}
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+          size={'normal'}
+          theme={'dark'}
+        />
+        {(errors.recaptcha || (textFieldError && textFieldError[0].field === 'recaptcha')) && (
+          <Typography className={s.recaptchaError} variant={'regular-text-14'}>
+            {errors.recaptcha?.message || (textFieldError && textFieldError[0].message)}
+          </Typography>
+        )}
+      </div>
     </form>
   )
 }
