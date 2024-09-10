@@ -13,6 +13,8 @@ export const ru = {
   forgotPasswordPage: {
     title: 'Забыл пароль',
   },
+  loginError: 'Вы не авторизованы, попробуйте еще раз...',
+  loginSuccess: 'Вы вошли в систему!',
   passwordRecoveryPage: {
     title: 'Восстановления пароля',
   },
@@ -74,8 +76,6 @@ export const ru = {
     title: 'Условия использования',
   },
   title: 'Главная страница',
-  loginSuccess: 'Вы вошли в систему!',
-  loginError: 'Вы не авторизованы, попробуйте еще раз...',
   validationSchemes: {
     confirmPassword: 'Пароли должны совпадать',
     emailRequired: 'Электронная почта обязательна',

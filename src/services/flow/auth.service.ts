@@ -17,6 +17,13 @@ export const authService = inctagramApi.injectEndpoints({
           url: `v1/auth/registration-confirmation`,
         }),
       }),
+      googleSignUp: builder.mutation<IGoogleSignUpResponse, IGoogleSignUpArgs>({
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `v1/auth/google/login`,
+        }),
+      }),
       resendConfirmEmail: builder.mutation<void, IResendConfirmEmailArgs>({
         query: args => ({
           body: args,
@@ -29,13 +36,6 @@ export const authService = inctagramApi.injectEndpoints({
           body: args,
           method: 'POST',
           url: `v1/auth/registration`,
-        }),
-      }),
-      googleSignUp: builder.mutation<IGoogleSignUpResponse, IGoogleSignUpArgs>({
-        query: args => ({
-          body: args,
-          method: 'POST',
-          url: `v1/auth/google/login`,
         }),
       }),
     }

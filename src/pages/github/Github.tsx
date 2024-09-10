@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
-
-import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
+
 import { useRouterLocaleDefinition } from '@/shared'
+import { useRouter } from 'next/router'
 
 export default function GithubPage() {
   const t = useRouterLocaleDefinition()

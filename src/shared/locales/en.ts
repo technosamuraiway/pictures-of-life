@@ -15,6 +15,8 @@ export const en: LocaleType = {
   forgotPasswordPage: {
     title: 'Forgot password page',
   },
+  loginError: 'You are not logged in, try again...',
+  loginSuccess: 'You are logged in!',
   passwordRecoveryPage: {
     title: 'Password recovery page',
   },
@@ -75,8 +77,6 @@ export const en: LocaleType = {
     title: 'Terms of Service',
   },
   title: 'Main page',
-  loginSuccess: 'You are logged in!',
-  loginError: 'You are not logged in, try again...',
   validationSchemes: {
     confirmPassword: 'Passwords must match',
     emailRequired: 'Email is required',

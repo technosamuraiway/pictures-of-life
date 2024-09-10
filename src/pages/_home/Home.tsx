@@ -25,20 +25,26 @@ export default function Home() {
             localStorage.setItem('accessToken', accessToken)
           }
           toast.success(t.loginSuccess)
-          router.push('/')
+          
+        })
+        .then(() =>{
+          if(!isGoogleSignLoading && localStorage.getItem('accessToken')) router.push('/')
         })
         .catch(err => {
           toast.error('Something wrong, try again')
           router.push('auth/signin')
         })
+
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code])
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken')
+
     setIsLoggedIn(!!token)
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
