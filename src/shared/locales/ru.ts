@@ -95,6 +95,12 @@ export const ru = {
     password: 'Пароль должен состоять из',
     username: 'Имя пользователя должно состоять из',
   },
+
+  loginError: 'Вы не авторизованы, попробуйте еще раз...',
+  loginSuccess: 'Вы вошли в систему!',
+  passwordRecoveryPage: {
+    title: 'Восстановления пароля',
+  },
 }
 
 export type LocaleType = typeof ru

@@ -28,6 +28,9 @@ export const en: LocaleType = {
     passwordConfirmation: 'Password confirmation',
     successMessage: 'Your password has been successfully changed!',
     title: 'Create New Password',
+ },
+  passwordRecoveryPage: {
+    title: 'Password recovery page',
   },
   privacyPolicy: {
     backToSign: 'Back to Sign Up',
@@ -95,4 +98,6 @@ export const en: LocaleType = {
     password: 'Password must contain',
     username: 'Username must contain',
   },
+    loginError: 'You are not logged in, try again...',
+    loginSuccess: 'You are logged in!',
 }

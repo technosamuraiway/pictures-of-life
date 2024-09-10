@@ -25,3 +25,13 @@ export interface ICreateNewPasswordArgs extends ICheckRecoveryCodeArgs {
 export interface ICheckRecoveryCodeArgs {
   recoveryCode: string | string[]
 }
+
+export interface IGoogleSignUpArgs {
+  baseUrl?: string
+  code: string | string[] | undefined
+}
+
+export interface IGoogleSignResponse {
+  accessToken: string
+  email: string
+}
