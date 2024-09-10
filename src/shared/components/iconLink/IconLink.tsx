@@ -6,8 +6,9 @@ interface IProps {
   className?: string
   dimensions?: number
   imgSrc: string
-  linkHref: string
+  linkHref?: string
   linkTitle?: string
+  onClick?: () => void
 }
 
 export const IconLink = ({
@@ -20,7 +21,7 @@ export const IconLink = ({
   ...rest
 }: IProps) => {
   return (
-    <Link className={className} href={linkHref} title={linkTitle} {...rest}>
+    <Link className={className} href={linkHref || ''} title={linkTitle} {...rest}>
       <Image alt={altText} height={dimensions} src={imgSrc} width={dimensions} />
     </Link>
   )

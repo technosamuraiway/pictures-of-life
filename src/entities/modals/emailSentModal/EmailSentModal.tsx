@@ -1,4 +1,4 @@
-import { Trans, useRouterLocaleDefinition } from '@/shared'
+import { AdaptiveTranslation, useRouterLocaleDefinition } from '@/shared'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './EmailSentModal.module.scss'
@@ -6,24 +6,24 @@ import s from './EmailSentModal.module.scss'
 interface IProps {
   email: string | string[]
   isOpen: boolean
-  onClickCloseModalHandler: () => void
+  onClickCloseModal: () => void
 }
 
-export const EmailSentModal = ({ email, isOpen, onClickCloseModalHandler }: IProps) => {
+export const EmailSentModal = ({ email, isOpen, onClickCloseModal }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   return (
-    <Modal onOpenChange={onClickCloseModalHandler} open={isOpen} title={t.signUpPage.modalTitle}>
+    <Modal onOpenChange={onClickCloseModal} open={isOpen} title={t.signUpPage.modalTitle}>
       <div className={s.wrapper}>
         <Typography variant={'regular-text-16'}>
-          <Trans
+          <AdaptiveTranslation
             tags={{
               1: () => <Typography className={s.email}>{email}</Typography>,
             }}
             text={t.signUpPage.modalText}
           />
         </Typography>
-        <Button className={s.button} onClick={onClickCloseModalHandler}>
+        <Button className={s.button} onClick={onClickCloseModal}>
           OK
         </Button>
       </div>

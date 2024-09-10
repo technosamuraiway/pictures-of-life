@@ -50,7 +50,7 @@ const username = (username: IUserName) => {
 }
 
 const confirmPassword = z.string().trim()
-const isAgree = z.boolean().refine(value => value)
+const isBoolean = z.boolean().refine(value => value)
 
 // ============= Схемы валидаций форм ==================
 
@@ -61,12 +61,22 @@ export interface ISignUp {
   username: IUserName
 }
 
+export interface IForgotPassword {
+  email: IEmail
+  recaptcha?: string
+}
+
+export interface ICreateNewPassword {
+  confirmPassword: string
+  newPassword: IPassword
+}
+
 export const signUpScheme = (signUp: ISignUp) => {
   return z
     .object({
       confirmPassword,
       email: email(signUp.email),
-      isAgree,
+      isAgree: isBoolean,
       password: password(signUp.password),
       username: username(signUp.username),
     })
@@ -76,5 +86,26 @@ export const signUpScheme = (signUp: ISignUp) => {
     })
 }
 
+export const forgotPasswordScheme = (forgotPassword: IForgotPassword) => {
+  return z.object({
+    email: email(forgotPassword.email),
+    recaptcha: z.string(),
+  })
+}
+
+export const createNewPasswordScheme = (createNewPassword: ICreateNewPassword) => {
+  return z
+    .object({
+      confirmPassword,
+      newPassword: password(createNewPassword.newPassword),
+    })
+    .refine(data => data.newPassword === data.confirmPassword, {
+      message: createNewPassword.confirmPassword,
+      path: ['confirmPassword'],
+    })
+}
+
 // ============= Типы валидаций форм ==================
 export type SignUpFormValues = z.infer<ReturnType<typeof signUpScheme>>
+export type ForgotPasswordFormValues = z.infer<ReturnType<typeof forgotPasswordScheme>>
+export type CreateNewPasswordFormValues = z.infer<ReturnType<typeof createNewPasswordScheme>>

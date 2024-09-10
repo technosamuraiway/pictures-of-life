@@ -8,7 +8,7 @@ interface IProps {
   text: string
 }
 
-export const Trans = (props: IProps) => {
+export const AdaptiveTranslation = (props: IProps) => {
   return <>{interpolateTags(props)}</>
 }
 

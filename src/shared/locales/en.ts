@@ -1,19 +1,35 @@
 import { LocaleType } from './ru'
 
 export const en: LocaleType = {
-  createNewPasswordPage: {
-    title: 'Create new password page',
-  },
   expiredEmailLink: {
-    buttonText: 'Resend verification link',
+    buttonEmailVerificationText: 'Resend verification link',
+    buttonPasswordVerificationText: 'Resend password recovery link',
+    emailVerificationPageHeader: 'Email verification link expired',
     imgAltText: 'Please, try again',
     mainText:
       'Looks like the verification link has expired. Not to worry, we can send the link again',
-    pageHeader: 'Email verification link expired',
+    passwordVerificationPageHeader: 'Password recovery link expired',
     title: 'Confirmation Link Expired',
   },
   forgotPasswordPage: {
-    title: 'Forgot password page',
+    additionalText:
+      'The link has been sent by email. If you don’t receive an email send link again',
+    backToSignInButtonText: 'Back to Sign In',
+    email: 'Email',
+    mainText: 'Enter your email address and we will send you further instructions',
+    recaptcha: 'I’m not a robot',
+    submitButtonText: 'Send Link',
+    title: 'Forgot Password',
+  },
+  loginError: 'You are not logged in, try again...',
+  loginSuccess: 'You are logged in!',
+  newPasswordPage: {
+    buttonText: 'Create new password',
+    mainText: 'Your password must be between 6 and 20 characters ',
+    newPassword: 'New password',
+    passwordConfirmation: 'Password confirmation',
+    successMessage: 'Your password has been successfully changed!',
+    title: 'Create New Password',
   },
   passwordRecoveryPage: {
     title: 'Password recovery page',
