@@ -31,7 +31,7 @@ export default function SignIn() {
         localStorage.setItem('accessToken', accessToken)
 
         resetForm()
-        router.push('/')
+        router.replace(PATH.HOME)
       })
   }
 
