@@ -5,6 +5,17 @@ export interface ISignUpArgs {
   userName: string
 }
 
+export interface ISignInArgs {
+  baseUrl?: string
+  email: string
+  password: string
+}
+
+export interface ISignInResponse {
+  accessToken: string
+  id: string
+}
+
 export interface IConfirmEmailArgs {
   confirmationCode: string | string[]
 }

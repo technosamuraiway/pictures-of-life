@@ -1,9 +1,10 @@
-import { OAuth, SignInForm, SignInFormValues } from '@/entities'
+import { OAuth, SignInForm } from '@/entities'
+import { SignInFormValues } from '@/entities/zodValidationScheme'
 import { authService } from '@/services/flow/auth.service'
 import {
+  FormQuestionBlock,
   MetaHead,
   PATH,
-  QuestionBlock,
   RequestLineLoader,
   useRouterLocaleDefinition,
 } from '@/shared'
@@ -43,7 +44,7 @@ export default function SignIn() {
 
         <SignInForm buttonDisabled={SignInIsLoading} onSubmitSignInForm={onSubmitSignInForm} />
 
-        <QuestionBlock
+        <FormQuestionBlock
           buttonTitle={t.signUpPage.title}
           linkHref={PATH.AUTH.SIGNUP}
           question={t.signInPage.accountQuestion}
