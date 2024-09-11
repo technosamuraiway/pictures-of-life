@@ -4,8 +4,8 @@ export { CreateNewPasswordForm } from './auth/createNewPasswordForm/CreateNewPas
 export { ForgotPasswordForm } from './auth/forgotPasswordForm/ForgotPasswordForm'
 export { OAuth } from './auth/oAuth'
 export { ServicePrivacy } from './auth/servicePrivacy/ServicePrivacy'
+export { SignInForm } from './auth/signInForm/SignInForm'
 export { SignUpForm } from './auth/signUpForm/SignUpForm'
-
 // ============================== [ zod ] =======================================
 export type { ICreateNewPassword, IForgotPassword, ISignUp } from './zodValidationScheme'
 

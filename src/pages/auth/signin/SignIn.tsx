@@ -1,15 +1,55 @@
-// import LoginForm from '@/shared/components/LoginForm/LoginForm'
-// import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
-// import { useRouterLocaleDefinition } from '@/shared/hooks/useRouterLocaleDefinition'
+import { OAuth, SignInForm } from '@/entities'
+import { SignInFormValues } from '@/entities/zodValidationScheme'
+import { authService } from '@/services/flow/auth.service'
+import {
+  FormQuestionBlock,
+  MetaHead,
+  PATH,
+  RequestLineLoader,
+  useRouterLocaleDefinition,
+} from '@/shared'
+import { Card } from '@technosamurai/techno-ui-kit'
+import { useRouter } from 'next/router'
+
+import s from './SignIn.module.scss'
 
 export default function SignIn() {
-  // const routerLocale = useRouterLocaleDefinition()
+  const t = useRouterLocaleDefinition()
+  const router = useRouter()
+
+  const [signIn, { isLoading: SignInIsLoading }] = authService.useSignInMutation()
+
+  const onSubmitSignInForm = (data: SignInFormValues, resetForm: () => void) => {
+    signIn({
+      email: data.email,
+      password: data.password,
+    })
+      .unwrap()
+      .then(result => {
+        const { accessToken } = result
+
+        localStorage.setItem('accessToken', accessToken)
+
+        resetForm()
+        router.replace(PATH.HOME)
+      })
+  }
 
   return (
     <>
-      {/* <HeadMeta title={routerLocale.signInPage.title} /> */}
-      {/* <LoginForm /> */}
-      <div>Sign IN page</div>
+      {SignInIsLoading && <RequestLineLoader />}
+      <MetaHead title={t.signInPage.title} />
+      <Card className={s.cardContainer}>
+        <OAuth title={t.signInPage.title} />
+
+        <SignInForm buttonDisabled={SignInIsLoading} onSubmitSignInForm={onSubmitSignInForm} />
+
+        <FormQuestionBlock
+          buttonTitle={t.signUpPage.title}
+          linkHref={PATH.AUTH.SIGNUP}
+          question={t.signInPage.accountQuestion}
+        />
+      </Card>
     </>
   )
 }
