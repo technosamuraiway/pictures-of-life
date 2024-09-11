@@ -7,6 +7,8 @@ import {
   IGoogleSignResponse,
   IGoogleSignUpArgs,
   IResendConfirmEmailArgs,
+  ISignInArgs,
+  ISignInResponse,
   ISignUpArgs,
 } from '../types/auth.types'
 
@@ -53,6 +55,13 @@ export const authService = inctagramApi.injectEndpoints({
           body: args,
           method: 'POST',
           url: `v1/auth/registration-email-resending`,
+        }),
+      }),
+      signIn: builder.mutation<ISignInResponse, ISignInArgs>({
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `v1/auth/login`,
         }),
       }),
       signUp: builder.mutation<void, ISignUpArgs>({

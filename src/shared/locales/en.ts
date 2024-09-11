@@ -49,6 +49,15 @@ export const en: LocaleType = {
     title: 'Privacy Policy',
   },
   signInPage: {
+    accountQuestion: 'Don’t have an account?',
+    email: 'Email',
+    forgotPassword: 'Forgot Password',
+    gitHubLinkAlt: 'GitHub icon',
+    gitHubLinkTitle: 'Sing Up with GitHub',
+    googleLinkAlt: 'Google icon',
+    googleLinkTitle: 'Sing Up with Google',
+    password: 'Password',
+    signInButton: 'Sign In',
     title: 'Sign In',
   },
   signUpPage: {
