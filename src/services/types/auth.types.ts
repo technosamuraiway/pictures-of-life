@@ -14,13 +14,24 @@ export interface IResendConfirmEmailArgs {
   email: string | string[]
 }
 
-export interface ISignInArgs {
-  email: string
-  password: string
-  userName?: string
+export interface IForgotPasswordArgs extends IResendConfirmEmailArgs {
+  recaptcha?: string
 }
 
-export interface ISignInResponse {
+export interface ICreateNewPasswordArgs extends ICheckRecoveryCodeArgs {
+  newPassword: string
+}
+
+export interface ICheckRecoveryCodeArgs {
+  recoveryCode: string | string[]
+}
+
+export interface IGoogleSignUpArgs {
+  baseUrl?: string
+  code: string | string[] | undefined
+}
+
+export interface IGoogleSignResponse {
   accessToken: string
-  userId: string
+  email: string
 }

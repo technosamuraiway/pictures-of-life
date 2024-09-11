@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { ToastContainer } from 'react-toastify'
+import { Slide, ToastContainer } from 'react-toastify'
 
 import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { Header } from '@technosamurai/techno-ui-kit'
@@ -17,7 +17,6 @@ interface IProps {
 
 const Layout: NextPage<IProps> = ({ children }) => {
   const router = useRouter()
-  const t = useRouterLocaleDefinition()
   const changeLangHandler = (locale: string) => {
     const { asPath, pathname, query } = router
 
@@ -36,6 +35,7 @@ const Layout: NextPage<IProps> = ({ children }) => {
         <Link href={PATH.HOME}>Home</Link>
         <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
         <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
+        <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
       </div>
       <main>{children}</main>
       <ToastContainer
@@ -49,6 +49,7 @@ const Layout: NextPage<IProps> = ({ children }) => {
         position={'bottom-left'}
         rtl={false}
         theme={'dark'}
+        transition={Slide}
       />
     </div>
   )

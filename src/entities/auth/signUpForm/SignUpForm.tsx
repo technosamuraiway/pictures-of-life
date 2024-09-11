@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { ISignUp, SignUpFormValues, signUpScheme } from '@/entities'
-import { PATH, Trans, useRouterLocaleDefinition } from '@/shared'
+import { AdaptiveTranslation, PATH, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -12,11 +12,11 @@ import { ControlledCheckbox } from '../../controlled/controlledCheckbox/Controll
 import { ControlledTextField } from '../../controlled/controlledTextField/ControlledTextField'
 
 interface IProps {
-  buttonDisabled: boolean
+  isButtonDisabled: boolean
   onSubmitSignUpForm: (data: SignUpFormValues, resetForm: () => void) => void
 }
 
-export const SignUpForm = ({ buttonDisabled, onSubmitSignUpForm }: IProps) => {
+export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const signUpTranslate: ISignUp = {
@@ -70,7 +70,7 @@ export const SignUpForm = ({ buttonDisabled, onSubmitSignUpForm }: IProps) => {
         type={'email'}
       />
       <ControlledTextField
-        autoComplete={'new-password'}
+        autoComplete={'recovery'}
         control={control}
         label={t.signUpPage.password}
         maxLength={21}
@@ -78,7 +78,7 @@ export const SignUpForm = ({ buttonDisabled, onSubmitSignUpForm }: IProps) => {
         type={'password'}
       />
       <ControlledTextField
-        autoComplete={'new-password'}
+        autoComplete={'recovery'}
         control={control}
         label={t.signUpPage.passwordConfirmation}
         name={'confirmPassword'}
@@ -87,7 +87,7 @@ export const SignUpForm = ({ buttonDisabled, onSubmitSignUpForm }: IProps) => {
       <div className={s.checkBoxWrapper}>
         <ControlledCheckbox control={control} name={'isAgree'} />
         <Typography variant={'small-text'}>
-          <Trans
+          <AdaptiveTranslation
             tags={{
               1: () => (
                 <Typography as={Link} href={PATH.AUTH.TERMSOFSRVICE} variant={'regular-link'}>
@@ -104,7 +104,7 @@ export const SignUpForm = ({ buttonDisabled, onSubmitSignUpForm }: IProps) => {
           />
         </Typography>
       </div>
-      <Button className={s.submitButton} disabled={buttonDisabled} type={'submit'}>
+      <Button className={s.submitButton} disabled={isButtonDisabled} type={'submit'}>
         {t.signUpPage.title}
       </Button>
     </form>
