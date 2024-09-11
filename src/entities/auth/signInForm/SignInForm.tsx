@@ -3,21 +3,20 @@ import { useForm } from 'react-hook-form'
 import { ISignIn, SignInFormValues, signInScheme } from '@/entities'
 import { useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
+import { Button, Typography } from '@technosamurai/techno-ui-kit'
+import Link from 'next/link'
 
 import s from './SignInForm.module.scss'
 
-import { authService } from '../../../services/flow/auth.service'
 import { ControlledTextField } from '../../controlled/controlledTextField/ControlledTextField'
 
 interface IProps {
   buttonDisabled: boolean
+  onSubmitSignInForm: (data: SignInFormValues, resetForm: () => void) => void
 }
 
-export const SignInForm = ({ buttonDisabled }: IProps) => {
+export const SignInForm = ({ buttonDisabled, onSubmitSignInForm }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const router = useRouter()
 
   const signInTranslate: ISignIn = {
     email: {
@@ -31,7 +30,7 @@ export const SignInForm = ({ buttonDisabled }: IProps) => {
     },
   }
 
-  const { control, handleSubmit, reset, setError } = useForm<SignInFormValues>({
+  const { control, handleSubmit, reset } = useForm<SignInFormValues>({
     defaultValues: {
       email: '',
       password: '',
@@ -40,22 +39,8 @@ export const SignInForm = ({ buttonDisabled }: IProps) => {
     resolver: zodResolver(signInScheme(signInTranslate)),
   })
 
-  const [signIn] = authService.useSignInMutation()
-
-  const onSubmitFormHandler = async (data: SignInFormValues) => {
-    try {
-      const result = await signIn(data).unwrap()
-      const { accessToken } = result
-
-      localStorage.setItem('accessToken', accessToken)
-      reset()
-      router.push('/')
-    } catch (error) {
-      setError('password', {
-        message: 'The email or password are incorrect. Try again please',
-        type: 'manual',
-      })
-    }
+  const onSubmitFormHandler = (data: SignInFormValues) => {
+    onSubmitSignInForm(data, reset)
   }
 
   return (
@@ -74,6 +59,10 @@ export const SignInForm = ({ buttonDisabled }: IProps) => {
         name={'password'}
         type={'password'}
       />
+
+      <Typography as={Link} className={s.forgotPassword} href={'/'}>
+        {t.signInPage.forgotPassword}
+      </Typography>
 
       <Button className={s.submitButton} disabled={buttonDisabled} type={'submit'}>
         {t.signInPage.signInButton}

@@ -18,7 +18,7 @@ export default function Home() {
         <div>{t.title}</div>
         <Button type={'button'}>{t.passwordRecoveryPage.title}</Button>
 
-        <div className={'div'}>
+        <div className={s.div}>
           <MyDatePicker locale={t.locale} />
         </div>
       </div>

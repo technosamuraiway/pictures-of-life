@@ -17,6 +17,7 @@ export interface IResendConfirmEmailArgs {
 export interface ISignInArgs {
   email: string
   password: string
+  userName?: string
 }
 
 export interface ISignInResponse {

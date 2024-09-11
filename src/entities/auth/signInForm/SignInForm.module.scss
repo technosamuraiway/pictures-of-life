@@ -1,6 +1,11 @@
 .formWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1.625rem;
-    margin-bottom: 1.125rem;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 1.625rem;
+  margin-bottom: 1.125rem;
+}
+
+.forgotPassword {
+  margin-left: auto;
+  color: var(--Light-900) !important;
+}
