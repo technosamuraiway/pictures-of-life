@@ -1,4 +1,12 @@
 export const ru = {
+  avatarChange: {
+    addAvatarButton: 'Добавить фото профиля',
+    avatarImgAltText: 'Твой аватар здесь',
+    deleteAvatarModalButtonNo: 'Нет',
+    deleteAvatarModalButtonYes: 'Да',
+    deleteAvatarModalHeader: 'Удалить фото профиля',
+    deleteAvatarModalText: 'Вы уверены, что хотите удалить фото профиля?',
+  },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Отправить новую ссылку',
     buttonPasswordVerificationText: 'Отправить новую ссылку',
@@ -75,7 +83,6 @@ export const ru = {
     pageHeader: 'Наши поздравления!',
     title: 'Подтверждение электронной почты',
   },
-
   termsOfService: {
     backToSign: 'Вернуться к регистрации',
     text: `Добро пожаловать на наш веб-сайт. Продолжая использовать этот сайт, вы соглашаетесь с нашими условиями использования. Пожалуйста, ознакомьтесь с ними внимательно.

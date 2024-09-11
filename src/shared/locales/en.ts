@@ -1,6 +1,14 @@
 import { LocaleType } from './ru'
 
 export const en: LocaleType = {
+  avatarChange: {
+    addAvatarButton: 'Add a Profile Photo',
+    avatarImgAltText: 'Your avatar here',
+    deleteAvatarModalButtonNo: 'No',
+    deleteAvatarModalButtonYes: 'Yes',
+    deleteAvatarModalHeader: 'Delete Avatar',
+    deleteAvatarModalText: 'Are you sure you want to delete the avatar?',
+  },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Resend verification link',
     buttonPasswordVerificationText: 'Resend password recovery link',

@@ -1,0 +1,75 @@
+.avatarWrapper {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+
+  width: 12.5rem;
+}
+
+.deleteAvatarButtonWrapper {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+  padding: 0.5rem;
+
+  background-color: var(--Dark-700);
+  border-radius: 50%;
+}
+
+.deleteAvatarButton {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.5rem;
+
+  background-color: var(--Danger-500);
+  border-radius: 50%;
+}
+
+.imgWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 12.25rem;
+  height: 12.25rem;
+
+  background-color: var(--Dark-500);
+  border-radius: 50%;
+}
+
+.avatarImg {
+  width: 3rem;
+  height: 3rem;
+}
+
+.deleteAvatarModalWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3.375rem;
+  padding: 1.875rem 1.5rem 2.875rem;
+}
+
+.deleteAvatarModalButtonsWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+  align-self: flex-end;
+  justify-content: center;
+}
+
+.deleteAvatarModalButton {
+  width: 6rem;
+  height: 2.25rem;
+}
