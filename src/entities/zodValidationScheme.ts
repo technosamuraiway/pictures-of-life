@@ -61,6 +61,11 @@ export interface ISignUp {
   username: IUserName
 }
 
+export interface ISignIn {
+  email: IEmail
+  password: IPassword
+}
+
 export interface IForgotPassword {
   email: IEmail
   recaptcha?: string
@@ -105,7 +110,16 @@ export const createNewPasswordScheme = (createNewPassword: ICreateNewPassword) =
     })
 }
 
+export const signInScheme = (signIn: ISignIn) => {
+  return z.object({
+    email: email(signIn.email),
+
+    password: password(signIn.password),
+  })
+}
+
 // ============= Типы валидаций форм ==================
 export type SignUpFormValues = z.infer<ReturnType<typeof signUpScheme>>
 export type ForgotPasswordFormValues = z.infer<ReturnType<typeof forgotPasswordScheme>>
 export type CreateNewPasswordFormValues = z.infer<ReturnType<typeof createNewPasswordScheme>>
+export type SignInFormValues = z.infer<ReturnType<typeof signInScheme>>
