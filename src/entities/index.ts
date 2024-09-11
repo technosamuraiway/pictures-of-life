@@ -6,6 +6,10 @@ export { OAuth } from './auth/oAuth'
 export { ServicePrivacy } from './auth/servicePrivacy/ServicePrivacy'
 export { SignInForm } from './auth/signInForm/SignInForm'
 export { SignUpForm } from './auth/signUpForm/SignUpForm'
+
+// ============================== [ modals ] ======================================
+export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'
+
 // ============================== [ zod ] =======================================
 export type { ICreateNewPassword, IForgotPassword, ISignUp } from './zodValidationScheme'
 
@@ -16,6 +20,3 @@ export type {
 } from './zodValidationScheme'
 
 export { createNewPasswordScheme, forgotPasswordScheme, signUpScheme } from './zodValidationScheme'
-
-// ============================== [ modals ] ======================================
-export { EmailSentModal } from '@/entities/modals/emailSentModal/EmailSentModal'

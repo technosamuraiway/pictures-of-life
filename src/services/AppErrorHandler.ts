@@ -37,6 +37,7 @@ export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => act
         toast.error('User with this username is already registered')
       }
     }
+
     /* если нет ответа от сервера */
     if (!serverError.data) {
       toast.error('Network Error')
