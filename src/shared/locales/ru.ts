@@ -1,11 +1,16 @@
 export const ru = {
   avatarChange: {
-    addAvatarButton: 'Добавить фото профиля',
+    addAvatarButton: 'Добавить фото',
+    addAvatarModalButtonText: 'Загрузить фото с компьютера',
+    addAvatarModalHeader: 'Добавить фото профиля',
     avatarImgAltText: 'Твой аватар здесь',
     deleteAvatarModalButtonNo: 'Нет',
     deleteAvatarModalButtonYes: 'Да',
     deleteAvatarModalHeader: 'Удалить фото профиля',
     deleteAvatarModalText: 'Вы уверены, что хотите удалить фото профиля?',
+    errorFormatText: '<1>Ошибка!</1> Формат загружаемого изображения должен быть PNG или JPEG',
+    errorSizeText: '<1>Ошибка!</1> Размер фото должен быть меньше 10 MB!',
+    errorText: 'Ошибка!',
   },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Отправить новую ссылку',

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { useRouterLocaleDefinition } from '@/shared'
+import { AdaptiveTranslation, useRouterLocaleDefinition } from '@/shared'
 import emptyAvatar from '@public/profileAvatar/emptyAvatar.svg'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
@@ -12,6 +12,7 @@ export default function AvatarTestComponent() {
 
   const [showOpenDeleteAvatarModal, setShowOpenDeleteAvatarModal] = useState(true)
   const [openDeleteAvatarModal, setOpenDeleteAvatarModal] = useState(false)
+  const [openAddAvatarModal, setOpenAddAvatarModal] = useState(false)
 
   const onClickOpenDeleteAvatarModal = () => {
     setOpenDeleteAvatarModal(true)
@@ -24,6 +25,13 @@ export default function AvatarTestComponent() {
   const onClickNoButtonDeleteAvatarModal = () => {
     setOpenDeleteAvatarModal(false)
   }
+
+  const onClickOpenAddAvatarModal = () => {
+    setOpenAddAvatarModal(true)
+  }
+
+  const errorType = true
+  const modalErrorText = errorType ? t.avatarChange.errorFormatText : t.avatarChange.errorSizeText
 
   return (
     <>
@@ -42,10 +50,11 @@ export default function AvatarTestComponent() {
         <div className={s.imgWrapper}>
           <Image alt={t.avatarChange.avatarImgAltText} className={s.avatarImg} src={emptyAvatar} />
         </div>
-        <Button fullWidth variant={'outline'}>
+        <Button fullWidth onClick={onClickOpenAddAvatarModal} variant={'outline'}>
           {t.avatarChange.addAvatarButton}
         </Button>
       </div>
+      {/*Модалка удалить аватар*/}
       <Modal
         onOpenChange={setOpenDeleteAvatarModal}
         open={openDeleteAvatarModal}
@@ -70,6 +79,39 @@ export default function AvatarTestComponent() {
               {t.avatarChange.deleteAvatarModalButtonNo}
             </Button>
           </div>
+        </div>
+      </Modal>
+      {/*Модалка изменить аватар*/}
+      <Modal
+        onOpenChange={setOpenAddAvatarModal}
+        open={openAddAvatarModal}
+        title={t.avatarChange.addAvatarModalHeader}
+      >
+        <div className={s.addAvatarModalWrapper}>
+          <div className={s.errorWrapper}>
+            <Typography variant={'regular-text-14'}>
+              <AdaptiveTranslation
+                tags={{
+                  1: () => (
+                    <Typography className={s.errorText} variant={'bold-text-14'}>
+                      {t.avatarChange.errorText}
+                    </Typography>
+                  ),
+                }}
+                text={modalErrorText}
+              />
+            </Typography>
+          </div>
+          <div className={s.addAvatarImgWrapper}>
+            <Image
+              alt={t.avatarChange.avatarImgAltText}
+              className={s.avatarImg}
+              src={emptyAvatar}
+            />
+          </div>
+          <Button className={s.addAvatarButton} variant={'primary'}>
+            {t.avatarChange.addAvatarModalButtonText}
+          </Button>
         </div>
       </Modal>
     </>
