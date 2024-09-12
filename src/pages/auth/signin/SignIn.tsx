@@ -6,6 +6,7 @@ import {
   MetaHead,
   PATH,
   RequestLineLoader,
+  saveStateToLocalStorage,
   useRouterLocaleDefinition,
 } from '@/shared'
 import { Card } from '@technosamurai/techno-ui-kit'
@@ -28,7 +29,7 @@ export default function SignIn() {
       .then(result => {
         const { accessToken } = result
 
-        localStorage.setItem('accessToken', accessToken)
+        saveStateToLocalStorage('accessToken', accessToken)
 
         resetForm()
         router.replace(PATH.HOME)
