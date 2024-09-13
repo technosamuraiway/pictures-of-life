@@ -6,6 +6,7 @@ import {
   MetaHead,
   PATH,
   RequestLineLoader,
+  getBaseLayout,
   saveStateToLocalStorage,
   useRouterLocaleDefinition,
 } from '@/shared'
@@ -15,7 +16,7 @@ import { useRouter } from 'next/router'
 
 import s from './SignIn.module.scss'
 
-export default function SignIn() {
+function SignIn() {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
@@ -58,3 +59,6 @@ export default function SignIn() {
     </>
   )
 }
+
+SignIn.getLayout = getBaseLayout
+export default SignIn

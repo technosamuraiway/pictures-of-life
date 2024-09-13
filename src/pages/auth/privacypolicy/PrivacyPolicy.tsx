@@ -1,7 +1,7 @@
 import { ServicePrivacy } from '@/entities'
-import { useRouterLocaleDefinition } from '@/shared'
+import { getBaseLayout, useRouterLocaleDefinition } from '@/shared'
 
-export default function PrivacyPolicy() {
+function PrivacyPolicy() {
   const t = useRouterLocaleDefinition()
 
   return (
@@ -13,3 +13,6 @@ export default function PrivacyPolicy() {
     />
   )
 }
+
+PrivacyPolicy.getLayout = getBaseLayout
+export default PrivacyPolicy

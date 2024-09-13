@@ -1,7 +1,7 @@
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 import { Slide, ToastContainer } from 'react-toastify'
 
-import { PATH, useRouterLocaleDefinition } from '@/shared'
+import { PATH } from '@/shared'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -11,11 +11,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import s from './Layout.module.scss'
 
-interface IProps {
-  children: ReactNode
-}
-
-const Layout: NextPage<IProps> = ({ children }) => {
+export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
   const changeLangHandler = (locale: string) => {
     const { asPath, pathname, query } = router
@@ -23,21 +19,21 @@ const Layout: NextPage<IProps> = ({ children }) => {
     router.push({ pathname, query }, asPath, { locale })
   }
 
-  const handleLogoClick = () => {
+  const logoClickHandler = () => {
     router.push(PATH.HOME)
   }
 
   return (
     <div className={s.layout}>
-      <Header changeLangHandler={changeLangHandler} onLogoClick={handleLogoClick} />
+      <Header changeLangHandler={changeLangHandler} onLogoClick={logoClickHandler} />
       {/* Link - временные ссылки, чтобы показать работу NextTopLoader */}
       <div className={s.links}>
         <Link href={PATH.HOME}>Home</Link>
         <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
         <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
         <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
+        <Link href={'/avatar/avatartest'}>Avatar Page</Link>
       </div>
-      <main>{children}</main>
       <ToastContainer
         autoClose={5000}
         closeOnClick
@@ -51,12 +47,7 @@ const Layout: NextPage<IProps> = ({ children }) => {
         theme={'dark'}
         transition={Slide}
       />
+      {children}
     </div>
   )
 }
-
-export const getLayout = (page: ReactNode) => {
-  return <Layout>{page}</Layout>
-}
-
-export default Layout

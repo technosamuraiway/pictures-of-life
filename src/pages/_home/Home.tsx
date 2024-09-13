@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { useGoogleSignUpMutation } from '@/services'
-import { MetaHead, PATH, useRouterLocaleDefinition } from '@/shared'
+import { MetaHead, PATH, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
+import { getLayoutWithNav } from '@/shared/layouts/LayoutWithNav'
 import { useRouter } from 'next/router'
 
 import s from './Home.module.scss'
 
-export default function Home() {
+function Home() {
   const t = useRouterLocaleDefinition()
   const [googleSignUp, { isLoading: isGoogleSignLoading }] = useGoogleSignUpMutation()
   const router = useRouter()
@@ -57,3 +58,6 @@ export default function Home() {
     </>
   )
 }
+
+Home.getLayout = getLayoutWithNav
+export default Home

@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { Confirmation } from '@/entities'
 import { useConfirmEmailMutation, useResendConfirmEmailMutation } from '@/services'
-import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { PATH, RequestLineLoader, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
 import { ResendLink } from '@/widgets'
 import pngSuccess from '@public/confirmEmail/successConfirm.png'
 import { useRouter } from 'next/router'
 
-export default function RegistrationConfirmation() {
+function RegistrationConfirmation() {
   const t = useRouterLocaleDefinition()
   const { query, replace } = useRouter()
   const [openModal, setOpenModal] = useState(false)
@@ -71,3 +71,6 @@ export default function RegistrationConfirmation() {
     </>
   )
 }
+
+RegistrationConfirmation.getLayout = getBaseLayout
+export default RegistrationConfirmation

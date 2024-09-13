@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 
 import { Confirmation } from '@/entities'
 import { useCheckRecoveryCodeMutation } from '@/services'
-import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { PATH, RequestLineLoader, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
 import { NewPassword } from '@/widgets'
 import pngExpired from '@public/confirmEmail/expiredConfirm.png'
 import { useRouter } from 'next/router'
 
-export default function RecoveryPassword() {
+function RecoveryPassword() {
   const t = useRouterLocaleDefinition()
   const { query, replace } = useRouter()
 
@@ -52,3 +52,6 @@ export default function RecoveryPassword() {
     </>
   )
 }
+
+RecoveryPassword.getLayout = getBaseLayout
+export default RecoveryPassword
