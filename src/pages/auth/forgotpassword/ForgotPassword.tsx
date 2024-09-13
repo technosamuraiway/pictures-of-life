@@ -2,12 +2,12 @@ import { useState } from 'react'
 
 import { EmailSentModal, ForgotPasswordForm, ForgotPasswordFormValues } from '@/entities'
 import { IMessagesFromError, IServerError, useForgotPasswordMutation } from '@/services'
-import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { MetaHead, RequestLineLoader, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
 import { Card, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './ForgotPassword.module.scss'
 
-export default function ForgotPassword() {
+function ForgotPassword() {
   const t = useRouterLocaleDefinition()
   const [openModal, setOpenModal] = useState(false)
   const [sentLinkAgain, setSentLinkAgain] = useState(false)
@@ -60,3 +60,6 @@ export default function ForgotPassword() {
     </>
   )
 }
+
+ForgotPassword.getLayout = getBaseLayout
+export default ForgotPassword

@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-import { PATH, useRouterLocaleDefinition } from '@/shared'
+import { PATH, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
 import { useRouter } from 'next/router'
 
-export default function GithubPage() {
+function GithubPage() {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
@@ -19,3 +19,6 @@ export default function GithubPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken])
 }
+
+GithubPage.getLayout = getBaseLayout
+export default GithubPage
