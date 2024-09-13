@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 
 import { useGoogleSignUpMutation } from '@/services'
 import { MetaHead, PATH, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
+import { getLayoutWithNav } from '@/shared/components/layouts/LayoutWithNav'
 import { useRouter } from 'next/router'
 
 import s from './Home.module.scss'
@@ -58,5 +59,5 @@ function Home() {
   )
 }
 
-Home.getLayout = getBaseLayout
+Home.getLayout = getLayoutWithNav
 export default Home
