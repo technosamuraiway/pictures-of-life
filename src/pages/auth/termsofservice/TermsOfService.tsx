@@ -1,7 +1,7 @@
 import { ServicePrivacy } from '@/entities'
-import { useRouterLocaleDefinition } from '@/shared'
+import { getBaseLayout, useRouterLocaleDefinition } from '@/shared'
 
-export default function TermsOfService() {
+function TermsOfService() {
   const t = useRouterLocaleDefinition()
 
   return (
@@ -13,3 +13,6 @@ export default function TermsOfService() {
     />
   )
 }
+
+TermsOfService.getLayout = getBaseLayout
+export default TermsOfService
