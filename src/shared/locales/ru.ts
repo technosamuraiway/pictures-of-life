@@ -1,4 +1,17 @@
 export const ru = {
+  avatarChange: {
+    addAvatarButton: 'Добавить фото',
+    addAvatarModalButtonText: 'Загрузить фото с компьютера',
+    addAvatarModalHeader: 'Добавить фото профиля',
+    avatarImgAltText: 'Твой аватар здесь',
+    deleteAvatarModalButtonNo: 'Нет',
+    deleteAvatarModalButtonYes: 'Да',
+    deleteAvatarModalHeader: 'Удалить фото профиля',
+    deleteAvatarModalText: 'Вы уверены, что хотите удалить фото профиля?',
+    errorFormatText: '<1>Ошибка!</1> Формат загружаемого изображения должен быть PNG или JPEG',
+    errorSizeText: '<1>Ошибка!</1> Размер фото должен быть меньше 10 MB!',
+    errorText: 'Ошибка!',
+  },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Отправить новую ссылку',
     buttonPasswordVerificationText: 'Отправить новую ссылку',
@@ -84,7 +97,6 @@ export const ru = {
     pageHeader: 'Наши поздравления!',
     title: 'Подтверждение электронной почты',
   },
-
   termsOfService: {
     backToSign: 'Вернуться к регистрации',
     text: `Добро пожаловать на наш веб-сайт. Продолжая использовать этот сайт, вы соглашаетесь с нашими условиями использования. Пожалуйста, ознакомьтесь с ними внимательно.
