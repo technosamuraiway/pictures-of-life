@@ -36,7 +36,7 @@ const Layout: NextPage<IProps> = ({ children }) => {
         <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
         <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
         <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
-        <Link href={'/profile/avatartest'}>Avatar Page</Link>
+        <Link href={'/avatar/avatartest'}>Avatar Page</Link>
       </div>
       <main>{children}</main>
       <ToastContainer
