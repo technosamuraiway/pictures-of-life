@@ -11,6 +11,7 @@ import {
   useRouterLocaleDefinition,
 } from '@/shared'
 import { Card } from '@technosamurai/techno-ui-kit'
+import { jwtDecode } from 'jwt-decode'
 import { useRouter } from 'next/router'
 
 import s from './SignIn.module.scss'
@@ -32,8 +33,11 @@ function SignIn() {
 
         saveStateToLocalStorage('accessToken', accessToken)
 
+        const decodedToken: { userId: string } = jwtDecode(accessToken)
+        const { userId } = decodedToken
+
         resetForm()
-        router.replace(PATH.HOME)
+        router.replace(`/profile/${userId}`)
       })
   }
 
