@@ -7,13 +7,14 @@ import {
   MetaHead,
   PATH,
   RequestLineLoader,
+  getBaseLayout,
   useRouterLocaleDefinition,
 } from '@/shared'
 import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'
 
-export default function SignUp() {
+function SignUp() {
   const t = useRouterLocaleDefinition()
   const [openModal, setOpenModal] = useState(false)
   const [email, setEmail] = useState('YourEmail@gmail.com')
@@ -59,3 +60,6 @@ export default function SignUp() {
     </>
   )
 }
+
+SignUp.getLayout = getBaseLayout
+export default SignUp
