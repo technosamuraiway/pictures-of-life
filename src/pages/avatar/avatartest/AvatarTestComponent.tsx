@@ -56,9 +56,9 @@ export default function AvatarTestComponent() {
       </div>
       {/*Модалка удалить аватар*/}
       <Modal
+        headerTitle={t.avatarChange.deleteAvatarModalHeader}
         onOpenChange={setOpenDeleteAvatarModal}
         open={openDeleteAvatarModal}
-        title={t.avatarChange.deleteAvatarModalHeader}
       >
         <div className={s.deleteAvatarModalWrapper}>
           <Typography variant={'regular-text-16'}>
@@ -83,9 +83,9 @@ export default function AvatarTestComponent() {
       </Modal>
       {/*Модалка изменить аватар*/}
       <Modal
+        headerTitle={t.avatarChange.addAvatarModalHeader}
         onOpenChange={setOpenAddAvatarModal}
         open={openAddAvatarModal}
-        title={t.avatarChange.addAvatarModalHeader}
       >
         <div className={s.addAvatarModalWrapper}>
           <div className={s.errorWrapper}>
