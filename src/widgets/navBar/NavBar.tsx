@@ -20,6 +20,7 @@ import {
   LogOutIcon,
 } from '@public/sideBar'
 import { Button, NavItem, Typography } from '@technosamurai/techno-ui-kit'
+import { useRouter } from 'next/router'
 
 import s from './NavBar.module.scss'
 
@@ -27,7 +28,8 @@ import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
   const t = useRouterLocaleDefinition()
-  const [currentPath, setCurrentPath] = useState<string>('')
+  const router = useRouter()
+
   const [openModal, setOpenModal] = useState<boolean>(false)
 
   // Данные для навигации
@@ -45,7 +47,7 @@ export function NavBar() {
       activeIconComponent: <ActiveCreateIcon />,
       altText: `${t.navBar.create} Icon`,
       defaultIconComponent: <DefaultCreateIcon />,
-      hrefLink: '#Create',
+      hrefLink: '/create',
       id: 753,
       isDisabled: false,
       text: t.navBar.create,
@@ -54,7 +56,7 @@ export function NavBar() {
       activeIconComponent: <ActiveProfileIcon />,
       altText: `${t.navBar.myProfile} Icon`,
       defaultIconComponent: <DefaultProfileIcon />,
-      hrefLink: '#My Profile',
+      hrefLink: '/create/hello',
       id: 456,
       isDisabled: false,
       text: t.navBar.myProfile,
@@ -63,7 +65,7 @@ export function NavBar() {
       activeIconComponent: <ActiveMessengerIcon />,
       altText: `${t.navBar.messenger} Icon`,
       defaultIconComponent: <DefaultMessengerIcon />,
-      hrefLink: '#Messenger',
+      hrefLink: '/messenger',
       id: 789,
       isDisabled: false,
       text: t.navBar.messenger,
@@ -101,12 +103,16 @@ export function NavBar() {
 
   // ------ Работа с навигацией -------
   const activeConditionFunctionHandler = (itemPath: string) => {
-    return itemPath === currentPath
+    if (itemPath === PATH.HOME) {
+      return router.pathname === PATH.HOME
+    } else {
+      return router.pathname.startsWith(itemPath) && router.pathname !== PATH.HOME
+    }
   }
 
-  const onSideBarItemClickHandler = (path: string) => {
-    setCurrentPath(path)
-  }
+  // const onSideBarItemClickHandler = (path: string) => {
+  //   setCurrentPath(path)
+  // }
 
   // ------ Работа с модальным окном -------
   const onClickLogOutHandler = () => {
@@ -122,15 +128,10 @@ export function NavBar() {
 
   return (
     <nav className={s.wrapper}>
-      <NavBarItems
-        activeConditionFunction={activeConditionFunctionHandler}
-        items={firstItems}
-        onNavBarItemClick={onSideBarItemClickHandler}
-      />
+      <NavBarItems activeConditionFunction={activeConditionFunctionHandler} items={firstItems} />
       <NavBarItems
         activeConditionFunction={activeConditionFunctionHandler}
         items={secondItems}
-        onNavBarItemClick={onSideBarItemClickHandler}
         wrapperClassName={s.secondArrayWrapper}
       />
       <Button className={s.logOutButton} onClick={onClickLogOutHandler} variant={'iconButton'}>
