@@ -1,13 +1,15 @@
 import { useState } from 'react'
 
+import TermsOfService from '@/pages/auth/termsofservice'
 import { AdaptiveTranslation, useRouterLocaleDefinition } from '@/shared'
+import { getBaseLayout, getLayoutWithNav } from '@/widgets'
 import emptyAvatar from '@public/profileAvatar/emptyAvatar.svg'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
 
 import s from './AvatarTestComponent.module.scss'
 
-export default function AvatarTestComponent() {
+function AvatarTestComponent() {
   const t = useRouterLocaleDefinition()
 
   const [showOpenDeleteAvatarModal, setShowOpenDeleteAvatarModal] = useState(true)
@@ -117,3 +119,6 @@ export default function AvatarTestComponent() {
     </>
   )
 }
+
+AvatarTestComponent.getLayout = getLayoutWithNav
+export default AvatarTestComponent

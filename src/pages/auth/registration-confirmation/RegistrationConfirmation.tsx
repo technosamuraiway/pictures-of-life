@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { Confirmation } from '@/entities'
 import { useConfirmEmailMutation, useResendConfirmEmailMutation } from '@/services'
-import { PATH, RequestLineLoader, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
-import { ResendLink } from '@/widgets'
+import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { ResendLink, getBaseLayout } from '@/widgets'
 import pngSuccess from '@public/confirmEmail/successConfirm.png'
 import { useRouter } from 'next/router'
 

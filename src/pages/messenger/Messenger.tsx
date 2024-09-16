@@ -1,4 +1,4 @@
-import { getLayoutWithNav } from '@/widgets/layouts/LayoutWithNav'
+import { getLayoutWithNav } from '@/widgets'
 
 const Messenger = () => {
   return (

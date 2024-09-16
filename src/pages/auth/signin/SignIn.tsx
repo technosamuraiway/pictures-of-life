@@ -6,10 +6,10 @@ import {
   MetaHead,
   PATH,
   RequestLineLoader,
-  getBaseLayout,
   saveStateToLocalStorage,
   useRouterLocaleDefinition,
 } from '@/shared'
+import { getBaseLayout } from '@/widgets'
 import { Card } from '@technosamurai/techno-ui-kit'
 import { jwtDecode } from 'jwt-decode'
 import { useRouter } from 'next/router'

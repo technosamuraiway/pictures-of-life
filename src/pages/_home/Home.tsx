@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { useGoogleSignUpMutation } from '@/services'
-import { MetaHead, PATH, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
-import { getLayoutWithNav } from '@/widgets/layouts/LayoutWithNav'
+import { MetaHead, PATH, useRouterLocaleDefinition } from '@/shared'
+import { getLayoutWithNav } from '@/widgets'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 

@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 
 import { Confirmation } from '@/entities'
 import { useCheckRecoveryCodeMutation } from '@/services'
-import { PATH, RequestLineLoader, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
-import { NewPassword } from '@/widgets'
+import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { NewPassword, getBaseLayout } from '@/widgets'
 import pngExpired from '@public/confirmEmail/expiredConfirm.png'
 import { useRouter } from 'next/router'
 
