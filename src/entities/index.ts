@@ -8,15 +8,22 @@ export { SignInForm } from './auth/signInForm/SignInForm'
 export { SignUpForm } from './auth/signUpForm/SignUpForm'
 
 // ============================== [ modals ] ======================================
+export { ActionConfirmationModal } from './modals/actionConfirmationModal/ActionConfirmationModal'
 export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'
 
 // ============================== [ zod ] =======================================
-export type { ICreateNewPassword, IForgotPassword, ISignUp } from './zodValidationScheme'
+export type { ICreateNewPassword, IForgotPassword, ISignIn, ISignUp } from './zodValidationScheme'
 
 export type {
   CreateNewPasswordFormValues,
   ForgotPasswordFormValues,
+  SignInFormValues,
   SignUpFormValues,
 } from './zodValidationScheme'
 
-export { createNewPasswordScheme, forgotPasswordScheme, signUpScheme } from './zodValidationScheme'
+export {
+  createNewPasswordScheme,
+  forgotPasswordScheme,
+  signInScheme,
+  signUpScheme,
+} from './zodValidationScheme'
