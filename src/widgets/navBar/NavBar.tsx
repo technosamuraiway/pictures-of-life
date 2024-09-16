@@ -113,10 +113,6 @@ export function NavBar() {
     setOpenModal(true)
   }
 
-  const onClickModalNegativeButtonHandler = () => {
-    setOpenModal(false)
-  }
-
   const onClickModalPositiveButtonHandler = () => {
     setOpenModal(false)
   }
