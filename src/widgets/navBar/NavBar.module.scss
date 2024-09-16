@@ -9,13 +9,6 @@
   border-right: 0.0625rem solid var(--Dark-300);
 }
 
-.firstArrayWrapper,
-.secondArrayWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
 .secondArrayWrapper {
   margin-bottom: 7.5rem;
 }
@@ -34,4 +27,9 @@
 .logOutIcon {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.email {
+  display: inline;
+  color: var(--Primary-500);
 }

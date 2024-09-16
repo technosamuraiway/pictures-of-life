@@ -13,7 +13,12 @@ export const EmailSentModal = ({ email, isOpen, onClickCloseModal }: IProps) => 
   const t = useRouterLocaleDefinition()
 
   return (
-    <Modal headerTitle={t.signUpPage.modalTitle} onOpenChange={onClickCloseModal} open={isOpen}>
+    <Modal
+      headerTitle={t.signUpPage.modalTitle}
+      modalSize={'XS'}
+      onOpenChange={onClickCloseModal}
+      open={isOpen}
+    >
       <div className={s.wrapper}>
         <Typography variant={'regular-text-16'}>
           <AdaptiveTranslation
