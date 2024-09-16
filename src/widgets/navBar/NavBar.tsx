@@ -149,7 +149,11 @@ export function NavBar() {
         modalTextChildren={
           <AdaptiveTranslation
             tags={{
-              1: () => <Typography className={s.email}>{email}</Typography>,
+              1: () => (
+                <Typography as={'span'} className={s.email}>
+                  {email}
+                </Typography>
+              ),
             }}
             text={t.logOut.logOutText}
           />

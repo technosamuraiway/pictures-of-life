@@ -23,7 +23,11 @@ export const EmailSentModal = ({ email, isOpen, onClickCloseModal }: IProps) => 
         <Typography variant={'regular-text-16'}>
           <AdaptiveTranslation
             tags={{
-              1: () => <Typography className={s.email}>{email}</Typography>,
+              1: () => (
+                <Typography as={'span'} className={s.email}>
+                  {email}
+                </Typography>
+              ),
             }}
             text={t.signUpPage.modalText}
           />
