@@ -7,3 +7,13 @@
   max-width: 200px;
   margin-top: 30px;
 }
+
+.links {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 1rem;
+}

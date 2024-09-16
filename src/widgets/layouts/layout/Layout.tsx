@@ -2,14 +2,18 @@ import { PropsWithChildren } from 'react'
 import { Slide, ToastContainer } from 'react-toastify'
 
 import { PATH } from '@/shared'
-import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
-import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import 'react-toastify/dist/ReactToastify.css'
 
 import s from './Layout.module.scss'
+
+const NoSSRHeaderComponent = dynamic(
+  () => import('@technosamurai/techno-ui-kit').then(mod => mod.Header),
+  { ssr: false }
+)
 
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
@@ -25,15 +29,12 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
 
   return (
     <div className={s.layout}>
-      <Header changeLangHandler={changeLangHandler} onLogoClick={logoClickHandler} />
-      {/* Link - временные ссылки, чтобы показать работу NextTopLoader */}
-      <div className={s.links}>
-        <Link href={PATH.HOME}>Home</Link>
-        <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
-        <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
-        <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
-        <Link href={'/avatar/avatartest'}>Avatar Page</Link>
-      </div>
+      <NoSSRHeaderComponent
+        changeLangHandler={changeLangHandler}
+        className={s.header}
+        onLogoClick={logoClickHandler}
+      />
+      <div className={s.content}>{children}</div>
       <ToastContainer
         autoClose={5000}
         closeOnClick
@@ -47,7 +48,6 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         theme={'dark'}
         transition={Slide}
       />
-      {children}
     </div>
   )
 }
