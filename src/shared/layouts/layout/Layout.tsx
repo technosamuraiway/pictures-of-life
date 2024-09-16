@@ -33,6 +33,7 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
         <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
         <Link href={'/avatar/avatartest'}>Avatar Page</Link>
+        <Link href={'/navbar'}>NavBar Page</Link>
       </div>
       <ToastContainer
         autoClose={5000}
