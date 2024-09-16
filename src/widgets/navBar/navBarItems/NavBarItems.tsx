@@ -21,7 +21,6 @@ export const NavBarItems = ({ activeConditionFunction, items, wrapperClassName }
             href={el.hrefLink}
             item={el}
             key={el.id}
-            onNavBarItemClick={() => {}}
           />
         )
       })}
