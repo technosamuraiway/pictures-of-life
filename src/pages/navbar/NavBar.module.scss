@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3.75rem;
+
+  width: 13.75rem;
+  padding: 4.5rem 2rem 6.875rem 3.75rem;
+
+  border-right: 0.0625rem solid var(--Dark-300);
+}
+
+.firstArrayWrapper,
+.secondArrayWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.secondArrayWrapper {
+  margin-bottom: 7.5rem;
+}
+
+.logOutButton {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  align-self: flex-start;
+
+  padding: 0;
+
+  background-color: transparent;
+}
+
+.logOutIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
