@@ -7,9 +7,9 @@ import {
   MetaHead,
   PATH,
   RequestLineLoader,
-  getBaseLayout,
   useRouterLocaleDefinition,
 } from '@/shared'
+import { getBaseLayout } from '@/widgets'
 import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'

@@ -1,5 +1,6 @@
 import { ServicePrivacy } from '@/entities'
-import { getBaseLayout, useRouterLocaleDefinition } from '@/shared'
+import { useRouterLocaleDefinition } from '@/shared'
+import { getBaseLayout } from '@/widgets'
 
 function TermsOfService() {
   const t = useRouterLocaleDefinition()
