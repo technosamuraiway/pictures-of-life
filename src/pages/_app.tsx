@@ -10,6 +10,7 @@ import NextTopLoader from 'nextjs-toploader'
 import '@/styles/_colors.scss'
 import '@/styles/_typography.scss'
 import '@/styles/globals.scss'
+import '@/styles/_tokens.scss'
 
 export type NextPageWithLayout<P = {}> = {
   getLayout?: (page: ReactElement) => ReactNode

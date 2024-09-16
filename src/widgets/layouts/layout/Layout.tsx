@@ -30,15 +30,12 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
 
   return (
     <div className={s.layout}>
-      <NoSSRHeaderComponent changeLangHandler={changeLangHandler} onLogoClick={logoClickHandler} />
-      {/* Link - временные ссылки, чтобы показать работу NextTopLoader */}
-      <div className={s.links}>
-        <Link href={PATH.HOME}>Home</Link>
-        <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
-        <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
-        <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
-        <Link href={'/avatar/avatartest'}>Avatar Page</Link>
-      </div>
+      <NoSSRHeaderComponent
+        changeLangHandler={changeLangHandler}
+        className={s.header}
+        onLogoClick={logoClickHandler}
+      />
+      <div className={s.content}>{children}</div>
       <ToastContainer
         autoClose={5000}
         closeOnClick
@@ -52,7 +49,6 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         theme={'dark'}
         transition={Slide}
       />
-      {children}
     </div>
   )
 }

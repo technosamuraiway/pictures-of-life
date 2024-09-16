@@ -1,11 +1,37 @@
 .layout {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  height: 100vh;
+}
 
-  min-height: 100vh;
-  padding: 0 6rem 1.5rem;
+.header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  height: var(--header-height);
+}
+
+.content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.layoutContainer {
+  display: flex;
+  height: calc(100vh - var(--header-height));
+}
+
+.main {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+
+  padding: 2.25rem 4rem 1.25rem 1.5rem;
 }
 
 .links {
@@ -14,4 +40,6 @@
   gap: 2rem;
   align-items: center;
   justify-content: center;
+
+  margin-bottom: 1rem;
 }
