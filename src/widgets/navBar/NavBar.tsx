@@ -110,10 +110,6 @@ export function NavBar() {
     }
   }
 
-  // const onSideBarItemClickHandler = (path: string) => {
-  //   setCurrentPath(path)
-  // }
-
   // ------ Работа с модальным окном -------
   const onClickLogOutHandler = () => {
     setOpenModal(true)

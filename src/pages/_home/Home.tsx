@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import { useGoogleSignUpMutation } from '@/services'
 import { MetaHead, PATH, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets/layouts/LayoutWithNav'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './Home.module.scss'
@@ -46,6 +47,14 @@ function Home() {
 
   return (
     <>
+      {/* Link - временные ссылки, чтобы показать работу NextTopLoader */}
+      <div className={s.links}>
+        <Link href={PATH.HOME}>Home</Link>
+        <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
+        <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
+        <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
+        <Link href={'/avatar/avatartest'}>Avatar Page</Link>
+      </div>
       <MetaHead title={'Pictures-Of-Life'} />
       <div className={s.body}>
         <h1>{t.title}</h1>

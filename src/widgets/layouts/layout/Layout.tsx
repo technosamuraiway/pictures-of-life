@@ -4,7 +4,6 @@ import { Slide, ToastContainer } from 'react-toastify'
 import { PATH } from '@/shared'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import 'react-toastify/dist/ReactToastify.css'

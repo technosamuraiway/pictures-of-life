@@ -8,7 +8,7 @@
   flex-direction: column;
   gap: 3.75rem;
 
-  width: 13.75rem;
+  width: var(--navBar-width);
   height: calc(100vh - var(--header-height));
   padding: 4.5rem 2rem 6.875rem 3.75rem;
 
