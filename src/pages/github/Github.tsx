@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-import { PATH, getBaseLayout, useRouterLocaleDefinition } from '@/shared'
+import { PATH, useRouterLocaleDefinition } from '@/shared'
+import { getBaseLayout } from '@/widgets'
 import { useRouter } from 'next/router'
 
 function GithubPage() {

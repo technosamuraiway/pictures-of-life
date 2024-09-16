@@ -1,4 +1,3 @@
-export { getBaseLayout } from '../../widgets/layouts/BaseLayout'
 export { AdaptiveTranslation } from './adaptiveTranslation/AdaptiveTranslation'
 export { ButtonLink } from './buttonLink/ButtonLink'
 export { FormQuestionBlock } from './formQuestionBlock/FormQuestionBlock'
