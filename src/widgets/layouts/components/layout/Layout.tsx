@@ -2,14 +2,13 @@ import { PropsWithChildren } from 'react'
 import { Slide, ToastContainer } from 'react-toastify'
 
 import { PATH } from '@/shared'
+import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import 'react-toastify/dist/ReactToastify.css'
 
 import s from './Layout.module.scss'
-
-import { NextPage } from '../../../../../next'
 
 const NoSSRHeaderComponent = dynamic(
   () => import('@technosamurai/techno-ui-kit').then(mod => mod.Header),
