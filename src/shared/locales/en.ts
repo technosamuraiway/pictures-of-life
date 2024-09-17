@@ -77,6 +77,12 @@ export const en: LocaleType = {
          You have the right to request access, correction, or deletion of your personal data that we store. You can also withdraw your consent to the processing of your data or restrict its use. To do so, please contact us using the provided contact information.`,
     title: 'Privacy Policy',
   },
+  settings: {
+    devices: 'Devices',
+    general: 'General information',
+    management: 'Account Management',
+    payments: 'My payments',
+  },
   signInPage: {
     accountQuestion: 'Don’t have an account?',
     email: 'Email',
