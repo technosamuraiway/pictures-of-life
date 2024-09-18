@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { ActionConfirmationModal, AddProfilePhotoModal } from '@/entities'
 import TermsOfService from '@/pages/auth/termsofservice'
 import { AdaptiveTranslation, useRouterLocaleDefinition } from '@/shared'
 import { getBaseLayout, getLayoutWithNav } from '@/widgets'
@@ -24,16 +25,9 @@ function AvatarTestComponent() {
     setOpenDeleteAvatarModal(false)
   }
 
-  const onClickNoButtonDeleteAvatarModal = () => {
-    setOpenDeleteAvatarModal(false)
-  }
-
   const onClickOpenAddAvatarModal = () => {
     setOpenAddAvatarModal(true)
   }
-
-  const errorType = true
-  const modalErrorText = errorType ? t.avatarChange.errorFormatText : t.avatarChange.errorSizeText
 
   return (
     <>
@@ -57,65 +51,17 @@ function AvatarTestComponent() {
         </Button>
       </div>
       {/*Модалка удалить аватар*/}
-      <Modal
+      <ActionConfirmationModal
         headerTitle={t.avatarChange.deleteAvatarModalHeader}
-        onOpenChange={setOpenDeleteAvatarModal}
-        open={openDeleteAvatarModal}
-      >
-        <div className={s.deleteAvatarModalWrapper}>
-          <Typography variant={'regular-text-16'}>
-            {t.avatarChange.deleteAvatarModalText}
-          </Typography>
-          <div className={s.deleteAvatarModalButtonsWrapper}>
-            <Button
-              className={s.deleteAvatarModalButton}
-              onClick={onClickYesButtonDeleteAvatarModal}
-              variant={'outline'}
-            >
-              {t.avatarChange.deleteAvatarModalButtonYes}
-            </Button>
-            <Button
-              className={s.deleteAvatarModalButton}
-              onClick={onClickNoButtonDeleteAvatarModal}
-            >
-              {t.avatarChange.deleteAvatarModalButtonNo}
-            </Button>
-          </div>
-        </div>
-      </Modal>
+        isOpenModal={openDeleteAvatarModal}
+        modalTextChildren={t.avatarChange.deleteAvatarModalText}
+        negativeButtonChildren={t.avatarChange.deleteAvatarModalButtonNo}
+        onClickPositiveButton={onClickYesButtonDeleteAvatarModal}
+        positiveButtonChildren={t.avatarChange.deleteAvatarModalButtonYes}
+        setIsOpenModal={setOpenDeleteAvatarModal}
+      />
       {/*Модалка изменить аватар*/}
-      <Modal
-        headerTitle={t.avatarChange.addAvatarModalHeader}
-        onOpenChange={setOpenAddAvatarModal}
-        open={openAddAvatarModal}
-      >
-        <div className={s.addAvatarModalWrapper}>
-          <div className={s.errorWrapper}>
-            <Typography variant={'regular-text-14'}>
-              <AdaptiveTranslation
-                tags={{
-                  1: () => (
-                    <Typography className={s.errorText} variant={'bold-text-14'}>
-                      {t.avatarChange.errorText}
-                    </Typography>
-                  ),
-                }}
-                text={modalErrorText}
-              />
-            </Typography>
-          </div>
-          <div className={s.addAvatarImgWrapper}>
-            <Image
-              alt={t.avatarChange.avatarImgAltText}
-              className={s.avatarImg}
-              src={emptyAvatar}
-            />
-          </div>
-          <Button className={s.addAvatarButton} variant={'primary'}>
-            {t.avatarChange.addAvatarModalButtonText}
-          </Button>
-        </div>
-      </Modal>
+      <AddProfilePhotoModal onOpenModal={setOpenAddAvatarModal} openModal={openAddAvatarModal} />
     </>
   )
 }
