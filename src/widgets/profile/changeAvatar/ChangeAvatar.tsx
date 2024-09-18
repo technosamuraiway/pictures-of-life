@@ -10,15 +10,15 @@ export const ChangeAvatar = () => {
   const [openDeleteAvatarModal, setOpenDeleteAvatarModal] = useState(false)
   const [openAddAvatarModal, setOpenAddAvatarModal] = useState(false)
 
-  const onClickDeleteAvatarHandler = () => {
+  const deleteAvatarHandler = () => {
     setOpenDeleteAvatarModal(true)
   }
 
-  const onClickYesButtonDeleteAvatarModal = () => {
+  const confirmDeleteAvatarModalHandler = () => {
     setOpenDeleteAvatarModal(false)
   }
 
-  const onClickAddAvatarHandler = () => {
+  const addAvatarHandler = () => {
     setOpenAddAvatarModal(true)
   }
 
@@ -29,15 +29,15 @@ export const ChangeAvatar = () => {
         avatarAltText={t.avatarChange.avatarImgAltText}
         isShowAddBtn={addAvatarBtn}
         isShowDeleteBtn={deleteAvatarBtn}
-        onClickAddAvatar={onClickAddAvatarHandler}
-        onClickDeleteAvatar={onClickDeleteAvatarHandler}
+        onClickAddAvatar={addAvatarHandler}
+        onClickDeleteAvatar={deleteAvatarHandler}
       />
       <ActionConfirmationModal
         headerTitle={t.avatarChange.deleteAvatarModalHeader}
         isOpenModal={openDeleteAvatarModal}
         modalTextChildren={t.avatarChange.deleteAvatarModalText}
         negativeButtonChildren={t.avatarChange.deleteAvatarModalButtonNo}
-        onClickPositiveButton={onClickYesButtonDeleteAvatarModal}
+        onClickPositiveButton={confirmDeleteAvatarModalHandler}
         positiveButtonChildren={t.avatarChange.deleteAvatarModalButtonYes}
         setIsOpenModal={setOpenDeleteAvatarModal}
       />
