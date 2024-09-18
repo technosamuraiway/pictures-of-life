@@ -1,4 +1,3 @@
-import { restoreStateFromLocalStorage } from '@/shared'
 
 import { inctagramApi } from '../api/inctagram.api'
 import {
@@ -14,6 +13,7 @@ import {
   ISignInResponse,
   ISignUpArgs,
 } from '../types/auth.types'
+import { toast } from 'react-toastify'
 
 export const authService = inctagramApi.injectEndpoints({
   endpoints: builder => {
@@ -79,6 +79,13 @@ export const authService = inctagramApi.injectEndpoints({
         }),
       }),
       signIn: builder.mutation<ISignInResponse, ISignInArgs>({
+        onQueryStarted: async (_, {dispatch, queryFulfilled}) => {
+          try{
+            await queryFulfilled
+          } catch (err) {
+            toast.error(`Error during sign-in ${err}`)
+          }
+        },
         query: args => ({
           body: args,
           method: 'POST',

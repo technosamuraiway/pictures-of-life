@@ -15,15 +15,16 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './Home.module.scss'
+import { Button } from '@technosamurai/techno-ui-kit'
 
 function Home() {
-  // const {data: authMeData, isLoading: isAuthMeLoading, isError: isAutheMeError} = useMeCurInfoQuery()
   const { handleLogout } = useLogout()
   const t = useRouterLocaleDefinition()
   const [googleSignUp, { isLoading: isGoogleSignLoading }] = useGoogleSignUpMutation()
   const router = useRouter()
   const { code } = router.query
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+
 
   useEffect(() => {
     if (code) {
@@ -49,7 +50,6 @@ function Home() {
 
   useEffect(() => {
     const token = restoreStateFromLocalStorage('accessToken', '')
-
     setIsLoggedIn(!!token)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -74,7 +74,7 @@ function Home() {
           <p style={{ marginTop: 20 }}>{t.loginError}</p>
         )}
       </div>
-      <button onClick={() => handleLogout()}>Log out</button>
+      {isLoggedIn && <Button onClick={() => handleLogout()}>Log out</Button>}
     </>
   )
 }
