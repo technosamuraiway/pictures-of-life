@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { useRouterLocaleDefinition } from '@/shared'
-import { getLayoutWithNav } from '@/widgets'
+import { ChangeAvatar, getLayoutWithNav } from '@/widgets'
 import { TabType, Tabs, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './Settings.module.scss'
@@ -28,6 +28,7 @@ const Settings = () => {
     >
       <Tabs.Content className={s.general} value={t.settings.general}>
         <Typography variant={'h1'}>General Info</Typography>
+        <ChangeAvatar />
       </Tabs.Content>
       <Tabs.Content className={s.devices} value={t.settings.devices}>
         <Typography variant={'h1'}>Devices</Typography>

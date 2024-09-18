@@ -1,4 +1,4 @@
-.avatarWrapper {
+.wrapper {
   position: relative;
 
   display: flex;
@@ -10,7 +10,7 @@
   width: 12.5rem;
 }
 
-.deleteAvatarButtonWrapper {
+.deleteAvatarBtnWrapper {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
@@ -27,7 +27,7 @@
   border-radius: 50%;
 }
 
-.deleteAvatarButton {
+.deleteAvatarBtn {
   width: 1.5rem;
   height: 1.5rem;
   padding: 0.5rem;

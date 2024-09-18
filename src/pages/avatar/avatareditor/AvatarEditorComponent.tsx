@@ -7,7 +7,7 @@ import emptyAvatar from '@public/profileAvatar/emptyAvatar.svg'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
 
-import s from '@/pages/avatar/avatartest/AvatarTestComponent.module.scss'
+import s from '@/entities/modals/addProfilePhotoModal/AddProfilePhotoModal.module.scss'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 МБ в байтах
 
