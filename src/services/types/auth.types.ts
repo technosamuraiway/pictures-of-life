@@ -46,3 +46,10 @@ export interface IGoogleSignResponse {
   accessToken: string
   email: string
 }
+
+export interface IMeCurInfo {
+  userId: number
+  userName: string
+  email: string
+  isBlocked: boolean
+}

@@ -1,3 +1,4 @@
+import { restoreStateFromLocalStorage } from '@/shared'
 import { inctagramApi } from '../api/inctagram.api'
 import {
   ICheckRecoveryCodeArgs,
@@ -6,6 +7,7 @@ import {
   IForgotPasswordArgs,
   IGoogleSignResponse,
   IGoogleSignUpArgs,
+  IMeCurInfo,
   IResendConfirmEmailArgs,
   ISignInArgs,
   ISignInResponse,
@@ -78,6 +80,25 @@ export const authService = inctagramApi.injectEndpoints({
           url: `v1/auth/update-tokens`,
         }),
       }),
+      logOut: builder.mutation<void, void>({
+        onQueryStarted: async (_, {dispatch, queryFulfilled}) => {
+          await queryFulfilled
+          const testFor = restoreStateFromLocalStorage('accessToken', '')
+          console.log(testFor)
+          localStorage.removeItem('accessToken')
+        },
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `/api/v1/auth/logout`,
+        }),
+      }),
+      meCurInfo: builder.query<IMeCurInfo, void>({
+        query: () => ({
+          method: 'GET',
+          url: `/api/v1/auth/me`,
+        }),
+      }),
     }
   },
 })
@@ -91,4 +112,6 @@ export const {
   useResendConfirmEmailMutation,
   useSignUpMutation,
   useUpdateTokensMutation,
+  useLogOutMutation,
+  useMeCurInfoQuery
 } = authService

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { ActionConfirmationModal } from '@/entities'
-import { AdaptiveTranslation, PATH, useRouterLocaleDefinition } from '@/shared'
+import { AdaptiveTranslation, PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
 import {
   ActiveCreateIcon,
   ActiveFavoritesIcon,
@@ -25,8 +25,11 @@ import { useRouter } from 'next/router'
 import s from './NavBar.module.scss'
 
 import { NavBarItems } from './navBarItems/NavBarItems'
+import { useMeCurInfoQuery } from '@/services'
 
 export function NavBar() {
+  // const {data, isLoading, isError} = useMeCurInfoQuery()
+  // const {handleLogout} = useLogout()
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 

@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { useGoogleSignUpMutation } from '@/services'
-import { MetaHead, PATH, useRouterLocaleDefinition } from '@/shared'
+import {
+  MetaHead,
+  PATH,
+  restoreStateFromLocalStorage,
+  saveStateToLocalStorage,
+  useRouterLocaleDefinition,
+} from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -23,10 +29,10 @@ function Home() {
       })
         .unwrap()
         .then(({ accessToken, email }) => {
-          localStorage.setItem('accessToken', accessToken)
+          saveStateToLocalStorage('accessToken', accessToken)
           toast.success(t.loginSuccess)
           setIsLoggedIn(true)
-          if (!isGoogleSignLoading && localStorage.getItem('accessToken')) {
+          if (!isGoogleSignLoading && restoreStateFromLocalStorage('accessToken', '')) {
             router.replace(PATH.HOME)
           }
         })
@@ -39,7 +45,7 @@ function Home() {
   }, [code])
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken')
+    const token = restoreStateFromLocalStorage('accessToken', '')
 
     setIsLoggedIn(!!token)
     // eslint-disable-next-line react-hooks/exhaustive-deps
