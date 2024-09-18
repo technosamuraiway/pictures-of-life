@@ -27,6 +27,7 @@ import s from './NavBar.module.scss'
 import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
+  const {handleLogout} = useLogout();
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
@@ -117,6 +118,7 @@ export function NavBar() {
 
   const onClickModalPositiveButtonHandler = () => {
     setOpenModal(false)
+    handleLogout();
   }
 
   // Здесь мы достанем email из "ME" запроса, когда он будет:-)
