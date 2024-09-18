@@ -47,9 +47,9 @@ export interface IGoogleSignResponse {
   email: string
 }
 
-export interface IMeCurInfo {
-  userId: number
-  userName: string
+export interface IMeResponse {
   email: string
   isBlocked: boolean
+  userId: number
+  userName: string
 }

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { useGoogleSignUpMutation } from '@/services'
+import { useGoogleSignUpMutation, useMeCurInfoQuery } from '@/services'
 import {
   MetaHead,
   PATH,
   restoreStateFromLocalStorage,
   saveStateToLocalStorage,
+  useLogout,
   useRouterLocaleDefinition,
 } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
@@ -16,6 +17,8 @@ import { useRouter } from 'next/router'
 import s from './Home.module.scss'
 
 function Home() {
+  // const {data: authMeData, isLoading: isAuthMeLoading, isError: isAutheMeError} = useMeCurInfoQuery()
+  const { handleLogout } = useLogout()
   const t = useRouterLocaleDefinition()
   const [googleSignUp, { isLoading: isGoogleSignLoading }] = useGoogleSignUpMutation()
   const router = useRouter()
@@ -71,6 +74,7 @@ function Home() {
           <p style={{ marginTop: 20 }}>{t.loginError}</p>
         )}
       </div>
+      <button onClick={() => handleLogout()}>Log out</button>
     </>
   )
 }

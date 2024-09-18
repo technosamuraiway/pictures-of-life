@@ -25,11 +25,8 @@ import { useRouter } from 'next/router'
 import s from './NavBar.module.scss'
 
 import { NavBarItems } from './navBarItems/NavBarItems'
-import { useMeCurInfoQuery } from '@/services'
 
 export function NavBar() {
-  // const {data, isLoading, isError} = useMeCurInfoQuery()
-  // const {handleLogout} = useLogout()
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 

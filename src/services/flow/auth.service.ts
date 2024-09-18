@@ -1,4 +1,5 @@
 import { restoreStateFromLocalStorage } from '@/shared'
+
 import { inctagramApi } from '../api/inctagram.api'
 import {
   ICheckRecoveryCodeArgs,
@@ -7,7 +8,7 @@ import {
   IForgotPasswordArgs,
   IGoogleSignResponse,
   IGoogleSignUpArgs,
-  IMeCurInfo,
+  IMeResponse,
   IResendConfirmEmailArgs,
   ISignInArgs,
   ISignInResponse,
@@ -52,6 +53,24 @@ export const authService = inctagramApi.injectEndpoints({
           url: `v1/auth/google/login`,
         }),
       }),
+      logOut: builder.mutation<void, void>({
+        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+          await queryFulfilled
+          localStorage.removeItem('accessToken')
+        },
+        query: args => ({
+          body: args,
+          credentials: 'include',
+          method: 'POST',
+          url: `v1/auth/logout`,
+        }),
+      }),
+      meCurInfo: builder.query<IMeResponse, void>({
+        query: () => ({
+          method: 'GET',
+          url: `v1/auth/me`,
+        }),
+      }),
       resendConfirmEmail: builder.mutation<void, IResendConfirmEmailArgs>({
         query: args => ({
           body: args,
@@ -80,25 +99,6 @@ export const authService = inctagramApi.injectEndpoints({
           url: `v1/auth/update-tokens`,
         }),
       }),
-      logOut: builder.mutation<void, void>({
-        onQueryStarted: async (_, {dispatch, queryFulfilled}) => {
-          await queryFulfilled
-          const testFor = restoreStateFromLocalStorage('accessToken', '')
-          console.log(testFor)
-          localStorage.removeItem('accessToken')
-        },
-        query: args => ({
-          body: args,
-          method: 'POST',
-          url: `/api/v1/auth/logout`,
-        }),
-      }),
-      meCurInfo: builder.query<IMeCurInfo, void>({
-        query: () => ({
-          method: 'GET',
-          url: `/api/v1/auth/me`,
-        }),
-      }),
     }
   },
 })
@@ -109,9 +109,9 @@ export const {
   useCreateNewPasswordMutation,
   useForgotPasswordMutation,
   useGoogleSignUpMutation,
+  useLogOutMutation,
+  useMeCurInfoQuery,
   useResendConfirmEmailMutation,
   useSignUpMutation,
   useUpdateTokensMutation,
-  useLogOutMutation,
-  useMeCurInfoQuery
 } = authService
