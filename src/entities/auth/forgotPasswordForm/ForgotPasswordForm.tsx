@@ -93,7 +93,9 @@ export const ForgotPasswordForm = ({
         linkHref={PATH.AUTH.SIGNIN}
         title={t.forgotPasswordPage.backToSignInButtonText}
       />
-      <div className={s.recaptchaWrapper}>
+      <div
+        className={clsx(s.recaptchaWrapper, (errors.recaptcha || textFieldError) && s.errorWrapper)}
+      >
         <ReCAPTCHA
           aria-required
           className={clsx(s.recaptcha, isButtonDisabled && s.disableRecaptcha)}

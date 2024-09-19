@@ -1,0 +1,48 @@
+.wrapper {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 1.5rem 1.5rem 4.5rem;
+}
+
+.imgWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 13.875rem;
+  height: 14.25rem;
+  margin-top: 5.375rem;
+  margin-bottom: 1.875rem;
+
+  background-color: var(--Dark-500);
+}
+
+.errorWrapper {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+
+  width: 27.5rem;
+  padding: 0.375rem 1.375rem;
+
+  text-align: center;
+
+  background-color: var(--Danger-900);
+  border: 0.0625rem solid var(--Danger-500);
+}
+
+.errorText {
+  display: inline;
+}
+
+.avatarImg {
+  width: 3rem;
+  height: 3rem;
+}
