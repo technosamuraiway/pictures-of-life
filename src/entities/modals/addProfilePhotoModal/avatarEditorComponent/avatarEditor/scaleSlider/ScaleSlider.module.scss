@@ -1,19 +1,21 @@
-.wrapper {
+.scaleWrapper {
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 1rem;
   align-items: center;
   justify-content: center;
 
-  width: 100%;
-  padding: 1.5rem 1.5rem 2.25rem;
+  margin-top: -1.5rem;
 }
 
-.buttonsWrapper {
+.sliderWrapper {
   display: flex;
   flex-direction: row;
+  gap: 1.5rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+}
 
-  width: 100%;
+.icon {
+  cursor: pointer;
 }

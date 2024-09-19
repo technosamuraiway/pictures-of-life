@@ -1,27 +1,24 @@
-import { ChangeEvent, ElementRef, RefObject, forwardRef } from 'react'
+import { ChangeEvent, ElementRef, RefObject, forwardRef, useState } from 'react'
 import Avatar from 'react-avatar-editor'
 
 import { DownloadFile, useRouterLocaleDefinition } from '@/shared'
-import { NegativeZoomIcon } from '@public/profileAvatar/NegativeZoomIcon'
-import { PositiveZoomIcon } from '@public/profileAvatar/PositiveZoomIcon'
 import { Button } from '@technosamurai/techno-ui-kit'
 
 import s from './AvatarEditor.module.scss'
+
+import { ScaleSlider } from './scaleSlider/ScaleSlider'
 
 interface IProps {
   downloadFileRef: RefObject<HTMLInputElement>
   image: File | string
   onAddNewBtnClick: () => void
   onAddNewFile: (e: ChangeEvent<HTMLInputElement>) => void
-  onNegativeScaleClick: () => void
-  onPositiveScaleClick: () => void
   onSaveBtnClick: () => void
-  onScaleChange: (scale: ChangeEvent<HTMLInputElement>) => void
-  scale: number
-  scaleMax?: number
-  scaleMin?: number
-  scaleStep?: number
 }
+
+const SCALE_STEP = 0.1
+const SCALE_MAX = 2
+const SCALE_MIN = 0
 
 export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
   (
@@ -30,34 +27,39 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
       image,
       onAddNewBtnClick,
       onAddNewFile,
-      onNegativeScaleClick,
-      onPositiveScaleClick,
+
       onSaveBtnClick,
-      onScaleChange,
-      scale,
-      scaleMax,
-      scaleMin,
-      scaleStep,
     },
     ref
   ) => {
     const t = useRouterLocaleDefinition()
 
+    const [scale, setScale] = useState<number>(1)
+
+    const onPositiveScaleClickHandler = () => {
+      scale < SCALE_MAX && setScale(Math.round((scale + SCALE_STEP) * 100) / 100)
+    }
+
+    const onNegativeScaleClickHandler = () => {
+      scale > SCALE_MIN + SCALE_STEP && setScale(Math.round((scale - SCALE_STEP) * 100) / 100)
+    }
+
+    const scaleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+      setScale(parseFloat(e.target.value))
+    }
+
     return (
       <div className={s.wrapper}>
         <Avatar borderRadius={170} height={290} image={image} ref={ref} scale={scale} width={290} />
-        <div className={s.sliderWrapper}>
-          <NegativeZoomIcon className={s.icon} onClick={onNegativeScaleClick} />
-          <input
-            defaultValue={'1'}
-            max={scaleMax}
-            min={scaleMin}
-            onChange={onScaleChange}
-            step={scaleStep}
-            type={'range'}
-          />
-          <PositiveZoomIcon className={s.icon} onClick={onPositiveScaleClick} />
-        </div>
+        <ScaleSlider
+          onNegativeScaleClick={onNegativeScaleClickHandler}
+          onPositiveScaleClick={onPositiveScaleClickHandler}
+          onScaleChange={scaleChangeHandler}
+          scale={scale}
+          scaleMax={SCALE_MAX}
+          scaleMin={SCALE_MIN}
+          scaleStep={SCALE_STEP}
+        />
         <div className={s.buttonsWrapper}>
           <DownloadFile
             btnText={t.avatarChange.addNewAvatarBtn}

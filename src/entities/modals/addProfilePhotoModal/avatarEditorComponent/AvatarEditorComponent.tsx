@@ -8,32 +8,17 @@ import { AvatarEditor } from './avatarEditor/AvatarEditor'
 import { BeforeEditor } from './beforeEditor/BeforeEditor'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 МБ в байтах
-const SCALE_STEP = 0.1
-const SCALE_MAX = 2
-const SCALE_MIN = 1
 
 export function AvatarEditorComponent() {
   const t = useRouterLocaleDefinition()
   const [show, setShow] = useState<boolean>(true)
   const [image, setImage] = useState<File | string>('')
-  const [scale, setScale] = useState<number>(1)
+
   const editorRef = useRef<Avatar | null>(null)
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [fileError, setFileError] = useState<null | string>(null)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
-
-  const onPositiveScaleClickHandler = () => {
-    if (scale < SCALE_MAX) {
-      setScale(scale => scale + SCALE_STEP)
-    }
-  }
-
-  const onNegativeScaleClickHandler = () => {
-    if (scale > SCALE_MIN) {
-      setScale(scale => scale - SCALE_STEP)
-    }
-  }
 
   const handleButtonClick = () => {
     fileInputRef.current?.click()
@@ -61,12 +46,6 @@ export function AvatarEditorComponent() {
         toast.error(t.avatarChange.errorFormatText)
       }
     }
-  }
-
-  const handleScaleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newScale = parseFloat(e.target.value)
-
-    setScale(newScale)
   }
 
   const handleSave = () => {
@@ -100,15 +79,8 @@ export function AvatarEditorComponent() {
         image={image}
         onAddNewBtnClick={handleButtonClick}
         onAddNewFile={handleFileChange}
-        onNegativeScaleClick={onNegativeScaleClickHandler}
-        onPositiveScaleClick={onPositiveScaleClickHandler}
         onSaveBtnClick={handleSave}
-        onScaleChange={handleScaleChange}
         ref={editorRef}
-        scale={scale}
-        scaleMax={SCALE_MAX}
-        scaleMin={SCALE_MIN}
-        scaleStep={SCALE_STEP}
       />
     )
   )
