@@ -20,7 +20,7 @@ function AvatarEditorComponent() {
   const [scale, setScale] = useState<number>(1)
   const editorRef = useRef<AvatarEditor | null>(null)
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
-  const [fileError, setFileError] = useState<null | string>(t.avatarChange.errorFormatText)
+  const [fileError, setFileError] = useState<null | string>(null)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
