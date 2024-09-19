@@ -1,4 +1,3 @@
-
 import { inctagramApi } from '../api/inctagram.api'
 import {
   ICheckRecoveryCodeArgs,
@@ -79,8 +78,8 @@ export const authService = inctagramApi.injectEndpoints({
         }),
       }),
       signIn: builder.mutation<ISignInResponse, ISignInArgs>({
-        onQueryStarted: async (_, {dispatch, queryFulfilled}) => {
-          try{
+        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+          try {
             await queryFulfilled
           } catch (err) {
             toast.error(`Error during sign-in ${err}`)
