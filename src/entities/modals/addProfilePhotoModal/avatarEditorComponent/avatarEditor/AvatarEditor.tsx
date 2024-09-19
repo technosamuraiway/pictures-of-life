@@ -18,39 +18,36 @@ interface IProps {
 
 const SCALE_STEP = 0.1
 const SCALE_MAX = 2
-const SCALE_MIN = 0
+const SCALE_MIN = 0.1
 
 export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
-  (
-    {
-      downloadFileRef,
-      image,
-      onAddNewBtnClick,
-      onAddNewFile,
-
-      onSaveBtnClick,
-    },
-    ref
-  ) => {
+  ({ downloadFileRef, image, onAddNewBtnClick, onAddNewFile, onSaveBtnClick }, ref) => {
     const t = useRouterLocaleDefinition()
 
-    const [scale, setScale] = useState<number>(1)
+    const [scale, setScale] = useState<number[]>([1])
 
     const onPositiveScaleClickHandler = () => {
-      scale < SCALE_MAX && setScale(Math.round((scale + SCALE_STEP) * 100) / 100)
+      scale[0] < SCALE_MAX && setScale([Math.round((scale[0] + SCALE_STEP) * 100) / 100])
     }
 
     const onNegativeScaleClickHandler = () => {
-      scale > SCALE_MIN + SCALE_STEP && setScale(Math.round((scale - SCALE_STEP) * 100) / 100)
+      scale[0] > SCALE_MIN && setScale([Math.round((scale[0] - SCALE_STEP) * 100) / 100])
     }
 
-    const scaleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      setScale(parseFloat(e.target.value))
+    const scaleChangeHandler = (value: number[]) => {
+      setScale(value)
     }
 
     return (
       <div className={s.wrapper}>
-        <Avatar borderRadius={170} height={290} image={image} ref={ref} scale={scale} width={290} />
+        <Avatar
+          borderRadius={170}
+          height={290}
+          image={image}
+          ref={ref}
+          scale={scale[0]}
+          width={290}
+        />
         <ScaleSlider
           onNegativeScaleClick={onNegativeScaleClickHandler}
           onPositiveScaleClick={onPositiveScaleClickHandler}

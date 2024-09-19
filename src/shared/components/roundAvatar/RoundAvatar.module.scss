@@ -34,6 +34,12 @@
 
   background-color: var(--Danger-500);
   border-radius: 50%;
+
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--Danger-900);
+  }
 }
 
 .imgWrapper {
