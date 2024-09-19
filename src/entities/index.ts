@@ -9,6 +9,7 @@ export { SignUpForm } from './auth/signUpForm/SignUpForm'
 
 // ============================== [ modals ] ======================================
 export { ActionConfirmationModal } from './modals/actionConfirmationModal/ActionConfirmationModal'
+export { AddProfilePhotoModal } from './modals/addProfilePhotoModal/AddProfilePhotoModal'
 export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'
 
 // ============================== [ zod ] =======================================

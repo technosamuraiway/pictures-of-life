@@ -24,10 +24,14 @@ export default function App({ Component, pageProps, ...rest }: AppPropsWithLayou
   const { props, store } = wrapper.useWrappedStore(rest)
   const getLayout = Component.getLayout ?? (page => page)
 
-  return getLayout(
+  return (
     <Provider store={store}>
-      <NextTopLoader color={'#73a5ff'} />
-      <Component {...props.pageProps} />
+      {getLayout(
+        <>
+          <NextTopLoader color={'#73a5ff'} />
+          <Component {...props.pageProps} />
+        </>
+      )}
     </Provider>
   )
 }

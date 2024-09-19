@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import { inctagramApi } from '../api/inctagram.api'
 import {
   ICheckRecoveryCodeArgs,
@@ -6,6 +8,7 @@ import {
   IForgotPasswordArgs,
   IGoogleSignResponse,
   IGoogleSignUpArgs,
+  IMeResponse,
   IResendConfirmEmailArgs,
   ISignInArgs,
   ISignInResponse,
@@ -50,6 +53,24 @@ export const authService = inctagramApi.injectEndpoints({
           url: `v1/auth/google/login`,
         }),
       }),
+      logOut: builder.mutation<void, void>({
+        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+          await queryFulfilled
+          localStorage.removeItem('accessToken')
+        },
+        query: args => ({
+          body: args,
+          credentials: 'include',
+          method: 'POST',
+          url: `v1/auth/logout`,
+        }),
+      }),
+      meCurInfo: builder.query<IMeResponse, void>({
+        query: () => ({
+          method: 'GET',
+          url: `v1/auth/me`,
+        }),
+      }),
       resendConfirmEmail: builder.mutation<void, IResendConfirmEmailArgs>({
         query: args => ({
           body: args,
@@ -58,6 +79,13 @@ export const authService = inctagramApi.injectEndpoints({
         }),
       }),
       signIn: builder.mutation<ISignInResponse, ISignInArgs>({
+        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+          try {
+            await queryFulfilled
+          } catch (err) {
+            toast.error(`Error during sign-in ${err}`)
+          }
+        },
         query: args => ({
           body: args,
           method: 'POST',
@@ -88,6 +116,8 @@ export const {
   useCreateNewPasswordMutation,
   useForgotPasswordMutation,
   useGoogleSignUpMutation,
+  useLogOutMutation,
+  useMeCurInfoQuery,
   useResendConfirmEmailMutation,
   useSignUpMutation,
   useUpdateTokensMutation,

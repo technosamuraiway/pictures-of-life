@@ -20,9 +20,9 @@ export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => act
     const serverError = action.payload as IServerError
 
     // /* если не связанно с auth + есть ответ от сервера */
-    // if (!(serverError.data?.statusCode === 401) && serverError.data) {
-    //   console.log(serverError.data?.messages[0].message || 'An error occurred')
-    // }
+    if (!(serverError.data?.statusCode === 401) && serverError.data) {
+      toast.error(serverError.data?.messages[0].message)
+    }
 
     /* если ошибка относится к auth + есть ответ от сервера */
     if (serverError.data?.statusCode === 400) {
