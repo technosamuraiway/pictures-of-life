@@ -10,9 +10,8 @@ export const en: LocaleType = {
     deleteAvatarModalButtonYes: 'Yes',
     deleteAvatarModalHeader: 'Delete Avatar',
     deleteAvatarModalText: 'Are you sure you want to delete the avatar?',
-    errorFormatText: '<1>Error!</1> The format of the uploaded photo must be PNG or JPEG',
-    errorSizeText: '<1>Error!</1> Photo size must be less than 10 MB!',
-    errorText: 'Error!',
+    errorFormatText: 'Error! The format of the uploaded photo must be PNG or JPEG',
+    errorSizeText: 'Error! Photo size must be less than 10 MB!',
   },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Resend verification link',

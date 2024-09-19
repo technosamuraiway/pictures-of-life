@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
+import { toast } from 'react-toastify'
 
+import { BeforeEditor } from '@/entities/modals/addProfilePhotoModal/beforeEditor/BeforeEditor'
 import { AdaptiveTranslation, useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import emptyAvatar from '@public/profileAvatar/emptyAvatar.svg'
@@ -18,7 +20,7 @@ function AvatarEditorComponent() {
   const [scale, setScale] = useState<number>(1)
   const editorRef = useRef<AvatarEditor | null>(null)
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
-  const [error, setError] = useState<null | string>(null)
+  const [fileError, setFileError] = useState<null | string>(t.avatarChange.errorFormatText)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -31,7 +33,8 @@ function AvatarEditorComponent() {
 
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
-        setError('Размер файла превышает 10 МБ. Пожалуйста, выберите файл меньшего размера.')
+        setFileError(t.avatarChange.errorSizeText)
+        toast.error(t.avatarChange.errorSizeText)
 
         return
       }
@@ -41,9 +44,10 @@ function AvatarEditorComponent() {
         const imageUrl = URL.createObjectURL(file)
 
         setImage(imageUrl)
-        setError(null)
+        setFileError(null)
       } else {
-        setError('Пожалуйста, выберите файл PNG или JPEG.')
+        setFileError(t.avatarChange.errorFormatText)
+        toast.error(t.avatarChange.errorFormatText)
       }
     }
   }
@@ -76,43 +80,17 @@ function AvatarEditorComponent() {
   return (
     <>
       {show ? (
-        <div className={s.addAvatarModalWrapper}>
-          <div className={s.errorWrapper}>
-            <Typography variant={'regular-text-14'}>
-              <AdaptiveTranslation
-                tags={{
-                  1: () => (
-                    <Typography as={'span'} className={s.errorText} variant={'bold-text-14'}>
-                      {t.avatarChange.errorText}
-                    </Typography>
-                  ),
-                }}
-                text={modalErrorText}
-              />
-            </Typography>
-          </div>
-          <div className={s.addAvatarImgWrapper}>
-            <Image
-              alt={t.avatarChange.avatarImgAltText}
-              className={s.avatarImg}
-              src={image || emptyAvatar}
-            />
-          </div>
-          <Button className={s.addAvatarButton} onClick={handleButtonClick} variant={'primary'}>
-            {t.avatarChange.addAvatarModalButtonText}
-          </Button>
-          <input
-            accept={'image/png, image/jpeg'}
-            onChange={handleFileChange}
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            type={'file'}
-          />
-        </div>
+        <BeforeEditor
+          errorText={fileError}
+          imageAvatar={image}
+          onChangeFileImg={handleFileChange}
+          onClickAddAvatar={handleButtonClick}
+          ref={fileInputRef}
+        />
       ) : (
         <div>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {image && !error && (
+          {fileError && <p style={{ color: 'red' }}>{fileError}</p>}
+          {image && !fileError && (
             <div>
               <AvatarEditor
                 border={50}
