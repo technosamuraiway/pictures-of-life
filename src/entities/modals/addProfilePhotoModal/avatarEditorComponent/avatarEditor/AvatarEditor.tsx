@@ -13,9 +13,14 @@ interface IProps {
   image: File | string
   onAddNewBtnClick: () => void
   onAddNewFile: (e: ChangeEvent<HTMLInputElement>) => void
+  onNegativeScaleClick: () => void
+  onPositiveScaleClick: () => void
   onSaveBtnClick: () => void
   onScaleChange: (scale: ChangeEvent<HTMLInputElement>) => void
   scale: number
+  scaleMax?: number
+  scaleMin?: number
+  scaleStep?: number
 }
 
 export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
@@ -25,9 +30,14 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
       image,
       onAddNewBtnClick,
       onAddNewFile,
+      onNegativeScaleClick,
+      onPositiveScaleClick,
       onSaveBtnClick,
       onScaleChange,
       scale,
+      scaleMax,
+      scaleMin,
+      scaleStep,
     },
     ref
   ) => {
@@ -37,16 +47,16 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
       <div className={s.wrapper}>
         <Avatar borderRadius={170} height={290} image={image} ref={ref} scale={scale} width={290} />
         <div className={s.sliderWrapper}>
-          <NegativeZoomIcon />
+          <NegativeZoomIcon className={s.icon} onClick={onNegativeScaleClick} />
           <input
             defaultValue={'1'}
-            max={'2'}
-            min={'1'}
+            max={scaleMax}
+            min={scaleMin}
             onChange={onScaleChange}
-            step={'0.01'}
+            step={scaleStep}
             type={'range'}
           />
-          <PositiveZoomIcon />
+          <PositiveZoomIcon className={s.icon} onClick={onPositiveScaleClick} />
         </div>
         <div className={s.buttonsWrapper}>
           <DownloadFile
