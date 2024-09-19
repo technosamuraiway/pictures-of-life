@@ -9,6 +9,14 @@
   padding: 1.5rem 1.5rem 2.25rem;
 }
 
+.sliderWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
 .buttonsWrapper {
   display: flex;
   flex-direction: row;
