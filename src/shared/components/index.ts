@@ -1,5 +1,6 @@
 export { AdaptiveTranslation } from './adaptiveTranslation/AdaptiveTranslation'
 export { ButtonLink } from './buttonLink/ButtonLink'
+export { DownloadFile } from './downloadFile/DownloadFile'
 export { FormQuestionBlock } from './formQuestionBlock/FormQuestionBlock'
 export { IconLink } from './iconLink/IconLink'
 export { MetaHead } from './metaHead/MetaHead'

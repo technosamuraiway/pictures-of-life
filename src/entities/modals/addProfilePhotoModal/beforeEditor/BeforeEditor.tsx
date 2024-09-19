@@ -1,8 +1,8 @@
 import { ChangeEvent, ElementRef, ReactNode, forwardRef } from 'react'
 
-import { useRouterLocaleDefinition } from '@/shared'
+import { DownloadFile, useRouterLocaleDefinition } from '@/shared'
 import emptyAvatar from '@public/profileAvatar/emptyAvatar.svg'
-import { Button, Typography } from '@technosamurai/techno-ui-kit'
+import { Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
 
 import s from './BeforeEditor.module.scss'
@@ -32,15 +32,11 @@ export const BeforeEditor = forwardRef<ElementRef<'input'>, IProps>(
             src={imageAvatar || emptyAvatar}
           />
         </div>
-        <Button className={s.button} onClick={onClickAddAvatar} variant={'primary'}>
-          {t.avatarChange.addAvatarModalButtonText}
-        </Button>
-        <input
-          accept={'image/png, image/jpeg'}
-          className={s.inputFile}
-          onChange={onChangeFileImg}
+        <DownloadFile
+          btnText={t.avatarChange.addAvatarModalButtonText}
+          onBtnClick={onClickAddAvatar}
+          onChangeFile={onChangeFileImg}
           ref={ref}
-          type={'file'}
         />
       </div>
     )

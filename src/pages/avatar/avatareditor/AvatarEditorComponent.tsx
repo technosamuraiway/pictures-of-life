@@ -89,17 +89,15 @@ function AvatarEditorComponent() {
         />
       ) : (
         <div>
-          {fileError && <p style={{ color: 'red' }}>{fileError}</p>}
           {image && !fileError && (
             <div>
               <AvatarEditor
-                border={50}
-                borderRadius={250}
-                height={250}
+                borderRadius={170}
+                height={340}
                 image={image}
                 ref={editorRef}
                 scale={scale}
-                width={250}
+                width={340}
               />
               <input
                 defaultValue={'1'}
@@ -118,5 +116,4 @@ function AvatarEditorComponent() {
   )
 }
 
-AvatarEditorComponent.getLayout = getLayoutWithNav
 export default AvatarEditorComponent

@@ -5,6 +5,7 @@ export const en: LocaleType = {
     addAvatarButton: 'Add a Profile Photo',
     addAvatarModalButtonText: 'Select from Computer',
     addAvatarModalHeader: 'Add a Profile Photo',
+    addNewAvatarBtn: 'Add New Photo',
     avatarImgAltText: 'Your avatar here',
     deleteAvatarModalButtonNo: 'No',
     deleteAvatarModalButtonYes: 'Yes',
@@ -12,6 +13,7 @@ export const en: LocaleType = {
     deleteAvatarModalText: 'Are you sure you want to delete the avatar?',
     errorFormatText: 'Error! The format of the uploaded photo must be PNG or JPEG',
     errorSizeText: 'Error! Photo size must be less than 10 MB!',
+    saveBtn: 'Save',
   },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Resend verification link',

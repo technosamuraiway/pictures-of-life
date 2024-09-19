@@ -3,6 +3,7 @@ export const ru = {
     addAvatarButton: 'Добавить фото',
     addAvatarModalButtonText: 'Загрузить фото с компьютера',
     addAvatarModalHeader: 'Добавить фото профиля',
+    addNewAvatarBtn: 'Добавить новое',
     avatarImgAltText: 'Твой аватар здесь',
     deleteAvatarModalButtonNo: 'Нет',
     deleteAvatarModalButtonYes: 'Да',
@@ -10,6 +11,7 @@ export const ru = {
     deleteAvatarModalText: 'Вы уверены, что хотите удалить фото профиля?',
     errorFormatText: 'Ошибка! Формат загружаемого изображения должен быть PNG или JPEG',
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 10 MB!',
+    saveBtn: 'Сохранить',
   },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Отправить новую ссылку',
