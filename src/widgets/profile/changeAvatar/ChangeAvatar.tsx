@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { ActionConfirmationModal, AddProfilePhotoModal } from '@/entities'
-import { RoundAvatar, useRouterLocaleDefinition } from '@/shared'
+import { useDeleteAvatarMutation } from '@/services/flow/profile.service'
+import { RequestLineLoader, RoundAvatar, useRouterLocaleDefinition } from '@/shared'
 
 export const ChangeAvatar = () => {
   const t = useRouterLocaleDefinition()
@@ -10,11 +12,16 @@ export const ChangeAvatar = () => {
   const [openDeleteAvatarModal, setOpenDeleteAvatarModal] = useState(false)
   const [openAddAvatarModal, setOpenAddAvatarModal] = useState(false)
 
+  const [deleteAvatar, { isLoading: deleteAvatarIsLoading }] = useDeleteAvatarMutation()
+
   const deleteAvatarHandler = () => {
     setOpenDeleteAvatarModal(true)
   }
 
-  const confirmDeleteAvatarModalHandler = () => {
+  const confirmDeleteAvatarModalHandler = async () => {
+    await deleteAvatar().unwrap()
+    toast.success(t.avatarChange.deleteAvatarSuccess)
+
     setOpenDeleteAvatarModal(false)
   }
 
@@ -24,6 +31,7 @@ export const ChangeAvatar = () => {
 
   return (
     <>
+      {deleteAvatarIsLoading && <RequestLineLoader />}
       <RoundAvatar
         addAvatarBtnText={t.avatarChange.addAvatarButton}
         avatarAltText={t.avatarChange.avatarImgAltText}

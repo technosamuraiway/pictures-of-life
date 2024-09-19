@@ -9,6 +9,7 @@ export const ru = {
     deleteAvatarModalButtonYes: 'Да',
     deleteAvatarModalHeader: 'Удалить фото профиля',
     deleteAvatarModalText: 'Вы уверены, что хотите удалить фото профиля?',
+    deleteAvatarSuccess: 'Фото профиля было успешно удалено',
     errorFormatText: 'Ошибка! Формат загружаемого изображения должен быть PNG или JPEG',
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 10 MB!',
     saveBtn: 'Сохранить',

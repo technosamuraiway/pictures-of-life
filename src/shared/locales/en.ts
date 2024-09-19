@@ -11,6 +11,7 @@ export const en: LocaleType = {
     deleteAvatarModalButtonYes: 'Yes',
     deleteAvatarModalHeader: 'Delete Avatar',
     deleteAvatarModalText: 'Are you sure you want to delete the avatar?',
+    deleteAvatarSuccess: 'Avatar was deleted successfully!',
     errorFormatText: 'Error! The format of the uploaded photo must be PNG or JPEG',
     errorSizeText: 'Error! Photo size must be less than 10 MB!',
     saveBtn: 'Save',
