@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { useGoogleSignUpMutation } from '@/services'
-import { MetaHead, PATH, useRouterLocaleDefinition } from '@/shared'
+import { useGoogleSignUpMutation, useMeCurInfoQuery } from '@/services'
+import {
+  MetaHead,
+  PATH,
+  restoreStateFromLocalStorage,
+  saveStateToLocalStorage,
+  useLogout,
+  useRouterLocaleDefinition,
+} from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
+import { Button } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './Home.module.scss'
 
 function Home() {
+  const { handleLogout } = useLogout()
   const t = useRouterLocaleDefinition()
   const [googleSignUp, { isLoading: isGoogleSignLoading }] = useGoogleSignUpMutation()
   const router = useRouter()
@@ -23,10 +32,10 @@ function Home() {
       })
         .unwrap()
         .then(({ accessToken, email }) => {
-          localStorage.setItem('accessToken', accessToken)
+          saveStateToLocalStorage('accessToken', accessToken)
           toast.success(t.loginSuccess)
           setIsLoggedIn(true)
-          if (!isGoogleSignLoading && localStorage.getItem('accessToken')) {
+          if (!isGoogleSignLoading && restoreStateFromLocalStorage('accessToken', '')) {
             router.replace(PATH.HOME)
           }
         })
@@ -39,7 +48,7 @@ function Home() {
   }, [code])
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken')
+    const token = restoreStateFromLocalStorage('accessToken', '')
 
     setIsLoggedIn(!!token)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,6 +73,7 @@ function Home() {
           <p style={{ marginTop: 20 }}>{t.loginError}</p>
         )}
       </div>
+      {isLoggedIn && <Button onClick={() => handleLogout()}>Log out</Button>}
     </>
   )
 }
