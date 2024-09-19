@@ -1,24 +1,20 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
-import AvatarEditor from 'react-avatar-editor'
+import { ChangeEvent, useRef, useState } from 'react'
+import Avatar from 'react-avatar-editor'
 import { toast } from 'react-toastify'
 
-import { BeforeEditor } from '@/entities/modals/addProfilePhotoModal/beforeEditor/BeforeEditor'
-import { AdaptiveTranslation, useRouterLocaleDefinition } from '@/shared'
-import { getLayoutWithNav } from '@/widgets'
-import emptyAvatar from '@public/profileAvatar/emptyAvatar.svg'
-import { Button, Typography } from '@technosamurai/techno-ui-kit'
-import Image from 'next/image'
+import { useRouterLocaleDefinition } from '@/shared'
 
-import s from '@/entities/modals/addProfilePhotoModal/AddProfilePhotoModal.module.scss'
+import { AvatarEditor } from './avatarEditor/AvatarEditor'
+import { BeforeEditor } from './beforeEditor/BeforeEditor'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 МБ в байтах
 
-function AvatarEditorComponent() {
+export function AvatarEditorComponent() {
   const t = useRouterLocaleDefinition()
   const [show, setShow] = useState<boolean>(true)
   const [image, setImage] = useState<File | string>('')
   const [scale, setScale] = useState<number>(1)
-  const editorRef = useRef<AvatarEditor | null>(null)
+  const editorRef = useRef<Avatar | null>(null)
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [fileError, setFileError] = useState<null | string>(null)
 
@@ -74,46 +70,26 @@ function AvatarEditorComponent() {
     }
   }
 
-  const errorType = true
-  const modalErrorText = errorType ? t.avatarChange.errorFormatText : t.avatarChange.errorSizeText
-
-  return (
-    <>
-      {show ? (
-        <BeforeEditor
-          errorText={fileError}
-          imageAvatar={image}
-          onChangeFileImg={handleFileChange}
-          onClickAddAvatar={handleButtonClick}
-          ref={fileInputRef}
-        />
-      ) : (
-        <div>
-          {image && !fileError && (
-            <div>
-              <AvatarEditor
-                borderRadius={170}
-                height={340}
-                image={image}
-                ref={editorRef}
-                scale={scale}
-                width={340}
-              />
-              <input
-                defaultValue={'1'}
-                max={'2'}
-                min={'1'}
-                onChange={handleScaleChange}
-                step={'0.01'}
-                type={'range'}
-              />
-              <Button onClick={handleSave}>Сохранить</Button>
-            </div>
-          )}
-        </div>
-      )}
-    </>
+  return show ? (
+    <BeforeEditor
+      errorText={fileError}
+      imageAvatar={image}
+      onChangeFileImg={handleFileChange}
+      onClickAddAvatar={handleButtonClick}
+      ref={fileInputRef}
+    />
+  ) : (
+    image && !fileError && (
+      <AvatarEditor
+        downloadFileRef={fileInputRef}
+        image={image}
+        onAddNewBtnClick={handleButtonClick}
+        onAddNewFile={handleFileChange}
+        onSaveBtnClick={handleSave}
+        onScaleChange={handleScaleChange}
+        ref={editorRef}
+        scale={scale}
+      />
+    )
   )
 }
-
-export default AvatarEditorComponent

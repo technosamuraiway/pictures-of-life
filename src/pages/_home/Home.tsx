@@ -54,7 +54,6 @@ function Home() {
         <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
         <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
         <Link href={'/settings'}>Settings</Link>
-        <Link href={'/avatar/avatareditor'}>Avatar Editor</Link>
       </div>
       <MetaHead title={'Pictures-Of-Life'} />
       <div className={s.body}>
