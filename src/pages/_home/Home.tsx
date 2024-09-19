@@ -11,11 +11,11 @@ import {
   useRouterLocaleDefinition,
 } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
+import { Button } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './Home.module.scss'
-import { Button } from '@technosamurai/techno-ui-kit'
 
 function Home() {
   const { handleLogout } = useLogout()
@@ -24,7 +24,6 @@ function Home() {
   const router = useRouter()
   const { code } = router.query
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-
 
   useEffect(() => {
     if (code) {
@@ -50,6 +49,7 @@ function Home() {
 
   useEffect(() => {
     const token = restoreStateFromLocalStorage('accessToken', '')
+
     setIsLoggedIn(!!token)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

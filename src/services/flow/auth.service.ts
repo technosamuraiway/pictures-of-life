@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import { inctagramApi } from '../api/inctagram.api'
 import {
   ICheckRecoveryCodeArgs,
@@ -12,7 +14,6 @@ import {
   ISignInResponse,
   ISignUpArgs,
 } from '../types/auth.types'
-import { toast } from 'react-toastify'
 
 export const authService = inctagramApi.injectEndpoints({
   endpoints: builder => {

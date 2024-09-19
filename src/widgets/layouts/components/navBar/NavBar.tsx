@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { ActionConfirmationModal } from '@/entities'
+import { useMeCurInfoQuery } from '@/services'
 import { AdaptiveTranslation, PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
 import {
   ActiveCreateIcon,
@@ -25,11 +26,10 @@ import { useRouter } from 'next/router'
 import s from './NavBar.module.scss'
 
 import { NavBarItems } from './navBarItems/NavBarItems'
-import { useMeCurInfoQuery } from '@/services'
 
 export function NavBar() {
-  const {data} = useMeCurInfoQuery();
-  const {handleLogout} = useLogout();
+  const { data } = useMeCurInfoQuery()
+  const { handleLogout } = useLogout()
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
@@ -120,7 +120,7 @@ export function NavBar() {
 
   const onClickModalPositiveButtonHandler = () => {
     setOpenModal(false)
-    handleLogout();
+    handleLogout()
   }
 
   // Здесь мы достанем email из "ME" запроса, когда он будет:-)
