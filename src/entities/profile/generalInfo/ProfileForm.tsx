@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
+import { PATH } from '@/shared'
+import CitySelector from '@/shared/components/CountryCitySelect/CitySelect/CitySelect'
+import CountrySelector from '@/shared/components/CountryCitySelect/CountrySelect/CountrySelect'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, MyDatePicker, Select, SelectBox, TextArea } from '@technosamurai/techno-ui-kit'
+import Link from 'next/link'
 // Убедитесь, что путь правильный
 import { z } from 'zod'
 
@@ -10,34 +14,12 @@ import s from './ProfileForm.module.scss'
 
 import { ControlledTextField } from '../../controlled/controlledTextField/ControlledTextField'
 
-// Статичный список стран
-const countryOptions = [
-  { name: 'United States', value: 'us' },
-  { name: 'Canada', value: 'ca' },
-  { name: 'United Kingdom', value: 'uk' },
-  { name: 'Australia', value: 'au' },
-]
-
-// Статичный список городов
-const allCities = [
-  { name: 'New York' },
-  { name: 'Los Angeles' },
-  { name: 'Toronto' },
-  { name: 'London' },
-  { name: 'Sydney' },
-]
-
 // Определяем схему валидации с помощью Zod
 const profileSchema = z.object({
   aboutMe: z.string().optional(),
   city: z.string().min(1, 'Please select a city'),
   country: z.string().min(1, 'Please select a country'),
-  dateOfBirth: z.date().refine(value => {
-    const currentDate = new Date()
-    const age = currentDate.getFullYear() - value.getFullYear()
-
-    return age >= 13 // Ограничение на возраст старше 13 лет
-  }, 'A user under 13 cannot create a profile. Privacy Policy'),
+  dateOfBirth: z.date(), // Убедитесь, что это поле включено
   firstName: z.string().min(1, 'First name is required'),
   lastName: z.string().min(1, 'Last name is required'),
   username: z.string().min(1, 'Username is required'),
@@ -49,10 +31,6 @@ interface IProps {
   buttonDisabled: boolean
   onSubmitProfileForm: (data: ProfileFormValues, resetForm: () => void) => void
 }
-const formattedCityOptions = allCities.map((city, index) => ({
-  label: city.name,
-  value: city.name.toLowerCase().replace(/\s+/g, '-'), // Преобразуем в формат, подходящий для value
-}))
 
 export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => {
   const { control, handleSubmit, reset, setValue, watch } = useForm<ProfileFormValues>({
@@ -60,87 +38,103 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       aboutMe: '',
       city: '',
       country: '',
-      dateOfBirth: undefined,
+
       firstName: '',
       lastName: '',
       username: '',
     },
     resolver: zodResolver(profileSchema),
   })
+  const [selectedCountry, setSelectedCountry] = useState(0)
+  const [selectedState, setSelectedState] = useState(0)
+  const [selectedCity, setSelectedCity] = useState(0)
+  // const [errorMessage, setErrorMessage] = useState('')
 
-  const [selectedCountry, setSelectedCountry] = useState('')
+  const checkAge = (birthDate: Date) => {
+    const today = new Date()
+    const age = today.getFullYear() - birthDate.getFullYear()
+    const monthDiff = today.getMonth() - birthDate.getMonth()
 
-  const [currentValue, setCurrentValue] = useState(formattedCityOptions[0].value)
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      return age - 1
+    }
 
-  // Устанавливаем начальное значение для города, если cityOptions не пуст
+    return age
+  }
+  const [errorMessage, setErrorMessage] = useState('')
+  const handleDateChange = ({ start }: { start?: Date }) => {
+    if (!start) {
+      return
+    } // Если start не указан, выходим из функции
+
+    // Проверка возраста
+    if (checkAge(start) < 13) {
+      setErrorMessage('A user under 13 cannot create a profile.')
+
+      return
+    }
+    setErrorMessage('') // Сбрасываем сообщение об ошибке
+  }
 
   const onSubmitFormHandler = (data: ProfileFormValues) => {
     onSubmitProfileForm(data, reset)
   }
 
-  const dateOfBirth = watch('dateOfBirth')
-
-  const handleDateChange = (date: { end?: Date; start?: Date }) => {
-    if (date.start) {
-      setValue('dateOfBirth', date.start)
-    }
-  }
-
   return (
     <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitFormHandler)}>
+      <label>
+        <span>
+          Username <span style={{ color: 'red' }}>*</span>
+        </span>
+      </label>
       <ControlledTextField
         autoComplete={'username'}
         control={control}
-        label={'Username'}
         name={'username'}
         type={'text'}
       />
+      <label>
+        <span>
+          First Name <span style={{ color: 'red' }}>*</span>
+        </span>
+      </label>
       <ControlledTextField
         autoComplete={'first-name'}
         control={control}
-        label={'First Name'}
         name={'firstName'}
         type={'text'}
       />
+      <label>
+        <span>
+          Last Name <span style={{ color: 'red' }}>*</span>
+        </span>
+      </label>
       <ControlledTextField
         autoComplete={'last-name'}
         control={control}
-        label={'Last Name'}
         name={'lastName'}
         type={'text'}
       />
 
-      {/* Поле для выбора даты с DatePicker */}
       <div className={s.dateOfBirthWrapper}>
-        <label htmlFor={'dateOfBirth'}>Date of Birth</label>
-        <MyDatePicker
-          locale={'en'}
-          mode={'single'}
-          onDateChange={handleDateChange} // Обрабатываем выбор даты
+        <label>Date of Birth</label>
+        <MyDatePicker locale={'en'} mode={'single'} onDateChange={handleDateChange} />
+        {errorMessage && (
+          <div style={{ color: 'red' }}>
+            {errorMessage}
+            <Link href={PATH.AUTH.PRIVACYPOLICY}>Privacy Policy</Link>
+          </div>
+        )}
+      </div>
+      <div className={s.selectDiv}>
+        <CountrySelector onCountryChange={setSelectedCountry} />
+
+        <CitySelector
+          countryId={selectedCountry}
+          onCityChange={setSelectedCity}
+          stateId={selectedState}
         />
       </div>
-
-      {/* Поле выбора страны */}
-      <div className={s.selectWrapper}>
-        <SelectBox
-          // Если нужно, добавьте метку
-          onSelectChange={value => {
-            setSelectedCountry(value)
-            setValue('country', value) // Обновляем значение в форме
-          }}
-          options={countryOptions}
-          variant={'default'}
-        />
-      </div>
-
-      {/* Поле выбора города */}
-
-      <Select
-        currentValue={currentValue}
-        label={'Choose a city'}
-        onValueChange={setCurrentValue}
-        options={formattedCityOptions}
-      />
 
       <label>About me</label>
       <TextArea name={'aboutMe'} placeholder={'Tell us something about yourself...'} />
