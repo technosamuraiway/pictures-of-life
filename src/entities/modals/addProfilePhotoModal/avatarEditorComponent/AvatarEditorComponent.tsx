@@ -11,6 +11,7 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 МБ в байтах
 
 export function AvatarEditorComponent() {
   const t = useRouterLocaleDefinition()
+
   const [show, setShow] = useState<boolean>(true)
   const [image, setImage] = useState<File | string>('')
 

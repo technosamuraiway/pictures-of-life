@@ -5,27 +5,32 @@ import { ActionConfirmationModal, AddProfilePhotoModal } from '@/entities'
 import { useDeleteAvatarMutation } from '@/services/flow/profile.service'
 import { RequestLineLoader, RoundAvatar, useRouterLocaleDefinition } from '@/shared'
 
-export const ChangeAvatar = () => {
+interface IProps {
+  avatar?: string
+}
+
+export const ChangeAvatar = ({ avatar }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [addAvatarBtn, setAddAvatarBtn] = useState<boolean>(true)
   const [deleteAvatarBtn, setDeleteAvatarBtn] = useState<boolean>(true)
-  const [openDeleteAvatarModal, setOpenDeleteAvatarModal] = useState(false)
-  const [openAddAvatarModal, setOpenAddAvatarModal] = useState(false)
+
+  const [openDeleteAvatarModal, setOpenDeleteAvatarModal] = useState<boolean>(false)
+  const [openAddAvatarModal, setOpenAddAvatarModal] = useState<boolean>(false)
 
   const [deleteAvatar, { isLoading: deleteAvatarIsLoading }] = useDeleteAvatarMutation()
 
-  const deleteAvatarHandler = () => {
+  const deleteAvatarModalHandler = () => {
     setOpenDeleteAvatarModal(true)
   }
 
-  const confirmDeleteAvatarModalHandler = async () => {
+  const confirmDeleteAvatarHandler = async () => {
     await deleteAvatar().unwrap()
     toast.success(t.avatarChange.deleteAvatarSuccess)
 
     setOpenDeleteAvatarModal(false)
   }
 
-  const addAvatarHandler = () => {
+  const addAvatarModalHandler = () => {
     setOpenAddAvatarModal(true)
   }
 
@@ -35,17 +40,18 @@ export const ChangeAvatar = () => {
       <RoundAvatar
         addAvatarBtnText={t.avatarChange.addAvatarButton}
         avatarAltText={t.avatarChange.avatarImgAltText}
+        avatarSrc={avatar}
         isShowAddBtn={addAvatarBtn}
-        isShowDeleteBtn={deleteAvatarBtn}
-        onClickAddAvatar={addAvatarHandler}
-        onClickDeleteAvatar={deleteAvatarHandler}
+        isShowDeleteBtn={!!avatar}
+        onClickAddAvatar={addAvatarModalHandler}
+        onClickDeleteAvatar={deleteAvatarModalHandler}
       />
       <ActionConfirmationModal
         headerTitle={t.avatarChange.deleteAvatarModalHeader}
         isOpenModal={openDeleteAvatarModal}
         modalTextChildren={t.avatarChange.deleteAvatarModalText}
         negativeButtonChildren={t.avatarChange.deleteAvatarModalButtonNo}
-        onClickPositiveButton={confirmDeleteAvatarModalHandler}
+        onClickPositiveButton={confirmDeleteAvatarHandler}
         positiveButtonChildren={t.avatarChange.deleteAvatarModalButtonYes}
         setIsOpenModal={setOpenDeleteAvatarModal}
       />

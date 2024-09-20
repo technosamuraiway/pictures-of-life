@@ -40,6 +40,7 @@ export const ru = {
     buttonYes: 'Да',
     logOutButton: 'Выход',
     logOutModalHeader: 'Выход',
+    logOutSuccess: 'Вы успешно вышли из приложения. Увидимся в следующий раз!',
     logOutText: 'Вы действительно хотите выйти из аккаунта <1>email</1> ?',
   },
   loginError: 'Вы не авторизованы, попробуйте еще раз...',

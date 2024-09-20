@@ -41,6 +41,7 @@ export const en: LocaleType = {
     buttonYes: 'Yes',
     logOutButton: 'Log Out',
     logOutModalHeader: 'Log Out',
+    logOutSuccess: 'Logout successful. See you next time!',
     logOutText: 'Are you really want to log out of your account <1>email</1> ?',
   },
   loginError: 'You are not logged in, try again...',
