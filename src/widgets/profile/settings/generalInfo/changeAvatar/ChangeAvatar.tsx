@@ -5,14 +5,14 @@ import { ActionConfirmationModal, AddProfilePhotoModal } from '@/entities'
 import { useDeleteAvatarMutation } from '@/services/flow/profile.service'
 import { RequestLineLoader, RoundAvatar, useRouterLocaleDefinition } from '@/shared'
 
+import s from './ChangeAvatar.module.scss'
+
 interface IProps {
   avatar?: string
 }
 
 export const ChangeAvatar = ({ avatar }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const [addAvatarBtn, setAddAvatarBtn] = useState<boolean>(true)
-  const [deleteAvatarBtn, setDeleteAvatarBtn] = useState<boolean>(true)
 
   const [openDeleteAvatarModal, setOpenDeleteAvatarModal] = useState<boolean>(false)
   const [openAddAvatarModal, setOpenAddAvatarModal] = useState<boolean>(false)
@@ -35,13 +35,13 @@ export const ChangeAvatar = ({ avatar }: IProps) => {
   }
 
   return (
-    <>
+    <div className={s.wrapper}>
       {deleteAvatarIsLoading && <RequestLineLoader />}
       <RoundAvatar
         addAvatarBtnText={t.avatarChange.addAvatarButton}
         avatarAltText={t.avatarChange.avatarImgAltText}
         avatarSrc={avatar}
-        isShowAddBtn={addAvatarBtn}
+        isShowAddBtn
         isShowDeleteBtn={!!avatar}
         onClickAddAvatar={addAvatarModalHandler}
         onClickDeleteAvatar={deleteAvatarModalHandler}
@@ -56,6 +56,6 @@ export const ChangeAvatar = ({ avatar }: IProps) => {
         setIsOpenModal={setOpenDeleteAvatarModal}
       />
       <AddProfilePhotoModal onOpenModal={setOpenAddAvatarModal} openModal={openAddAvatarModal} />
-    </>
+    </div>
   )
 }

@@ -10,7 +10,11 @@ import { BeforeEditor } from './beforeEditor/BeforeEditor'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 МБ в байтах
 
-export const AvatarEditorComponent = () => {
+interface IProps {
+  onOpenModal: (open: boolean) => void
+}
+
+export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   const t = useRouterLocaleDefinition()
   const { data: profileData } = useGetProfileQuery()
   const [changeAvatar, { isLoading: changeAvatarIsLoading }] = useChangeAvatarMutation()
@@ -56,13 +60,17 @@ export const AvatarEditorComponent = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas()
 
-      canvas.toBlob(blob => {
+      canvas.toBlob(async blob => {
         if (blob) {
           const fileType = 'image/png'
           const fileName = fileType === 'image/png' ? 'avatar.png' : 'avatar.jpg'
           const file = new File([blob], fileName, { type: fileType })
 
-          changeAvatar({ file })
+          await changeAvatar({ file }).unwrap()
+
+          setIsEdit(false)
+          onOpenModal(false)
+          toast.success(t.avatarChange.avatarSaved)
         }
       }, 'image/png')
     }
@@ -75,6 +83,7 @@ export const AvatarEditorComponent = () => {
         <AvatarEditor
           downloadFileRef={fileInputRef}
           image={image}
+          isDisableSaveBtn={changeAvatarIsLoading}
           onAddNewBtnClick={onInputButtonClickHandler}
           onAddNewFile={onAvatarFileChangeHandler}
           onSaveBtnClick={onAvatarSaveHandler}

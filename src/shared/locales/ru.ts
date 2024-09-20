@@ -5,6 +5,7 @@ export const ru = {
     addAvatarModalHeader: 'Добавить фото профиля',
     addNewAvatarBtn: 'Добавить новое',
     avatarImgAltText: 'Твой аватар здесь',
+    avatarSaved: 'Фото профиля успешно сохранено!',
     deleteAvatarModalButtonNo: 'Нет',
     deleteAvatarModalButtonYes: 'Да',
     deleteAvatarModalHeader: 'Удалить фото профиля',

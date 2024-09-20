@@ -7,6 +7,7 @@ export const en: LocaleType = {
     addAvatarModalHeader: 'Add a Profile Photo',
     addNewAvatarBtn: 'Add New Photo',
     avatarImgAltText: 'Your avatar here',
+    avatarSaved: 'Avatar saved successfully!',
     deleteAvatarModalButtonNo: 'No',
     deleteAvatarModalButtonYes: 'Yes',
     deleteAvatarModalHeader: 'Delete Avatar',

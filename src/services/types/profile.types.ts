@@ -20,6 +20,10 @@ export type AvatarsType = {
   width: number
 }
 
+export interface IAvatarResponse {
+  avatars: AvatarsType[]
+}
+
 export type IAvatarArgs = {
   file: File
 }
