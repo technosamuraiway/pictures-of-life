@@ -19,3 +19,7 @@ export type AvatarsType = {
   url: string
   width: number
 }
+
+export type IAvatarArgs = {
+  file: File
+}

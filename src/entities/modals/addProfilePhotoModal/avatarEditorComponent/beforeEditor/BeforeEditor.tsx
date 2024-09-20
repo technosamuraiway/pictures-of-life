@@ -9,13 +9,13 @@ import s from './BeforeEditor.module.scss'
 
 interface IProps {
   errorText?: ReactNode
-  imageAvatar: File | string
+  imageAvatar?: File | string
   onChangeFileImg: (e: ChangeEvent<HTMLInputElement>) => void
   onClickAddAvatar: () => void
 }
 
 export const BeforeEditor = forwardRef<ElementRef<'input'>, IProps>(
-  ({ errorText, imageAvatar, onChangeFileImg, onClickAddAvatar }, ref) => {
+  ({ errorText, imageAvatar = emptyAvatar, onChangeFileImg, onClickAddAvatar }, ref) => {
     const t = useRouterLocaleDefinition()
 
     return (
@@ -26,11 +26,7 @@ export const BeforeEditor = forwardRef<ElementRef<'input'>, IProps>(
           </div>
         )}
         <div className={s.imgWrapper}>
-          <Image
-            alt={t.avatarChange.avatarImgAltText}
-            className={s.avatarImg}
-            src={imageAvatar || emptyAvatar}
-          />
+          <Image alt={t.avatarChange.avatarImgAltText} className={s.avatarImg} src={imageAvatar} />
         </div>
         <DownloadFile
           btnText={t.avatarChange.addAvatarModalButtonText}

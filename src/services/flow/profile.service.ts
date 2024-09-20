@@ -1,9 +1,16 @@
 import { inctagramApi } from '@/services/api/inctagram.api'
-import { IProfileResponse } from '@/services/types/profile.types'
+import { AvatarsType, IAvatarArgs, IProfileResponse } from '@/services/types/profile.types'
 
 export const profileService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
+      changeAvatar: builder.mutation<AvatarsType[], IAvatarArgs>({
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `v1/users/profile/avatar`,
+        }),
+      }),
       deleteAvatar: builder.mutation<void, void>({
         query: () => ({
           method: 'DELETE',
@@ -20,4 +27,5 @@ export const profileService = inctagramApi.injectEndpoints({
   },
 })
 
-export const { useDeleteAvatarMutation, useGetProfileQuery } = profileService
+export const { useChangeAvatarMutation, useDeleteAvatarMutation, useGetProfileQuery } =
+  profileService

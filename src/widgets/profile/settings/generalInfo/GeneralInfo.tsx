@@ -1,4 +1,4 @@
-import { useGetProfileQuery } from '@/services/flow/profile.service'
+import { useGetProfileQuery } from '@/services'
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { Tabs } from '@technosamurai/techno-ui-kit'
 
