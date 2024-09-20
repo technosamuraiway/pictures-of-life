@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { EmailSentModal, ForgotPasswordForm, ForgotPasswordFormValues } from '@/entities'
-import { IMessagesFromError, IServerError, useForgotPasswordMutation } from '@/services'
+import { IServerError, MessagesFromErrorType, useForgotPasswordMutation } from '@/services'
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { getBaseLayout } from '@/widgets'
 import { Card, Typography } from '@technosamurai/techno-ui-kit'
@@ -14,7 +14,7 @@ function ForgotPassword() {
   const [sentLinkAgain, setSentLinkAgain] = useState(false)
 
   const [email, setEmail] = useState('YourEmail@gmail.com')
-  const [textFieldError, setTextFieldError] = useState<Array<IMessagesFromError>>()
+  const [textFieldError, setTextFieldError] = useState<Array<MessagesFromErrorType>>()
 
   const [forgotPassword, { isLoading: forgotPasswordIsLoading }] = useForgotPasswordMutation()
 

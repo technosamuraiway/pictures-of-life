@@ -11,6 +11,7 @@ import { ScaleSlider } from './scaleSlider/ScaleSlider'
 interface IProps {
   downloadFileRef: RefObject<HTMLInputElement>
   image: File | string
+  isDisableSaveBtn?: boolean
   onAddNewBtnClick: () => void
   onAddNewFile: (e: ChangeEvent<HTMLInputElement>) => void
   onSaveBtnClick: () => void
@@ -21,7 +22,10 @@ const SCALE_MAX = 2
 const SCALE_MIN = 0.1
 
 export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
-  ({ downloadFileRef, image, onAddNewBtnClick, onAddNewFile, onSaveBtnClick }, ref) => {
+  (
+    { downloadFileRef, image, isDisableSaveBtn, onAddNewBtnClick, onAddNewFile, onSaveBtnClick },
+    ref
+  ) => {
     const t = useRouterLocaleDefinition()
 
     const [scale, setScale] = useState<number[]>([1])
@@ -65,7 +69,9 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
             onChangeFile={onAddNewFile}
             ref={downloadFileRef}
           />
-          <Button onClick={onSaveBtnClick}>{t.avatarChange.saveBtn}</Button>
+          <Button disabled={isDisableSaveBtn} onClick={onSaveBtnClick}>
+            {t.avatarChange.saveBtn}
+          </Button>
         </div>
       </div>
     )

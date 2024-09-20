@@ -18,7 +18,7 @@ export const AddProfilePhotoModal = ({ onOpenModal, openModal }: IProps) => {
       onOpenChange={onOpenModal}
       open={openModal}
     >
-      <AvatarEditorComponent />
+      <AvatarEditorComponent onOpenModal={onOpenModal} />
     </Modal>
   )
 }

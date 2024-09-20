@@ -2,29 +2,36 @@ import { ChangeEvent, useRef, useState } from 'react'
 import Avatar from 'react-avatar-editor'
 import { toast } from 'react-toastify'
 
-import { useRouterLocaleDefinition } from '@/shared'
+import { useChangeAvatarMutation, useGetProfileQuery } from '@/services'
+import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 
 import { AvatarEditor } from './avatarEditor/AvatarEditor'
 import { BeforeEditor } from './beforeEditor/BeforeEditor'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 МБ в байтах
 
-export function AvatarEditorComponent() {
+interface IProps {
+  onOpenModal: (open: boolean) => void
+}
+
+export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const [show, setShow] = useState<boolean>(true)
-  const [image, setImage] = useState<File | string>('')
+  const { data: profileData } = useGetProfileQuery()
+  const [changeAvatar, { isLoading: changeAvatarIsLoading }] = useChangeAvatarMutation()
+
+  const [isEdit, setIsEdit] = useState<boolean>(false)
+  const [image, setImage] = useState<File | string | undefined>(profileData?.avatars[0].url)
 
   const editorRef = useRef<Avatar | null>(null)
-  const [avatarFile, setAvatarFile] = useState<File | null>(null)
-  const [fileError, setFileError] = useState<null | string>(null)
-
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleButtonClick = () => {
+  const [fileError, setFileError] = useState<null | string>(null)
+
+  const onInputButtonClickHandler = () => {
     fileInputRef.current?.click()
   }
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onAvatarFileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
 
     if (file) {
@@ -36,7 +43,8 @@ export function AvatarEditorComponent() {
       }
 
       if (file.type === 'image/png' || file.type === 'image/jpeg') {
-        setShow(false)
+        setIsEdit(true)
+
         const imageUrl = URL.createObjectURL(file)
 
         setImage(imageUrl)
@@ -48,40 +56,48 @@ export function AvatarEditorComponent() {
     }
   }
 
-  const handleSave = () => {
+  const onAvatarSaveHandler = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas()
 
-      canvas.toBlob(blob => {
+      canvas.toBlob(async blob => {
         if (blob) {
           const fileType = 'image/png'
           const fileName = fileType === 'image/png' ? 'avatar.png' : 'avatar.jpg'
           const file = new File([blob], fileName, { type: fileType })
 
-          setAvatarFile(file)
+          await changeAvatar({ file }).unwrap()
+
+          setIsEdit(false)
+          onOpenModal(false)
+          toast.success(t.avatarChange.avatarSaved)
         }
       }, 'image/png')
     }
   }
 
-  return show ? (
+  return isEdit ? (
+    <>
+      {changeAvatarIsLoading && <RequestLineLoader />}
+      {image && !fileError && (
+        <AvatarEditor
+          downloadFileRef={fileInputRef}
+          image={image}
+          isDisableSaveBtn={changeAvatarIsLoading}
+          onAddNewBtnClick={onInputButtonClickHandler}
+          onAddNewFile={onAvatarFileChangeHandler}
+          onSaveBtnClick={onAvatarSaveHandler}
+          ref={editorRef}
+        />
+      )}
+    </>
+  ) : (
     <BeforeEditor
       errorText={fileError}
       imageAvatar={image}
-      onChangeFileImg={handleFileChange}
-      onClickAddAvatar={handleButtonClick}
+      onChangeFileImg={onAvatarFileChangeHandler}
+      onClickAddAvatar={onInputButtonClickHandler}
       ref={fileInputRef}
     />
-  ) : (
-    image && !fileError && (
-      <AvatarEditor
-        downloadFileRef={fileInputRef}
-        image={image}
-        onAddNewBtnClick={handleButtonClick}
-        onAddNewFile={handleFileChange}
-        onSaveBtnClick={handleSave}
-        ref={editorRef}
-      />
-    )
   )
 }
