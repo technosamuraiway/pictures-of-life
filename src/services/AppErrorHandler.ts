@@ -21,21 +21,8 @@ export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => act
   if (isRejected(action)) {
     const serverError = action.payload as IServerError
 
-    // /* если не связанно с auth + есть ответ от сервера */
-    if (!(serverError.data?.statusCode === 401) && serverError.data) {
-      toast.error(serverError.data?.messages[0].message)
-    }
-
     if (serverError.data?.statusCode === 400 || serverError.data?.statusCode === 401) {
       toast.error(serverError.data?.messages[0].message)
-    }
-
-    if (serverError.data?.statusCode === 500) {
-      if (serverError.data?.messages[0].message.includes('(`email`)')) {
-        toast.error('User with this email is already exist')
-      } else if (serverError.data?.messages[0].message.includes('(`userName`)')) {
-        toast.error('User with this username is already exist')
-      }
     }
 
     /* если нет ответа от сервера */
