@@ -32,9 +32,9 @@ export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => act
 
     if (serverError.data?.statusCode === 500) {
       if (serverError.data?.messages[0].message.includes('(`email`)')) {
-        toast.error('User with this email is already registered')
+        toast.error('User with this email is already exist')
       } else if (serverError.data?.messages[0].message.includes('(`userName`)')) {
-        toast.error('User with this username is already registered')
+        toast.error('User with this username is already exist')
       }
     }
 
