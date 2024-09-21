@@ -15,6 +15,11 @@ export const ru = {
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 10 MB!',
     saveBtn: 'Сохранить',
   },
+  error404Page: {
+    btnText: 'Вернуться на главную',
+    mainText: 'Простите! Страница не найдена!',
+    title: '404: Страница не найдена',
+  },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Отправить новую ссылку',
     buttonPasswordVerificationText: 'Отправить новую ссылку',
