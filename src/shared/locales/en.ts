@@ -7,6 +7,7 @@ export const en: LocaleType = {
     addAvatarModalHeader: 'Add a Profile Photo',
     addNewAvatarBtn: 'Add New Photo',
     avatarImgAltText: 'Your avatar here',
+    avatarSaved: 'Avatar saved successfully!',
     deleteAvatarModalButtonNo: 'No',
     deleteAvatarModalButtonYes: 'Yes',
     deleteAvatarModalHeader: 'Delete Avatar',
@@ -15,6 +16,11 @@ export const en: LocaleType = {
     errorFormatText: 'Error! The format of the uploaded photo must be PNG or JPEG',
     errorSizeText: 'Error! Photo size must be less than 10 MB!',
     saveBtn: 'Save',
+  },
+  error404Page: {
+    btnText: 'Back to Home',
+    mainText: "Sorry! Page isn't found!",
+    title: '404: Page not found',
   },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Resend verification link',
@@ -41,6 +47,7 @@ export const en: LocaleType = {
     buttonYes: 'Yes',
     logOutButton: 'Log Out',
     logOutModalHeader: 'Log Out',
+    logOutSuccess: 'Logout successful. See you next time!',
     logOutText: 'Are you really want to log out of your account <1>email</1> ?',
   },
   loginError: 'You are not logged in, try again...',

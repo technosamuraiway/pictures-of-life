@@ -5,6 +5,7 @@ export const ru = {
     addAvatarModalHeader: 'Добавить фото профиля',
     addNewAvatarBtn: 'Добавить новое',
     avatarImgAltText: 'Твой аватар здесь',
+    avatarSaved: 'Фото профиля успешно сохранено!',
     deleteAvatarModalButtonNo: 'Нет',
     deleteAvatarModalButtonYes: 'Да',
     deleteAvatarModalHeader: 'Удалить фото профиля',
@@ -13,6 +14,11 @@ export const ru = {
     errorFormatText: 'Ошибка! Формат загружаемого изображения должен быть PNG или JPEG',
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 10 MB!',
     saveBtn: 'Сохранить',
+  },
+  error404Page: {
+    btnText: 'Вернуться на главную',
+    mainText: 'Простите! Страница не найдена!',
+    title: '404: Страница не найдена',
   },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Отправить новую ссылку',
@@ -40,6 +46,7 @@ export const ru = {
     buttonYes: 'Да',
     logOutButton: 'Выход',
     logOutModalHeader: 'Выход',
+    logOutSuccess: 'Вы успешно вышли из приложения. Увидимся в следующий раз!',
     logOutText: 'Вы действительно хотите выйти из аккаунта <1>email</1> ?',
   },
   loginError: 'Вы не авторизованы, попробуйте еще раз...',

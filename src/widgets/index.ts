@@ -7,4 +7,4 @@ export { getBaseLayout } from './layouts/BaseLayout'
 export { getLayoutWithNav } from './layouts/LayoutWithNav'
 
 // ============================== [ profile ] ======================================
-export { ChangeAvatar } from './profile/changeAvatar/ChangeAvatar'
+export { GeneralInfo } from './profile/settings/generalInfo/GeneralInfo'
