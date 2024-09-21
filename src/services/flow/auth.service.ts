@@ -88,7 +88,7 @@ export const authService = inctagramApi.injectEndpoints({
         query: args => ({
           body: args,
           method: 'POST',
-          url: '/v1/auth/login',
+          url: 'v1/auth/login',
         }),
       }),
       signUp: builder.mutation<void, ISignUpArgs>({
