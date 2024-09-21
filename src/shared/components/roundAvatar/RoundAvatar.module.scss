@@ -12,7 +12,6 @@
 
 .deleteAvatarBtnWrapper {
   position: absolute;
-  z-index: 3;
   top: 0.75rem;
   right: 0.75rem;
 
@@ -41,22 +40,4 @@
   &:hover {
     background-color: var(--Danger-900);
   }
-}
-
-.imgWrapper {
-  z-index: 2;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 12.25rem;
-  height: 12.25rem;
-
-  background-color: var(--Dark-500);
-  border-radius: 50%;
-}
-
-.avatarImg {
-  z-index: 1;
 }

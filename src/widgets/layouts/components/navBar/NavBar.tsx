@@ -28,7 +28,7 @@ import s from './NavBar.module.scss'
 import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
-  const { data } = useMeCurInfoQuery()
+  const { data: meData } = useMeCurInfoQuery()
   const { handleLogout } = useLogout()
   const t = useRouterLocaleDefinition()
   const router = useRouter()
@@ -59,7 +59,7 @@ export function NavBar() {
       activeIconComponent: <ActiveProfileIcon />,
       altText: `${t.navBar.myProfile} Icon`,
       defaultIconComponent: <DefaultProfileIcon />,
-      hrefLink: '/create/hello',
+      hrefLink: `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`,
       id: 456,
       isDisabled: false,
       text: t.navBar.myProfile,

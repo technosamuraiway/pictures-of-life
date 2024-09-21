@@ -81,11 +81,15 @@ export const en: LocaleType = {
          You have the right to request access, correction, or deletion of your personal data that we store. You can also withdraw your consent to the processing of your data or restrict its use. To do so, please contact us using the provided contact information.`,
     title: 'Privacy Policy',
   },
-  settings: {
+  profilePage: {
+    title: 'Profile',
+  },
+  settingsPage: {
     devices: 'Devices',
     general: 'General information',
     management: 'Account Management',
     payments: 'My payments',
+    title: 'Settings',
   },
   signInPage: {
     accountQuestion: 'Don’t have an account?',
@@ -97,6 +101,7 @@ export const en: LocaleType = {
     googleLinkTitle: 'Sing Up with Google',
     password: 'Password',
     signInButton: 'Sign In',
+    successLogIn: 'You are successfully signed in. Welcome!',
     title: 'Sign In',
   },
   signUpPage: {

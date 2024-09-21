@@ -10,4 +10,8 @@ export const PATH = {
     URLGOOGLELOGIN: 'https://inctagram.work/api/v1/auth/google/login',
   },
   HOME: '/',
+  PROFILE: {
+    BASEPROFILE: '/profile',
+    SETTINGS: '/profile/settings',
+  },
 } as const

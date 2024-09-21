@@ -22,6 +22,7 @@
   margin-bottom: 1.875rem;
 
   background-color: var(--Dark-500);
+  border-radius: 0;
 }
 
 .errorWrapper {
@@ -42,7 +43,11 @@
   display: inline;
 }
 
-.avatarImg {
-  width: 3rem;
-  height: 3rem;
+.imgAvatar {
+  width: 13.875rem;
+  height: 14.25rem;
+  margin-top: 5.375rem;
+  margin-bottom: 1.875rem;
+
+  border-radius: 0;
 }

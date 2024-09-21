@@ -1,22 +1,23 @@
 import { ChangeEvent, ElementRef, ReactNode, forwardRef } from 'react'
 
-import { DownloadFile, useRouterLocaleDefinition } from '@/shared'
-import emptyAvatar from '@public/profileAvatar/emptyAvatar.svg'
+import { useGetProfileQuery } from '@/services'
+import { AvatarChoice, DownloadFile, useRouterLocaleDefinition } from '@/shared'
 import { Typography } from '@technosamurai/techno-ui-kit'
-import Image from 'next/image'
 
 import s from './BeforeEditor.module.scss'
 
 interface IProps {
   errorText?: ReactNode
-  imageAvatar?: File | string
   onChangeFileImg: (e: ChangeEvent<HTMLInputElement>) => void
   onClickAddAvatar: () => void
 }
 
 export const BeforeEditor = forwardRef<ElementRef<'input'>, IProps>(
-  ({ errorText, imageAvatar = emptyAvatar, onChangeFileImg, onClickAddAvatar }, ref) => {
+  ({ errorText, onChangeFileImg, onClickAddAvatar }, ref) => {
     const t = useRouterLocaleDefinition()
+    const { data: profileData } = useGetProfileQuery()
+
+    const avatarCondition = profileData?.avatars && profileData.avatars.length > 0
 
     return (
       <div className={s.wrapper}>
@@ -25,9 +26,13 @@ export const BeforeEditor = forwardRef<ElementRef<'input'>, IProps>(
             <Typography variant={'regular-text-14'}>{errorText}</Typography>
           </div>
         )}
-        <div className={s.imgWrapper}>
-          <Image alt={t.avatarChange.avatarImgAltText} className={s.avatarImg} src={imageAvatar} />
-        </div>
+        <AvatarChoice
+          avatarSrc={profileData?.avatars}
+          imgCN={s.imgAvatar}
+          imgWrapperCN={s.imgWrapper}
+          mainCondition={avatarCondition}
+          userName={profileData?.userName}
+        />
         <DownloadFile
           btnText={t.avatarChange.addAvatarModalButtonText}
           onBtnClick={onClickAddAvatar}

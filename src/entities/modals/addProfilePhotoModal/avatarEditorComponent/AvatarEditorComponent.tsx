@@ -96,7 +96,6 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   ) : (
     <BeforeEditor
       errorText={fileError}
-      imageAvatar={image}
       onChangeFileImg={onAvatarFileChangeHandler}
       onClickAddAvatar={onInputButtonClickHandler}
       ref={fileInputRef}
