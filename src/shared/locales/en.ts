@@ -17,6 +17,11 @@ export const en: LocaleType = {
     errorSizeText: 'Error! Photo size must be less than 10 MB!',
     saveBtn: 'Save',
   },
+  error404Page: {
+    btnText: 'Back to Home',
+    mainText: "Sorry! Page isn't found!",
+    title: '404: Page not found',
+  },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Resend verification link',
     buttonPasswordVerificationText: 'Resend password recovery link',
