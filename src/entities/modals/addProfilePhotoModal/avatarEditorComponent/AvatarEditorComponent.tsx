@@ -20,7 +20,9 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   const [changeAvatar, { isLoading: changeAvatarIsLoading }] = useChangeAvatarMutation()
 
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  const [image, setImage] = useState<File | string | undefined>(profileData?.avatars[0].url)
+  const [image, setImage] = useState<File | string | undefined>(
+    profileData?.avatars.length != 0 ? profileData?.avatars[0].url : undefined
+  )
 
   const editorRef = useRef<Avatar | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)

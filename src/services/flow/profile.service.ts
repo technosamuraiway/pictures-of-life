@@ -9,7 +9,8 @@ export const profileService = inctagramApi.injectEndpoints({
         query: ({ file }) => {
           const formData = new FormData()
 
-          formData.append('avatarFile', file)
+          formData.append('file', file)
+          console.log(formData.get('file'))
 
           return {
             body: formData,

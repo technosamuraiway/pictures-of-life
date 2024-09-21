@@ -8,11 +8,13 @@ export const GeneralInfo = () => {
   const t = useRouterLocaleDefinition()
   const { data: profileData, isLoading: getProfileIsLoading } = useGetProfileQuery()
 
+  const avatarCondition = profileData?.avatars.length != 0 ? profileData?.avatars[0].url : undefined
+
   return (
     <>
       {getProfileIsLoading && <RequestLineLoader />}
       <Tabs.Content value={t.settings.general}>
-        <ChangeAvatar avatar={profileData?.avatars[0].url} />
+        <ChangeAvatar avatar={avatarCondition} />
       </Tabs.Content>
     </>
   )

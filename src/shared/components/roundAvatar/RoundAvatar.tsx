@@ -53,7 +53,13 @@ export const RoundAvatar = ({
         </div>
       )}
       <div className={clsx(s.imgWrapper, imgWrapperCN)}>
-        <Image alt={avatarAltText} className={clsx(s.avatarImg, imgCN)} src={avatarSrc} />
+        <Image
+          alt={avatarAltText}
+          className={clsx(s.avatarImg, imgCN)}
+          height={196}
+          src={avatarSrc}
+          width={196}
+        />
       </div>
       {isShowAddBtn && (
         <Button className={btnCN} fullWidth onClick={onClickAddAvatar} variant={'outline'}>

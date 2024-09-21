@@ -1,6 +1,5 @@
-import { OAuth, SignInForm } from '@/entities'
-import { SignInFormValues } from '@/entities/zodValidationScheme'
-import { authService } from '@/services/flow/auth.service'
+import { OAuth, SignInForm, SignInFormValues } from '@/entities'
+import { authService, useSignInMutation } from '@/services'
 import {
   FormQuestionBlock,
   MetaHead,
@@ -20,25 +19,26 @@ function SignIn() {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
-  const [signIn, { isLoading: SignInIsLoading }] = authService.useSignInMutation()
+  const [signIn, { isLoading: SignInIsLoading }] = useSignInMutation()
 
   const onSubmitSignInForm = (data: SignInFormValues, resetForm: () => void) => {
     signIn({
       email: data.email,
       password: data.password,
-    })
-      .unwrap()
-      .then(result => {
-        const { accessToken } = result
-
-        saveStateToLocalStorage('accessToken', accessToken)
-
-        const decodedToken: { userId: string } = jwtDecode(accessToken)
-        const { userId } = decodedToken
-
-        resetForm()
-        router.replace(`/profile/${userId}`)
-      })
+    }).unwrap()
+    router.replace(`/`)
+    //     .then(result => {
+    //       const { accessToken } = result
+    //
+    //       //localStorage.setItem('accessToken', accessToken)
+    //       saveStateToLocalStorage<string>('accessToken', accessToken)
+    //
+    //       // const decodedToken: { userId: string } = jwtDecode(accessToken)
+    //       // const { userId } = decodedToken
+    //       //
+    //       // resetForm()
+    //       // router.replace(`/profile/${userId}`)
+    //     })
   }
 
   return (
