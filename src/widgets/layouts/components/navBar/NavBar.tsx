@@ -77,7 +77,7 @@ export function NavBar() {
       activeIconComponent: <ActiveSearchIcon />,
       altText: `${t.navBar.search} Icon`,
       defaultIconComponent: <DefaultSearchIcon />,
-      hrefLink: '#Search',
+      hrefLink: '/Search',
       id: 123,
       isDisabled: false,
       text: t.navBar.search,
@@ -88,7 +88,7 @@ export function NavBar() {
       activeIconComponent: <ActiveStatisticsIcon />,
       altText: `${t.navBar.statistics} Icon`,
       defaultIconComponent: <DefaultStatisticsIcon />,
-      hrefLink: '#Statistics',
+      hrefLink: '/Statistics',
       id: 147,
       isDisabled: false,
       text: t.navBar.statistics,
@@ -97,7 +97,7 @@ export function NavBar() {
       activeIconComponent: <ActiveFavoritesIcon />,
       altText: `${t.navBar.favorites} Icon`,
       defaultIconComponent: <DefaultFavoritesIcon />,
-      hrefLink: '#Favorites',
+      hrefLink: '/Favorites',
       id: 258,
       isDisabled: false,
       text: t.navBar.favorites,
@@ -109,7 +109,9 @@ export function NavBar() {
     if (itemPath === PATH.HOME) {
       return router.pathname === PATH.HOME
     } else {
-      return router.pathname.startsWith(itemPath) && router.pathname !== PATH.HOME
+      const trimmedPath = '/' + itemPath.split('/').slice(1, 2)
+
+      return router.pathname.startsWith(trimmedPath) && router.pathname !== PATH.HOME
     }
   }
 
@@ -123,8 +125,7 @@ export function NavBar() {
     handleLogout()
   }
 
-  // Здесь мы достанем email из "ME" запроса, когда он будет:-)
-  const email = 'Test@gmail.com'
+  const email = meData?.email ?? 'Test@mail.com'
 
   return (
     <nav className={s.wrapper}>
