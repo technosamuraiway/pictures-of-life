@@ -1,17 +1,16 @@
-import { OAuth, SignInForm } from '@/entities'
-import { SignInFormValues } from '@/entities/zodValidationScheme'
-import { authService } from '@/services/flow/auth.service'
+import { toast } from 'react-toastify'
+
+import { OAuth, SignInForm, SignInFormValues } from '@/entities'
+import { useMeCurInfoQuery, useSignInMutation } from '@/services'
 import {
   FormQuestionBlock,
   MetaHead,
   PATH,
   RequestLineLoader,
-  saveStateToLocalStorage,
   useRouterLocaleDefinition,
 } from '@/shared'
 import { getBaseLayout } from '@/widgets'
 import { Card } from '@technosamurai/techno-ui-kit'
-import { jwtDecode } from 'jwt-decode'
 import { useRouter } from 'next/router'
 
 import s from './SignIn.module.scss'
@@ -20,25 +19,18 @@ function SignIn() {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
-  const [signIn, { isLoading: SignInIsLoading }] = authService.useSignInMutation()
+  const [signIn, { isLoading: SignInIsLoading }] = useSignInMutation()
+  const { data: meData } = useMeCurInfoQuery()
 
-  const onSubmitSignInForm = (data: SignInFormValues, resetForm: () => void) => {
-    signIn({
+  const onSubmitSignInForm = async (data: SignInFormValues, resetForm: () => void) => {
+    await signIn({
       email: data.email,
       password: data.password,
-    })
-      .unwrap()
-      .then(result => {
-        const { accessToken } = result
+    }).unwrap()
 
-        saveStateToLocalStorage('accessToken', accessToken)
+    toast.success(t.signInPage.successLogIn)
 
-        const decodedToken: { userId: string } = jwtDecode(accessToken)
-        const { userId } = decodedToken
-
-        resetForm()
-        router.replace(`/profile/${userId}`)
-      })
+    router.replace(`${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`)
   }
 
   return (

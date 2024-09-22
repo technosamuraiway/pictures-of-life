@@ -15,6 +15,11 @@ export const ru = {
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 10 MB!',
     saveBtn: 'Сохранить',
   },
+  error404Page: {
+    btnText: 'Вернуться на главную',
+    mainText: 'Простите! Страница не найдена!',
+    title: '404: Страница не найдена',
+  },
   expiredEmailLink: {
     buttonEmailVerificationText: 'Отправить новую ссылку',
     buttonPasswordVerificationText: 'Отправить новую ссылку',
@@ -80,11 +85,15 @@ export const ru = {
       Вы имеете право запросить доступ, исправление или удаление ваших личных данных, которые мы храним. Вы также можете отозвать свое согласие на обработку ваших данных или ограничить их использование. Для этого свяжитесь с нами по указанным контактным данным.`,
     title: 'Политика конфиденциальности',
   },
-  settings: {
+  profilePage: {
+    title: 'Профиль',
+  },
+  settingsPage: {
     devices: 'Устройства',
     general: 'Общая информация',
     management: 'Управление аккаунтом',
     payments: 'Мои платежи',
+    title: 'Настройки',
   },
   signInPage: {
     accountQuestion: 'У вас нет аккаунта?',
@@ -96,6 +105,7 @@ export const ru = {
     googleLinkTitle: 'Зарегистрироваться с помощью Google',
     password: 'Пароль',
     signInButton: 'Войти',
+    successLogIn: 'Вы успешно авторизовались. Добро пожаловать!',
     title: 'Авторизация',
   },
   signUpPage: {

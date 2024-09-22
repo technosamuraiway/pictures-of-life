@@ -7,11 +7,7 @@ import { RequestLineLoader, RoundAvatar, useRouterLocaleDefinition } from '@/sha
 
 import s from './ChangeAvatar.module.scss'
 
-interface IProps {
-  avatar?: string
-}
-
-export const ChangeAvatar = ({ avatar }: IProps) => {
+export const ChangeAvatar = () => {
   const t = useRouterLocaleDefinition()
 
   const [openDeleteAvatarModal, setOpenDeleteAvatarModal] = useState<boolean>(false)
@@ -39,10 +35,7 @@ export const ChangeAvatar = ({ avatar }: IProps) => {
       {deleteAvatarIsLoading && <RequestLineLoader />}
       <RoundAvatar
         addAvatarBtnText={t.avatarChange.addAvatarButton}
-        avatarAltText={t.avatarChange.avatarImgAltText}
-        avatarSrc={avatar}
         isShowAddBtn
-        isShowDeleteBtn={!!avatar}
         onClickAddAvatar={addAvatarModalHandler}
         onClickDeleteAvatar={deleteAvatarModalHandler}
       />

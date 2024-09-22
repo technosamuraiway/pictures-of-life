@@ -17,3 +17,13 @@
 
   margin-bottom: 1rem;
 }
+
+.errorWrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 2rem;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 12.5rem;
+}
