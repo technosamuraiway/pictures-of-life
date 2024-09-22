@@ -45,6 +45,16 @@ export const authService = inctagramApi.injectEndpoints({
         }),
       }),
       googleSignUp: builder.mutation<IGoogleSignResponse, IGoogleSignUpArgs>({
+        async onQueryStarted(_, { queryFulfilled }) {
+          const { data } = await queryFulfilled
+
+          if (!data) {
+            return
+          }
+
+          localStorage.setItem('accessToken', data.accessToken.trim())
+        },
+
         query: args => ({
           body: args,
           method: 'POST',
@@ -52,8 +62,9 @@ export const authService = inctagramApi.injectEndpoints({
         }),
       }),
       logOut: builder.mutation<void, void>({
-        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        async onQueryStarted(_, { queryFulfilled }) {
           await queryFulfilled
+
           localStorage.removeItem('accessToken')
         },
         query: args => ({
@@ -115,6 +126,7 @@ export const {
   useCreateNewPasswordMutation,
   useForgotPasswordMutation,
   useGoogleSignUpMutation,
+  useLazyMeCurInfoQuery,
   useLogOutMutation,
   useMeCurInfoQuery,
   useResendConfirmEmailMutation,
