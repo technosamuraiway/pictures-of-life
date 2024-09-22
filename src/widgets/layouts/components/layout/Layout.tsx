@@ -1,5 +1,4 @@
 import { PropsWithChildren } from 'react'
-import { Slide, ToastContainer } from 'react-toastify'
 
 import { PATH } from '@/shared'
 import { NextPage } from 'next'
@@ -35,19 +34,6 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         onLogoClick={logoClickHandler}
       />
       <div className={s.content}>{children}</div>
-      <ToastContainer
-        autoClose={5000}
-        closeOnClick
-        draggable={false}
-        hideProgressBar={false}
-        newestOnTop={false}
-        pauseOnFocusLoss={false}
-        pauseOnHover
-        position={'bottom-left'}
-        rtl={false}
-        theme={'dark'}
-        transition={Slide}
-      />
     </div>
   )
 }

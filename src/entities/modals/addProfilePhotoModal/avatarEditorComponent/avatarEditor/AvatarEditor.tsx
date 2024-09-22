@@ -65,6 +65,7 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
           <DownloadFile
             btnText={t.avatarChange.addNewAvatarBtn}
             btnVariant={'outline'}
+            isDisabledBtn={isDisableSaveBtn}
             onBtnClick={onAddNewBtnClick}
             onChangeFile={onAddNewFile}
             ref={downloadFileRef}

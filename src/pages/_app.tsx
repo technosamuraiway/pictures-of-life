@@ -2,15 +2,16 @@ import type { AppProps } from 'next/app'
 
 import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
+import { Slide, ToastContainer } from 'react-toastify'
 
 import { wrapper } from '@/services/store'
 import { NextPage } from 'next'
 import NextTopLoader from 'nextjs-toploader'
 
 import '@/styles/_colors.scss'
+import '@/styles/_tokens.scss'
 import '@/styles/_typography.scss'
 import '@/styles/globals.scss'
-import '@/styles/_tokens.scss'
 
 export type NextPageWithLayout<P = {}> = {
   getLayout?: (page: ReactElement) => ReactNode
@@ -32,6 +33,19 @@ export default function App({ Component, pageProps, ...rest }: AppPropsWithLayou
           <Component {...props.pageProps} />
         </>
       )}
+      <ToastContainer
+        autoClose={5000}
+        closeOnClick
+        draggable={false}
+        hideProgressBar={false}
+        newestOnTop={false}
+        pauseOnFocusLoss={false}
+        pauseOnHover
+        position={'bottom-left'}
+        rtl={false}
+        theme={'dark'}
+        transition={Slide}
+      />
     </Provider>
   )
 }

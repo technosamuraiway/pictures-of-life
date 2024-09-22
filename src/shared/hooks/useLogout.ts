@@ -16,9 +16,10 @@ export function useLogout() {
 
   const handleLogout = async () => {
     await logOut().unwrap()
-    toast.info(t.logOut.logOutSuccess)
 
     router.replace(PATH.AUTH.SIGNIN)
+
+    toast.info(t.logOut.logOutSuccess)
   }
 
   return { handleLogout, isErrorLogout, isLoadingLogout, isSuccessLogout }

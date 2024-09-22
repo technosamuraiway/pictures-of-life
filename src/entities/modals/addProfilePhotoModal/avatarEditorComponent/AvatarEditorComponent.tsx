@@ -16,11 +16,10 @@ interface IProps {
 
 export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const { data: profileData } = useGetProfileQuery()
   const [changeAvatar, { isLoading: changeAvatarIsLoading }] = useChangeAvatarMutation()
 
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  const [image, setImage] = useState<File | string | undefined>(profileData?.avatars[0].url)
+  const [image, setImage] = useState<File | string>('')
 
   const editorRef = useRef<Avatar | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -94,7 +93,6 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   ) : (
     <BeforeEditor
       errorText={fileError}
-      imageAvatar={image}
       onChangeFileImg={onAvatarFileChangeHandler}
       onClickAddAvatar={onInputButtonClickHandler}
       ref={fileInputRef}

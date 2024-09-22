@@ -1,5 +1,3 @@
-import { toast } from 'react-toastify'
-
 import { inctagramApi } from '../api/inctagram.api'
 import {
   ICheckRecoveryCodeArgs,
@@ -79,17 +77,18 @@ export const authService = inctagramApi.injectEndpoints({
         }),
       }),
       signIn: builder.mutation<ISignInResponse, ISignInArgs>({
-        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-          try {
-            await queryFulfilled
-          } catch (err) {
-            toast.error(`Error during sign-in ${err}`)
+        async onQueryStarted(_, { queryFulfilled }) {
+          const { data } = await queryFulfilled
+
+          if (!data) {
+            return
           }
+          localStorage.setItem('accessToken', data.accessToken.trim())
         },
         query: args => ({
           body: args,
           method: 'POST',
-          url: `v1/auth/login`,
+          url: 'v1/auth/login',
         }),
       }),
       signUp: builder.mutation<void, ISignUpArgs>({
@@ -119,6 +118,7 @@ export const {
   useLogOutMutation,
   useMeCurInfoQuery,
   useResendConfirmEmailMutation,
+  useSignInMutation,
   useSignUpMutation,
   useUpdateTokensMutation,
 } = authService
