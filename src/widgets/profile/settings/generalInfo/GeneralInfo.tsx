@@ -11,8 +11,8 @@ export const GeneralInfo = () => {
   return (
     <>
       {getProfileIsLoading && <RequestLineLoader />}
-      <Tabs.Content value={t.settings.general}>
-        <ChangeAvatar avatar={profileData?.avatars[0].url} />
+      <Tabs.Content value={t.settingsPage.general}>
+        <ChangeAvatar />
       </Tabs.Content>
     </>
   )
