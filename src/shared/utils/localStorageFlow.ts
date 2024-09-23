@@ -22,7 +22,7 @@ saveStateToLocalStorage<string>('testString', 'Life is good!')
 // Функция для получения данных (сохранённого объекта и не только) из памяти браузера:
 export function restoreStateFromLocalStorage<T>(key: string, defaultState: T) {
   if (typeof window !== 'undefined') {
-    return null
+    return defaultState
   }
 
   let state = defaultState
