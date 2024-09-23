@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { MetaHead, useRouterLocaleDefinition } from '@/shared'
 import { GeneralInfo, getLayoutWithNav } from '@/widgets'
+import { Devices } from '@/widgets/profile/settings/devices/Devices'
 import { TabType, Tabs, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './Settings.module.scss'
@@ -11,7 +12,7 @@ const Settings = () => {
 
   const tabsData: TabType[] = [
     { title: t.settingsPage.general, value: t.settingsPage.general },
-    { title: t.settingsPage.devices, value: t.settingsPage.devices },
+    { title: t.settingsPage.devices.tabHeader, value: t.settingsPage.devices.tabHeader },
     { title: t.settingsPage.management, value: t.settingsPage.management },
     { title: t.settingsPage.payments, value: t.settingsPage.payments },
   ]
@@ -29,8 +30,10 @@ const Settings = () => {
         value={tabsValue}
       >
         <GeneralInfo />
-        <Tabs.Content className={s.devices} value={t.settingsPage.devices}>
-          <Typography variant={'h1'}>Devices</Typography>
+        <Tabs.Content className={s.devices} value={t.settingsPage.devices.tabHeader}>
+          <Typography variant={'h1'}>
+            <Devices />
+          </Typography>
         </Tabs.Content>
         <Tabs.Content className={s.management} value={t.settingsPage.management}>
           <Typography variant={'h1'}>Management</Typography>
