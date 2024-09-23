@@ -1,5 +1,5 @@
 import { useMeCurInfoQuery } from '@/services'
-import { MetaHead, PATH, RequestLineLoader, useGoogleAuth } from '@/shared'
+import { MetaHead, PATH, useGoogleAuth } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -14,7 +14,6 @@ function Home() {
   return (
     <>
       <MetaHead title={'Pictures-Of-Life'} />
-      {isGoogleSignLoading && <RequestLineLoader />}
       {isGoogleSignLoading ? (
         <div>Loading</div>
       ) : (
