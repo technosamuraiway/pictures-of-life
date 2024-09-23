@@ -22,6 +22,10 @@ export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => act
     const serverError = action.payload as IServerError
 
     if (serverError.data?.statusCode === 400 || serverError.data?.statusCode === 401) {
+      if (!Array.isArray(serverError.data?.messages)) {
+        toast.error(serverError.data?.messages)
+      }
+
       toast.error(serverError.data?.messages[0].message)
     }
 
