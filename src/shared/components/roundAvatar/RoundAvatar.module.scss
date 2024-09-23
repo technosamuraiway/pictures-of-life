@@ -1,0 +1,43 @@
+.wrapper {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+
+  width: 12.5rem;
+}
+
+.deleteAvatarBtnWrapper {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+  padding: 0.5rem;
+
+  background-color: var(--Dark-700);
+  border-radius: 50%;
+}
+
+.deleteAvatarBtn {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.5rem;
+
+  background-color: var(--Danger-500);
+  border-radius: 50%;
+
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--Danger-900);
+  }
+}

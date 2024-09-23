@@ -4,7 +4,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
 import { ForgotPasswordFormValues, IForgotPassword, forgotPasswordScheme } from '@/entities'
-import { IMessagesFromError } from '@/services'
+import { MessagesFromErrorType } from '@/services'
 import { ButtonLink, PATH, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
@@ -18,7 +18,7 @@ interface IProps {
   isButtonDisabled: boolean
   isSendLinkAgain: boolean
   onSubmitForgotPasswordForm: (data: ForgotPasswordFormValues) => void
-  textFieldError?: Array<IMessagesFromError>
+  textFieldError?: Array<MessagesFromErrorType>
 }
 
 export const ForgotPasswordForm = ({
@@ -93,7 +93,9 @@ export const ForgotPasswordForm = ({
         linkHref={PATH.AUTH.SIGNIN}
         title={t.forgotPasswordPage.backToSignInButtonText}
       />
-      <div className={s.recaptchaWrapper}>
+      <div
+        className={clsx(s.recaptchaWrapper, (errors.recaptcha || textFieldError) && s.errorWrapper)}
+      >
         <ReCAPTCHA
           aria-required
           className={clsx(s.recaptcha, isButtonDisabled && s.disableRecaptcha)}

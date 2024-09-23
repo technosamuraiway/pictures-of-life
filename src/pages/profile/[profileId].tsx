@@ -1,35 +1,22 @@
-import { useState } from 'react'
+import { useGetProfileQuery } from '@/services'
+import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { getLayoutWithNav } from '@/widgets'
+import { Typography } from '@technosamurai/techno-ui-kit'
 
-import { ProfileForm } from '@/entities/profile/generalInfo/ProfileForm'
+function Profile() {
+  const t = useRouterLocaleDefinition()
 
-export default function Profile() {
-  // This state could manage if the submit button is disabled
-  const [buttonDisabled, setButtonDisabled] = useState(false)
-
-  const onSubmitProfileForm = (
-    data: {
-      aboutMe?: string
-      city: string
-      country: string
-      dateOfBirth: Date
-      firstName: string
-      lastName: string
-      username: string
-    },
-    resetForm: () => void
-  ) => {
-    resetForm()
-
-    setButtonDisabled(true)
-  }
+  const { data: profileData, isLoading: getProfileIsLoading } = useGetProfileQuery()
 
   return (
     <>
-      <div>My profile</div>
-      <ProfileForm
-        buttonDisabled={buttonDisabled} // Pass the buttonDisabled state
-        onSubmitProfileForm={onSubmitProfileForm} // Pass the form submission handler
-      />
+      {getProfileIsLoading && <RequestLineLoader />}
+      <MetaHead title={t.profilePage.title} />
+      <div>It Is {profileData?.userName} profile</div>
+      <Typography variant={'h2'}>id: {profileData?.id}</Typography>
     </>
   )
 }
+
+Profile.getLayout = getLayoutWithNav
+export default Profile

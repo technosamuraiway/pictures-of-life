@@ -1,6 +1,8 @@
 import { z } from 'zod'
 
-const passwordRegex = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g
+const passwordRegex =
+  /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}])[0-9a-zA-Z!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}]{6,}$/
+
 const usernameRegex = /^[a-zA-Z0-9_-]*$/g
 
 // ----------- Схемы валидаций полей ---------------
@@ -113,7 +115,6 @@ export const createNewPasswordScheme = (createNewPassword: ICreateNewPassword) =
 export const signInScheme = (signIn: ISignIn) => {
   return z.object({
     email: email(signIn.email),
-
     password: password(signIn.password),
   })
 }

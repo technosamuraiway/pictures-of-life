@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 
-import { ISignIn, SignInFormValues, signInScheme } from '@/entities/zodValidationScheme'
+import { ISignIn, SignInFormValues, signInScheme } from '@/entities'
 import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'

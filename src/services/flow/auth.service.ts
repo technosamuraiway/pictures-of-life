@@ -6,6 +6,7 @@ import {
   IForgotPasswordArgs,
   IGoogleSignResponse,
   IGoogleSignUpArgs,
+  IMeResponse,
   IResendConfirmEmailArgs,
   ISignInArgs,
   ISignInResponse,
@@ -44,10 +45,39 @@ export const authService = inctagramApi.injectEndpoints({
         }),
       }),
       googleSignUp: builder.mutation<IGoogleSignResponse, IGoogleSignUpArgs>({
+        async onQueryStarted(_, { queryFulfilled }) {
+          const { data } = await queryFulfilled
+
+          if (!data) {
+            return
+          }
+
+          localStorage.setItem('accessToken', data.accessToken.trim())
+        },
+
         query: args => ({
           body: args,
           method: 'POST',
           url: `v1/auth/google/login`,
+        }),
+      }),
+      logOut: builder.mutation<void, void>({
+        async onQueryStarted(_, { queryFulfilled }) {
+          await queryFulfilled
+
+          localStorage.removeItem('accessToken')
+        },
+        query: args => ({
+          body: args,
+          credentials: 'include',
+          method: 'POST',
+          url: `v1/auth/logout`,
+        }),
+      }),
+      meCurInfo: builder.query<IMeResponse, void>({
+        query: () => ({
+          method: 'GET',
+          url: `v1/auth/me`,
         }),
       }),
       resendConfirmEmail: builder.mutation<void, IResendConfirmEmailArgs>({
@@ -58,10 +88,18 @@ export const authService = inctagramApi.injectEndpoints({
         }),
       }),
       signIn: builder.mutation<ISignInResponse, ISignInArgs>({
+        async onQueryStarted(_, { queryFulfilled }) {
+          const { data } = await queryFulfilled
+
+          if (!data) {
+            return
+          }
+          localStorage.setItem('accessToken', data.accessToken.trim())
+        },
         query: args => ({
           body: args,
           method: 'POST',
-          url: `v1/auth/login`,
+          url: 'v1/auth/login',
         }),
       }),
       signUp: builder.mutation<void, ISignUpArgs>({
@@ -88,7 +126,11 @@ export const {
   useCreateNewPasswordMutation,
   useForgotPasswordMutation,
   useGoogleSignUpMutation,
+  useLazyMeCurInfoQuery,
+  useLogOutMutation,
+  useMeCurInfoQuery,
   useResendConfirmEmailMutation,
+  useSignInMutation,
   useSignUpMutation,
   useUpdateTokensMutation,
 } = authService
