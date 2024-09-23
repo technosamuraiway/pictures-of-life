@@ -1,24 +1,38 @@
 .formWrapper {
-    width: 740px;
-   
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 740px;
+}
 
-  .selectDiv{
-    display: flex;
-    
-  }
+.selectDiv {
+  display: flex;
+}
 
-  .selectDiv > div {
-    flex: 1; 
-    margin-right: 0.5rem; 
-  }
-  
-  .selectDiv > div:last-child {
-    margin-right: 0; 
-  }
+.selectDiv > div {
+  flex: 1;
+  margin-right: 0.5rem;
+}
 
-  .submitButton{
-    margin-top: 48px;
-margin-left: 79%;
+.selectDiv > div:last-child {
+  margin-right: 0;
+}
 
-  }
+.submitButton {
+  margin-top: 48px;
+  margin-left: 79%;
+}
+
+.spanDiv {
+  position: relative;
+}
+
+.span {
+  position: absolute;
+  left: 70px;
+  color: var(--Danger-500);
+}
+
+.labelDate {
+  color: var(--Light-900);
+}
