@@ -15,14 +15,20 @@ function Home() {
     <>
       <MetaHead title={'Pictures-Of-Life'} />
       {isGoogleSignLoading && <RequestLineLoader />}
-      <div className={s.links}>
-        <Link href={PATH.HOME}>Home</Link>
-        <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
-        <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
-        <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
-        <Link href={PATH.PROFILE.SETTINGS}>Settings</Link>
-      </div>
-      {meData && <Typography>{`${meData.userName}-is log in`}</Typography>}
+      {isGoogleSignLoading ? (
+        <div>Loading</div>
+      ) : (
+        <>
+          <div className={s.links}>
+            <Link href={PATH.HOME}>Home</Link>
+            <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
+            <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
+            <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
+            <Link href={PATH.PROFILE.SETTINGS}>Settings</Link>
+          </div>
+          {meData && <Typography>{`${meData.userName}-is log in`}</Typography>}
+        </>
+      )}
     </>
   )
 }
