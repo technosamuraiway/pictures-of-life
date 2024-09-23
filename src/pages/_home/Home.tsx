@@ -7,7 +7,7 @@ import Link from 'next/link'
 import s from './Home.module.scss'
 
 function Home() {
-  const { data: meData } = useMeCurInfoQuery()
+  //const { data: meData } = useMeCurInfoQuery()
 
   const { isGoogleSignLoading } = useGoogleAuth()
 
@@ -25,7 +25,7 @@ function Home() {
             <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
             <Link href={PATH.PROFILE.SETTINGS}>Settings</Link>
           </div>
-          {meData && <Typography>{`${meData.userName}-is log in`}</Typography>}
+          {/*{meData && <Typography>{`${meData.userName}-is log in`}</Typography>}*/}
         </>
       )}
     </>
