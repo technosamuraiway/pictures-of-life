@@ -4,7 +4,7 @@ import { useLogOutMutation } from '@/services'
 import { useRouterLocaleDefinition } from '@/shared'
 import { useRouter } from 'next/router'
 
-import { PATH } from '../utils'
+import { PATH } from '../../utils'
 
 export function useLogout() {
   const t = useRouterLocaleDefinition()

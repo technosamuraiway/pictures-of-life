@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
 
+import { useMeCurInfoQuery } from '@/services'
 import { PATH } from '@/shared'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
