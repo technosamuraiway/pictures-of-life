@@ -16,7 +16,7 @@ interface IProps extends ComponentPropsWithoutRef<'div'> {
 
 const registerWithGoogle = (): void => {
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID_GOOGLE
-  const REDIRECT_URL = 'http://localhost:3000'
+  const REDIRECT_URL = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL
   const scope = 'email profile' //data which we need in request
   const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=${scope}&response_type=code&redirect_uri=${REDIRECT_URL}&client_id=${CLIENT_ID}`
 
