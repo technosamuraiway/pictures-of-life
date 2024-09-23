@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ActionConfirmationModal } from '@/entities'
 import { useMeCurInfoQuery } from '@/services'
 import { AdaptiveTranslation, PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
+import { LogOutIcon } from '@public/sideBar'
 import {
   ActiveCreateIcon,
   ActiveFavoritesIcon,
@@ -11,6 +12,7 @@ import {
   ActiveProfileIcon,
   ActiveSearchIcon,
   ActiveStatisticsIcon,
+  Button,
   DefaultCreateIcon,
   DefaultFavoritesIcon,
   DefaultHomeIcon,
@@ -18,9 +20,9 @@ import {
   DefaultProfileIcon,
   DefaultSearchIcon,
   DefaultStatisticsIcon,
-  LogOutIcon,
-} from '@public/sideBar'
-import { Button, NavItem, Typography } from '@technosamurai/techno-ui-kit'
+  NavItem,
+  Typography,
+} from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './NavBar.module.scss'
