@@ -89,7 +89,17 @@ export const ru = {
     title: 'Профиль',
   },
   settingsPage: {
-    devices: 'Устройства',
+    devices: {
+      activeSessions: 'Активные сессии',
+      deleteSessionMessage: 'Устройство успешно удаленно',
+      deleteSessionsMessage: 'Все сторонние устройства были успешно удалены',
+      lastVisit: 'Последнее посещение',
+      logOutButton: 'Выйти из системы',
+      noOtherSessionsText: 'Вы еще не вошли в систему с других устройств',
+      tabHeader: 'Текущие устройство',
+      terminateButton: 'Завершить все остальные сеансы',
+      tittle: 'Устройства',
+    },
     general: 'Общая информация',
     management: 'Управление аккаунтом',
     payments: 'Мои платежи',
