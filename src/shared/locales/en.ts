@@ -90,7 +90,17 @@ export const en: LocaleType = {
     title: 'Profile',
   },
   settingsPage: {
-    devices: 'Devices',
+    devices: {
+      activeSessions: 'Active sessions',
+      deleteSessionMessage: 'Device successfully deleted',
+      deleteSessionsMessage: 'All third-party devices have been successfully removed',
+      lastVisit: 'Last visit',
+      logOutButton: 'Log Out',
+      noOtherSessionsText: 'You have not yet logged in from other devices',
+      tabHeader: 'Current device',
+      terminateButton: 'Terminate all other sessions',
+      tittle: 'Devices',
+    },
     general: 'General information',
     management: 'Account Management',
     payments: 'My payments',
