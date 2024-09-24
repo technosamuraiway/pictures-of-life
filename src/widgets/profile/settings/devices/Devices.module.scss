@@ -1,10 +1,11 @@
 .card {
   display: flex;
-  padding: 24px;
-  height: 120px;
   justify-content: space-between;
-  margin-bottom: 24px;
+
+  height: 120px;
   margin-top: 6px;
+  margin-bottom: 24px;
+  padding: 24px;
 }
 
 .cardInWrapper {
@@ -14,11 +15,13 @@
 }
 
 .cardDescription {
-  padding-left: 12px;
-  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  padding-left: 12px;
+
+  text-align: left;
 }
 
 .logOutButton {
@@ -30,9 +33,11 @@
   width: 1.5rem;
   height: 1.5rem;
 }
+
 .text {
   display: flex;
 }
+
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
