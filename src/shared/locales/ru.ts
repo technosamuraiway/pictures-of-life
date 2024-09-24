@@ -15,6 +15,10 @@ export const ru = {
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 10 MB!',
     saveBtn: 'Сохранить',
   },
+  createNewPost: {
+    modalTitle: 'Добавьте фото или фотографии',
+    title: 'Создать пост',
+  },
   error404Page: {
     btnText: 'Вернуться на главную',
     mainText: 'Простите! Страница не найдена!',
@@ -47,10 +51,8 @@ export const ru = {
     logOutButton: 'Выход',
     logOutModalHeader: 'Выход',
     logOutSuccess: 'Вы успешно вышли из приложения. Увидимся в следующий раз!',
-    logOutText: 'Вы действительно хотите выйти из аккаунта <1>email</1> ?',
+    logOutText: 'Вы действительно хотите выйти из аккаунта <1>userName</1> ?',
   },
-  loginError: 'Вы не авторизованы, попробуйте еще раз...',
-  loginSuccess: 'Вы вошли в систему!',
   navBar: {
     create: 'Создать',
     favorites: 'Любимое',
