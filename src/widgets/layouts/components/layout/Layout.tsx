@@ -1,18 +1,13 @@
 import { PropsWithChildren } from 'react'
 
 import { PATH } from '@/shared'
+import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import 'react-toastify/dist/ReactToastify.css'
 
 import s from './Layout.module.scss'
-
-const NoSSRHeaderComponent = dynamic(
-  () => import('@technosamurai/techno-ui-kit').then(mod => mod.Header),
-  { ssr: false }
-)
 
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
@@ -28,7 +23,7 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
 
   return (
     <div className={s.layout}>
-      <NoSSRHeaderComponent
+      <Header
         changeLangHandler={changeLangHandler}
         className={s.header}
         onLogoClick={logoClickHandler}

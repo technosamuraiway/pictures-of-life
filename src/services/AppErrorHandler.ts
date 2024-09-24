@@ -22,7 +22,6 @@ export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => act
   if (isRejected(action)) {
     const serverError = action.payload as IServerError
 
-    console.log(serverError.data?.path)
     if (serverError.data?.error === 'Unauthorized') {
       return next(action)
     }
