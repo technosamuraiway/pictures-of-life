@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react'
 
 import { PATH } from '@/shared'
-import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
