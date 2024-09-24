@@ -9,8 +9,7 @@ import { ISessionList } from '@/services/types/sessions.types'
 import { useRouterLocaleDefinition } from '@/shared'
 import { convertDate } from '@/shared/utils/convertData'
 import { findIcon } from '@/shared/utils/findIcon'
-import { LogOutIcon } from '@public/sideBar'
-import { Button, Card, Typography } from '@technosamurai/techno-ui-kit'
+import { Button, Card, LogOutIcon, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from '../Devices.module.scss'
 
