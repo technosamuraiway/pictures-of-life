@@ -1,9 +1,8 @@
 import { useState } from 'react'
 
 import { ActionConfirmationModal } from '@/entities'
-import { useLazyMeCurInfoQuery, useMeCurInfoQuery } from '@/services'
+import { useLazyMeCurInfoQuery } from '@/services'
 import { AdaptiveTranslation, PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
-import { LogOutIcon } from '@public/sideBar'
 import {
   ActiveCreateIcon,
   ActiveFavoritesIcon,
@@ -20,6 +19,7 @@ import {
   DefaultProfileIcon,
   DefaultSearchIcon,
   DefaultStatisticsIcon,
+  LogOutIcon,
   NavItem,
   Typography,
 } from '@technosamurai/techno-ui-kit'
