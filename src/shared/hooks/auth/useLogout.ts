@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify'
 
 import { useLogOutMutation } from '@/services'
-import { useRouterLocaleDefinition } from '@/shared'
 import { useRouter } from 'next/router'
 
 import { PATH } from '../../utils'
+import { useRouterLocaleDefinition } from '../useRouterLocaleDefinition'
 
 export function useLogout() {
   const t = useRouterLocaleDefinition()

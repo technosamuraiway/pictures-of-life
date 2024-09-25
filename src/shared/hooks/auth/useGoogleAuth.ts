@@ -16,7 +16,7 @@ export const useGoogleAuth = () => {
       googleSignUp({ code })
         .unwrap()
         .then(() => {
-          toast.success(t.loginSuccess)
+          toast.success(t.signInPage.successLogIn)
           router.replace(PATH.HOME)
         })
     }
