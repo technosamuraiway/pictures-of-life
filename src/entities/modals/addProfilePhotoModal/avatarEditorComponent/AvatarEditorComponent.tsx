@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Avatar from 'react-avatar-editor'
 import { toast } from 'react-toastify'
 
@@ -8,11 +8,11 @@ import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { AvatarEditor } from './avatarEditor/AvatarEditor'
 import { BeforeEditor } from './beforeEditor/BeforeEditor'
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 МБ в байтах
-
 interface IProps {
   onOpenModal: (open: boolean) => void
 }
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 МБ в байтах
 
 export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   const t = useRouterLocaleDefinition()
@@ -22,38 +22,8 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   const [image, setImage] = useState<File | string>('')
 
   const editorRef = useRef<Avatar | null>(null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [fileError, setFileError] = useState<null | string>(null)
-
-  const onInputButtonClickHandler = () => {
-    fileInputRef.current?.click()
-  }
-
-  const onAvatarFileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-
-    if (file) {
-      if (file.size > MAX_FILE_SIZE) {
-        setFileError(t.avatarChange.errorSizeText)
-        toast.error(t.avatarChange.errorSizeText)
-
-        return
-      }
-
-      if (file.type === 'image/png' || file.type === 'image/jpeg') {
-        setIsEdit(true)
-
-        const imageUrl = URL.createObjectURL(file)
-
-        setImage(imageUrl)
-        setFileError(null)
-      } else {
-        setFileError(t.avatarChange.errorFormatText)
-        toast.error(t.avatarChange.errorFormatText)
-      }
-    }
-  }
 
   const onAvatarSaveHandler = () => {
     if (editorRef.current) {
@@ -80,22 +50,23 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
       {changeAvatarIsLoading && <RequestLineLoader />}
       {image && !fileError && (
         <AvatarEditor
-          downloadFileRef={fileInputRef}
           image={image}
           isDisableSaveBtn={changeAvatarIsLoading}
-          onAddNewBtnClick={onInputButtonClickHandler}
-          onAddNewFile={onAvatarFileChangeHandler}
+          maxImgSize={MAX_FILE_SIZE}
           onSaveBtnClick={onAvatarSaveHandler}
           ref={editorRef}
+          setErrorText={setFileError}
+          setImage={setImage}
         />
       )}
     </>
   ) : (
     <BeforeEditor
       errorText={fileError}
-      onChangeFileImg={onAvatarFileChangeHandler}
-      onClickAddAvatar={onInputButtonClickHandler}
-      ref={fileInputRef}
+      maxImgSize={MAX_FILE_SIZE}
+      onEditMode={setIsEdit}
+      setErrorText={setFileError}
+      setImage={setImage}
     />
   )
 }

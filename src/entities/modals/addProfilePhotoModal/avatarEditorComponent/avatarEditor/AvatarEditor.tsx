@@ -1,4 +1,4 @@
-import { ChangeEvent, ElementRef, RefObject, forwardRef, useState } from 'react'
+import { ElementRef, forwardRef, useState } from 'react'
 import Avatar from 'react-avatar-editor'
 
 import { ScaleSlider } from '@/entities/components/scaleSlider/ScaleSlider'
@@ -8,12 +8,12 @@ import { Button } from '@technosamurai/techno-ui-kit'
 import s from './AvatarEditor.module.scss'
 
 interface IProps {
-  downloadFileRef: RefObject<HTMLInputElement>
   image: File | string
   isDisableSaveBtn?: boolean
-  onAddNewBtnClick: () => void
-  onAddNewFile: (e: ChangeEvent<HTMLInputElement>) => void
+  maxImgSize: number
   onSaveBtnClick: () => void
+  setErrorText: (error: null | string) => void
+  setImage: (img: File | string) => void
 }
 
 const SCALE_STEP = 0.1
@@ -21,10 +21,7 @@ const SCALE_MAX = 2
 const SCALE_MIN = 0.1
 
 export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
-  (
-    { downloadFileRef, image, isDisableSaveBtn, onAddNewBtnClick, onAddNewFile, onSaveBtnClick },
-    ref
-  ) => {
+  ({ image, isDisableSaveBtn, maxImgSize, onSaveBtnClick, setErrorText, setImage }, ref) => {
     const t = useRouterLocaleDefinition()
 
     const [scale, setScale] = useState<number[]>([1])
@@ -64,10 +61,11 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
           <DownloadFile
             btnText={t.avatarChange.addNewAvatarBtn}
             btnVariant={'outline'}
+            errorSizeText={t.avatarChange.errorSizeText}
             isDisabledBtn={isDisableSaveBtn}
-            onBtnClick={onAddNewBtnClick}
-            onChangeFile={onAddNewFile}
-            ref={downloadFileRef}
+            maxImgSize={maxImgSize}
+            setError={setErrorText}
+            setImage={setImage}
           />
           <Button disabled={isDisableSaveBtn} onClick={onSaveBtnClick}>
             {t.avatarChange.saveBtn}

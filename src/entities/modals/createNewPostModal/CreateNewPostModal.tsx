@@ -1,17 +1,14 @@
 import { ChangeEvent, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { BeforeEditor } from '@/entities/modals/addProfilePhotoModal/avatarEditorComponent/beforeEditor/BeforeEditor'
-import { AvatarChoice, DownloadFile, PATH, useRouterLocaleDefinition } from '@/shared'
+import { DownloadFile, PATH, useRouterLocaleDefinition } from '@/shared'
 import emptyAvatar from '@public/profileAvatar/emptyAvatar.svg'
-import { Modal, Typography } from '@technosamurai/techno-ui-kit'
+import { Modal } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import s from '@/entities/modals/addProfilePhotoModal/avatarEditorComponent/beforeEditor/BeforeEditor.module.scss'
-
-import { PostEditorComponent } from './postEditorComponent/PostEditorComponent'
+import s from './CreateNewPostModal.module.scss'
 
 interface IProps {
   onEditMode: (edit: boolean) => void
@@ -73,21 +70,17 @@ export const CreateNewPostModal = ({ onEditMode, onOpenModal, openModal }: IProp
         open={openModal}
       >
         <div className={s.wrapper}>
-          {fileError && (
-            <div className={s.errorWrapper}>
-              <Typography variant={'regular-text-14'}>{fileError}</Typography>
-            </div>
-          )}
-          <div className={clsx(s.imgWrapper)}>
-            <Image alt={`Empty post`} className={clsx(s.postImgSvg)} src={emptyAvatar} />
-          </div>
-          <DownloadFile
-            btnText={t.avatarChange.addAvatarModalButtonText}
-            multiple
-            onBtnClick={onInputButtonClickHandler}
-            onChangeFile={onAvatarFileChangeHandler}
-            ref={fileInputRef}
-          />
+          {/*{fileError && <FileError errorText={fileError} />}*/}
+          {/*<div className={clsx(s.imgWrapper)}>*/}
+          {/*  <Image alt={`Empty post`} className={clsx(s.postImgSvg)} src={emptyAvatar} />*/}
+          {/*</div>*/}
+          {/*<DownloadFile*/}
+          {/*  btnText={t.avatarChange.addAvatarModalButtonText}*/}
+          {/*  multiple*/}
+          {/*  onBtnClick={onInputButtonClickHandler}*/}
+          {/*  onChangeFile={onAvatarFileChangeHandler}*/}
+          {/*  ref={fileInputRef}*/}
+          {/*/>*/}
         </div>
       </Modal>
     </>
