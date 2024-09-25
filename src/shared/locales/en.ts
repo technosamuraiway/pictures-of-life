@@ -18,8 +18,10 @@ export const en: LocaleType = {
     saveBtn: 'Save',
   },
   createNewPost: {
+    addImgModalButtonText: 'Select from Computer',
     errorSizeText: 'Error! Photo size must be less than 20 MB!',
-    modalTitle: 'Add Photo or Photos',
+    modalTitle: 'Add Photo',
+    openDraftButtonText: 'Open Draft',
     title: 'Create Post',
   },
   error404Page: {

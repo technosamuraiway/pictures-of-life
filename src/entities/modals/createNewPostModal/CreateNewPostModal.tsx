@@ -1,14 +1,13 @@
-import { ChangeEvent, useRef, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { DownloadFile, PATH, useRouterLocaleDefinition } from '@/shared'
-import emptyAvatar from '@public/profileAvatar/emptyAvatar.svg'
+import { PATH, SquareImg, useRouterLocaleDefinition } from '@/shared'
 import { Modal } from '@technosamurai/techno-ui-kit'
-import clsx from 'clsx'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import s from './CreateNewPostModal.module.scss'
+
+import { PreviewImgScreen } from '../../components/previewImgScreen/PreviewImgScreen'
 
 interface IProps {
   onEditMode: (edit: boolean) => void
@@ -22,43 +21,19 @@ export const CreateNewPostModal = ({ onEditMode, onOpenModal, openModal }: IProp
   const t = useRouterLocaleDefinition()
   const { push } = useRouter()
 
+  const [isEdit, setIsEdit] = useState<boolean>(false)
   const [openExitModal, setOpenExitModal] = useState(false)
 
   const [fileError, setFileError] = useState<null | string>(null)
-  const [image, setImage] = useState<File | string>('')
-  const fileInputRef = useRef<HTMLInputElement>(null)
-
-  const onInputButtonClickHandler = () => {
-    fileInputRef.current?.click()
-  }
-
-  const onAvatarFileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-
-    if (file) {
-      if (file.size > MAX_FILE_SIZE) {
-        setFileError(t.createNewPost.errorSizeText)
-        toast.error(t.createNewPost.errorSizeText)
-
-        return
-      }
-
-      if (file.type === 'image/png' || file.type === 'image/jpeg') {
-        onEditMode(true)
-
-        const imageUrl = URL.createObjectURL(file)
-
-        setImage(imageUrl)
-        setFileError(null)
-      } else {
-        setFileError(t.avatarChange.errorFormatText)
-        toast.error(t.avatarChange.errorFormatText)
-      }
-    }
-  }
+  const [image, setImage] = useState<(File | string)[]>([''])
 
   const modalHandler = () => {
     openModal ? push(PATH.HOME) : onOpenModal(true)
+  }
+
+  const onDraftBtnClickHandler = () => {
+    toast.info('Здесь будет функционал черновиков, когда-нибудь точно!')
+    push(PATH.HOME)
   }
 
   return (
@@ -69,19 +44,21 @@ export const CreateNewPostModal = ({ onEditMode, onOpenModal, openModal }: IProp
         onOpenChange={modalHandler}
         open={openModal}
       >
-        <div className={s.wrapper}>
-          {/*{fileError && <FileError errorText={fileError} />}*/}
-          {/*<div className={clsx(s.imgWrapper)}>*/}
-          {/*  <Image alt={`Empty post`} className={clsx(s.postImgSvg)} src={emptyAvatar} />*/}
-          {/*</div>*/}
-          {/*<DownloadFile*/}
-          {/*  btnText={t.avatarChange.addAvatarModalButtonText}*/}
-          {/*  multiple*/}
-          {/*  onBtnClick={onInputButtonClickHandler}*/}
-          {/*  onChangeFile={onAvatarFileChangeHandler}*/}
-          {/*  ref={fileInputRef}*/}
-          {/*/>*/}
-        </div>
+        <PreviewImgScreen
+          addImgBtnText={t.createNewPost.addImgModalButtonText}
+          errorSizeText={t.createNewPost.errorSizeText}
+          errorText={fileError}
+          maxImgSize={MAX_FILE_SIZE}
+          multipleInput
+          onDraftBtnClick={onDraftBtnClickHandler}
+          onEditMode={setIsEdit}
+          openDraftBtnText={t.createNewPost.openDraftButtonText}
+          setErrorText={setFileError}
+          setImage={setImage}
+          showDraftBtn
+        >
+          <SquareImg imgSVGWrapperCN={s.imgWrapper} />
+        </PreviewImgScreen>
       </Modal>
     </>
   )

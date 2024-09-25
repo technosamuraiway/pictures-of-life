@@ -16,8 +16,10 @@ export const ru = {
     saveBtn: 'Сохранить',
   },
   createNewPost: {
+    addImgModalButtonText: 'Загрузить фото с компьютера',
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 20 MB!',
-    modalTitle: 'Добавьте фото или фотографии',
+    modalTitle: 'Добавьте фото',
+    openDraftButtonText: 'Открыть черновик',
     title: 'Создать пост',
   },
   error404Page: {

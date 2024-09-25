@@ -17,7 +17,7 @@ interface IProps extends ComponentPropsWithoutRef<'input'> {
   maxImgSize: number
   onEditMode?: (edit: boolean) => void
   setError: (error: null | string) => void
-  setImage: (img: File | string) => void
+  setImage: (img: (File | string)[]) => void
 }
 
 export const DownloadFile = ({
@@ -41,27 +41,31 @@ export const DownloadFile = ({
   }
 
   const onChangeFileHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+    const files = Array.from(e.target.files || [])
 
-    if (file) {
+    const validFiles = files.filter(file => {
       if (file.size > maxImgSize) {
         setError(errorSizeText)
         toast.error(errorSizeText)
 
-        return
+        return false
       }
-
-      if (file.type === 'image/png' || file.type === 'image/jpeg') {
-        onEditMode && onEditMode(true)
-
-        const imageUrl = URL.createObjectURL(file)
-
-        setImage(imageUrl)
-        setError(null)
-      } else {
+      if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
         setError(t.avatarChange.errorFormatText)
         toast.error(t.avatarChange.errorFormatText)
+
+        return false
       }
+
+      return true
+    })
+
+    if (validFiles.length > 0) {
+      onEditMode && onEditMode(true)
+      const imageUrls = validFiles.map(file => URL.createObjectURL(file))
+
+      setImage(imageUrls)
+      setError(null)
     }
   }
 

@@ -1,30 +1,6 @@
-.wrapper {
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  padding: 1.5rem 1.5rem 4.5rem;
-}
-
 .imgWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   width: 13.875rem;
   height: 14.25rem;
   margin-top: 5.375rem;
   margin-bottom: 1.875rem;
-
-  background-color: var(--Dark-500);
-}
-
-.postImgSvg {
-  width: 3rem;
-  height: 3rem;
 }
