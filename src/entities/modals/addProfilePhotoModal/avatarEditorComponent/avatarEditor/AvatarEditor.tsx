@@ -26,14 +26,6 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
 
     const [scale, setScale] = useState<number[]>([1])
 
-    const onPositiveScaleClickHandler = () => {
-      scale[0] < SCALE_MAX && setScale([Math.round((scale[0] + SCALE_STEP) * 100) / 100])
-    }
-
-    const onNegativeScaleClickHandler = () => {
-      scale[0] > SCALE_MIN && setScale([Math.round((scale[0] - SCALE_STEP) * 100) / 100])
-    }
-
     const scaleChangeHandler = (value: number[]) => {
       setScale(value)
     }
@@ -49,13 +41,12 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
           width={290}
         />
         <ScaleSlider
-          onNegativeScaleClick={onNegativeScaleClickHandler}
-          onPositiveScaleClick={onPositiveScaleClickHandler}
           onScaleChange={scaleChangeHandler}
           scale={scale}
           scaleMax={SCALE_MAX}
           scaleMin={SCALE_MIN}
           scaleStep={SCALE_STEP}
+          setScale={setScale}
         />
         <div className={s.buttonsWrapper}>
           <DownloadFile
