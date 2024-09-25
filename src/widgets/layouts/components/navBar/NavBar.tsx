@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { useGetProfileQuery } from '@/services'
+import { useGetProfileQuery, useLazyMeCurInfoQuery } from '@/services'
 import { PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
 import {
   ActiveCreateIcon,
@@ -27,12 +27,14 @@ import { LogOutItem } from './logOutItem/LogOutItem'
 import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
-  const { data: profileData } = useGetProfileQuery()
+  const [meDataLazy] = useLazyMeCurInfoQuery()
+
   const { handleLogout, isLoadingLogout } = useLogout()
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
   const [openModal, setOpenModal] = useState<boolean>(false)
+  const [email, setEmail] = useState<string>('TestEmail@.com')
 
   // Данные для навигации
   const firstItems: NavItem[] = [
@@ -58,7 +60,7 @@ export function NavBar() {
       activeIconComponent: <ActiveProfileIcon />,
       altText: `${t.navBar.myProfile} Icon`,
       defaultIconComponent: <DefaultProfileIcon />,
-      hrefLink: `${PATH.PROFILE.BASEPROFILE}/${profileData?.id}`,
+      hrefLink: `${PATH.PROFILE.BASEPROFILE}/1370`,
       id: 456,
       isDisabled: false,
       text: t.navBar.myProfile,
@@ -116,7 +118,12 @@ export function NavBar() {
 
   // ------ Работа с модальным окном -------
   const onClickLogOutHandler = async () => {
-    setOpenModal(true)
+    const result = await meDataLazy()
+
+    if (result) {
+      setEmail(result.data?.email as string)
+      setOpenModal(true)
+    }
   }
 
   const onClickModalPositiveButtonHandler = async () => {
@@ -134,12 +141,12 @@ export function NavBar() {
         wrapperClassName={s.secondArrayWrapper}
       />
       <LogOutItem
+        email={email}
         isDisableButtons={isLoadingLogout}
         isOpenModal={openModal}
         onClickLogOutBtn={onClickLogOutHandler}
         onClickModalPositiveButton={onClickModalPositiveButtonHandler}
         setOpenModal={setOpenModal}
-        userName={profileData?.userName}
       />
     </nav>
   )

@@ -18,6 +18,7 @@ export const en: LocaleType = {
     saveBtn: 'Save',
   },
   createNewPost: {
+    errorSizeText: 'Error! Photo size must be less than 20 MB!',
     modalTitle: 'Add Photo or Photos',
     title: 'Create Post',
   },
@@ -52,7 +53,7 @@ export const en: LocaleType = {
     logOutButton: 'Log Out',
     logOutModalHeader: 'Log Out',
     logOutSuccess: 'Logout successful. See you next time!',
-    logOutText: 'Are you really want to log out of your account <1>userName</1> ?',
+    logOutText: 'Are you really want to log out of your account <1>email</1> ?',
   },
   navBar: {
     create: 'Create',

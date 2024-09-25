@@ -5,21 +5,21 @@ import { Button, LogOutIcon, Typography } from '@technosamurai/techno-ui-kit'
 import s from './LogOutItem.module.scss'
 
 interface IProps {
+  email?: string
   isDisableButtons?: boolean
   isOpenModal: boolean
   onClickLogOutBtn: () => void
   onClickModalPositiveButton: () => void
   setOpenModal: (openModal: boolean) => void
-  userName?: string
 }
 
 export const LogOutItem = ({
+  email,
   isDisableButtons,
   isOpenModal,
   onClickLogOutBtn,
   onClickModalPositiveButton,
   setOpenModal,
-  userName = 'Best User',
 }: IProps) => {
   const t = useRouterLocaleDefinition()
 
@@ -39,8 +39,8 @@ export const LogOutItem = ({
           <AdaptiveTranslation
             tags={{
               1: () => (
-                <Typography as={'span'} className={s.userName}>
-                  {userName}
+                <Typography as={'span'} className={s.email}>
+                  {email}
                 </Typography>
               ),
             }}
