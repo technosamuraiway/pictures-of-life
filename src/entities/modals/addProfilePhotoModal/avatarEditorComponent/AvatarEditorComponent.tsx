@@ -45,28 +45,31 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
     }
   }
 
-  return isEdit ? (
+  return (
     <>
       {changeAvatarIsLoading && <RequestLineLoader />}
-      {image && !fileError && (
-        <AvatarEditor
-          image={image}
-          isDisableSaveBtn={changeAvatarIsLoading}
+      {isEdit ? (
+        image &&
+        !fileError && (
+          <AvatarEditor
+            image={image}
+            isDisableSaveBtn={changeAvatarIsLoading}
+            maxImgSize={MAX_FILE_SIZE}
+            onSaveBtnClick={onAvatarSaveHandler}
+            ref={editorRef}
+            setErrorText={setFileError}
+            setImage={setImage}
+          />
+        )
+      ) : (
+        <BeforeEditor
+          errorText={fileError}
           maxImgSize={MAX_FILE_SIZE}
-          onSaveBtnClick={onAvatarSaveHandler}
-          ref={editorRef}
+          onEditMode={setIsEdit}
           setErrorText={setFileError}
           setImage={setImage}
         />
       )}
     </>
-  ) : (
-    <BeforeEditor
-      errorText={fileError}
-      maxImgSize={MAX_FILE_SIZE}
-      onEditMode={setIsEdit}
-      setErrorText={setFileError}
-      setImage={setImage}
-    />
   )
 }
