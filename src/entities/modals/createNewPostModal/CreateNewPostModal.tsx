@@ -51,8 +51,8 @@ export const CreateNewPostModal = ({ onEditMode, onOpenModal, openModal }: IProp
         setImage(imageUrl)
         setFileError(null)
       } else {
-        setFileError(t.createNewPost.errorFormatText)
-        toast.error(t.createNewPost.errorFormatText)
+        setFileError(t.avatarChange.errorFormatText)
+        toast.error(t.avatarChange.errorFormatText)
       }
     }
   }
