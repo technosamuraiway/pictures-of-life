@@ -16,6 +16,8 @@ export const ru = {
     saveBtn: 'Сохранить',
   },
   createNewPost: {
+    errorFormatText: 'Ошибка! Формат загружаемого изображения должен быть PNG или JPEG',
+    errorSizeText: 'Ошибка! Размер фото должен быть меньше 20 MB!',
     modalTitle: 'Добавьте фото или фотографии',
     title: 'Создать пост',
   },

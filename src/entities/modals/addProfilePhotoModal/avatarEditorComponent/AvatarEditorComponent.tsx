@@ -2,7 +2,7 @@ import { ChangeEvent, useRef, useState } from 'react'
 import Avatar from 'react-avatar-editor'
 import { toast } from 'react-toastify'
 
-import { useChangeAvatarMutation, useGetProfileQuery } from '@/services'
+import { useChangeAvatarMutation } from '@/services'
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 
 import { AvatarEditor } from './avatarEditor/AvatarEditor'

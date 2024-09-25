@@ -1,10 +1,10 @@
-import { ChangeEvent, ElementRef, forwardRef } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import { Button, ButtonVariant } from '@technosamurai/techno-ui-kit'
 
 import s from './DownloadFile.module.scss'
 
-interface IProps {
+interface IProps extends ComponentPropsWithoutRef<'input'> {
   btnText: string
   btnVariant?: ButtonVariant
   isDisabledBtn?: boolean

@@ -1,12 +1,11 @@
 import { ChangeEvent, ElementRef, RefObject, forwardRef, useState } from 'react'
 import Avatar from 'react-avatar-editor'
 
+import { ScaleSlider } from '@/entities/components/scaleSlider/ScaleSlider'
 import { DownloadFile, useRouterLocaleDefinition } from '@/shared'
 import { Button } from '@technosamurai/techno-ui-kit'
 
 import s from './AvatarEditor.module.scss'
-
-import { ScaleSlider } from './scaleSlider/ScaleSlider'
 
 interface IProps {
   downloadFileRef: RefObject<HTMLInputElement>
