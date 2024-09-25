@@ -18,11 +18,23 @@ export const en: LocaleType = {
     saveBtn: 'Save',
   },
   createNewPost: {
-    addImgModalButtonText: 'Select from Computer',
-    errorSizeText: 'Error! Photo size must be less than 20 MB!',
-    modalTitle: 'Add Photo',
-    openDraftButtonText: 'Open Draft',
-    title: 'Create Post',
+    addPhotoModal: {
+      addImgModalButtonText: 'Select from Computer',
+      errorSizeText: 'Error! Photo size must be less than 20 MB!',
+      modalTitle: 'Add Photo',
+      openDraftButtonText: 'Open Draft',
+    },
+    editPhotoModal: {
+      modalExitDiscardBtn: 'Discard',
+      modalExitSaveDraftBtn: 'Save Draft',
+      modalExitText:
+        'Do you really want to close the creation of a publication? If you close everything will be deleted',
+      modalExitTitle: 'Close',
+      modalTitle: 'Photo Editor',
+      nextBtn: 'Next',
+    },
+
+    title: 'Создать пост',
   },
   error404Page: {
     btnText: 'Back to Home',

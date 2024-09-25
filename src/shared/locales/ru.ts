@@ -16,10 +16,22 @@ export const ru = {
     saveBtn: 'Сохранить',
   },
   createNewPost: {
-    addImgModalButtonText: 'Загрузить фото с компьютера',
-    errorSizeText: 'Ошибка! Размер фото должен быть меньше 20 MB!',
-    modalTitle: 'Добавьте фото',
-    openDraftButtonText: 'Открыть черновик',
+    addPhotoModal: {
+      addImgModalButtonText: 'Загрузить фото с компьютера',
+      errorSizeText: 'Ошибка! Размер фото должен быть меньше 20 MB!',
+      modalTitle: 'Добавьте фото',
+      openDraftButtonText: 'Открыть черновик',
+    },
+    editPhotoModal: {
+      modalExitDiscardBtn: 'Сброс',
+      modalExitSaveDraftBtn: 'Сохранить черновик',
+      modalExitText:
+        'Вы действительно хотите закрыть создание публикации? Если вы закроете, все будет удалено',
+      modalExitTitle: 'Закрыть',
+      modalTitle: 'Редактор Фото',
+      nextBtn: 'Далее',
+    },
+
     title: 'Создать пост',
   },
   error404Page: {
