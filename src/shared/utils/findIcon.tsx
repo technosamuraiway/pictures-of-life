@@ -20,7 +20,7 @@ const browserIcon: Record<string, JSX.Element> = {
   Firefox: <FireFoxIcon />,
   Opera: <OperaIcon />,
   Safari: <SafariIcon />,
-  UcBrowser: <UcBrowserIcon />,
+  UC: <UcBrowserIcon />,
   UnknownBrowser: <UnknownBrowserIcon />,
   Yandex: <YandexIcon />,
 }
