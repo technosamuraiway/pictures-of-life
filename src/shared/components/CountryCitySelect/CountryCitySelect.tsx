@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { GetCity, GetCountries, GetState } from 'react-country-state-city'
 
-import { Typography } from '@technosamurai/techno-ui-kit'
+import { useRouterLocaleDefinition } from '@/shared/hooks'
+import { DownIcon, Typography, UpIcon } from '@technosamurai/techno-ui-kit'
 
 import s from './CountryCitySelect.module.scss'
-
-import { DownIcon } from './img/downIcon'
-import { UpIcon } from './img/upIcon'
 
 interface Location<T> {
   id: T
@@ -39,6 +37,7 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
   const [selectedCountryId, setSelectedCountryId] = useState<null | number>(null)
   const [selectedStateId, setSelectedStateId] = useState<null | number>(null)
   const [isFocused, setIsFocused] = useState(false)
+  const t = useRouterLocaleDefinition()
 
   useEffect(() => {
     GetCountries().then(result => {
@@ -139,7 +138,7 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
     <div className={s.body}>
       <div className={s.contentDiv}>
         <Typography className={s.text} variant={'regular-text-16'}>
-          Select your country
+          {t.settingsPage.infoForm.country}
         </Typography>
         <div className={`${s.selectDiv}  `}>
           <div style={{ position: 'relative' }}>
@@ -149,12 +148,12 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
               onFocus={() => setIsFocused(true)}
               onMouseEnter={() => setIsFocused(false)}
               onMouseLeave={() => setIsFocused(true)}
-              placeholder={'Country'}
+              placeholder={t.settingsPage.infoForm.placeCountry}
               type={'text'}
               value={searchCountryTerm}
             />
             <button className={s.button} onClick={toggleCountryDropdown} type={'button'}>
-              {isCountryOpen ? <UpIcon /> : <DownIcon />}
+              {isCountryOpen ? <UpIcon className={s.icon} /> : <DownIcon className={s.icon} />}
             </button>
             {isCountryOpen && (
               <div className={s.divList}>
@@ -176,7 +175,7 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
       </div>
       <div className={s.contentDiv}>
         <Typography className={s.text} variant={'regular-text-16'}>
-          Select your state
+          {t.settingsPage.infoForm.state}
         </Typography>
         <div className={`${s.selectDiv} `}>
           <div style={{ position: 'relative' }}>
@@ -185,7 +184,7 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
               disabled={!selectedCountryId}
               onChange={handleStateSearch}
               onFocus={() => setIsFocused(true)}
-              placeholder={'State'}
+              placeholder={t.settingsPage.infoForm.placeState}
               type={'text'}
               value={searchStateTerm}
             />
@@ -195,7 +194,7 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
               onClick={toggleStateDropdown}
               type={'button'}
             >
-              {isStateOpen ? <UpIcon /> : <DownIcon />}
+              {isStateOpen ? <UpIcon className={s.icon} /> : <DownIcon className={s.icon} />}
             </button>
             {isStateOpen && (
               <div className={s.divList}>
@@ -217,21 +216,16 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
       </div>
       <div className={s.contentDiv}>
         <Typography className={s.text} variant={'regular-text-16'}>
-          Select your city
+          {t.settingsPage.infoForm.city}
         </Typography>
-        <div
-          className={`${s.selectDiv} `}
-          onBlur={() => setIsFocused(false)}
-          onFocus={() => setIsFocused(true)}
-          tabIndex={0}
-        >
+        <div className={`${s.selectDiv} `}>
           <div style={{ position: 'relative' }}>
             <input
               className={`${s.input} ${isFocused ? s.focused : ''} ${!selectedStateId ? s.disabled : ''}`}
               disabled={!selectedStateId}
               onChange={handleCitySearch}
               onFocus={() => setIsFocused(true)}
-              placeholder={'City'}
+              placeholder={t.settingsPage.infoForm.placeCity}
               type={'text'}
               value={searchCityTerm}
             />
@@ -241,7 +235,7 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
               onClick={toggleCityDropdown}
               type={'button'}
             >
-              {isCityOpen ? <UpIcon /> : <DownIcon />}
+              {isCityOpen ? <UpIcon className={s.icon} /> : <DownIcon className={s.icon} />}
             </button>
             {isCityOpen && (
               <div className={s.divList}>

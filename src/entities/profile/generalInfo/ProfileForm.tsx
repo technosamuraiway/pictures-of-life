@@ -43,7 +43,7 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
     if (start) {
       setDateOfBirth(start)
       if (checkAge(start) < 13) {
-        setErrorMessage('A user under 13 cannot create a profile.')
+        setErrorMessage(t.settingsPage.infoForm.errorMssage)
       } else {
         setErrorMessage('')
         setValue('dateOfBirth', start.toISOString())
@@ -76,33 +76,37 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
   return (
     <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitFormHandler)}>
       <div className={s.spanDiv}>
-        <span className={s.span}>*</span>
+        <label className={s.labelInput}>
+          {t.settingsPage.infoForm.userName} <span className={s.span}>*</span>
+        </label>
+
         <ControlledTextField
           autoComplete={'username'}
           control={control}
-          label={'Username'}
           name={'userName'}
           type={'text'}
         />
       </div>
 
       <div className={s.spanDiv}>
-        <span className={s.span}>*</span>
+        <label className={s.labelInput}>
+          {t.settingsPage.infoForm.firstName} <span className={s.span}>*</span>
+        </label>
         <ControlledTextField
           autoComplete={'first-name'}
           control={control}
-          label={'First Name'}
           name={'firstName'}
           type={'text'}
         />
       </div>
 
       <div className={s.spanDiv}>
-        <span className={s.span}>*</span>
+        <label className={s.labelInput}>
+          {t.settingsPage.infoForm.lastName} <span className={s.span}>*</span>
+        </label>
         <ControlledTextField
           autoComplete={'last-name'}
           control={control}
-          label={'Last Name'}
           name={'lastName'}
           type={'text'}
         />
@@ -110,7 +114,7 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
 
       <div className={s.dateOfBirthWrapper}>
         <label className={s.labelDate}>
-          <Typography variant={'regular-text-14'}>Date of Birth</Typography>
+          <Typography variant={'regular-text-14'}>{t.settingsPage.infoForm.dateBir}</Typography>
         </label>
         <MyDatePicker
           {...register('dateOfBirth')}
@@ -125,7 +129,7 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
             </Typography>
             <Link href={PATH.AUTH.PRIVACYPOLICY}>
               <Typography className={s.linkPrvacy} variant={'small-link'}>
-                Privacy Policy
+                {t.settingsPage.infoForm.privacyPol}
               </Typography>
             </Link>
           </div>
@@ -142,9 +146,9 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
 
       <div>
         <label className={s.labelDate}>
-          <Typography variant={'regular-text-14'}>About me</Typography>
+          <Typography variant={'regular-text-14'}>{t.settingsPage.infoForm.textArea}</Typography>
         </label>
-        <TextArea {...register('aboutMe')} placeholder={'Tell us something about yourself...'} />
+        <TextArea {...register('aboutMe')} placeholder={t.settingsPage.infoForm.textAreaPlace} />
       </div>
 
       <Button
