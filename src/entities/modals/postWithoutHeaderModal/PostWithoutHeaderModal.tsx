@@ -4,7 +4,6 @@ import { toast } from 'react-toastify'
 import { ActionConfirmationModal } from '@/entities'
 import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { LeftIcon } from '@public/LeftIcon'
-import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -13,7 +12,7 @@ import s from './PostWithoutHeaderModal.module.scss'
 
 interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
   contentCN?: string
-  onBackButtonClick: () => void
+  onBackButtonClick?: () => void
   onOpen: boolean
   setOnOpen: (onOpen: boolean) => void
 }
@@ -59,9 +58,7 @@ export const PostWithoutHeaderModal = ({
       >
         <div className={s.headerWrapper}>
           <Button onClick={onBackButtonClick} variant={'iconButton'}>
-            <span className={s.leftIcon}>
-              <LeftIcon />
-            </span>
+            <LeftIcon className={s.leftIcon} />
           </Button>
           <Typography>{headerTitle}</Typography>
         </div>
