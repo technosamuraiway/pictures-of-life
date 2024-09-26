@@ -1,5 +1,10 @@
 import { inctagramApi } from '../api/inctagram.api'
-import { IAvatarArgs, IAvatarResponse, IProfileResponse } from '../types/profile.types'
+import {
+  IAvatarArgs,
+  IAvatarResponse,
+  IProfileResponse,
+  ProfileFormValues,
+} from '../types/profile.types'
 
 export const profileService = inctagramApi.injectEndpoints({
   endpoints: builder => {
@@ -32,9 +37,29 @@ export const profileService = inctagramApi.injectEndpoints({
           url: `v1/users/profile`,
         }),
       }),
+      updateProfile: builder.mutation<void, ProfileFormValues>({
+        invalidatesTags: ['Profile'],
+        query: data => {
+          const token = localStorage.getItem('accessToken')
+
+          return {
+            body: JSON.stringify(data),
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+            method: 'PUT',
+            url: `v1/users/profile`,
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useChangeAvatarMutation, useDeleteAvatarMutation, useGetProfileQuery } =
-  profileService
+export const {
+  useChangeAvatarMutation,
+  useDeleteAvatarMutation,
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} = profileService
