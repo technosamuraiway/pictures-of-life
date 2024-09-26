@@ -1,49 +1,32 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { PATH } from '@/shared'
+import { ProfileFormValues, profileSchema } from '@/entities/zodValidationScheme'
+import { PATH, useRouterLocaleDefinition } from '@/shared'
 import CountryCitySelector from '@/shared/components/CountryCitySelect/CountryCitySelect'
+import { formatDateString } from '@/shared/utils/dateUtils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, MyDatePicker, TextArea, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
-import { z } from 'zod'
 
 import s from './ProfileForm.module.scss'
 
 import { ControlledTextField } from '../../controlled/controlledTextField/ControlledTextField'
 
-const profileSchema = z.object({
-  aboutMe: z.string().optional(),
-  city: z.string().min(1, 'Please select a city'),
-  country: z.string().min(1, 'Please select a country'),
-  dateOfBirth: z.date(),
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  username: z.string().min(1, 'Username is required'),
-})
-
-type ProfileFormValues = z.infer<typeof profileSchema>
-
 interface IProps {
   buttonDisabled: boolean
-  onSubmitProfileForm: (data: ProfileFormValues, resetForm: () => void) => void
+  defaultValues: ProfileFormValues
+  onSubmitProfileForm: (data: ProfileFormValues, reset: () => void) => void
 }
 
-export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => {
-  const { control, handleSubmit, reset, setValue, watch } = useForm<ProfileFormValues>({
-    defaultValues: {
-      aboutMe: '',
-      city: '',
-      country: '',
-      firstName: '',
-      lastName: '',
-      username: '',
-    },
+export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm }: IProps) => {
+  const t = useRouterLocaleDefinition()
+  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null)
+  const { control, handleSubmit, register, reset, setValue, watch } = useForm<ProfileFormValues>({
+    defaultValues,
     resolver: zodResolver(profileSchema),
   })
 
-  const [selectedCountry, setSelectedCountry] = useState<null | number>(null)
-  const [selectedCity, setSelectedCity] = useState<null | number>(null)
   const [errorMessage, setErrorMessage] = useState('')
 
   const checkAge = (birthDate: Date) => {
@@ -56,37 +39,39 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       : age
   }
 
-  const handleDateChange = ({ start }: { start?: Date }) => {
-    if (!start) {
-      return
+  const handleDateChange = ({ start }: { start?: Date | null }) => {
+    if (start) {
+      setDateOfBirth(start)
+      if (checkAge(start) < 13) {
+        setErrorMessage('A user under 13 cannot create a profile.')
+      } else {
+        setErrorMessage('')
+        setValue('dateOfBirth', start.toISOString())
+      }
+    } else {
+      setDateOfBirth(null)
+      setValue('dateOfBirth', '')
+      setErrorMessage('')
     }
-    if (checkAge(start) < 13) {
-      setErrorMessage('A user under 13 cannot create a profile.')
-
-      return
-    }
-    setErrorMessage('')
-  }
-
-  const handleCountryChange = (countryId: number) => {
-    setSelectedCountry(countryId)
-    setValue('country', countryId.toString())
-  }
-
-  const handleCityChange = (cityId: number) => {
-    setSelectedCity(cityId)
-    setValue('city', cityId.toString())
   }
 
   const onSubmitFormHandler = (data: ProfileFormValues) => {
-    onSubmitProfileForm(data, reset)
+    const formattedData = {
+      ...data,
+      aboutMe: data.aboutMe || '',
+      city: data.city || '',
+      country: data.country || '',
+      dateOfBirth: data.dateOfBirth ? formatDateString(data.dateOfBirth) : '',
+      region: data.region || '',
+    }
+
+    onSubmitProfileForm(formattedData, reset)
   }
 
-  const username = watch('username')
+  const userName = watch('userName')
   const firstName = watch('firstName')
   const lastName = watch('lastName')
-
-  const isButtonDisabled = !username || !firstName || !lastName
+  const isButtonDisabled = !userName || !firstName || !lastName || !!errorMessage
 
   return (
     <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitFormHandler)}>
@@ -96,7 +81,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
           autoComplete={'username'}
           control={control}
           label={'Username'}
-          name={'username'}
+          name={'userName'}
           type={'text'}
         />
       </div>
@@ -127,26 +112,41 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         <label className={s.labelDate}>
           <Typography variant={'regular-text-14'}>Date of Birth</Typography>
         </label>
-        <MyDatePicker locale={'en'} mode={'single'} onDateChange={handleDateChange} />
+        <MyDatePicker
+          {...register('dateOfBirth')}
+          locale={t.locale}
+          mode={'single'}
+          onDateChange={handleDateChange}
+        />
         {errorMessage && (
-          <div style={{ color: 'red' }}>
-            {errorMessage}
-            <Link href={PATH.AUTH.PRIVACYPOLICY}>Privacy Policy</Link>
+          <div className={s.errorDiv}>
+            <Typography className={s.link} variant={'regular-text-14'}>
+              {errorMessage}
+            </Typography>
+            <Link href={PATH.AUTH.PRIVACYPOLICY}>
+              <Typography className={s.linkPrvacy} variant={'small-link'}>
+                Privacy Policy
+              </Typography>
+            </Link>
           </div>
         )}
       </div>
+
       <div className={s.selectDiv}>
         <CountryCitySelector
-          onCityChange={handleCityChange}
-          onCountryChange={handleCountryChange}
+          onCityChange={cityId => setValue('city', cityId.toString())}
+          onCountryChange={countryId => setValue('country', countryId.toString())}
+          onStateChange={stateId => setValue('region', stateId.toString())}
         />
       </div>
+
       <div>
         <label className={s.labelDate}>
           <Typography variant={'regular-text-14'}>About me</Typography>
         </label>
-        <TextArea name={'aboutMe'} placeholder={'Tell us something about yourself...'} />
+        <TextArea {...register('aboutMe')} placeholder={'Tell us something about yourself...'} />
       </div>
+
       <Button
         className={s.submitButton}
         disabled={buttonDisabled || isButtonDisabled}

@@ -36,3 +36,23 @@
 .labelDate {
   color: var(--Light-900);
 }
+
+.errorDiv {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  position: absolute;
+  top: 0;
+  color: var(--Danger-500);
+  
+}
+
+.linkPrvacy {
+  position: absolute;
+  top: 4px;
+  left: 247px;
+  color: var(--Danger-500);
+}

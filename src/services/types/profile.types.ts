@@ -27,3 +27,14 @@ export interface IAvatarResponse {
 export type IAvatarArgs = {
   file: File
 }
+
+export type ProfileFormValues = {
+  aboutMe?: string
+  city?: string
+  country?: string
+  dateOfBirth?: string
+  firstName: string
+  lastName: string
+  region?: string
+  userName: string
+}

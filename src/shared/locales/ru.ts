@@ -86,6 +86,7 @@ export const ru = {
     title: 'Политика конфиденциальности',
   },
   profilePage: {
+    settingButton: 'Настройки Профиля',
     title: 'Профиль',
   },
   settingsPage: {
@@ -94,6 +95,7 @@ export const ru = {
     management: 'Управление аккаунтом',
     payments: 'Мои платежи',
     title: 'Настройки',
+    updateProfileSuccess: 'Ваши данные были успешно обновлены!',
   },
   signInPage: {
     accountQuestion: 'У вас нет аккаунта?',

@@ -87,6 +87,7 @@ export const en: LocaleType = {
     title: 'Privacy Policy',
   },
   profilePage: {
+    settingButton: 'Profile Settings',
     title: 'Profile',
   },
   settingsPage: {
@@ -95,6 +96,7 @@ export const en: LocaleType = {
     management: 'Account Management',
     payments: 'My payments',
     title: 'Settings',
+    updateProfileSuccess: 'Your data has been successfully updated!',
   },
   signInPage: {
     accountQuestion: 'Don’t have an account?',

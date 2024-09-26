@@ -8,27 +8,22 @@ import s from './CountryCitySelect.module.scss'
 import { DownIcon } from './img/downIcon'
 import { UpIcon } from './img/upIcon'
 
-interface Country {
-  id: number
+interface Location<T> {
+  id: T
   name: string
 }
 
-interface State {
-  id: number
-  name: string
-}
-
-interface City {
-  id: number
-  name: string
-}
+type Country = Location<number>
+type State = Location<number>
+type City = Location<number>
 
 interface Props {
   onCityChange: (cityId: number) => void
   onCountryChange: (countryId: number) => void
+  onStateChange: (stateId: number) => void
 }
 
-const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange }) => {
+const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, onStateChange }) => {
   const [countriesList, setCountriesList] = useState<Country[]>([])
   const [statesList, setStatesList] = useState<State[]>([])
   const [citiesList, setCitiesList] = useState<City[]>([])
@@ -124,6 +119,7 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange })
   const handleStateSelect = (state: State) => {
     setSearchStateTerm(state.name)
     setSelectedStateId(state.id)
+    onStateChange(state.id)
     setIsStateOpen(false)
 
     GetCity(selectedCountryId!, state.id).then(result => {
