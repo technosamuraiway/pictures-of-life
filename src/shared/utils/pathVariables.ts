@@ -9,6 +9,7 @@ export const PATH = {
     URLGITHUBLOGIN: 'https://inctagram.work/api/v1/auth/github/login',
     URLGOOGLELOGIN: 'https://inctagram.work/api/v1/auth/google/login',
   },
+  CREATEPOST: '/createpost',
   HOME: '/',
   PROFILE: {
     BASEPROFILE: '/profile',

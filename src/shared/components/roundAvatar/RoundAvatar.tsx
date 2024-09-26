@@ -1,11 +1,12 @@
 import { ReactNode } from 'react'
 
 import { useGetProfileQuery } from '@/services'
-import { AvatarChoice } from '@/shared'
 import { Button } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 
 import s from './RoundAvatar.module.scss'
+
+import { AvatarChoice } from '../avatarChoice/AvatarChoice'
 
 interface IProps {
   addAvatarBtnText: string
@@ -46,11 +47,7 @@ export const RoundAvatar = ({
           </Button>
         </div>
       )}
-      <AvatarChoice
-        avatarSrc={profileData?.avatars}
-        mainCondition={avatarCondition}
-        userName={profileData?.userName}
-      />
+      <AvatarChoice imgSVGWrapperCN={s.imgWrapper} />
       {isShowAddBtn && (
         <Button className={btnCN} fullWidth onClick={onClickAddAvatar} variant={'outline'}>
           {addAvatarBtnText}

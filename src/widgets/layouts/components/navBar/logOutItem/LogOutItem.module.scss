@@ -1,0 +1,19 @@
+.logOutButton {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  align-self: flex-start;
+
+  padding: 0;
+
+  background-color: transparent;
+}
+
+.logOutIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.email {
+  color: var(--Primary-500);
+}

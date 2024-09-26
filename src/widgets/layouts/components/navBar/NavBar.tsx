@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
-import { ActionConfirmationModal } from '@/entities'
-import { useLazyMeCurInfoQuery } from '@/services'
-import { AdaptiveTranslation, PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
+import { useGetProfileQuery, useLazyMeCurInfoQuery } from '@/services'
+import { PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
 import {
   ActiveCreateIcon,
   ActiveFavoritesIcon,
@@ -11,7 +10,6 @@ import {
   ActiveProfileIcon,
   ActiveSearchIcon,
   ActiveStatisticsIcon,
-  Button,
   DefaultCreateIcon,
   DefaultFavoritesIcon,
   DefaultHomeIcon,
@@ -19,24 +17,24 @@ import {
   DefaultProfileIcon,
   DefaultSearchIcon,
   DefaultStatisticsIcon,
-  LogOutIcon,
   NavItem,
-  Typography,
 } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './NavBar.module.scss'
 
+import { LogOutItem } from './logOutItem/LogOutItem'
 import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
   const [meDataLazy] = useLazyMeCurInfoQuery()
-  const { handleLogout } = useLogout()
+
+  const { handleLogout, isLoadingLogout } = useLogout()
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
   const [openModal, setOpenModal] = useState<boolean>(false)
-  const [email, setEmail] = useState('Test@mail.com')
+  const [email, setEmail] = useState<string>('TestEmail@.com')
 
   // Данные для навигации
   const firstItems: NavItem[] = [
@@ -53,7 +51,7 @@ export function NavBar() {
       activeIconComponent: <ActiveCreateIcon />,
       altText: `${t.navBar.create} Icon`,
       defaultIconComponent: <DefaultCreateIcon />,
-      hrefLink: '/create',
+      hrefLink: PATH.CREATEPOST,
       id: 753,
       isDisabled: false,
       text: t.navBar.create,
@@ -120,18 +118,18 @@ export function NavBar() {
 
   // ------ Работа с модальным окном -------
   const onClickLogOutHandler = async () => {
-    setOpenModal(true)
     const result = await meDataLazy()
 
     if (result) {
       setEmail(result.data?.email as string)
+      setOpenModal(true)
     }
   }
 
-  const onClickModalPositiveButtonHandler = () => {
-    setOpenModal(false)
+  const onClickModalPositiveButtonHandler = async () => {
+    await handleLogout()
 
-    handleLogout()
+    setOpenModal(false)
   }
 
   return (
@@ -142,31 +140,13 @@ export function NavBar() {
         items={secondItems}
         wrapperClassName={s.secondArrayWrapper}
       />
-      <Button className={s.logOutButton} onClick={onClickLogOutHandler} variant={'iconButton'}>
-        <span className={s.logOutIcon}>
-          <LogOutIcon />
-        </span>
-        <Typography variant={'medium-text-14'}>{t.logOut.logOutButton}</Typography>
-      </Button>
-      <ActionConfirmationModal
-        headerTitle={t.logOut.logOutModalHeader}
+      <LogOutItem
+        email={email}
+        isDisableButtons={isLoadingLogout}
         isOpenModal={openModal}
-        modalTextChildren={
-          <AdaptiveTranslation
-            tags={{
-              1: () => (
-                <Typography as={'span'} className={s.email}>
-                  {email}
-                </Typography>
-              ),
-            }}
-            text={t.logOut.logOutText}
-          />
-        }
-        negativeButtonChildren={t.logOut.buttonNo}
-        onClickPositiveButton={onClickModalPositiveButtonHandler}
-        positiveButtonChildren={t.logOut.buttonYes}
-        setIsOpenModal={setOpenModal}
+        onClickLogOutBtn={onClickLogOutHandler}
+        onClickModalPositiveButton={onClickModalPositiveButtonHandler}
+        setOpenModal={setOpenModal}
       />
     </nav>
   )
