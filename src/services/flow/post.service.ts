@@ -1,5 +1,5 @@
-import { IPostPublicResponse } from '@/pages/posts/typesPost'
 import { inctagramApi } from '../api/inctagram.api'
+import { IPostPublicResponse } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
   endpoints: builder => {
