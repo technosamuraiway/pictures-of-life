@@ -1,0 +1,26 @@
+.card {
+  display: flex;
+  padding: 1.5rem;
+  height: 7.5rem;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  margin-top: 0.375rem;
+}
+
+.cardInWrapper {
+  display: flex;
+  justify-content: space-between;
+  height: 3.7rem;
+}
+
+.icon {
+  margin-top: 0.3rem;
+}
+
+.cardDescription {
+  padding-left: 0.75rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
