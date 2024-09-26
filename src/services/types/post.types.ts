@@ -33,3 +33,11 @@ export interface IPostOwner {
   firstName?: string
   lastName?: string
 }
+
+type SortDirection = 'asc' | 'desc'
+
+export interface IPostParams {
+  pageSize?: number;
+  sortBy?: string;
+  sortDirection?: SortDirection;
+}

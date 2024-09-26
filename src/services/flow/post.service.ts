@@ -1,12 +1,15 @@
 import { inctagramApi } from '../api/inctagram.api'
-import { IPostPublicResponse } from '../types/post.types'
+import { IPostParams, IPostPublicResponse } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
-      getAllPublicPosts: builder.query<IPostPublicResponse, void>({
-        query: () => {
-          return { url: `v1/public-posts/all` }
+      getAllPublicPosts: builder.query<IPostPublicResponse, IPostParams | void>({
+        query: (arg) => {
+          return {
+            url: `v1/public-posts/all`,
+            params: arg ?? undefined,
+          }
         },
       }),
     }

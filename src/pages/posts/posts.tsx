@@ -2,17 +2,17 @@
 import * as React from 'react'
 
 import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
-import { ButtonLink, PATH, useRouterLocaleDefinition } from '@/shared'
-import { convertDate } from '@/shared/utils/convertData'
+import { ButtonLink, convertDate, PATH, useRouterLocaleDefinition } from '@/shared'
+
 import { Button } from '@technosamurai/techno-ui-kit'
 
 type Props = {}
 
 export default function Posts(props: Props) {
   const t = useRouterLocaleDefinition()
-  const { data: allPublicPosts, isError, isLoading, refetch } = useGetAllPublicPostsQuery()
+  const { data: allPublicPosts, isError, isLoading, refetch } = useGetAllPublicPostsQuery({pageSize: 30, sortDirection: 'asc'})
 
-  console.log(useGetAllPublicPostsQuery())
+  // console.log(useGetAllPublicPostsQuery({pageSize: 4}))
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div style={{ color: 'red' }}>Something Wrong...</div>
@@ -44,7 +44,6 @@ export default function Posts(props: Props) {
         style={{
           alignItems: 'center',
           display: 'flex',
-          // flexDirection: 'column',
           gap: '50px',
           flexWrap: 'wrap',
           justifyContent: 'space-around',
