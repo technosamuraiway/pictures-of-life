@@ -1,0 +1,15 @@
+.imgWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 12.25rem;
+  height: 12.25rem;
+
+  background-color: var(--Dark-500);
+}
+
+.avatarImgSvg {
+  width: 3rem;
+  height: 3rem;
+}

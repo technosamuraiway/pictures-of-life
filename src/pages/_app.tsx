@@ -4,6 +4,7 @@ import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import { Slide, ToastContainer } from 'react-toastify'
 
+import { useMeCurInfoQuery } from '@/services'
 import { wrapper } from '@/services/store'
 import { NextPage } from 'next'
 import NextTopLoader from 'nextjs-toploader'

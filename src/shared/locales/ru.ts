@@ -15,6 +15,11 @@ export const ru = {
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 10 MB!',
     saveBtn: 'Сохранить',
   },
+  createNewPost: {
+    errorSizeText: 'Ошибка! Размер фото должен быть меньше 20 MB!',
+    modalTitle: 'Добавьте фото или фотографии',
+    title: 'Создать пост',
+  },
   error404Page: {
     btnText: 'Вернуться на главную',
     mainText: 'Простите! Страница не найдена!',
@@ -49,8 +54,6 @@ export const ru = {
     logOutSuccess: 'Вы успешно вышли из приложения. Увидимся в следующий раз!',
     logOutText: 'Вы действительно хотите выйти из аккаунта <1>email</1> ?',
   },
-  loginError: 'Вы не авторизованы, попробуйте еще раз...',
-  loginSuccess: 'Вы вошли в систему!',
   navBar: {
     create: 'Создать',
     favorites: 'Любимое',
@@ -90,7 +93,17 @@ export const ru = {
     title: 'Профиль',
   },
   settingsPage: {
-    devices: 'Устройства',
+    devices: {
+      activeSessions: 'Активные сессии',
+      deleteSessionMessage: 'Устройство успешно удаленно',
+      deleteSessionsMessage: 'Все сторонние устройства были успешно удалены',
+      lastVisit: 'Последнее посещение',
+      logOutButton: 'Выйти из системы',
+      noOtherSessionsText: 'Вы еще не вошли в систему с других устройств',
+      tabHeader: 'Текущие устройство',
+      terminateButton: 'Завершить все остальные сеансы',
+      tittle: 'Устройства',
+    },
     general: 'Общая информация',
     management: 'Управление аккаунтом',
     payments: 'Мои платежи',

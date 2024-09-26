@@ -1,0 +1,44 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+
+  height: 120px;
+  margin-top: 6px;
+  margin-bottom: 24px;
+  padding: 24px;
+}
+
+.cardInWrapper {
+  display: flex;
+  justify-content: space-between;
+  height: 59px;
+}
+
+.cardDescription {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding-left: 12px;
+
+  text-align: left;
+}
+
+.logOutButton {
+  padding: 0;
+  background-color: transparent;
+}
+
+.logOutIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.text {
+  display: flex;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}

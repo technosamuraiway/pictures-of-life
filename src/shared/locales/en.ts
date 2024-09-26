@@ -17,6 +17,11 @@ export const en: LocaleType = {
     errorSizeText: 'Error! Photo size must be less than 10 MB!',
     saveBtn: 'Save',
   },
+  createNewPost: {
+    errorSizeText: 'Error! Photo size must be less than 20 MB!',
+    modalTitle: 'Add Photo or Photos',
+    title: 'Create Post',
+  },
   error404Page: {
     btnText: 'Back to Home',
     mainText: "Sorry! Page isn't found!",
@@ -50,8 +55,6 @@ export const en: LocaleType = {
     logOutSuccess: 'Logout successful. See you next time!',
     logOutText: 'Are you really want to log out of your account <1>email</1> ?',
   },
-  loginError: 'You are not logged in, try again...',
-  loginSuccess: 'You are logged in!',
   navBar: {
     create: 'Create',
     favorites: 'Favorites',
@@ -91,7 +94,17 @@ export const en: LocaleType = {
     title: 'Profile',
   },
   settingsPage: {
-    devices: 'Devices',
+    devices: {
+      activeSessions: 'Active sessions',
+      deleteSessionMessage: 'Device successfully deleted',
+      deleteSessionsMessage: 'All third-party devices have been successfully removed',
+      lastVisit: 'Last visit',
+      logOutButton: 'Log Out',
+      noOtherSessionsText: 'You have not yet logged in from other devices',
+      tabHeader: 'Current device',
+      terminateButton: 'Terminate all other sessions',
+      tittle: 'Devices',
+    },
     general: 'General information',
     management: 'Account Management',
     payments: 'My payments',

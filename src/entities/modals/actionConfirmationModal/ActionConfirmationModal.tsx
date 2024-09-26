@@ -6,6 +6,7 @@ import s from './ActionConfirmationModal.module.scss'
 
 interface IProps {
   headerTitle: string
+  isDisableButtons?: boolean
   isOpenModal: boolean
   modalTextChildren: ReactNode
   negativeButtonChildren: ReactNode
@@ -16,6 +17,7 @@ interface IProps {
 
 export const ActionConfirmationModal = ({
   headerTitle,
+  isDisableButtons,
   isOpenModal,
   modalTextChildren,
   negativeButtonChildren,
@@ -37,10 +39,19 @@ export const ActionConfirmationModal = ({
       <div className={s.childrenWrapper}>
         <Typography variant={'regular-text-16'}>{modalTextChildren}</Typography>
         <div className={s.buttonsWrapper}>
-          <Button className={s.modalButton} onClick={onClickPositiveButton} variant={'outline'}>
+          <Button
+            className={s.modalButton}
+            disabled={isDisableButtons}
+            onClick={onClickPositiveButton}
+            variant={'outline'}
+          >
             {positiveButtonChildren}
           </Button>
-          <Button className={s.modalButton} onClick={onClickNegativeButtonHandler}>
+          <Button
+            className={s.modalButton}
+            disabled={isDisableButtons}
+            onClick={onClickNegativeButtonHandler}
+          >
             {negativeButtonChildren}
           </Button>
         </div>
