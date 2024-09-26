@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { BraveIcon } from '@public/devices/BraveIcon'
 import { ChromeIcon } from '@public/devices/ChromeIcon'
 import { DesktopMacIcon } from '@public/devices/DesktopMacIcon'
@@ -12,7 +14,7 @@ import { UnknownDeviceIcon } from '@public/devices/UnknownDeviceIcon'
 import { UnknownBrowserIcon } from '@public/devices/UnkownBrowserIcon'
 import { YandexIcon } from '@public/devices/YandexIcon'
 
-const browserIcon: Record<string, JSX.Element> = {
+const browserIcon: Record<string, ReactNode> = {
   Brave: <BraveIcon />,
   Chrome: <ChromeIcon />,
   Edge: <MicrosoftEdgeIcon />,
@@ -25,7 +27,7 @@ const browserIcon: Record<string, JSX.Element> = {
   Yandex: <YandexIcon />,
 }
 
-const deviceIcon: Record<string, JSX.Element> = {
+const deviceIcon: Record<string, ReactNode> = {
   Android: <PhoneIphoneIcon />,
   UnknownDevice: <UnknownDeviceIcon />,
   Windows: <DesktopMacIcon />,
