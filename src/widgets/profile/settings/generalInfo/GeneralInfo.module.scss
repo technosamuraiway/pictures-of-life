@@ -1,13 +1,13 @@
 .generalDiv {
-    position: relative;
-    display: flex;
-    gap: 40px;
-    justify-content: space-between;
+  position: relative;
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
 }
 
 .lineDiv {
-    position: absolute;
-    bottom: 65px;
-    width: 100%;
-    border: 1px solid var(--Dark-300);
+  position: absolute;
+  bottom: 65px;
+  width: 100%;
+  border: 1px solid var(--Dark-300);
 }
