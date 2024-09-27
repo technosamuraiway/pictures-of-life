@@ -85,6 +85,10 @@ export const ru = {
     successMessage: 'Новый пароль создан!',
     title: 'Создать новый пароль',
   },
+  pagination: {
+    onPage: 'на странице',
+    show: 'Показать',
+  },
   passwordRecoveryPage: {
     title: 'Восстановления пароля',
   },
