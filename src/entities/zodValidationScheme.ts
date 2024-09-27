@@ -5,7 +5,7 @@ const passwordRegex =
 
 const usernameRegex = /^[a-zA-Z0-9_-]*$/g
 const firstLastNameRegex = /^[a-zA-Zа-яА-Я]*$/g
-const aboutMeRegex = /^[a-zA-Zа-яА-Я0-9!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}]*$/g
+const aboutMeRegex = /^[a-zA-Zа-яА-Я0-9!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|} ]*$/g
 
 // ----------- Схемы валидаций полей ---------------
 
@@ -72,14 +72,14 @@ const firstLastName = (firstLastName: IName) => {
     })
 }
 
-const aboutMe = (aboutMe: IAboutMe) => {
+const aboutMe = (aboutMe: IAboutMe | undefined) => {
   return z
     .string()
     .trim()
-    .min(0, `${aboutMe.minimumNumber} 0`)
-    .max(200, `${aboutMe.maximumNumber} 200`)
+    .min(0, `${aboutMe?.minimumNumber} 0`)
+    .max(200, `${aboutMe?.maximumNumber} 200`)
     .regex(aboutMeRegex, {
-      message: `${aboutMe.aboutMe} a-z, A-Z, а-я, А-Я 0-9, ! # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^_\` { | } ~`,
+      message: `${aboutMe?.aboutMe} a-z, A-Z, а-я, А-Я 0-9, ! # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^_\` { | } ~`,
     })
 }
 
@@ -111,7 +111,7 @@ export interface ICreateNewPassword {
 }
 
 export interface IProfile {
-  aboutMe: IAboutMe
+  aboutMe?: IAboutMe
   city?: string
   country?: string
   dateOfBirth?: string

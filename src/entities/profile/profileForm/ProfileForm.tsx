@@ -8,6 +8,7 @@ import CountryCitySelector from '@/shared/components/CountryCitySelect/CountryCi
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, MyDatePicker, TextArea, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import s from './ProfileForm.module.scss'
 
@@ -20,6 +21,8 @@ interface IProps {
 
 export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => {
   const t = useRouterLocaleDefinition()
+  const router = useRouter()
+  const currentPath = router.asPath
 
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null)
 
@@ -150,16 +153,18 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
           mode={'single'}
           onDateChange={handleDateChange}
         />
-        {errorMessage && (
-          <div className={s.errorDiv}>
-            <Typography variant={'regular-text-14'}>{errorMessage}</Typography>
-            <Link href={PATH.AUTH.PRIVACYPOLICY}>
-              <Typography className={s.linkPrivacy} variant={'small-link'}>
-                {t.settingsPage.infoForm.privacyPol}
-              </Typography>
-            </Link>
-          </div>
-        )}
+        {/*{errorMessage && (*/}
+        {/*  <div className={s.errorDiv}>*/}
+        {/*    <Typography variant={'regular-text-14'}>{errorMessage}</Typography>*/}
+        {/*    <Link*/}
+        {/*      href={`${PATH.AUTH.PRIVACYPOLICY}?previousPath=${encodeURIComponent(currentPath)}`}*/}
+        {/*    >*/}
+        {/*      <Typography className={s.linkPrivacy} variant={'small-link'}>*/}
+        {/*        {t.settingsPage.infoForm.privacyPol}*/}
+        {/*      </Typography>*/}
+        {/*    </Link>*/}
+        {/*  </div>*/}
+        {/*)}*/}
       </div>
 
       <CountryCitySelector

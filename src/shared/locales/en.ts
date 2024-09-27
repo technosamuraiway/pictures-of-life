@@ -90,6 +90,7 @@ export const en: LocaleType = {
     title: 'Password recovery page',
   },
   privacyPolicy: {
+    backToProfile: 'Back to Profile Settings',
     backToSign: 'Back to Sign Up',
     text: `We value your privacy and are committed to protecting your personal information. In this Privacy Policy, we will explain what information we collect, how we use it, and how we protect your privacy.
       1. Collection and Use of Information
