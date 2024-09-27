@@ -1,6 +1,6 @@
 import { useRetrieveSessionsQuery } from '@/services'
 import { RequestLineLoader, findIcon, useRouterLocaleDefinition } from '@/shared'
-import { Card, Typography } from '@technosamurai/techno-ui-kit'
+import { Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './Devices.module.scss'
 
