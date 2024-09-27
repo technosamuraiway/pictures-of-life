@@ -1,0 +1,30 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 46.25rem;
+}
+
+.dateOfBirthWrapper {
+  position: relative;
+}
+
+.labelColor {
+  color: var(--Light-900);
+}
+
+.errorDiv {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  color: var(--Danger-500);
+}
+
+.linkPrivacy {
+  color: var(--Danger-500);
+}
+
+.submitButton {
+  align-self: flex-end;
+  margin-top: 3rem;
+}

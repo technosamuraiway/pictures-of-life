@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { ActionConfirmationModal, AddProfilePhotoModal } from '@/entities'
-import { useDeleteAvatarMutation } from '@/services/flow/profile.service'
+import { useDeleteAvatarMutation } from '@/services'
 import { RequestLineLoader, RoundAvatar, useRouterLocaleDefinition } from '@/shared'
 
 import s from './ChangeAvatar.module.scss'
