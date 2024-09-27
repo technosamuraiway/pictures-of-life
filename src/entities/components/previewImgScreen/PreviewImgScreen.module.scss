@@ -24,3 +24,9 @@
   background-color: var(--Danger-900);
   border: 0.0625rem solid var(--Danger-500);
 }
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

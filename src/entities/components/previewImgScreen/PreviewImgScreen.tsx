@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 import { DownloadFile } from '@/shared'
-import { Typography } from '@technosamurai/techno-ui-kit'
+import { Button, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './PreviewImgScreen.module.scss'
 
@@ -11,10 +11,13 @@ interface IProps {
   errorSizeText: string
   errorText: null | string
   maxImgSize: number
-
+  multipleInput?: boolean
+  onDraftBtnClick?: () => void
   onEditMode: (edit: boolean) => void
+  openDraftBtnText?: string
   setErrorText: (error: null | string) => void
-  setImage: (img: File | string) => void
+  setImage: (img: (File | string)[]) => void
+  showDraftBtn?: boolean
 }
 
 export const PreviewImgScreen = ({
@@ -23,9 +26,13 @@ export const PreviewImgScreen = ({
   errorSizeText,
   errorText,
   maxImgSize,
+  multipleInput,
+  onDraftBtnClick,
   onEditMode,
+  openDraftBtnText,
   setErrorText,
   setImage,
+  showDraftBtn = false,
 }: IProps) => {
   return (
     <div className={s.wrapper}>
@@ -35,14 +42,22 @@ export const PreviewImgScreen = ({
         </div>
       )}
       {children}
-      <DownloadFile
-        btnText={addImgBtnText}
-        errorSizeText={errorSizeText}
-        maxImgSize={maxImgSize}
-        onEditMode={onEditMode}
-        setError={setErrorText}
-        setImage={setImage}
-      />
+      <div className={s.buttonsWrapper}>
+        <DownloadFile
+          btnText={addImgBtnText}
+          errorSizeText={errorSizeText}
+          maxImgSize={maxImgSize}
+          multiple={multipleInput}
+          onEditMode={onEditMode}
+          setError={setErrorText}
+          setImage={setImage}
+        />
+        {showDraftBtn && (
+          <Button onClick={onDraftBtnClick} variant={'outline'}>
+            {openDraftBtnText}
+          </Button>
+        )}
+      </div>
     </div>
   )
 }

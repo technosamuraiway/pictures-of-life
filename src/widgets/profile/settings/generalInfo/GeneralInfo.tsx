@@ -24,8 +24,10 @@ const formatDateString = (dateString: string | undefined): string => {
 
 export const GeneralInfo = () => {
   const t = useRouterLocaleDefinition()
+
   const { data: profileData, isLoading: getProfileIsLoading } = useGetProfileQuery()
-  const [updateProfile, { isLoading: updateProfileIsloading }] = useUpdateProfileMutation()
+
+  const [updateProfile, { isLoading: updateProfileIsLoading }] = useUpdateProfileMutation()
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const defaultValues = {
     aboutMe: profileData?.aboutMe || '',
@@ -53,7 +55,7 @@ export const GeneralInfo = () => {
 
   return (
     <>
-      {getProfileIsLoading || (updateProfileIsloading && <RequestLineLoader />)}
+      {getProfileIsLoading || (updateProfileIsLoading && <RequestLineLoader />)}
       <Tabs.Content className={s.generalDiv} value={t.settingsPage.general}>
         <ChangeAvatar />
         <ProfileForm

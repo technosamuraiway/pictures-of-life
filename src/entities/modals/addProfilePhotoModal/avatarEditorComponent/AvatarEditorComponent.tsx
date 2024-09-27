@@ -19,7 +19,7 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   const [changeAvatar, { isLoading: changeAvatarIsLoading }] = useChangeAvatarMutation()
 
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  const [image, setImage] = useState<File | string>('')
+  const [image, setImage] = useState<(File | string)[]>([''])
 
   const editorRef = useRef<Avatar | null>(null)
 

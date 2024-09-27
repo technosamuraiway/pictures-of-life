@@ -8,12 +8,12 @@ import { Button } from '@technosamurai/techno-ui-kit'
 import s from './AvatarEditor.module.scss'
 
 interface IProps {
-  image: File | string
+  image: (File | string)[]
   isDisableSaveBtn?: boolean
   maxImgSize: number
   onSaveBtnClick: () => void
   setErrorText: (error: null | string) => void
-  setImage: (img: File | string) => void
+  setImage: (img: (File | string)[]) => void
 }
 
 const SCALE_STEP = 0.1
@@ -35,7 +35,7 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
         <Avatar
           borderRadius={170}
           height={290}
-          image={image}
+          image={image[0] || ''}
           ref={ref}
           scale={scale[0]}
           width={290}
