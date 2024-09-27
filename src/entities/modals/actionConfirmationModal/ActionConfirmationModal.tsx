@@ -1,26 +1,31 @@
 import { ReactNode } from 'react'
 
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
+import clsx from 'clsx'
 
 import s from './ActionConfirmationModal.module.scss'
 
 interface IProps {
+  buttonsWrapperCN?: string
   headerTitle: string
   isDisableButtons?: boolean
   isOpenModal: boolean
   modalTextChildren: ReactNode
   negativeButtonChildren: ReactNode
+  onClickNegativeButton?: () => void
   onClickPositiveButton: () => void
   positiveButtonChildren: ReactNode
   setIsOpenModal: (isOpenModal: boolean) => void
 }
 
 export const ActionConfirmationModal = ({
+  buttonsWrapperCN,
   headerTitle,
   isDisableButtons,
   isOpenModal,
   modalTextChildren,
   negativeButtonChildren,
+  onClickNegativeButton,
   onClickPositiveButton,
   positiveButtonChildren,
   setIsOpenModal,
@@ -38,7 +43,7 @@ export const ActionConfirmationModal = ({
     >
       <div className={s.childrenWrapper}>
         <Typography variant={'regular-text-16'}>{modalTextChildren}</Typography>
-        <div className={s.buttonsWrapper}>
+        <div className={clsx(s.buttonsWrapper, buttonsWrapperCN)}>
           <Button
             className={s.modalButton}
             disabled={isDisableButtons}
@@ -50,7 +55,7 @@ export const ActionConfirmationModal = ({
           <Button
             className={s.modalButton}
             disabled={isDisableButtons}
-            onClick={onClickNegativeButtonHandler}
+            onClick={onClickNegativeButton ?? onClickNegativeButtonHandler}
           >
             {negativeButtonChildren}
           </Button>

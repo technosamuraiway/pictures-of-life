@@ -1,0 +1,22 @@
+.wrapper {
+  height: 35.25rem;
+}
+
+.headerWrapper {
+  height: 3.75rem;
+  border-bottom: 0.0625rem solid var(--Dark-100);
+}
+
+.leftIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--Light-100);
+}
+
+.modalButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+}

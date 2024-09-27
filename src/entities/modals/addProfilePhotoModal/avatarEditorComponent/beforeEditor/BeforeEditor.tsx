@@ -8,7 +8,7 @@ interface IProps {
   maxImgSize: number
   onEditMode: (edit: boolean) => void
   setErrorText: (error: null | string) => void
-  setImage: (img: File | string) => void
+  setImage: (img: (File | string)[]) => void
 }
 
 export const BeforeEditor = ({

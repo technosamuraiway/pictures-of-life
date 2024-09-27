@@ -22,11 +22,7 @@ const CreatePost = () => {
   return (
     <>
       <MetaHead title={t.createNewPost.title} />
-      <CreateNewPostModal
-        onEditMode={setIsEdit}
-        onOpenModal={setOpenAddPost}
-        openModal={openAddPost}
-      />
+      <CreateNewPostModal />
     </>
   )
 }
