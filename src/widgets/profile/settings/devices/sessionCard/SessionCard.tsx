@@ -1,11 +1,11 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { useRouterLocaleDefinition } from '@/shared'
 import { Card, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from '../Devices.module.scss'
 
-interface Props {
+interface IProps {
   children?: ReactNode[]
   currentIcon?: ReactNode
   date?: string
@@ -13,7 +13,7 @@ interface Props {
   tittle?: string
 }
 
-export const SessionCard: FC<Props> = ({ children, currentIcon, date, ip, tittle }) => {
+export const SessionCard = ({ children, currentIcon, date, ip, tittle }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   return (

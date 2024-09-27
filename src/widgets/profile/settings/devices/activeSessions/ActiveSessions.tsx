@@ -5,9 +5,7 @@ import {
   useDeleteSessionsGroupMutation,
   useRetrieveSessionsQuery,
 } from '@/services'
-import { useRouterLocaleDefinition } from '@/shared'
-import { convertDate } from '@/shared/utils/convertDate'
-import { findIcon } from '@/shared/utils/findIcon'
+import { convertDate, findIcon, useRouterLocaleDefinition } from '@/shared'
 import { Button, LogOutIcon, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from '../Devices.module.scss'

@@ -4,6 +4,7 @@ const passwordRegex =
   /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}])[0-9a-zA-Z!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}]{6,}$/
 
 const usernameRegex = /^[a-zA-Z0-9_-]*$/g
+const firstLastNameRegex = /^[a-zA-Zа-яА-Я]*$/g
 
 // ----------- Схемы валидаций полей ---------------
 
@@ -23,6 +24,9 @@ interface IPassword extends INumberRange {
 
 interface IUserName extends INumberRange {
   username: string
+}
+interface IName extends INumberRange {
+  name: string
 }
 
 const email = (email: IEmail) => {
@@ -51,16 +55,16 @@ const username = (username: IUserName) => {
     })
 }
 
-export const profileSchema = z.object({
-  aboutMe: z.string().optional(),
-  city: z.string().optional(),
-  country: z.string().optional(),
-  dateOfBirth: z.string().optional(),
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  region: z.string().optional(),
-  userName: z.string().min(1, 'Username is required'),
-})
+const firstLastName = (firstLastName: IName) => {
+  return z
+    .string()
+    .trim()
+    .min(1, `${firstLastName.minimumNumber} 1`)
+    .max(50, `${firstLastName.maximumNumber} 50`)
+    .regex(firstLastNameRegex, {
+      message: `${firstLastName.name} a-z, A-Z, а-я, А-Я`,
+    })
+}
 
 const confirmPassword = z.string().trim()
 const isBoolean = z.boolean().refine(value => value)
@@ -87,6 +91,17 @@ export interface IForgotPassword {
 export interface ICreateNewPassword {
   confirmPassword: string
   newPassword: IPassword
+}
+
+export interface IProfile {
+  aboutMe?: string
+  city?: string
+  country?: string
+  dateOfBirth?: string
+  firstName: IName
+  lastName: IName
+  region?: string
+  userName: IUserName
 }
 
 export const signUpScheme = (signUp: ISignUp) => {
@@ -130,8 +145,17 @@ export const signInScheme = (signIn: ISignIn) => {
   })
 }
 
-export const profileValidationScheme = () => {
-  return profileSchema
+export const profileValidationScheme = (profile: IProfile) => {
+  return z.object({
+    aboutMe: z.string().optional(),
+    city: z.string().optional(),
+    country: z.string().optional(),
+    dateOfBirth: z.string().optional(),
+    firstName: firstLastName(profile.firstName),
+    lastName: firstLastName(profile.lastName),
+    region: z.string().optional(),
+    userName: username(profile.userName),
+  })
 }
 
 // ============= Типы валидаций форм ==================
@@ -139,4 +163,4 @@ export type SignUpFormValues = z.infer<ReturnType<typeof signUpScheme>>
 export type ForgotPasswordFormValues = z.infer<ReturnType<typeof forgotPasswordScheme>>
 export type CreateNewPasswordFormValues = z.infer<ReturnType<typeof createNewPasswordScheme>>
 export type SignInFormValues = z.infer<ReturnType<typeof signInScheme>>
-export type ProfileFormValues = z.infer<typeof profileSchema>
+export type ProfileFormValues = z.infer<ReturnType<typeof profileValidationScheme>>

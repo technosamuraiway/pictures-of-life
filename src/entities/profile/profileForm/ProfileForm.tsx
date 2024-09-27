@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { ProfileFormValues, profileSchema } from '@/entities/zodValidationScheme'
+import { IProfile, ProfileFormValues, profileValidationScheme } from '@/entities'
 import { PATH, useRouterLocaleDefinition } from '@/shared'
 import CountryCitySelector from '@/shared/components/CountryCitySelect/CountryCitySelect'
 import { formatDateString } from '@/shared/utils/dateUtils'
@@ -22,9 +22,28 @@ interface IProps {
 export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null)
+
+  const profileTranslate: IProfile = {
+    firstName: {
+      maximumNumber: t.validationSchemes.maximumNumber,
+      minimumNumber: t.validationSchemes.minimumNumber,
+      name: t.validationSchemes.firstName,
+    },
+    lastName: {
+      maximumNumber: t.validationSchemes.maximumNumber,
+      minimumNumber: t.validationSchemes.minimumNumber,
+      name: t.validationSchemes.lastName,
+    },
+    userName: {
+      maximumNumber: t.validationSchemes.maximumNumber,
+      minimumNumber: t.validationSchemes.minimumNumber,
+      username: t.validationSchemes.username,
+    },
+  }
+
   const { control, handleSubmit, register, reset, setValue, watch } = useForm<ProfileFormValues>({
     defaultValues,
-    resolver: zodResolver(profileSchema),
+    resolver: zodResolver(profileValidationScheme(profileTranslate)),
   })
 
   const [errorMessage, setErrorMessage] = useState('')

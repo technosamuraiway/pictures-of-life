@@ -2,12 +2,7 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { OAuth, SignInForm, SignInFormValues } from '@/entities'
-import {
-  IServerError,
-  MessagesFromErrorType,
-  useMeCurInfoQuery,
-  useSignInMutation,
-} from '@/services'
+import { useMeCurInfoQuery, useSignInMutation } from '@/services'
 import {
   FormQuestionBlock,
   MetaHead,
@@ -29,7 +24,7 @@ function SignIn() {
   const { data: meData } = useMeCurInfoQuery()
   const [textFieldError, setTextFieldError] = useState<string>()
 
-  const onSubmitSignInForm = async (data: SignInFormValues, resetForm: () => void) => {
+  const onSubmitSignInForm = async (data: SignInFormValues) => {
     try {
       await signIn({
         email: data.email,

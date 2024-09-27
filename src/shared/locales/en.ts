@@ -198,6 +198,8 @@ export const en: LocaleType = {
     confirmPassword: 'Passwords must match',
     emailRequired: 'Email is required',
     emailScheme: 'The email must match the format example@example.com',
+    firstName: 'Firstname must contain',
+    lastName: 'Lastname must contain',
     maximumNumber: 'Maximum number of characters',
     minimumNumber: 'Minimum number of characters',
     password: 'Password must contain',

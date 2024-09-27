@@ -198,6 +198,8 @@ export const ru = {
     confirmPassword: 'Пароли должны совпадать',
     emailRequired: 'Электронная почта обязательна',
     emailScheme: 'Электронная почта должна соответствовать формату example@example.com',
+    firstName: 'Имя должно состоять из',
+    lastName: 'Фамилия должно состоять из',
     maximumNumber: 'Максимальное число символов',
     minimumNumber: 'Минимальное число символов',
     password: 'Пароль должен состоять из',

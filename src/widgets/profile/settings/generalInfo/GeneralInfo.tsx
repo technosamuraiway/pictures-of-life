@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { ProfileForm } from '@/entities/profile/generalInfo/ProfileForm'
+import { ProfileForm } from '@/entities/profile/profileForm/ProfileForm'
 import { ProfileFormValues, useGetProfileQuery, useUpdateProfileMutation } from '@/services'
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { Tabs } from '@technosamurai/techno-ui-kit'
