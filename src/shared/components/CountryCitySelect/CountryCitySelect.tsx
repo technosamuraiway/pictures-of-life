@@ -180,7 +180,9 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
         <div className={`${s.selectDiv} `}>
           <div style={{ position: 'relative' }}>
             <input
-              className={`${s.input} ${isFocused ? s.focused : ''} ${!selectedCountryId ? s.disabled : ''}`}
+              className={`${s.input} ${isFocused ? s.focused : ''} ${
+                !selectedCountryId ? s.disabled : ''
+              }`}
               disabled={!selectedCountryId}
               onChange={handleStateSearch}
               onFocus={() => setIsFocused(true)}
@@ -221,7 +223,9 @@ const CountryCitySelector: React.FC<Props> = ({ onCityChange, onCountryChange, o
         <div className={`${s.selectDiv} `}>
           <div style={{ position: 'relative' }}>
             <input
-              className={`${s.input} ${isFocused ? s.focused : ''} ${!selectedStateId ? s.disabled : ''}`}
+              className={`${s.input} ${isFocused ? s.focused : ''} ${
+                !selectedStateId ? s.disabled : ''
+              }`}
               disabled={!selectedStateId}
               onChange={handleCitySearch}
               onFocus={() => setIsFocused(true)}
