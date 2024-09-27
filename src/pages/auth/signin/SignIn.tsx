@@ -1,7 +1,13 @@
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { OAuth, SignInForm, SignInFormValues } from '@/entities'
-import { useMeCurInfoQuery, useSignInMutation } from '@/services'
+import {
+  IServerError,
+  MessagesFromErrorType,
+  useMeCurInfoQuery,
+  useSignInMutation,
+} from '@/services'
 import {
   FormQuestionBlock,
   MetaHead,
@@ -21,16 +27,23 @@ function SignIn() {
 
   const [signIn, { isLoading: SignInIsLoading }] = useSignInMutation()
   const { data: meData } = useMeCurInfoQuery()
+  const [textFieldError, setTextFieldError] = useState<string>()
 
   const onSubmitSignInForm = async (data: SignInFormValues, resetForm: () => void) => {
-    await signIn({
-      email: data.email,
-      password: data.password,
-    }).unwrap()
+    try {
+      await signIn({
+        email: data.email,
+        password: data.password,
+      }).unwrap()
 
-    toast.success(t.signInPage.successLogIn)
+      toast.success(t.signInPage.successLogIn)
 
-    router.replace(`${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`)
+      router.replace(`${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`)
+    } catch (err: any) {
+      if (err.data) {
+        setTextFieldError('The email or password are incorrect. Try again please')
+      }
+    }
   }
 
   return (
@@ -40,7 +53,11 @@ function SignIn() {
       <Card className={s.cardContainer}>
         <OAuth title={t.signInPage.title} />
 
-        <SignInForm buttonDisabled={SignInIsLoading} onSubmitSignInForm={onSubmitSignInForm} />
+        <SignInForm
+          buttonDisabled={SignInIsLoading}
+          onSubmitSignInForm={onSubmitSignInForm}
+          textFieldError={textFieldError}
+        />
 
         <FormQuestionBlock
           buttonTitle={t.signUpPage.title}

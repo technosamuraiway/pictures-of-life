@@ -51,6 +51,17 @@ const username = (username: IUserName) => {
     })
 }
 
+export const profileSchema = z.object({
+  aboutMe: z.string().optional(),
+  city: z.string().optional(),
+  country: z.string().optional(),
+  dateOfBirth: z.string().optional(),
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  region: z.string().optional(),
+  userName: z.string().min(1, 'Username is required'),
+})
+
 const confirmPassword = z.string().trim()
 const isBoolean = z.boolean().refine(value => value)
 
@@ -119,8 +130,13 @@ export const signInScheme = (signIn: ISignIn) => {
   })
 }
 
+export const profileValidationScheme = () => {
+  return profileSchema
+}
+
 // ============= Типы валидаций форм ==================
 export type SignUpFormValues = z.infer<ReturnType<typeof signUpScheme>>
 export type ForgotPasswordFormValues = z.infer<ReturnType<typeof forgotPasswordScheme>>
 export type CreateNewPasswordFormValues = z.infer<ReturnType<typeof createNewPasswordScheme>>
 export type SignInFormValues = z.infer<ReturnType<typeof signInScheme>>
+export type ProfileFormValues = z.infer<typeof profileSchema>

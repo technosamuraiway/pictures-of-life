@@ -1,7 +1,9 @@
+import { useState } from 'react'
+
 import { useGetProfileQuery } from '@/services'
-import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { MetaHead, PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
-import { Typography } from '@technosamurai/techno-ui-kit'
+import { Button, Typography } from '@technosamurai/techno-ui-kit'
 
 function Profile() {
   const t = useRouterLocaleDefinition()
@@ -14,6 +16,9 @@ function Profile() {
       <MetaHead title={t.profilePage.title} />
       <div>It Is {profileData?.userName} profile</div>
       <Typography variant={'h2'}>id: {profileData?.id}</Typography>
+      <Button as={'a'} href={PATH.PROFILE.SETTINGS} variant={'secondary'}>
+        {t.profilePage.settingButton}
+      </Button>
     </>
   )
 }

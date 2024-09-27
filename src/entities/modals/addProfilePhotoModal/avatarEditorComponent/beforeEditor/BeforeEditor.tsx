@@ -1,45 +1,36 @@
-import { ChangeEvent, ElementRef, ReactNode, forwardRef } from 'react'
-
-import { useGetProfileQuery } from '@/services'
-import { AvatarChoice, DownloadFile, useRouterLocaleDefinition } from '@/shared'
-import { Typography } from '@technosamurai/techno-ui-kit'
+import { PreviewImgScreen } from '@/entities/components/previewImgScreen/PreviewImgScreen'
+import { AvatarChoice, useRouterLocaleDefinition } from '@/shared'
 
 import s from './BeforeEditor.module.scss'
 
 interface IProps {
-  errorText?: ReactNode
-  onChangeFileImg: (e: ChangeEvent<HTMLInputElement>) => void
-  onClickAddAvatar: () => void
+  errorText: null | string
+  maxImgSize: number
+  onEditMode: (edit: boolean) => void
+  setErrorText: (error: null | string) => void
+  setImage: (img: (File | string)[]) => void
 }
 
-export const BeforeEditor = forwardRef<ElementRef<'input'>, IProps>(
-  ({ errorText, onChangeFileImg, onClickAddAvatar }, ref) => {
-    const t = useRouterLocaleDefinition()
-    const { data: profileData } = useGetProfileQuery()
+export const BeforeEditor = ({
+  errorText,
+  maxImgSize,
+  onEditMode,
+  setErrorText,
+  setImage,
+}: IProps) => {
+  const t = useRouterLocaleDefinition()
 
-    const avatarCondition = profileData?.avatars && profileData.avatars.length > 0
-
-    return (
-      <div className={s.wrapper}>
-        {errorText && (
-          <div className={s.errorWrapper}>
-            <Typography variant={'regular-text-14'}>{errorText}</Typography>
-          </div>
-        )}
-        <AvatarChoice
-          avatarSrc={profileData?.avatars}
-          imgCN={s.imgAvatar}
-          imgWrapperCN={s.imgWrapper}
-          mainCondition={avatarCondition}
-          userName={profileData?.userName}
-        />
-        <DownloadFile
-          btnText={t.avatarChange.addAvatarModalButtonText}
-          onBtnClick={onClickAddAvatar}
-          onChangeFile={onChangeFileImg}
-          ref={ref}
-        />
-      </div>
-    )
-  }
-)
+  return (
+    <PreviewImgScreen
+      addImgBtnText={t.avatarChange.addAvatarModalButtonText}
+      errorSizeText={t.avatarChange.errorSizeText}
+      errorText={errorText}
+      maxImgSize={maxImgSize}
+      onEditMode={onEditMode}
+      setErrorText={setErrorText}
+      setImage={setImage}
+    >
+      <AvatarChoice imgCN={s.imgAvatar} imgSVGWrapperCN={s.imgWrapper} />
+    </PreviewImgScreen>
+  )
+}

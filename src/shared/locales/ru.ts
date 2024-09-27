@@ -15,6 +15,25 @@ export const ru = {
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 10 MB!',
     saveBtn: 'Сохранить',
   },
+  createNewPost: {
+    addPhotoModal: {
+      addImgModalButtonText: 'Загрузить фото с компьютера',
+      errorSizeText: 'Ошибка! Размер фото должен быть меньше 20 MB!',
+      modalTitle: 'Добавьте фото',
+      openDraftButtonText: 'Открыть черновик',
+    },
+    editPhotoModal: {
+      modalExitDiscardBtn: 'Сброс',
+      modalExitSaveDraftBtn: 'Сохранить черновик',
+      modalExitText:
+        'Вы действительно хотите закрыть создание публикации? Если вы закроете, все будет удалено',
+      modalExitTitle: 'Закрыть',
+      modalTitle: 'Редактор Фото',
+      nextBtn: 'Далее',
+    },
+
+    title: 'Создать пост',
+  },
   error404Page: {
     btnText: 'Вернуться на главную',
     mainText: 'Простите! Страница не найдена!',
@@ -49,8 +68,6 @@ export const ru = {
     logOutSuccess: 'Вы успешно вышли из приложения. Увидимся в следующий раз!',
     logOutText: 'Вы действительно хотите выйти из аккаунта <1>email</1> ?',
   },
-  loginError: 'Вы не авторизованы, попробуйте еще раз...',
-  loginSuccess: 'Вы вошли в систему!',
   navBar: {
     create: 'Создать',
     favorites: 'Любимое',
@@ -86,6 +103,7 @@ export const ru = {
     title: 'Политика конфиденциальности',
   },
   profilePage: {
+    settingButton: 'Настройки Профиля',
     title: 'Профиль',
   },
   settingsPage: {
@@ -101,9 +119,26 @@ export const ru = {
       tittle: 'Устройства',
     },
     general: 'Общая информация',
+    infoForm: {
+      city: 'Выберите свой город',
+      country: 'Выберите свою страну',
+      dateBir: 'Дата рождения',
+      errorMssage: 'Пользователь младше 13 лет не может создать профиль.',
+      firstName: 'Имя',
+      lastName: 'Фамилия',
+      placeCity: 'Город',
+      placeCountry: 'Страна',
+      placeState: 'Регион',
+      privacyPol: 'Политика конфиденциальности',
+      state: 'Выберите свой регион',
+      textArea: 'Обо мне',
+      textAreaPlace: 'Расскажите нам что-нибудь о себе...',
+      userName: 'Имя пользователя',
+    },
     management: 'Управление аккаунтом',
     payments: 'Мои платежи',
     title: 'Настройки',
+    updateProfileSuccess: 'Ваши данные были успешно обновлены!',
   },
   signInPage: {
     accountQuestion: 'У вас нет аккаунта?',

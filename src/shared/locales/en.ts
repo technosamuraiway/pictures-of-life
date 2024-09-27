@@ -17,6 +17,25 @@ export const en: LocaleType = {
     errorSizeText: 'Error! Photo size must be less than 10 MB!',
     saveBtn: 'Save',
   },
+  createNewPost: {
+    addPhotoModal: {
+      addImgModalButtonText: 'Select from Computer',
+      errorSizeText: 'Error! Photo size must be less than 20 MB!',
+      modalTitle: 'Add Photo',
+      openDraftButtonText: 'Open Draft',
+    },
+    editPhotoModal: {
+      modalExitDiscardBtn: 'Discard',
+      modalExitSaveDraftBtn: 'Save Draft',
+      modalExitText:
+        'Do you really want to close the creation of a publication? If you close everything will be deleted',
+      modalExitTitle: 'Close',
+      modalTitle: 'Photo Editor',
+      nextBtn: 'Next',
+    },
+
+    title: 'Создать пост',
+  },
   error404Page: {
     btnText: 'Back to Home',
     mainText: "Sorry! Page isn't found!",
@@ -50,8 +69,6 @@ export const en: LocaleType = {
     logOutSuccess: 'Logout successful. See you next time!',
     logOutText: 'Are you really want to log out of your account <1>email</1> ?',
   },
-  loginError: 'You are not logged in, try again...',
-  loginSuccess: 'You are logged in!',
   navBar: {
     create: 'Create',
     favorites: 'Favorites',
@@ -87,6 +104,7 @@ export const en: LocaleType = {
     title: 'Privacy Policy',
   },
   profilePage: {
+    settingButton: 'Profile Settings',
     title: 'Profile',
   },
   settingsPage: {
@@ -102,9 +120,26 @@ export const en: LocaleType = {
       tittle: 'Devices',
     },
     general: 'General information',
+    infoForm: {
+      city: 'Select your city',
+      country: 'Select your country',
+      dateBir: 'Date of Birth',
+      errorMssage: 'A user under 13 cannot create a profile.',
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      placeCity: 'City',
+      placeCountry: 'Country',
+      placeState: 'State',
+      privacyPol: 'Privacy Policy',
+      state: 'Select your state',
+      textArea: 'About me',
+      textAreaPlace: 'Tell us something about yourself...',
+      userName: 'Username',
+    },
     management: 'Account Management',
     payments: 'My payments',
     title: 'Settings',
+    updateProfileSuccess: 'Your data has been successfully updated!',
   },
   signInPage: {
     accountQuestion: 'Don’t have an account?',

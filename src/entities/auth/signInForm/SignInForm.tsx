@@ -13,9 +13,10 @@ import { ControlledTextField } from '../../controlled/controlledTextField/Contro
 interface IProps {
   buttonDisabled: boolean
   onSubmitSignInForm: (data: SignInFormValues, resetForm: () => void) => void
+  textFieldError?: string
 }
 
-export const SignInForm = ({ buttonDisabled, onSubmitSignInForm }: IProps) => {
+export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const signInTranslate: ISignIn = {
@@ -48,6 +49,7 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm }: IProps) => {
       <ControlledTextField
         autoComplete={'email'}
         control={control}
+        error={textFieldError}
         label={t.signInPage.email}
         name={'email'}
         type={'email'}
@@ -55,6 +57,7 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm }: IProps) => {
       <ControlledTextField
         autoComplete={'current-password'}
         control={control}
+        error={textFieldError}
         label={t.signInPage.password}
         name={'password'}
         type={'password'}

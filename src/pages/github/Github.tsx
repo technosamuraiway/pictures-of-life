@@ -14,7 +14,8 @@ function GithubPage() {
   useEffect(() => {
     if (accessToken && email) {
       localStorage.setItem('accessToken', accessToken as string)
-      toast.success(t.loginSuccess)
+      toast.success(t.signInPage.successLogIn)
+
       router.replace(PATH.HOME)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
