@@ -5,10 +5,10 @@ export const postService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
       getAllPublicPosts: builder.query<IPostPublicResponse, IPostParams | void>({
-        query: (arg) => {
+        query: arg => {
           return {
-            url: `v1/public-posts/all`,
             params: arg ?? undefined,
+            url: `v1/public-posts/all`,
           }
         },
       }),

@@ -1,3 +1,4 @@
+
 import { BraveIcon } from '@public/devices/BraveIcon'
 import { ChromeIcon } from '@public/devices/ChromeIcon'
 import { DesktopMacIcon } from '@public/devices/DesktopMacIcon'

@@ -1,32 +1,32 @@
 export interface IPostPublicResponse {
-  totalCount: number
-  pageSize: number
   items: IPostUser[]
+  pageSize: number
+  totalCount: number
   totalUsers: number
 }
 
-export interface IPostUser{
-  id: number
-  userName: string
-  description: string
-  location: any
-  images: IPostImage[]
-  createdAt: string
-  updatedAt: string
+export interface IPostUser {
   avatarOwner: string
-  ownerId: number
-  owner: IPostOwner
-  likesCount: number
+  createdAt: string
+  description: string
+  id: number
+  images: IPostImage[]
   isLiked: boolean
+  likesCount: number
+  location: any
+  owner: IPostOwner
+  ownerId: number
+  updatedAt: string
+  userName: string
 }
 
 export interface IPostImage {
+  createdAt: string
+  fileSize: number
+  height: number
+  uploadId: string
   url: string
   width: number
-  height: number
-  fileSize: number
-  createdAt: string
-  uploadId: string
 }
 
 export interface IPostOwner {
@@ -37,7 +37,7 @@ export interface IPostOwner {
 type SortDirection = 'asc' | 'desc'
 
 export interface IPostParams {
-  pageSize?: number;
-  sortBy?: string;
-  sortDirection?: SortDirection;
+  pageSize?: number
+  sortBy?: string
+  sortDirection?: SortDirection
 }
