@@ -86,6 +86,10 @@ export const en: LocaleType = {
     successMessage: 'Your password has been successfully changed!',
     title: 'Create New Password',
   },
+  pagination: {
+    onPage: 'on page',
+    show: 'Show',
+  },
   passwordRecoveryPage: {
     title: 'Password recovery page',
   },
