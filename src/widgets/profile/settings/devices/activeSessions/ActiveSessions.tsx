@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify'
 
-import { SessionCard } from '@/entities/profile/settings/Sessions/SessionCard'
 import {
   useDeleteSessionMutation,
   useDeleteSessionsGroupMutation,
@@ -11,6 +10,8 @@ import { convertDate } from '@/shared/utils/convertDate'
 import { Button, LogOutIcon, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from '../Devices.module.scss'
+
+import { SessionCard } from '../sessionCard/SessionCard'
 
 export const ActiveSessions = () => {
   const t = useRouterLocaleDefinition()
@@ -46,45 +47,49 @@ export const ActiveSessions = () => {
       <Typography className={s.text} variant={'h3'}>
         {t.settingsPage.devices.activeSessions}
       </Typography>
-      {data?.others?.map(device => {
-        if (device.deviceId === data.current.deviceId) {
-          return (
-            <div className={s.noOtherSessionsContainer} key={device.deviceId}>
-              <Typography className={s.text} variant={'h1'}>
-                {t.settingsPage.devices.noOtherSessionsText}
-              </Typography>
-            </div>
-          )
-        }
-        const currentIcon = findIcon(device.osName, 'device')
-        const date = convertDate(device.lastActive)
+      {(data?.others?.length || 0) > 1 ? (
+        <div>
+          {data?.others?.map(device => {
+            if (device.deviceId === data.current.deviceId) {
+              return null
+            }
+            const currentIcon = findIcon(device.osName, 'device')
+            const date = convertDate(device.lastActive)
 
-        return (
-          <SessionCard
-            currentIcon={currentIcon}
-            date={date}
-            ip={device.ip}
-            key={device.deviceId}
-            tittle={device.osName}
-          >
-            {' '}
-            <Button
-              className={s.logOutButton}
-              onClick={() => {
-                deleteDeviceHandler(device.deviceId)
-              }}
-              variant={'iconButton'}
-            >
-              <span className={s.logOutIcon}>
-                <LogOutIcon />
-              </span>
-              <Typography variant={'medium-text-14'}>
-                {t.settingsPage.devices.logOutButton}
-              </Typography>
-            </Button>
-          </SessionCard>
-        )
-      })}
+            return (
+              <SessionCard
+                currentIcon={currentIcon}
+                date={date}
+                ip={device.ip}
+                key={device.deviceId}
+                tittle={device.osName}
+              >
+                {' '}
+                <Button
+                  className={s.logOutButton}
+                  onClick={() => {
+                    deleteDeviceHandler(device.deviceId)
+                  }}
+                  variant={'iconButton'}
+                >
+                  <span className={s.logOutIcon}>
+                    <LogOutIcon />
+                  </span>
+                  <Typography variant={'medium-text-14'}>
+                    {t.settingsPage.devices.logOutButton}
+                  </Typography>
+                </Button>
+              </SessionCard>
+            )
+          })}
+        </div>
+      ) : (
+        <div className={s.noOtherSessionsContainer}>
+          <Typography className={s.text} variant={'h1'}>
+            {t.settingsPage.devices.noOtherSessionsText}
+          </Typography>
+        </div>
+      )}
     </div>
   )
 }

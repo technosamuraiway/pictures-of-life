@@ -30,9 +30,7 @@ const Settings = () => {
       >
         <GeneralInfo />
         <Tabs.Content className={s.devices} value={t.settingsPage.devices.tittle}>
-          <Typography variant={'h1'}>
-            <Devices />
-          </Typography>
+          <Devices />
         </Tabs.Content>
         <Tabs.Content className={s.management} value={t.settingsPage.management}>
           <Typography variant={'h1'}>Management</Typography>
