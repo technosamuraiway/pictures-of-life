@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { IProfile, ProfileFormValues, profileValidationScheme } from '@/entities'
-import { PATH, useRouterLocaleDefinition } from '@/shared'
+import { useGetProfileQuery } from '@/services'
+import { PATH, formatDateToISOString, useRouterLocaleDefinition } from '@/shared'
 import CountryCitySelector from '@/shared/components/CountryCitySelect/CountryCitySelect'
-import { formatDateString } from '@/shared/utils/dateUtils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, MyDatePicker, TextArea, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -15,15 +15,20 @@ import { ControlledTextField } from '../../controlled/controlledTextField/Contro
 
 interface IProps {
   buttonDisabled: boolean
-  defaultValues: ProfileFormValues
-  onSubmitProfileForm: (data: ProfileFormValues, reset: () => void) => void
+  onSubmitProfileForm: (data: ProfileFormValues) => void
 }
 
-export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm }: IProps) => {
+export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => {
   const t = useRouterLocaleDefinition()
+
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null)
 
   const profileTranslate: IProfile = {
+    aboutMe: {
+      aboutMe: t.validationSchemes.aboutMe,
+      maximumNumber: t.validationSchemes.maximumNumber,
+      minimumNumber: t.validationSchemes.minimumNumber,
+    },
     firstName: {
       maximumNumber: t.validationSchemes.maximumNumber,
       minimumNumber: t.validationSchemes.minimumNumber,
@@ -41,7 +46,22 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
     },
   }
 
-  const { control, handleSubmit, register, reset, setValue, watch } = useForm<ProfileFormValues>({
+  const { data: profileData, isLoading: getProfileIsLoading } = useGetProfileQuery()
+
+  const defaultValues = {
+    aboutMe: profileData?.aboutMe || '',
+    city: profileData?.city || '',
+    country: profileData?.country || '',
+    dateOfBirth: profileData?.dateOfBirth
+      ? new Date(profileData.dateOfBirth).toLocaleDateString('en-US')
+      : '',
+    firstName: profileData?.firstName || '',
+    lastName: profileData?.lastName || '',
+    region: profileData?.region || '',
+    userName: profileData?.userName || '',
+  }
+
+  const { control, handleSubmit, register, setValue, watch } = useForm<ProfileFormValues>({
     defaultValues,
     resolver: zodResolver(profileValidationScheme(profileTranslate)),
   })
@@ -62,7 +82,7 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
     if (start) {
       setDateOfBirth(start)
       if (checkAge(start) < 13) {
-        setErrorMessage(t.settingsPage.infoForm.errorMssage)
+        setErrorMessage(t.settingsPage.infoForm.errorMessage)
       } else {
         setErrorMessage('')
         setValue('dateOfBirth', start.toISOString())
@@ -80,11 +100,11 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
       aboutMe: data.aboutMe || '',
       city: data.city || '',
       country: data.country || '',
-      dateOfBirth: data.dateOfBirth ? formatDateString(data.dateOfBirth) : '',
+      dateOfBirth: data.dateOfBirth ? formatDateToISOString(data.dateOfBirth) : '',
       region: data.region || '',
     }
 
-    onSubmitProfileForm(formattedData, reset)
+    onSubmitProfileForm(formattedData)
   }
 
   const userName = watch('userName')
@@ -94,47 +114,36 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
 
   return (
     <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitFormHandler)}>
-      <div className={s.spanDiv}>
-        <label className={s.labelInput}>
-          {t.settingsPage.infoForm.userName} <span className={s.span}>*</span>
-        </label>
-
-        <ControlledTextField
-          autoComplete={'username'}
-          control={control}
-          name={'userName'}
-          type={'text'}
-        />
-      </div>
-
-      <div className={s.spanDiv}>
-        <label className={s.labelInput}>
-          {t.settingsPage.infoForm.firstName} <span className={s.span}>*</span>
-        </label>
-        <ControlledTextField
-          autoComplete={'first-name'}
-          control={control}
-          name={'firstName'}
-          type={'text'}
-        />
-      </div>
-
-      <div className={s.spanDiv}>
-        <label className={s.labelInput}>
-          {t.settingsPage.infoForm.lastName} <span className={s.span}>*</span>
-        </label>
-        <ControlledTextField
-          autoComplete={'last-name'}
-          control={control}
-          name={'lastName'}
-          type={'text'}
-        />
-      </div>
+      <ControlledTextField
+        autoComplete={'username'}
+        control={control}
+        label={t.settingsPage.infoForm.userName}
+        name={'userName'}
+        type={'text'}
+        withStar
+      />
+      <ControlledTextField
+        autoComplete={'first-name'}
+        control={control}
+        label={t.settingsPage.infoForm.firstName}
+        name={'firstName'}
+        type={'text'}
+        withStar
+      />
+      <ControlledTextField
+        autoComplete={'last-name'}
+        control={control}
+        label={t.settingsPage.infoForm.lastName}
+        name={'lastName'}
+        type={'text'}
+        withStar
+      />
 
       <div className={s.dateOfBirthWrapper}>
-        <label className={s.labelDate}>
-          <Typography variant={'regular-text-14'}>{t.settingsPage.infoForm.dateBir}</Typography>
-        </label>
+        <Typography className={s.labelColor} variant={'regular-text-14'}>
+          {t.settingsPage.infoForm.dateBirth}
+        </Typography>
+
         <MyDatePicker
           {...register('dateOfBirth')}
           locale={t.locale}
@@ -143,11 +152,9 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
         />
         {errorMessage && (
           <div className={s.errorDiv}>
-            <Typography className={s.link} variant={'regular-text-14'}>
-              {errorMessage}
-            </Typography>
+            <Typography variant={'regular-text-14'}>{errorMessage}</Typography>
             <Link href={PATH.AUTH.PRIVACYPOLICY}>
-              <Typography className={s.linkPrvacy} variant={'small-link'}>
+              <Typography className={s.linkPrivacy} variant={'small-link'}>
                 {t.settingsPage.infoForm.privacyPol}
               </Typography>
             </Link>
@@ -155,18 +162,16 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
         )}
       </div>
 
-      <div className={s.selectDiv}>
-        <CountryCitySelector
-          onCityChange={cityId => setValue('city', cityId.toString())}
-          onCountryChange={countryId => setValue('country', countryId.toString())}
-          onStateChange={stateId => setValue('region', stateId.toString())}
-        />
-      </div>
+      <CountryCitySelector
+        onCityChange={cityId => setValue('city', cityId.toString())}
+        onCountryChange={countryId => setValue('country', countryId.toString())}
+        onStateChange={stateId => setValue('region', stateId.toString())}
+      />
 
       <div>
-        <label className={s.labelDate}>
-          <Typography variant={'regular-text-14'}>{t.settingsPage.infoForm.textArea}</Typography>
-        </label>
+        <Typography className={s.labelColor} variant={'regular-text-14'}>
+          {t.settingsPage.infoForm.textArea}
+        </Typography>
         <TextArea {...register('aboutMe')} placeholder={t.settingsPage.infoForm.textAreaPlace} />
       </div>
 
@@ -175,7 +180,7 @@ export const ProfileForm = ({ buttonDisabled, defaultValues, onSubmitProfileForm
         disabled={buttonDisabled || isButtonDisabled}
         type={'submit'}
       >
-        Save Changes
+        {t.settingsPage.infoForm.saveBtn}
       </Button>
     </form>
   )

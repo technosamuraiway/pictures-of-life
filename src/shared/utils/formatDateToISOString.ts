@@ -1,4 +1,4 @@
-export const formatDateString = (dateString: string | undefined): string => {
+export const formatDateToISOString = (dateString: string | undefined): string => {
   if (!dateString) {
     return ''
   }

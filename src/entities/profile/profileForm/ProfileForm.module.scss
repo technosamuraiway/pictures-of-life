@@ -5,38 +5,12 @@
   width: 46.25rem;
 }
 
-.selectDiv {
-  display: flex;
-}
-
-.selectDiv > div {
-  flex: 1;
-  margin-right: 0.5rem;
-}
-
-.selectDiv > div:last-child {
-  margin-right: 0;
-}
-
-.submitButton {
-  margin-top: 3rem;
-  margin-left: 4.9375rem;
-}
-
-.span {
-  color: var(--Danger-500);
-}
-
-.labelDate {
-  color: var(--Light-900);
-}
-
-.labelInput {
-  color: var(--Light-900);
-}
-
 .dateOfBirthWrapper {
   position: relative;
+}
+
+.labelColor {
+  color: var(--Light-900);
 }
 
 .errorDiv {
@@ -46,6 +20,12 @@
   color: var(--Danger-500);
 }
 
-.linkPrvacy {
+.linkPrivacy {
   color: var(--Danger-500);
+}
+
+.submitButton {
+  align-self: flex-end;
+  margin-top: 3rem;
+  margin-left: 4.9375rem;
 }

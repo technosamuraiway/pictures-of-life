@@ -5,6 +5,7 @@ const passwordRegex =
 
 const usernameRegex = /^[a-zA-Z0-9_-]*$/g
 const firstLastNameRegex = /^[a-zA-Zа-яА-Я]*$/g
+const aboutMeRegex = /^[a-zA-Zа-яА-Я0-9!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}]*$/g
 
 // ----------- Схемы валидаций полей ---------------
 
@@ -25,8 +26,13 @@ interface IPassword extends INumberRange {
 interface IUserName extends INumberRange {
   username: string
 }
+
 interface IName extends INumberRange {
   name: string
+}
+
+interface IAboutMe extends INumberRange {
+  aboutMe: string
 }
 
 const email = (email: IEmail) => {
@@ -66,6 +72,17 @@ const firstLastName = (firstLastName: IName) => {
     })
 }
 
+const aboutMe = (aboutMe: IAboutMe) => {
+  return z
+    .string()
+    .trim()
+    .min(0, `${aboutMe.minimumNumber} 0`)
+    .max(200, `${aboutMe.maximumNumber} 200`)
+    .regex(aboutMeRegex, {
+      message: `${aboutMe.aboutMe} a-z, A-Z, а-я, А-Я 0-9, ! # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^_\` { | } ~`,
+    })
+}
+
 const confirmPassword = z.string().trim()
 const isBoolean = z.boolean().refine(value => value)
 
@@ -94,7 +111,7 @@ export interface ICreateNewPassword {
 }
 
 export interface IProfile {
-  aboutMe?: string
+  aboutMe: IAboutMe
   city?: string
   country?: string
   dateOfBirth?: string
@@ -147,7 +164,7 @@ export const signInScheme = (signIn: ISignIn) => {
 
 export const profileValidationScheme = (profile: IProfile) => {
   return z.object({
-    aboutMe: z.string().optional(),
+    aboutMe: aboutMe(profile.aboutMe),
     city: z.string().optional(),
     country: z.string().optional(),
     dateOfBirth: z.string().optional(),
