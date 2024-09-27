@@ -28,7 +28,7 @@ export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => act
 
     if (serverError.data?.statusCode === 400 || serverError.data?.statusCode === 401) {
       if (!Array.isArray(serverError.data?.messages)) {
-        toast.error(serverError.data?.messages)
+        toast.error('The email or password are incorrect. Try again please')
       }
 
       toast.error(serverError.data?.messages[0].message)
