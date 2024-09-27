@@ -49,7 +49,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
     },
   }
 
-  const { data: profileData, isLoading: getProfileIsLoading } = useGetProfileQuery()
+  const { data: profileData } = useGetProfileQuery()
 
   const defaultValues = {
     aboutMe: profileData?.aboutMe || '',
@@ -153,18 +153,18 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
           mode={'single'}
           onDateChange={handleDateChange}
         />
-        {/*{errorMessage && (*/}
-        {/*  <div className={s.errorDiv}>*/}
-        {/*    <Typography variant={'regular-text-14'}>{errorMessage}</Typography>*/}
-        {/*    <Link*/}
-        {/*      href={`${PATH.AUTH.PRIVACYPOLICY}?previousPath=${encodeURIComponent(currentPath)}`}*/}
-        {/*    >*/}
-        {/*      <Typography className={s.linkPrivacy} variant={'small-link'}>*/}
-        {/*        {t.settingsPage.infoForm.privacyPol}*/}
-        {/*      </Typography>*/}
-        {/*    </Link>*/}
-        {/*  </div>*/}
-        {/*)}*/}
+        {errorMessage && (
+          <div className={s.errorDiv}>
+            <Typography variant={'regular-text-14'}>{errorMessage}</Typography>
+            <Link
+              href={`${PATH.AUTH.PRIVACYPOLICY}?previousPath=${encodeURIComponent(currentPath)}`}
+            >
+              <Typography className={s.linkPrivacy} variant={'small-link'}>
+                {t.settingsPage.infoForm.privacyPol}
+              </Typography>
+            </Link>
+          </div>
+        )}
       </div>
 
       <CountryCitySelector

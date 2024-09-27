@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { Devices, GeneralInfo, getLayoutWithNav } from '@/widgets'
@@ -10,6 +10,7 @@ import s from './Settings.module.scss'
 const Settings = () => {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
+  const [activeTab, setActiveTab] = useState<null | string>(null)
 
   const tabsData = useMemo<TabType[]>(
     () => [
@@ -26,9 +27,15 @@ const Settings = () => {
     ]
   )
 
-  const defaultTab = tabsData[0].value
-  const tabFromUrl = router.query.tab as string
-  const activeTab = tabsData.some(tab => tab.value === tabFromUrl) ? tabFromUrl : defaultTab
+  useEffect(() => {
+    if (router.isReady) {
+      const tabFromUrl = router.query.tab as string
+      const defaultTab = tabsData[0].value
+      const newActiveTab = tabsData.some(tab => tab.value === tabFromUrl) ? tabFromUrl : defaultTab
+
+      setActiveTab(newActiveTab)
+    }
+  }, [router.isReady, router.query.tab, tabsData])
 
   const tabChangeHandler = (newValue: string) => {
     router.push(
@@ -44,7 +51,7 @@ const Settings = () => {
   return (
     <>
       <MetaHead title={t.settingsPage.title} />
-      {!router.isReady ? (
+      {activeTab === null ? (
         <RequestLineLoader />
       ) : (
         <Tabs.Root
