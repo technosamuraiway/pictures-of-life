@@ -53,7 +53,7 @@ export const PreviewImgScreen = ({
           setImage={setImage}
         />
         {showDraftBtn && (
-          <Button onClick={onDraftBtnClick} variant={'outline'}>
+          <Button onClick={onDraftBtnClick} type={'button'} variant={'outline'}>
             {openDraftBtnText}
           </Button>
         )}
