@@ -11,6 +11,11 @@ interface Location<T> {
   name: string
 }
 
+export type Item = {
+  id: number
+  name: string
+}
+
 type Country = Location<number>
 type State = Location<number>
 type City = Location<number>
