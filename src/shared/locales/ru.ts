@@ -128,6 +128,8 @@ export const ru = {
       city: 'Выберите свой город',
       country: 'Выберите свою страну',
       dateBirth: 'Дата рождения',
+      emptyCities: 'Города отсутствуют',
+      emptyStates: 'Регионы отсутствуют',
       errorMessage: 'Пользователь младше 13 лет не может создать профиль.',
       firstName: 'Имя',
       lastName: 'Фамилия',

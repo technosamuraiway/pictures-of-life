@@ -75,6 +75,7 @@ export const DownloadFile = ({
         className={clsx(s.button, btnCN)}
         disabled={isDisabledBtn}
         onClick={onButtonClickHandler}
+        type={'button'}
         variant={btnVariant}
       >
         {btnText}

@@ -1,30 +1,30 @@
 .wrapper {
+  position: relative;
   width: 100%;
 }
 
-.labelText {
-  color: var(--Light-900);
-}
-
-.selectWrapper {
-  position: relative;
-  background-color: var(--Dark-700);
-
-  &.hover {
-    background-color: var(--Dark-500);
-  }
-}
-
 .rootWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  position: relative;
 }
 
 .selectRoot {
+  padding-right: 2.5rem;
+  border: 0.0625rem solid var(--Dark-100);
 }
 
 .iconButton {
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
+
+  padding-left: 0;
+
+  background-color: transparent;
+  border: none;
+
+  &:active:enabled {
+    background-color: transparent;
+  }
 }
 
 .arrowIcon {

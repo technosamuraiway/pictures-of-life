@@ -41,6 +41,7 @@ export const RoundAvatar = ({
           <Button
             className={clsx(s.deleteAvatarBtn, deleteAvatarBtnCN)}
             onClick={onClickDeleteAvatar}
+            type={'button'}
             variant={'iconButton'}
           >
             {deleteBtnChildren}
@@ -49,7 +50,13 @@ export const RoundAvatar = ({
       )}
       <AvatarChoice imgSVGWrapperCN={s.imgWrapper} />
       {isShowAddBtn && (
-        <Button className={btnCN} fullWidth onClick={onClickAddAvatar} variant={'outline'}>
+        <Button
+          className={btnCN}
+          fullWidth
+          onClick={onClickAddAvatar}
+          type={'button'}
+          variant={'outline'}
+        >
           {addAvatarBtnText}
         </Button>
       )}

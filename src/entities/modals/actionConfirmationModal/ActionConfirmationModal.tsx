@@ -48,6 +48,7 @@ export const ActionConfirmationModal = ({
             className={s.modalButton}
             disabled={isDisableButtons}
             onClick={onClickPositiveButton}
+            type={'button'}
             variant={'outline'}
           >
             {positiveButtonChildren}
@@ -56,6 +57,7 @@ export const ActionConfirmationModal = ({
             className={s.modalButton}
             disabled={isDisableButtons}
             onClick={onClickNegativeButton ?? onClickNegativeButtonHandler}
+            type={'button'}
           >
             {negativeButtonChildren}
           </Button>
