@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { IProfile, ProfileFormValues, profileValidationScheme } from '@/entities'
 import { useGetProfileQuery } from '@/services'
-import { PATH, formatDateToISOString, useRouterLocaleDefinition } from '@/shared'
-import CountryCitySelector from '@/shared/components/CountryCitySelect/CountryCitySelect'
+import { CountryCitySelect, PATH, formatDateToISOString, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, MyDatePicker, TextArea, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -167,10 +166,10 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         )}
       </div>
 
-      <CountryCitySelector
-        onCityChange={cityId => setValue('city', cityId.toString())}
-        onCountryChange={countryId => setValue('country', countryId.toString())}
-        onStateChange={stateId => setValue('region', stateId.toString())}
+      <CountryCitySelect
+        onCityChange={cityName => setValue('city', cityName)}
+        onCountryChange={countryName => setValue('country', countryName)}
+        onStateChange={stateName => setValue('region', stateName)}
       />
 
       <div>

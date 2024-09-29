@@ -129,6 +129,8 @@ export const en: LocaleType = {
       city: 'Select your city',
       country: 'Select your country',
       dateBirth: 'Date of Birth',
+      emptyCities: 'There is no cities',
+      emptyStates: 'There is no states',
       errorMessage: 'A user under 13 cannot create a profile.',
       firstName: 'First Name',
       lastName: 'Last Name',
