@@ -1,35 +1,41 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useState } from 'react'
 
 import { PATH } from '@/shared'
+import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import 'react-toastify/dist/ReactToastify.css'
 
 import s from './Layout.module.scss'
 
-const NoSSRHeaderComponent = dynamic(
-  () => import('@technosamurai/techno-ui-kit').then(mod => mod.Header),
-  { ssr: false }
-)
+import { languageSelectOptions } from './languageSelectOptions'
 
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
-  const changeLangHandler = (locale: string) => {
-    const { asPath, pathname, query } = router
+  const { asPath, pathname, query } = router
 
-    router.push({ pathname, query }, asPath, { locale })
+  /* Управление стейтом кнопки выбора языка.
+   *  Начальное значение берется из uri-params
+   *  */
+  const [langValue, setLangValue] = useState(router.locale ?? 'en')
+
+  function changeLanguageBtnHandler(value: string) {
+    setLangValue(value)
+    router.push({ pathname, query }, asPath, { locale: value })
   }
 
+  /* cb-function для возврата на страничку Home */
   const logoClickHandler = () => {
     router.push(PATH.HOME)
   }
 
   return (
     <div className={s.layout}>
-      <NoSSRHeaderComponent
-        changeLangHandler={changeLangHandler}
+      <Header
+        changeLanguageBtnCurrentValue={langValue}
+        changeLanguageBtnHandler={changeLanguageBtnHandler}
+        changeLanguageBtnOptions={languageSelectOptions}
         className={s.header}
         onLogoClick={logoClickHandler}
       />
