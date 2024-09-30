@@ -33,8 +33,8 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   return (
     <div className={s.layout}>
       <Header
+        changeLanguageBtn={changeLanguageBtnHandler}
         changeLanguageBtnCurrentValue={langValue}
-        changeLanguageBtnHandler={changeLanguageBtnHandler}
         changeLanguageBtnOptions={languageSelectOptions}
         className={s.header}
         onLogoClick={logoClickHandler}
