@@ -14,10 +14,10 @@ const Settings = () => {
 
   const tabsData = useMemo<TabType[]>(
     () => [
-      { title: t.settingsPage.general, value: t.settingsPage.general },
-      { title: t.settingsPage.devices.tittle, value: t.settingsPage.devices.tittle },
-      { title: t.settingsPage.management, value: t.settingsPage.management },
-      { title: t.settingsPage.payments, value: t.settingsPage.payments },
+      { title: t.settingsPage.general, value: 'general info' },
+      { title: t.settingsPage.devices.tittle, value: 'devices' },
+      { title: t.settingsPage.management, value: 'account management' },
+      { title: t.settingsPage.payments, value: 'payments' },
     ],
     [
       t.settingsPage.general,
@@ -61,12 +61,12 @@ const Settings = () => {
           tabs={tabsData}
           value={activeTab}
         >
-          <GeneralInfo />
-          <Devices />
-          <Tabs.Content className={s.management} value={t.settingsPage.management}>
+          <GeneralInfo value={tabsData[0].value} />
+          <Devices value={tabsData[1].value} />
+          <Tabs.Content className={s.management} value={tabsData[2].value}>
             <Typography variant={'h1'}>Management</Typography>
           </Tabs.Content>
-          <Tabs.Content className={s.payments} value={t.settingsPage.payments}>
+          <Tabs.Content className={s.payments} value={tabsData[3].value}>
             <Typography variant={'h1'}>Payments</Typography>
           </Tabs.Content>
         </Tabs.Root>
