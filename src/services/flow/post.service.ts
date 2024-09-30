@@ -6,9 +6,11 @@ export const postService = inctagramApi.injectEndpoints({
     return {
       getAllPublicPosts: builder.query<IPostPublicResponse, IPostParams | void>({
         query: arg => {
+          const { endCursorPostId, ...params } = arg ?? {}
+
           return {
-            params: arg ?? undefined,
-            url: `v1/public-posts/all`,
+            params,
+            url: `v1/public-posts/all/${endCursorPostId}`,
           }
         },
       }),
