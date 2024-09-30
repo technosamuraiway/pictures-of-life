@@ -15,6 +15,10 @@ export const ru = {
     errorSizeText: 'Ошибка! Размер фото должен быть меньше 10 MB!',
     saveBtn: 'Сохранить',
   },
+  posts: {
+    qustionAboutDelete: 'Вы действительно хотите удалить этот пост?',
+    successfulDeletePost: 'Вы успешно удалили этот пост',
+  },
   createNewPost: {
     addPhotoModal: {
       addImgModalButtonText: 'Загрузить фото с компьютера',

@@ -14,8 +14,14 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+      deletePost: builder.mutation<void, void>({
+        query: () => ({
+          method: 'DELETE',
+          url: `v1/posts/88888`, // here will be some logic to define current posts ID
+        }),
+      }),
     }
   },
 })
 
-export const { useGetAllPublicPostsQuery } = postService
+export const { useGetAllPublicPostsQuery, useDeletePostMutation } = postService
