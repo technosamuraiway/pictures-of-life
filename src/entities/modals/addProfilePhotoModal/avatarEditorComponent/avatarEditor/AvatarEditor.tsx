@@ -58,7 +58,7 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
             setError={setErrorText}
             setImage={setImage}
           />
-          <Button disabled={isDisableSaveBtn} onClick={onSaveBtnClick}>
+          <Button disabled={isDisableSaveBtn} onClick={onSaveBtnClick} type={'button'}>
             {t.avatarChange.saveBtn}
           </Button>
         </div>

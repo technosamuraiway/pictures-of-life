@@ -10,15 +10,26 @@ export { SignUpForm } from './auth/signUpForm/SignUpForm'
 // ============================== [ modals ] ======================================
 export { ActionConfirmationModal } from './modals/actionConfirmationModal/ActionConfirmationModal'
 export { AddProfilePhotoModal } from './modals/addProfilePhotoModal/AddProfilePhotoModal'
+
 export { CreateNewPostModal } from './modals/createNewPostModal/CreateNewPostModal'
 export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'
 
+// ============================== [ profile ] ======================================
+export { ProfileForm } from './profile/profileForm/ProfileForm'
+
 // ============================== [ zod ] =======================================
-export type { ICreateNewPassword, IForgotPassword, ISignIn, ISignUp } from './zodValidationScheme'
+export type {
+  ICreateNewPassword,
+  IForgotPassword,
+  IProfile,
+  ISignIn,
+  ISignUp,
+} from './zodValidationScheme'
 
 export type {
   CreateNewPasswordFormValues,
   ForgotPasswordFormValues,
+  ProfileFormValues,
   SignInFormValues,
   SignUpFormValues,
 } from './zodValidationScheme'
@@ -26,6 +37,7 @@ export type {
 export {
   createNewPasswordScheme,
   forgotPasswordScheme,
+  profileValidationScheme,
   signInScheme,
   signUpScheme,
 } from './zodValidationScheme'

@@ -1,4 +1,5 @@
 export { browserTheme } from './browserTheme'
 export { convertDate } from './convertDate'
 export { findIcon } from './findIcon'
+export { formatDateToISOString } from './formatDateToISOString'
 export { PATH } from './pathVariables'

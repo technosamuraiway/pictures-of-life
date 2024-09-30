@@ -86,10 +86,15 @@ export const en: LocaleType = {
     successMessage: 'Your password has been successfully changed!',
     title: 'Create New Password',
   },
+  pagination: {
+    onPage: 'on page',
+    show: 'Show',
+  },
   passwordRecoveryPage: {
     title: 'Password recovery page',
   },
   privacyPolicy: {
+    backToProfile: 'Back to Profile Settings',
     backToSign: 'Back to Sign Up',
     text: `We value your privacy and are committed to protecting your personal information. In this Privacy Policy, we will explain what information we collect, how we use it, and how we protect your privacy.
       1. Collection and Use of Information
@@ -123,14 +128,17 @@ export const en: LocaleType = {
     infoForm: {
       city: 'Select your city',
       country: 'Select your country',
-      dateBir: 'Date of Birth',
-      errorMssage: 'A user under 13 cannot create a profile.',
+      dateBirth: 'Date of Birth',
+      emptyCities: 'There is no cities',
+      emptyStates: 'There is no states',
+      errorMessage: 'A user under 13 cannot create a profile.',
       firstName: 'First Name',
       lastName: 'Last Name',
       placeCity: 'City',
       placeCountry: 'Country',
       placeState: 'State',
       privacyPol: 'Privacy Policy',
+      saveBtn: 'Save changes',
       state: 'Select your state',
       textArea: 'About me',
       textAreaPlace: 'Tell us something about yourself...',
@@ -195,9 +203,12 @@ export const en: LocaleType = {
   },
   title: 'Main page',
   validationSchemes: {
+    aboutMe: 'Field about me must contain',
     confirmPassword: 'Passwords must match',
     emailRequired: 'Email is required',
     emailScheme: 'The email must match the format example@example.com',
+    firstName: 'Firstname must contain',
+    lastName: 'Lastname must contain',
     maximumNumber: 'Maximum number of characters',
     minimumNumber: 'Minimum number of characters',
     password: 'Password must contain',

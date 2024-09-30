@@ -12,7 +12,7 @@ import { ControlledTextField } from '../../controlled/controlledTextField/Contro
 
 interface IProps {
   buttonDisabled: boolean
-  onSubmitSignInForm: (data: SignInFormValues, resetForm: () => void) => void
+  onSubmitSignInForm: (data: SignInFormValues) => void
   textFieldError?: string
 }
 
@@ -31,7 +31,7 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError 
     },
   }
 
-  const { control, handleSubmit, reset } = useForm<SignInFormValues>({
+  const { control, handleSubmit } = useForm<SignInFormValues>({
     defaultValues: {
       email: '',
       password: '',
@@ -40,12 +40,8 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError 
     resolver: zodResolver(signInScheme(signInTranslate)),
   })
 
-  const onSubmitFormHandler = (data: SignInFormValues) => {
-    onSubmitSignInForm(data, reset)
-  }
-
   return (
-    <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitFormHandler)}>
+    <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitSignInForm)}>
       <ControlledTextField
         autoComplete={'email'}
         control={control}
