@@ -1,13 +1,7 @@
-import { useState } from 'react'
-import { toast } from 'react-toastify'
+import { useRouterLocaleDefinition } from '@/shared'
 
-import { ActionConfirmationModal } from '@/entities'
-import { PostWithoutHeaderModal } from '@/entities/modals/postWithoutHeaderModal/PostWithoutHeaderModal'
-import { PATH, useRouterLocaleDefinition } from '@/shared'
-import { Modal } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
-
-import s from './EditPostPhotoModal.module.scss'
+import { PostWithoutHeaderModal } from '../../postWithoutHeaderModal/PostWithoutHeaderModal'
+import { ImageEditor } from './imageEditor/ImageEditor'
 
 interface IProps {
   image: (File | string)[]
@@ -18,13 +12,19 @@ interface IProps {
 export const EditPostPhotoModal = ({ image, onOpen, setOnOpen }: IProps) => {
   const t = useRouterLocaleDefinition()
 
+  const onNextButtonClickHandler = () => {}
+  const onBackButtonClickHandler = () => {}
+
   return (
     <PostWithoutHeaderModal
       headerTitle={t.createNewPost.editPhotoModal.modalTitle}
+      nextBtnTitle={t.createNewPost.editPhotoModal.nextBtn}
+      onBackButtonClick={onBackButtonClickHandler}
+      onNextButtonClick={onNextButtonClickHandler}
       onOpen={onOpen}
       setOnOpen={setOnOpen}
     >
-      Hello
+      <ImageEditor />
     </PostWithoutHeaderModal>
   )
 }
