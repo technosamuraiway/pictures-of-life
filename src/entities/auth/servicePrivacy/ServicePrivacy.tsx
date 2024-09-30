@@ -1,7 +1,6 @@
 import { MetaHead, PATH } from '@/shared'
-import arrowBack from '@public/arrowBack.svg'
+import { ArrowLeft } from '@public/ArrowLeft'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import s from './ServicePrivacy.module.scss'
@@ -25,7 +24,7 @@ export const ServicePrivacy = ({
     <div className={s.wrapper}>
       <MetaHead title={pageTitle} />
       <Button as={Link} className={s.backToSign} href={btnHref} variant={'textButton'}>
-        <Image alt={'Arrow Back'} src={arrowBack} />
+        <ArrowLeft className={s.arrowBack} />
         {buttonBackTitle}
       </Button>
       <Typography variant={'h1'}>{textTitle}</Typography>

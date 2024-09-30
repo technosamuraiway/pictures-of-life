@@ -9,7 +9,11 @@ import s from './GeneralInfo.module.scss'
 
 import { ChangeAvatar } from './changeAvatar/ChangeAvatar'
 
-export const GeneralInfo = () => {
+interface IProps {
+  value: string
+}
+
+export const GeneralInfo = ({ value }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const [updateProfile, { isLoading: updateProfileIsLoading }] = useUpdateProfileMutation()
@@ -22,7 +26,7 @@ export const GeneralInfo = () => {
   return (
     <>
       {updateProfileIsLoading && <RequestLineLoader />}
-      <Tabs.Content className={s.generalDiv} value={t.settingsPage.general}>
+      <Tabs.Content className={s.generalDiv} value={value}>
         <ChangeAvatar />
         <ProfileForm
           buttonDisabled={updateProfileIsLoading}

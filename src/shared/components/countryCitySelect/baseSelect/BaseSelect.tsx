@@ -2,7 +2,7 @@ import type { Item } from '../CountryCitySelect'
 
 import { ChangeEvent } from 'react'
 
-import { Button, DownIcon, TextField, UpIcon } from '@technosamurai/techno-ui-kit'
+import { Button, DownIcon, Scrollbar, TextField, UpIcon } from '@technosamurai/techno-ui-kit'
 
 import s from './BaseSelect.module.scss'
 
@@ -76,15 +76,17 @@ export const BaseSelect = ({
       </div>
       {isItemOpen && (
         <ul className={s.optionsWrapper}>
-          {filteredItems.length === 0 ? (
-            <li className={s.item}>{emptyField}</li>
-          ) : (
-            filteredItems.map(item => (
-              <li className={s.item} key={item.id} onClick={() => onClickItemSelect(item)}>
-                {item.name}
-              </li>
-            ))
-          )}
+          <Scrollbar maxHeight={200}>
+            {filteredItems.length === 0 ? (
+              <li className={s.item}>{emptyField}</li>
+            ) : (
+              filteredItems.map(item => (
+                <li className={s.item} key={item.id} onClick={() => onClickItemSelect(item)}>
+                  {item.name}
+                </li>
+              ))
+            )}
+          </Scrollbar>
         </ul>
       )}
     </div>
