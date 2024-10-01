@@ -4,12 +4,12 @@ import { PostWithoutHeaderModal } from '../../postWithoutHeaderModal/PostWithout
 import { ImageEditor } from './imageEditor/ImageEditor'
 
 interface IProps {
-  image: (File | string)[]
+  downloadedImage: (File | string)[]
   onOpen: boolean
   setOnOpen: (onOpen: boolean) => void
 }
 
-export const EditPostPhotoModal = ({ image, onOpen, setOnOpen }: IProps) => {
+export const EditPostPhotoModal = ({ downloadedImage, onOpen, setOnOpen }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const onNextButtonClickHandler = () => {}
@@ -24,7 +24,7 @@ export const EditPostPhotoModal = ({ image, onOpen, setOnOpen }: IProps) => {
       onOpen={onOpen}
       setOnOpen={setOnOpen}
     >
-      <ImageEditor />
+      <ImageEditor downloadedImage={downloadedImage} />
     </PostWithoutHeaderModal>
   )
 }
