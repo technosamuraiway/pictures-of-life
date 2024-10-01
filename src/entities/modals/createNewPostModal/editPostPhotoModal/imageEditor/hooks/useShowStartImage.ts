@@ -1,6 +1,8 @@
-export const useShowStartImageModal = (
+import type { ImageData } from '../ImageEditor'
+
+export const useShowStartImage = (
   downloadedImage: (File | string)[],
-  setImages: (images: ImageData[]) => void
+  setImages: (images: ((prevImages: ImageData[]) => ImageData[]) | ImageData[]) => void
 ) => {
   const showDownloadedImage = () => {
     Array.from(downloadedImage).forEach(file => {
@@ -25,8 +27,8 @@ export const useShowStartImageModal = (
     })
   }
 
-  const imgOnload = (img: HTMLImageElement) => {
-    return setImages(prevImages => [
+  const imgOnload = (img: HTMLImageElement): void => {
+    setImages((prevImages: ImageData[]) => [
       ...prevImages,
       {
         aspectRatio: 'original',

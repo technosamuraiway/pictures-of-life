@@ -1,24 +1,18 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Image, Layer, Stage } from 'react-konva'
 
-import { useShowStartImageModal } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/hooks/useShowStartImage'
 import { useRouterLocaleDefinition } from '@/shared'
 import { ExpandIcon } from '@public/createPost/ExpandIcon'
-import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
 import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import Konva from 'konva'
 
 import s from './ImageEditor.module.scss'
 
-interface RatioDropDownItem {
-  activeRatio: number
-  itemIcon: ReactNode
-  onDropDownItemClick: () => void
-  ratioName: string
-}
+import { useChangeImageRatio } from './hooks/useChangeImageRatio'
+import { useShowStartImage } from './hooks/useShowStartImage'
 
-interface ImageData {
+export interface ImageData {
   aspectRatio: string
   filters: Konva.Filter[]
   id: string
@@ -30,53 +24,32 @@ interface IProps {
   downloadedImage: (File | string)[]
 }
 
+export interface IPosition {
+  x: number
+  y: number
+}
+
 export const ImageEditor = ({ downloadedImage }: IProps) => {
-  const t = useRouterLocaleDefinition()
-  // ==================== Блок работы с загрузкой фото ========================
   const [images, setImages] = useState<ImageData[]>([])
-  const { showDownloadedImage } = useShowStartImageModal(downloadedImage, setImages)
 
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
-  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 })
+  const [imagePosition, setImagePosition] = useState<IPosition>({ x: 0, y: 0 })
   const imageRef = useRef<Konva.Image>(null)
   const stageRef = useRef<Konva.Stage>(null)
   const currentImage = images[currentImageIndex]
   const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
   const [activeRatioItem, setActiveRatioItem] = useState<number>(1)
 
-  // ====================== Работаем с items в RatioDropDown =============================
-  const ratioDropDownItems: RatioDropDownItem[] = [
-    {
-      activeRatio: 1,
-      itemIcon: <EmptyAvatar className={s.ratioOriginalIcon} />,
-      onDropDownItemClick: () => onDropDownItemClickHandler(1, 'original'),
-      ratioName: t.createNewPost.editPhotoModal.originalRatio,
-    },
-    {
-      activeRatio: 2,
-      itemIcon: <div className={s.ratioSquareIcon} />,
-      onDropDownItemClick: () => onDropDownItemClickHandler(2, '1:1'),
-      ratioName: '1:1',
-    },
-    {
-      activeRatio: 3,
-      itemIcon: <div className={s.ratioPhoneIcon} />,
-      onDropDownItemClick: () => onDropDownItemClickHandler(3, '4:5'),
-      ratioName: '4:5',
-    },
-    {
-      activeRatio: 4,
-      itemIcon: <div className={s.ratioDesktopIcon} />,
-      onDropDownItemClick: () => onDropDownItemClickHandler(4, '16:9'),
-      ratioName: '16:9',
-    },
-  ]
+  const { showDownloadedImage } = useShowStartImage(downloadedImage, setImages)
 
-  function onDropDownItemClickHandler(index: number, ratio: string) {
-    changeAspectRatio(ratio)
-    setActiveRatioItem(index)
-  }
-  // ===========================================================================
+  const { ratioDropDownItems } = useChangeImageRatio(
+    setActiveRatioItem,
+    stageRef,
+    imageRef,
+    setImages,
+    currentImageIndex,
+    setImagePosition
+  )
 
   useEffect(() => {
     if (downloadedImage && images.length === 0) {
@@ -104,43 +77,6 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
     }
   }, [images, currentImageIndex])
 
-  // const showDownloadedImage = () => {
-  //   Array.from(downloadedImage).forEach(file => {
-  //     if (typeof file === 'string') {
-  //       const img = new window.Image()
-  //
-  //       img.onload = () => imgOnload(img)
-  //
-  //       img.src = file
-  //     } else {
-  //       const reader = new FileReader()
-  //
-  //       reader.onload = (event: ProgressEvent<FileReader>) => {
-  //         const img = new window.Image()
-  //
-  //         img.onload = () => imgOnload(img)
-  //
-  //         img.src = event.target?.result as string
-  //       }
-  //       reader.readAsDataURL(file)
-  //     }
-  //   })
-  // }
-  //
-  // const imgOnload = (img: HTMLImageElement) => {
-  //   return setImages(prevImages => [
-  //     ...prevImages,
-  //     {
-  //       aspectRatio: 'original',
-  //       filters: [],
-  //       id: Date.now().toString(),
-  //       image: img,
-  //       scale: 1,
-  //     },
-  //   ])
-  // }
-  // ===================================================================
-
   const applyFilter = (filter: Konva.Filter) => {
     setImages(prevImages => {
       const newImages = [...prevImages]
@@ -154,46 +90,6 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
 
       return newImages
     })
-  }
-
-  const changeAspectRatio = (ratio: string) => {
-    setImages(prevImages => {
-      const newImages = [...prevImages]
-      const currentImage = newImages[currentImageIndex]
-
-      currentImage.aspectRatio = ratio
-
-      return newImages
-    })
-
-    if (imageRef.current && stageRef.current) {
-      const img = imageRef.current
-      const stage = stageRef.current
-
-      let newWidth, newHeight
-
-      if (ratio === 'original') {
-        newWidth = img.getAttr('originalWidth')
-        newHeight = img.getAttr('originalHeight')
-      } else {
-        const [w, h] = ratio.split(':').map(Number)
-        const stageWidth = stage.width()
-
-        newWidth = stageWidth
-        newHeight = (stageWidth * h) / w
-      }
-
-      img.width(newWidth)
-      img.height(newHeight)
-
-      const x = (stage.width() - newWidth) / 2
-      const y = (stage.height() - newHeight) / 2
-
-      setImagePosition({ x, y })
-      img.position({ x, y })
-
-      img.getLayer()?.batchDraw()
-    }
   }
 
   const handleZoom = (newScale: number) => {
