@@ -1,0 +1,22 @@
+.wrapper {
+  position: relative;
+}
+
+.buttonsWrapper {
+  position: absolute;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+}
+
+.imageWrapper {
+}
+
+.ratioDesktopIcon {
+  width: 1.625rem;
+  height: 1.25rem;
+
+  background-color: transparent;
+  border: 0.125rem solid var(--Light-900);
+  border-radius: 0.1875rem;
+}

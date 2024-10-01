@@ -38,10 +38,6 @@ export const AvatarChoice = ({
       width={width}
     />
   ) : (
-    <SquareImg
-      altText={`${profileData?.userName} empty avatar`}
-      imgSVGWrapperCN={imgSVGWrapperCN}
-      imgSvgCN={imgSvgCN}
-    />
+    <SquareImg imgSVGWrapperCN={imgSVGWrapperCN} imgSvgCN={imgSvgCN} />
   )
 }

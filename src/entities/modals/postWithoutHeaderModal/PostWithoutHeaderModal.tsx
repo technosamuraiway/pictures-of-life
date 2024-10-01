@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 
 import { ActionConfirmationModal } from '@/entities'
 import { PATH, useRouterLocaleDefinition } from '@/shared'
-import { LeftIcon } from '@public/LeftIcon'
+import { LeftIcon } from '@public/createPost/LeftIcon'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -39,21 +39,22 @@ export const PostWithoutHeaderModal = ({
     setOpenExitModal(true)
   }
 
-  const onModalDiscardDtnClickHandler = () => {
+  const onModalDiscardDtnClickHandler = async () => {
+    await replace(PATH.HOME)
     setOnOpen(false)
-    replace(PATH.HOME)
   }
 
-  const onDraftBtnClickHandler = () => {
-    setOnOpen(false)
+  const onDraftBtnClickHandler = async () => {
     toast.info('Здесь будет функционал черновиков, когда-нибудь точно появится!')
-    replace(PATH.HOME)
+    await replace(PATH.HOME)
+    setOnOpen(false)
   }
 
   return (
     <>
       <Modal
         contentClassName={clsx(s.wrapper, contentCN)}
+        headerTitle={headerTitle}
         modalSize={modalSize}
         onOpenChange={onCloseModalHandler}
         open={onOpen}
