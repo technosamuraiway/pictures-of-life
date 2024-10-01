@@ -3,7 +3,13 @@
 }
 
 .headerWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
   height: 3.75rem;
+
   border-bottom: 0.0625rem solid var(--Dark-100);
 }
 
@@ -11,6 +17,17 @@
   width: 1.5rem;
   height: 1.5rem;
   color: var(--Light-100);
+}
+
+.nextButton {
+  background-color: transparent;
+  border: none;
+
+  &:hover:enabled {
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
 }
 
 .modalButtons {

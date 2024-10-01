@@ -12,7 +12,9 @@ import s from './PostWithoutHeaderModal.module.scss'
 
 interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
   contentCN?: string
+  nextBtnTitle?: string
   onBackButtonClick?: () => void
+  onNextButtonClick?: () => void
   onOpen: boolean
   setOnOpen: (onOpen: boolean) => void
 }
@@ -22,7 +24,9 @@ export const PostWithoutHeaderModal = ({
   contentCN,
   headerTitle,
   modalSize = 'M',
+  nextBtnTitle,
   onBackButtonClick,
+  onNextButtonClick,
   onOpen,
   setOnOpen,
   ...rest
@@ -57,10 +61,18 @@ export const PostWithoutHeaderModal = ({
         {...rest}
       >
         <div className={s.headerWrapper}>
-          <Button onClick={onBackButtonClick} variant={'iconButton'}>
+          <Button onClick={onBackButtonClick} type={'button'} variant={'iconButton'}>
             <LeftIcon className={s.leftIcon} />
           </Button>
           <Typography>{headerTitle}</Typography>
+          <Button
+            className={s.nextButton}
+            onClick={onNextButtonClick}
+            type={'button'}
+            variant={'outline'}
+          >
+            {nextBtnTitle}
+          </Button>
         </div>
         {children}
       </Modal>
