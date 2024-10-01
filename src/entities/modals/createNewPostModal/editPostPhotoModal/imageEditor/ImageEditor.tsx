@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Image, Layer, Stage } from 'react-konva'
 
+import { useRouterLocaleDefinition } from '@/shared'
+import { ExpandIcon } from '@public/createPost/ExpandIcon'
+import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
+import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
+import clsx from 'clsx'
 import Konva from 'konva'
 
 import s from './ImageEditor.module.scss'
@@ -23,6 +28,11 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 })
   const imageRef = useRef<Konva.Image>(null)
   const stageRef = useRef<Konva.Stage>(null)
+
+  const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
+  const [activeRatioItem, setActiveRatioItem] = useState<number>(1)
+
+  const t = useRouterLocaleDefinition()
 
   useEffect(() => {
     if (downloadedImage && images.length === 0) {
@@ -220,6 +230,12 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
     }
   }
 
+  // ====================== Кликаем по item в dropDown =============================
+  const onDropDownItemClick = (index: number, ratio: string) => {
+    changeAspectRatio(ratio)
+    setActiveRatioItem(index)
+  }
+
   return (
     <div className={s.wrapper}>
       {images.length > 0 && (
@@ -239,16 +255,55 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
               <button onClick={() => applyFilter(Konva.Filters.Blur)}>Размытие</button>
               <button onClick={() => applyFilter(Konva.Filters.Sepia)}>Сепия</button>
             </div>
-            <div>
-              <button onClick={() => changeAspectRatio('original')}>Оригинал</button>
-              <button onClick={() => changeAspectRatio('1:1')}>1:1</button>
-              <button onClick={() => changeAspectRatio('4:3')}>5:3</button>
-              <button onClick={() => changeAspectRatio('16:9')}>
-                <>
-                  16:9 <div className={s.ratioDesktopIcon} />
-                </>
-              </button>
-            </div>
+
+            <Dropdown.Root
+              contentAlign={'start'}
+              contentCN={s.dropdownContent}
+              contentSide={'top'}
+              onOpenChange={setOpenRatioDropDown}
+              open={openRatioDropDown}
+              trigger={
+                <ExpandIcon
+                  className={clsx(s.triggerIcon, openRatioDropDown && s.activeTriggerIcon)}
+                />
+              }
+              triggerCN={clsx(s.triggerBtn)}
+              withArrow={false}
+            >
+              <Dropdown.Item
+                className={clsx(s.dropDownItem, activeRatioItem === 1 && s.activeDropDownItem)}
+                onClick={() => onDropDownItemClick(1, 'original')}
+              >
+                <Typography variant={'regular-text-16'}>
+                  {t.createNewPost.editPhotoModal.originalRatio}
+                </Typography>
+                <EmptyAvatar className={s.ratioOriginalIcon} />
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                className={clsx(s.dropDownItem, activeRatioItem === 2 && s.activeDropDownItem)}
+                onClick={() => onDropDownItemClick(2, '1:1')}
+              >
+                <Typography variant={'regular-text-16'}>1:1</Typography>
+                <div className={s.ratioSquareIcon} />
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                className={clsx(s.dropDownItem, activeRatioItem === 3 && s.activeDropDownItem)}
+                onClick={() => onDropDownItemClick(3, '4:5')}
+              >
+                <Typography variant={'regular-text-16'}>4:5</Typography>
+                <div className={s.ratioPhoneIcon} />
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                className={clsx(s.dropDownItem, activeRatioItem === 4 && s.activeDropDownItem)}
+                onClick={() => onDropDownItemClick(4, '16:9')}
+              >
+                <Typography variant={'regular-text-16'}>16:9</Typography>
+                <div className={s.ratioDesktopIcon} />
+              </Dropdown.Item>
+            </Dropdown.Root>
 
             <div>
               <label htmlFor={'zoom-slider'}>Зум: {Math.round(currentImage.scale * 100)}%</label>

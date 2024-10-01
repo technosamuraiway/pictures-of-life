@@ -30,6 +30,7 @@ export const ru = {
       modalExitTitle: 'Закрыть',
       modalTitle: 'Редактор Фото',
       nextBtn: 'Далее',
+      originalRatio: 'Оригинал',
     },
 
     title: 'Создать пост',

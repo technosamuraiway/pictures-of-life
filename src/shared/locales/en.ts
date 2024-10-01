@@ -32,6 +32,7 @@ export const en: LocaleType = {
       modalExitTitle: 'Close',
       modalTitle: 'Photo Editor',
       nextBtn: 'Next',
+      originalRatio: 'Original',
     },
 
     title: 'Создать пост',
