@@ -13,7 +13,10 @@ export const EditPostPhotoModal = ({ downloadedImage, onOpen, setOnOpen }: IProp
   const t = useRouterLocaleDefinition()
 
   const onNextButtonClickHandler = () => {}
-  const onBackButtonClickHandler = () => {}
+
+  const onBackButtonClickHandler = () => {
+    setOnOpen(false)
+  }
 
   return (
     <PostWithoutHeaderModal

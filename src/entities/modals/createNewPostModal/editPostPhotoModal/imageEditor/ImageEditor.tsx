@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { Image, Layer, Stage } from 'react-konva'
 
+import { useShowStartImageModal } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/hooks/useShowStartImage'
 import { useRouterLocaleDefinition } from '@/shared'
 import { ExpandIcon } from '@public/createPost/ExpandIcon'
 import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
@@ -9,6 +10,13 @@ import clsx from 'clsx'
 import Konva from 'konva'
 
 import s from './ImageEditor.module.scss'
+
+interface RatioDropDownItem {
+  activeRatio: number
+  itemIcon: ReactNode
+  onDropDownItemClick: () => void
+  ratioName: string
+}
 
 interface ImageData {
   aspectRatio: string
@@ -23,16 +31,52 @@ interface IProps {
 }
 
 export const ImageEditor = ({ downloadedImage }: IProps) => {
+  const t = useRouterLocaleDefinition()
+  // ==================== Блок работы с загрузкой фото ========================
   const [images, setImages] = useState<ImageData[]>([])
+  const { showDownloadedImage } = useShowStartImageModal(downloadedImage, setImages)
+
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 })
   const imageRef = useRef<Konva.Image>(null)
   const stageRef = useRef<Konva.Stage>(null)
-
+  const currentImage = images[currentImageIndex]
   const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
   const [activeRatioItem, setActiveRatioItem] = useState<number>(1)
 
-  const t = useRouterLocaleDefinition()
+  // ====================== Работаем с items в RatioDropDown =============================
+  const ratioDropDownItems: RatioDropDownItem[] = [
+    {
+      activeRatio: 1,
+      itemIcon: <EmptyAvatar className={s.ratioOriginalIcon} />,
+      onDropDownItemClick: () => onDropDownItemClickHandler(1, 'original'),
+      ratioName: t.createNewPost.editPhotoModal.originalRatio,
+    },
+    {
+      activeRatio: 2,
+      itemIcon: <div className={s.ratioSquareIcon} />,
+      onDropDownItemClick: () => onDropDownItemClickHandler(2, '1:1'),
+      ratioName: '1:1',
+    },
+    {
+      activeRatio: 3,
+      itemIcon: <div className={s.ratioPhoneIcon} />,
+      onDropDownItemClick: () => onDropDownItemClickHandler(3, '4:5'),
+      ratioName: '4:5',
+    },
+    {
+      activeRatio: 4,
+      itemIcon: <div className={s.ratioDesktopIcon} />,
+      onDropDownItemClick: () => onDropDownItemClickHandler(4, '16:9'),
+      ratioName: '16:9',
+    },
+  ]
+
+  function onDropDownItemClickHandler(index: number, ratio: string) {
+    changeAspectRatio(ratio)
+    setActiveRatioItem(index)
+  }
+  // ===========================================================================
 
   useEffect(() => {
     if (downloadedImage && images.length === 0) {
@@ -60,42 +104,41 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
     }
   }, [images, currentImageIndex])
 
-  // ==================== Блок работы с загрузкой фото ========================
-  const imgOnload = (img: HTMLImageElement) => {
-    return setImages(prevImages => [
-      ...prevImages,
-      {
-        aspectRatio: 'original',
-        filters: [],
-        id: Date.now().toString(),
-        image: img,
-        scale: 1,
-      },
-    ])
-  }
-
-  const showDownloadedImage = () => {
-    Array.from(downloadedImage).forEach(file => {
-      if (typeof file === 'string') {
-        const img = new window.Image()
-
-        img.onload = () => imgOnload(img)
-
-        img.src = file
-      } else {
-        const reader = new FileReader()
-
-        reader.onload = (event: ProgressEvent<FileReader>) => {
-          const img = new window.Image()
-
-          img.onload = () => imgOnload(img)
-
-          img.src = event.target?.result as string
-        }
-        reader.readAsDataURL(file)
-      }
-    })
-  }
+  // const showDownloadedImage = () => {
+  //   Array.from(downloadedImage).forEach(file => {
+  //     if (typeof file === 'string') {
+  //       const img = new window.Image()
+  //
+  //       img.onload = () => imgOnload(img)
+  //
+  //       img.src = file
+  //     } else {
+  //       const reader = new FileReader()
+  //
+  //       reader.onload = (event: ProgressEvent<FileReader>) => {
+  //         const img = new window.Image()
+  //
+  //         img.onload = () => imgOnload(img)
+  //
+  //         img.src = event.target?.result as string
+  //       }
+  //       reader.readAsDataURL(file)
+  //     }
+  //   })
+  // }
+  //
+  // const imgOnload = (img: HTMLImageElement) => {
+  //   return setImages(prevImages => [
+  //     ...prevImages,
+  //     {
+  //       aspectRatio: 'original',
+  //       filters: [],
+  //       id: Date.now().toString(),
+  //       image: img,
+  //       scale: 1,
+  //     },
+  //   ])
+  // }
   // ===================================================================
 
   const applyFilter = (filter: Konva.Filter) => {
@@ -183,8 +226,6 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
     }
   }
 
-  const currentImage = images[currentImageIndex]
-
   const handleDragMove = (e: Konva.KonvaEventObject<DragEvent>) => {
     const { x, y } = e.target.position()
 
@@ -230,12 +271,6 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
     }
   }
 
-  // ====================== Кликаем по item в dropDown =============================
-  const onDropDownItemClick = (index: number, ratio: string) => {
-    changeAspectRatio(ratio)
-    setActiveRatioItem(index)
-  }
-
   return (
     <div className={s.wrapper}>
       {images.length > 0 && (
@@ -270,39 +305,21 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
               triggerCN={clsx(s.triggerBtn)}
               withArrow={false}
             >
-              <Dropdown.Item
-                className={clsx(s.dropDownItem, activeRatioItem === 1 && s.activeDropDownItem)}
-                onClick={() => onDropDownItemClick(1, 'original')}
-              >
-                <Typography variant={'regular-text-16'}>
-                  {t.createNewPost.editPhotoModal.originalRatio}
-                </Typography>
-                <EmptyAvatar className={s.ratioOriginalIcon} />
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                className={clsx(s.dropDownItem, activeRatioItem === 2 && s.activeDropDownItem)}
-                onClick={() => onDropDownItemClick(2, '1:1')}
-              >
-                <Typography variant={'regular-text-16'}>1:1</Typography>
-                <div className={s.ratioSquareIcon} />
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                className={clsx(s.dropDownItem, activeRatioItem === 3 && s.activeDropDownItem)}
-                onClick={() => onDropDownItemClick(3, '4:5')}
-              >
-                <Typography variant={'regular-text-16'}>4:5</Typography>
-                <div className={s.ratioPhoneIcon} />
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                className={clsx(s.dropDownItem, activeRatioItem === 4 && s.activeDropDownItem)}
-                onClick={() => onDropDownItemClick(4, '16:9')}
-              >
-                <Typography variant={'regular-text-16'}>16:9</Typography>
-                <div className={s.ratioDesktopIcon} />
-              </Dropdown.Item>
+              {ratioDropDownItems.map(item => {
+                return (
+                  <Dropdown.Item
+                    className={clsx(
+                      s.dropDownItem,
+                      activeRatioItem === item.activeRatio && s.activeDropDownItem
+                    )}
+                    key={`${item.ratioName} - id`}
+                    onClick={item.onDropDownItemClick}
+                  >
+                    <Typography variant={'regular-text-16'}>{item.ratioName}</Typography>
+                    {item.itemIcon}
+                  </Dropdown.Item>
+                )
+              })}
             </Dropdown.Root>
 
             <div>
