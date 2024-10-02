@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Image, Layer, Stage } from 'react-konva'
 
-import { useRouterLocaleDefinition } from '@/shared'
+import { ScaleSlider } from '@/entities/components/scaleSlider/ScaleSlider'
+import { ActiveZoomIcon } from '@public/createPost/ActiveZoomIcon'
+import { DefaultZoomIcon } from '@public/createPost/DefaultZoomIcon'
 import { ExpandIcon } from '@public/createPost/ExpandIcon'
 import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
@@ -9,6 +11,7 @@ import Konva from 'konva'
 
 import s from './ImageEditor.module.scss'
 
+import { ConfirmReset } from './confirmReset/ConfirmReset'
 import { useChangeImageRatio } from './hooks/useChangeImageRatio'
 import { useShowStartImage } from './hooks/useShowStartImage'
 
@@ -38,7 +41,10 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
   const stageRef = useRef<Konva.Stage>(null)
   const currentImage = images[currentImageIndex]
   const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
+  const [openSliderDropDown, setOpenSliderDropDown] = useState<boolean>(false)
   const [activeRatioItem, setActiveRatioItem] = useState<number>(1)
+
+  const [openResetModal, setOpenResetModal] = useState<boolean>(false)
 
   const { showDownloadedImage } = useShowStartImage(downloadedImage, setImages)
 
@@ -92,11 +98,11 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
     })
   }
 
-  const handleZoom = (newScale: number) => {
+  const onZoomChangeHandler = (newScale: number[]) => {
     setImages(prevImages => {
       const newImages = [...prevImages]
 
-      newImages[currentImageIndex].scale = newScale
+      newImages[currentImageIndex].scale = newScale[0]
 
       return newImages
     })
@@ -108,14 +114,16 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
       const oldScale = image.scaleX()
       const oldPos = image.position()
 
-      const newWidth = (image.width() * newScale) / oldScale
-      const newHeight = (image.height() * newScale) / oldScale
+      const newWidth = (image.width() * newScale[0]) / oldScale
+      const newHeight = (image.height() * newScale[0]) / oldScale
 
       const x = (stage.width() - newWidth) / 2
       const y = (stage.height() - newHeight) / 2
 
-      image.scale({ x: newScale, y: newScale })
+      image.scale({ x: newScale[0], y: newScale[0] })
+
       setImagePosition({ x, y })
+
       image.position({ x, y })
 
       image.getLayer()?.batchDraw()
@@ -165,6 +173,8 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
 
       img.getLayer()?.batchDraw()
     }
+
+    setOpenResetModal(false)
   }
 
   return (
@@ -172,20 +182,20 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
       {images.length > 0 && (
         <>
           <div className={s.buttonsWrapper}>
-            <div>
-              {images.map((img, index) => (
-                <button key={img.id} onClick={() => setCurrentImageIndex(index)}>
-                  Изображение {index + 1}
-                </button>
-              ))}
-            </div>
-            <div>
-              <button onClick={() => applyFilter(Konva.Filters.Grayscale)}>Черно-белый</button>
-              <button onClick={() => applyFilter(Konva.Filters.Brighten)}>Яркость +</button>
-              <button onClick={() => applyFilter(Konva.Filters.Invert)}>Инвертировать</button>
-              <button onClick={() => applyFilter(Konva.Filters.Blur)}>Размытие</button>
-              <button onClick={() => applyFilter(Konva.Filters.Sepia)}>Сепия</button>
-            </div>
+            {/*<div>*/}
+            {/*  {images.map((img, index) => (*/}
+            {/*    <button key={img.id} onClick={() => setCurrentImageIndex(index)}>*/}
+            {/*      Изображение {index + 1}*/}
+            {/*    </button>*/}
+            {/*  ))}*/}
+            {/*</div>*/}
+            {/*<div>*/}
+            {/*  <button onClick={() => applyFilter(Konva.Filters.Grayscale)}>Черно-белый</button>*/}
+            {/*  <button onClick={() => applyFilter(Konva.Filters.Brighten)}>Яркость +</button>*/}
+            {/*  <button onClick={() => applyFilter(Konva.Filters.Invert)}>Инвертировать</button>*/}
+            {/*  <button onClick={() => applyFilter(Konva.Filters.Blur)}>Размытие</button>*/}
+            {/*  <button onClick={() => applyFilter(Konva.Filters.Sepia)}>Сепия</button>*/}
+            {/*</div>*/}
 
             <Dropdown.Root
               contentAlign={'start'}
@@ -195,7 +205,10 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
               open={openRatioDropDown}
               trigger={
                 <ExpandIcon
-                  className={clsx(s.triggerIcon, openRatioDropDown && s.activeTriggerIcon)}
+                  className={clsx(
+                    s.triggerIcon,
+                    openRatioDropDown ? s.activeTriggerIcon : s.defaultTriggerIcon
+                  )}
                 />
               }
               triggerCN={clsx(s.triggerBtn)}
@@ -218,21 +231,41 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
               })}
             </Dropdown.Root>
 
-            <div>
-              <label htmlFor={'zoom-slider'}>Зум: {Math.round(currentImage.scale * 100)}%</label>
-              <input
-                id={'zoom-slider'}
-                max={'3'}
-                min={'0.1'}
-                onChange={e => handleZoom(parseFloat(e.target.value))}
-                step={'0.1'}
-                type={'range'}
-                value={currentImage.scale}
+            <Dropdown.Root
+              contentAlign={'start'}
+              contentCN={s.dropdownContent}
+              contentSide={'top'}
+              onOpenChange={setOpenSliderDropDown}
+              open={openSliderDropDown}
+              trigger={
+                openSliderDropDown ? (
+                  <ActiveZoomIcon className={clsx(s.triggerIcon, s.activeTriggerIcon)} />
+                ) : (
+                  <DefaultZoomIcon className={clsx(s.triggerIcon, s.defaultTriggerIcon)} />
+                )
+              }
+              triggerCN={clsx(s.triggerBtn)}
+              withArrow={false}
+            >
+              <ScaleSlider
+                onScaleChange={onZoomChangeHandler}
+                scale={[currentImage.scale]}
+                scaleMax={2}
+                scaleMin={0.1}
+                scaleStep={0.1}
+                scaleWrapperCN={s.scaleWrapper}
+                setScale={onZoomChangeHandler}
+                sliderRootCN={s.sliderRoot}
+                sliderWrapperCN={s.sliderWrapper}
+                zoomIconCN={s.sliderZoomIcon}
               />
-            </div>
-            <div>
-              <button onClick={resetImage}>Сбросить настройки</button>
-            </div>
+            </Dropdown.Root>
+
+            <ConfirmReset
+              openResetModal={openResetModal}
+              resetImageSettings={resetImage}
+              setOpenResetModal={setOpenResetModal}
+            />
           </div>
           <Stage height={500} ref={stageRef} width={488}>
             <Layer>

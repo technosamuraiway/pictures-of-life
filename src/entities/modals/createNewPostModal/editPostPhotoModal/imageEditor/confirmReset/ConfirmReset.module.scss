@@ -1,0 +1,29 @@
+.triggerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  background-color: var(--Dark-500);
+  border-radius: 0.125rem;
+}
+
+.resetIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--Light-100);
+}
+
+.activeResetIcon {
+  color: var(--Primary-500);
+}
+
+.modalButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+}

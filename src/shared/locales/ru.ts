@@ -31,6 +31,12 @@ export const ru = {
       modalTitle: 'Редактор Фото',
       nextBtn: 'Далее',
       originalRatio: 'Оригинал',
+      resetSettings: {
+        headerTitle: 'Сбросить все изменения',
+        mainText: 'Вы действительно хотите сбросить настройки? Все изменения будут потеряны.',
+        negativeResult: 'Нет',
+        positiveResult: 'Да',
+      },
     },
 
     title: 'Создать пост',

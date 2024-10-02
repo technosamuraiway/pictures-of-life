@@ -33,6 +33,12 @@ export const en: LocaleType = {
       modalTitle: 'Photo Editor',
       nextBtn: 'Next',
       originalRatio: 'Original',
+      resetSettings: {
+        headerTitle: 'Reset Your Changes',
+        mainText: 'Are you sure you want to reset the settings? All changes will be lost.',
+        negativeResult: 'No',
+        positiveResult: 'Yes',
+      },
     },
 
     title: 'Создать пост',
