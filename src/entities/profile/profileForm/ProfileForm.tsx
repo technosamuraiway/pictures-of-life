@@ -148,6 +148,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
 
         <MyDatePicker
           {...register('dateOfBirth')}
+          errorMessage={errorMessage}
           locale={t.locale}
           mode={'single'}
           onDateChange={handleDateChange}
