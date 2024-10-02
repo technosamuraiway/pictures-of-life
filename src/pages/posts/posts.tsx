@@ -1,22 +1,24 @@
 // @flow
-import * as React from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
+import { SortDirection } from '@/services/types/post.types'
 import { ButtonLink, PATH, convertDate, useRouterLocaleDefinition } from '@/shared'
-import { Button } from '@technosamurai/techno-ui-kit'
 
 type Props = {}
 
 export default function Posts(props: Props) {
+  const [sortDirectionVal, setSortDirectionVal] = useState<SortDirection>('asc')
   const t = useRouterLocaleDefinition()
   const {
     data: allPublicPosts,
     isError,
     isLoading,
-    refetch,
-  } = useGetAllPublicPostsQuery({ pageSize: 30, sortDirection: 'asc' })
-
-  // console.log(useGetAllPublicPostsQuery({pageSize: 4}))
+  } = useGetAllPublicPostsQuery({
+    pageSize: 50,
+    sortBy: 'userName',
+    sortDirection: sortDirectionVal,
+  })
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -26,6 +28,12 @@ export default function Posts(props: Props) {
   }
   if (!allPublicPosts) {
     return null
+  }
+
+  function onHandleSort(e: ChangeEvent<HTMLSelectElement>) {
+    const value = e.target.value as SortDirection
+
+    setSortDirectionVal(value)
   }
 
   return (
@@ -40,16 +48,18 @@ export default function Posts(props: Props) {
       }}
     >
       <ButtonLink linkHref={PATH.HOME} title={t.error404Page.btnText} variant={'secondary'} />
-      <div>Registered Users: {allPublicPosts.totalUsers}</div>
-      <Button
-        onClick={() => refetch()}
-        title={t.error404Page.btnText}
-        type={'button'}
-        variant={'secondary'}
+      <section>
+        <div>Registered Users: {allPublicPosts.totalUsers}</div>
+      </section>
+      <select
+        disabled={isLoading}
+        onChange={onHandleSort}
+        style={{ color: 'blue' }}
+        value={sortDirectionVal}
       >
-        REFETCH
-      </Button>
-
+        <option value={'asc'}>asc</option>
+        <option value={'desc'}>desc</option>
+      </select>
       <div
         style={{
           alignItems: 'center',
