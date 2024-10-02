@@ -15,8 +15,11 @@ export function useDeletePost() {
   ] = useDeletePostMutation()
 
   const handleLogout = async () => {
-    const qustionAboutDelete = prompt(t.posts.qustionAboutDelete);
-    if(!qustionAboutDelete) return;
+    const qustionAboutDelete = prompt(t.posts.qustionAboutDelete)
+
+    if (!qustionAboutDelete) {
+      return
+    }
     await deletePost().unwrap()
 
     // router.replace(PATH) // here will be a path of router after deleting of post
