@@ -17,10 +17,6 @@ export const en: LocaleType = {
     errorSizeText: 'Error! Photo size must be less than 10 MB!',
     saveBtn: 'Save',
   },
-  posts: {
-    qustionAboutDelete: 'Are you sure you want to delete this post?',
-    successfulDeletePost: 'You have successfully deleted this post',
-  },
   createNewPost: {
     addPhotoModal: {
       addImgModalButtonText: 'Select from Computer',
@@ -96,6 +92,10 @@ export const en: LocaleType = {
   },
   passwordRecoveryPage: {
     title: 'Password recovery page',
+  },
+  posts: {
+    qustionAboutDelete: 'Are you sure you want to delete this post?',
+    successfulDeletePost: 'You have successfully deleted this post',
   },
   privacyPolicy: {
     backToProfile: 'Back to Profile Settings',
