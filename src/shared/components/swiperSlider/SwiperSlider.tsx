@@ -1,12 +1,13 @@
 import { ReactNode } from 'react'
 
+import { LeftIcon } from '@public/LeftIcon'
+import { RightIcon } from '@public/RightIcon'
 import clsx from 'clsx'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { v4 as uuidv4 } from 'uuid'
 
 import 'swiper/css'
-import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import s from './SwiperSlider.module.scss'
@@ -47,20 +48,31 @@ export function SwiperSlider({
   spaceBetween = 30,
 }: ICustomSwiperProps) {
   return (
-    <Swiper
-      className={clsx(s.swiper, customClass)}
-      loop={loop}
-      modules={[Pagination, Navigation]}
-      navigation={navigation}
-      pagination={{ clickable: paginationClickable }}
-      slidesPerView={slidesPerView}
-      spaceBetween={spaceBetween}
-    >
-      {slides.map(slide => (
-        <SwiperSlide className={s.swiperSlide} key={slide.id || uuidv4()}>
-          {slide.content}
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className={s.swiperContainer}>
+      <Swiper
+        className={clsx(s.swiper, customClass)}
+        loop={loop}
+        modules={[Pagination, Navigation]}
+        navigation={{
+          nextEl: `.${s.navigationNext}`,
+          prevEl: `.${s.navigationPrev}`,
+        }}
+        pagination={{ clickable: paginationClickable }}
+        slidesPerView={slidesPerView}
+        spaceBetween={spaceBetween}
+      >
+        {slides.map(slide => (
+          <SwiperSlide className={s.swiperSlide} key={slide.id || uuidv4()}>
+            {slide.content}
+          </SwiperSlide>
+        ))}
+        {navigation && (
+          <>
+            <LeftIcon className={clsx(s.navigationPrev, 'swiper-button-prev')} />
+            <RightIcon className={clsx(s.navigationNext, 'swiper-button-next')} />
+          </>
+        )}
+      </Swiper>
+    </div>
   )
 }

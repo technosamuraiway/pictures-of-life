@@ -5,6 +5,10 @@
   margin-left: auto;
 }
 
+.swiperContainer {
+  position: relative;
+}
+
 .swiperSlide {
   /* Center slide text vertically */
   display: flex;
@@ -22,4 +26,42 @@
     height: 100%;
     object-fit: cover;
   }
+}
+
+.pagination {
+  // Стили для пагинации
+}
+
+.paginationBulletActive {
+  color: yellow;
+}
+
+.paginationBullet {
+  color: green;
+}
+
+.navigationPrev,
+.navigationNext {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  color: var(--Light-100);
+
+  background-color: var(--Dark-300);
+  border-radius: 0.125rem;
+}
+
+.navigationPrev {
+  left: 0.75rem;
+}
+
+.navigationNext {
+  right: 0.75rem;
 }
