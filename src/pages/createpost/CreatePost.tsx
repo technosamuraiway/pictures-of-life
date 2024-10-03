@@ -13,5 +13,6 @@ const CreatePost = () => {
   )
 }
 
+CreatePost.isPrivate = true
 CreatePost.getLayout = getLayoutWithNav
 export default CreatePost

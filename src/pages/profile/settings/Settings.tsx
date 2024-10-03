@@ -75,5 +75,6 @@ const Settings = () => {
   )
 }
 
+Settings.isPrivate = true
 Settings.getLayout = getLayoutWithNav
 export default Settings

@@ -27,28 +27,22 @@ export default function App({ Component, pageProps, ...rest }: AppPropsWithLayou
   const { props, store } = wrapper.useWrappedStore(rest)
   const getLayout = Component.getLayout ?? (page => page)
 
-  return (
-    <Provider store={store}>
+  const pageContent = (
+    <>
       {getLayout(
         <>
-          {Component.isPrivate ? (
-            <AuthGuard>
-              <NextTopLoader color={'#73a5ff'} />
-              <Component {...props.pageProps} />
-            </AuthGuard>
-          ) : (
-            <>
-              <NextTopLoader color={'#73a5ff'} />
-              <Component {...props.pageProps} />
-            </>
-          )}
+          <NextTopLoader color={'#73a5ff'} />
+          <Component {...props.pageProps} />
         </>
-
-        // <>
-        //   <NextTopLoader color={'#73a5ff'} />
-        //   <Component {...props.pageProps} />
-        // </>
       )}
+    </>
+  )
+
+  const WithAuthGuard = Component.isPrivate ? <AuthGuard>{pageContent}</AuthGuard> : pageContent
+
+  return (
+    <Provider store={store}>
+      {WithAuthGuard}
       <ToastContainer
         autoClose={5000}
         closeOnClick
