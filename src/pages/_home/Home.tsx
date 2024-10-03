@@ -1,3 +1,4 @@
+import { InitLoader } from '@/containers/authGuard/initLoader/InitLoader'
 import { MetaHead, PATH, useGoogleAuth } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import Link from 'next/link'
@@ -22,6 +23,7 @@ function Home() {
             <Link href={PATH.PROFILE.SETTINGS}>Settings</Link>
             <Link href={'/posts'}>Public Posts</Link>
           </div>
+          <InitLoader />
         </>
       )}
     </>
@@ -29,4 +31,5 @@ function Home() {
 }
 
 Home.getLayout = getLayoutWithNav
+Home.isPrivate = true
 export default Home
