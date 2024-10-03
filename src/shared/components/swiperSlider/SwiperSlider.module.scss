@@ -1,12 +1,3 @@
-.swiperContainer {
-  position: relative;
-}
-
-.swiper {
-  width: 18.75rem;
-  height: 18.75rem;
-}
-
 .navigationPrev,
 .navigationNext {
   cursor: pointer;
@@ -23,6 +14,12 @@
 
   background-color: var(--Dark-300);
   border-radius: 0.125rem;
+
+  transition: color 0.3s;
+
+  &:hover {
+    color: var(--Primary-300);
+  }
 }
 
 .navigationPrev {
@@ -31,19 +28,6 @@
 
 .navigationNext {
   right: 0.75rem;
-}
-
-.swiperSlide {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 }
 
 .pagination {
@@ -73,6 +57,10 @@
   border-radius: 50%;
 
   transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--Primary-300);
+  }
 }
 
 .paginationBulletActive {
