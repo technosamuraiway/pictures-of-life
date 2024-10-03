@@ -1,14 +1,18 @@
+import { ReactNode } from 'react'
+
+import clsx from 'clsx'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { v4 as uuidv4 } from 'uuid'
 
-import './SwiperSlider'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
+import s from './SwiperSlider.module.scss'
+
 interface SlideData {
-  content: JSX.Element | string // можно передавать как строку, так и React элементы
+  content: ReactNode // можно передавать как строку, так и React элементы
   id?: number
 }
 
@@ -44,7 +48,7 @@ export function SwiperSlider({
 }: ICustomSwiperProps) {
   return (
     <Swiper
-      className={customClass}
+      className={clsx(s.swiper, customClass)}
       loop={loop}
       modules={[Pagination, Navigation]}
       navigation={navigation}
@@ -53,7 +57,9 @@ export function SwiperSlider({
       spaceBetween={spaceBetween}
     >
       {slides.map(slide => (
-        <SwiperSlide key={slide.id || uuidv4()}>{slide.content}</SwiperSlide>
+        <SwiperSlide className={s.swiperSlide} key={slide.id || uuidv4()}>
+          {slide.content}
+        </SwiperSlide>
       ))}
     </Swiper>
   )

@@ -1,19 +1,20 @@
 .swiper {
-  width: 12.5rem;
-  height: 100px;
-  margin-left: auto;
+  width: 18.75rem;
+  height: 18.75rem;
   margin-right: auto;
+  margin-left: auto;
 }
 
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-
+.swiperSlide {
   /* Center slide text vertically */
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  text-align: center;
+
+  background: #fff;
 
   img {
     display: block;
