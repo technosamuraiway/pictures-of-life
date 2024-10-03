@@ -99,6 +99,10 @@ export const ru = {
   passwordRecoveryPage: {
     title: 'Восстановления пароля',
   },
+  posts: {
+    qustionAboutDelete: 'Вы действительно хотите удалить этот пост?',
+    successfulDeletePost: 'Вы успешно удалили этот пост',
+  },
   privacyPolicy: {
     backToProfile: 'Вернуться к заполнению профиля',
     backToSign: 'Вернуться к регистрации',

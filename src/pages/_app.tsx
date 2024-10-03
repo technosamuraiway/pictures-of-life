@@ -4,11 +4,12 @@ import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import { Slide, ToastContainer } from 'react-toastify'
 
-import { useMeCurInfoQuery } from '@/services'
 import { wrapper } from '@/services/store'
 import { NextPage } from 'next'
 import NextTopLoader from 'nextjs-toploader'
 
+// eslint-disable-next-line import/extensions
+import 'swiper/scss'
 import '@/styles/_colors.scss'
 import '@/styles/_tokens.scss'
 import '@/styles/_typography.scss'

@@ -34,9 +34,10 @@ export interface IPostOwner {
   lastName?: string
 }
 
-type SortDirection = 'asc' | 'desc'
+export type SortDirection = 'asc' | 'desc'
 
 export interface IPostParams {
+  endCursorPostId?: number
   pageSize?: number
   sortBy?: string
   sortDirection?: SortDirection

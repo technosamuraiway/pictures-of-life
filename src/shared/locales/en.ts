@@ -100,6 +100,10 @@ export const en: LocaleType = {
   passwordRecoveryPage: {
     title: 'Password recovery page',
   },
+  posts: {
+    qustionAboutDelete: 'Are you sure you want to delete this post?',
+    successfulDeletePost: 'You have successfully deleted this post',
+  },
   privacyPolicy: {
     backToProfile: 'Back to Profile Settings',
     backToSign: 'Back to Sign Up',
