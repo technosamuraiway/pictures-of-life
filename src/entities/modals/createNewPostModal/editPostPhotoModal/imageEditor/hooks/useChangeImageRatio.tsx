@@ -6,9 +6,9 @@ import { useRouterLocaleDefinition } from '@/shared'
 import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
 import Konva from 'konva'
 
-import s from '../ImageEditor.module.scss'
+import s from '../ratioChanger/RatioChanger.module.scss'
 
-interface RatioDropDownItem {
+export interface RatioDropDownItem {
   activeRatio: number
   itemIcon: ReactNode
   onDropDownItemClick: () => void

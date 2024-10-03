@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Image, Layer, Stage } from 'react-konva'
 
 import { ScaleSlider } from '@/entities/components/scaleSlider/ScaleSlider'
+import { RatioChanger } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/ratioChanger/RatioChanger'
 import { ZoomSlider } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/zoomSlider/ZoomSlider'
 import { ActiveZoomIcon } from '@public/createPost/ActiveZoomIcon'
 import { DefaultZoomIcon } from '@public/createPost/DefaultZoomIcon'
@@ -41,7 +42,7 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
   const imageRef = useRef<Konva.Image>(null)
   const stageRef = useRef<Konva.Stage>(null)
   const currentImage = images[currentImageIndex]
-  const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
+  // const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
   const [activeRatioItem, setActiveRatioItem] = useState<number>(1)
 
   const [openResetModal, setOpenResetModal] = useState<boolean>(false)
@@ -197,40 +198,10 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
             {/*  <button onClick={() => applyFilter(Konva.Filters.Sepia)}>Сепия</button>*/}
             {/*</div>*/}
 
-            <Dropdown.Root
-              contentAlign={'start'}
-              contentCN={s.dropdownContent}
-              contentSide={'top'}
-              onOpenChange={setOpenRatioDropDown}
-              open={openRatioDropDown}
-              trigger={
-                <ExpandIcon
-                  className={clsx(
-                    s.triggerIcon,
-                    openRatioDropDown ? s.activeTriggerIcon : s.defaultTriggerIcon
-                  )}
-                />
-              }
-              triggerCN={clsx(s.triggerBtn)}
-              withArrow={false}
-            >
-              {ratioDropDownItems.map(item => {
-                return (
-                  <Dropdown.Item
-                    className={clsx(
-                      s.dropDownItem,
-                      activeRatioItem === item.activeRatio && s.activeDropDownItem
-                    )}
-                    key={`${item.ratioName} - id`}
-                    onClick={item.onDropDownItemClick}
-                  >
-                    <Typography variant={'regular-text-16'}>{item.ratioName}</Typography>
-                    {item.itemIcon}
-                  </Dropdown.Item>
-                )
-              })}
-            </Dropdown.Root>
-
+            <RatioChanger
+              activeRatioItem={activeRatioItem}
+              ratioDropDownItems={ratioDropDownItems}
+            />
             <ZoomSlider currentImageScale={currentImage.scale} onZoomChange={onZoomChangeHandler} />
 
             <ConfirmReset
