@@ -1,6 +1,6 @@
+import { getLayout } from '@/containers'
 import { ServicePrivacy } from '@/entities'
 import { useRouterLocaleDefinition } from '@/shared'
-import { getBaseLayout } from '@/widgets'
 
 function TermsOfService() {
   const t = useRouterLocaleDefinition()
@@ -15,5 +15,5 @@ function TermsOfService() {
   )
 }
 
-TermsOfService.getLayout = getBaseLayout
+TermsOfService.getLayout = getLayout
 export default TermsOfService

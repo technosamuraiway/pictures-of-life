@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
+import { getLayout } from '@/containers'
 import { OAuth, SignInForm, SignInFormValues } from '@/entities'
 import { useMeCurInfoQuery, useSignInMutation } from '@/services'
 import {
@@ -10,7 +11,6 @@ import {
   RequestLineLoader,
   useRouterLocaleDefinition,
 } from '@/shared'
-import { getBaseLayout } from '@/widgets'
 import { Card } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
@@ -64,5 +64,5 @@ function SignIn() {
   )
 }
 
-SignIn.getLayout = getBaseLayout
+SignIn.getLayout = getLayout
 export default SignIn

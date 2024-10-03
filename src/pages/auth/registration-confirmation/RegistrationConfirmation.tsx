@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
+import { getLayout } from '@/containers'
 import { Confirmation } from '@/entities'
 import { useConfirmEmailMutation, useResendConfirmEmailMutation } from '@/services'
 import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { ResendLink, getBaseLayout } from '@/widgets'
+import { ResendLink } from '@/widgets'
 import pngSuccess from '@public/confirmEmail/successConfirm.png'
 import { useRouter } from 'next/router'
 
@@ -72,5 +73,5 @@ function RegistrationConfirmation() {
   )
 }
 
-RegistrationConfirmation.getLayout = getBaseLayout
+RegistrationConfirmation.getLayout = getLayout
 export default RegistrationConfirmation

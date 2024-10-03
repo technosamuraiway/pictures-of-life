@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import { getLayoutWithNav } from '@/containers'
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { Devices, GeneralInfo, getLayoutWithNav } from '@/widgets'
+import { Devices, GeneralInfo } from '@/widgets'
 import { TabType, Tabs, Typography } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 

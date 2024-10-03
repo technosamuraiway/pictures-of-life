@@ -1,5 +1,5 @@
+import { getLayoutWithNav } from '@/containers'
 import { MetaHead, PATH, useGoogleAuth } from '@/shared'
-import { getLayoutWithNav } from '@/widgets'
 import Link from 'next/link'
 
 import s from './Home.module.scss'

@@ -25,7 +25,7 @@ import { useRouter } from 'next/router'
 
 import s from './NavBar.module.scss'
 
-import { LogOutItem } from './logOutItem/LogOutItem'
+import { LogOutItem } from './logoutItem/LogOutItem'
 import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
@@ -138,7 +138,7 @@ export function NavBar() {
      * me-запрос не происходит, так как он в кеше...
      * => даже после logout мы можем посещать приватные страницы
      *
-     * почему бы не воспользоваться ВАЛИДАЦИЕЙ тегов в RTK-query-api?
+     * почему бы не воспользоваться ВАЛИДАЦИЕЙ тегов в RTK-query-api ['me']?
      * => потому что Logout запрос ничего не возвращает => валидацию на него не повесить
      */
     dispatch(inctagramApi.util.resetApiState())

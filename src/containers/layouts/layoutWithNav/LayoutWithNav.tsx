@@ -2,19 +2,19 @@ import { PropsWithChildren, ReactElement } from 'react'
 
 import { NextPage } from 'next'
 
-import s from './BaseLayout.module.scss'
+import s from '../layout/Layout.module.scss'
 
-import { Layout } from './components/layout/Layout'
-import { NavBar } from './components/navBar/NavBar'
+import { InitLayout } from '../components/initLayout/InitLayout'
+import { NavBar } from '../components/navBar/NavBar'
 
 const LayoutWithNav: NextPage<PropsWithChildren> = ({ children }) => {
   return (
-    <Layout>
+    <InitLayout>
       <div className={s.layoutContainer}>
         <NavBar />
         <main className={s.mainWithNav}>{children}</main>
       </div>
-    </Layout>
+    </InitLayout>
   )
 }
 
