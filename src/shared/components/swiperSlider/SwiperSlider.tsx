@@ -8,7 +8,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { v4 as uuidv4 } from 'uuid'
 
 import 'swiper/css'
-import 'swiper/css/pagination'
 
 import s from './SwiperSlider.module.scss'
 
@@ -57,7 +56,12 @@ export function SwiperSlider({
           nextEl: `.${s.navigationNext}`,
           prevEl: `.${s.navigationPrev}`,
         }}
-        pagination={{ clickable: paginationClickable }}
+        pagination={{
+          bulletActiveClass: clsx('swiper-pagination-bullet-active', s.paginationBulletActive),
+          bulletClass: clsx('swiper-pagination-bullet', s.paginationBullet),
+          clickable: paginationClickable,
+          el: `.${s.pagination}`,
+        }}
         slidesPerView={slidesPerView}
         spaceBetween={spaceBetween}
       >
@@ -72,6 +76,7 @@ export function SwiperSlider({
             <RightIcon className={clsx(s.navigationNext, 'swiper-button-next')} />
           </>
         )}
+        <div className={clsx(s.pagination, 'swiper-pagination')}></div>
       </Swiper>
     </div>
   )
