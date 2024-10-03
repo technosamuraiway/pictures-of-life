@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Image, Layer, Stage } from 'react-konva'
 
 import { ScaleSlider } from '@/entities/components/scaleSlider/ScaleSlider'
+import { ZoomSlider } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/zoomSlider/ZoomSlider'
 import { ActiveZoomIcon } from '@public/createPost/ActiveZoomIcon'
 import { DefaultZoomIcon } from '@public/createPost/DefaultZoomIcon'
 import { ExpandIcon } from '@public/createPost/ExpandIcon'
@@ -41,7 +42,6 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
   const stageRef = useRef<Konva.Stage>(null)
   const currentImage = images[currentImageIndex]
   const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
-  const [openSliderDropDown, setOpenSliderDropDown] = useState<boolean>(false)
   const [activeRatioItem, setActiveRatioItem] = useState<number>(1)
 
   const [openResetModal, setOpenResetModal] = useState<boolean>(false)
@@ -231,35 +231,7 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
               })}
             </Dropdown.Root>
 
-            <Dropdown.Root
-              contentAlign={'start'}
-              contentCN={s.dropdownContent}
-              contentSide={'top'}
-              onOpenChange={setOpenSliderDropDown}
-              open={openSliderDropDown}
-              trigger={
-                openSliderDropDown ? (
-                  <ActiveZoomIcon className={clsx(s.triggerIcon, s.activeTriggerIcon)} />
-                ) : (
-                  <DefaultZoomIcon className={clsx(s.triggerIcon, s.defaultTriggerIcon)} />
-                )
-              }
-              triggerCN={clsx(s.triggerBtn)}
-              withArrow={false}
-            >
-              <ScaleSlider
-                onScaleChange={onZoomChangeHandler}
-                scale={[currentImage.scale]}
-                scaleMax={2}
-                scaleMin={0.1}
-                scaleStep={0.1}
-                scaleWrapperCN={s.scaleWrapper}
-                setScale={onZoomChangeHandler}
-                sliderRootCN={s.sliderRoot}
-                sliderWrapperCN={s.sliderWrapper}
-                zoomIconCN={s.sliderZoomIcon}
-              />
-            </Dropdown.Root>
+            <ZoomSlider currentImageScale={currentImage.scale} onZoomChange={onZoomChangeHandler} />
 
             <ConfirmReset
               openResetModal={openResetModal}
