@@ -16,7 +16,9 @@ interface IProps {
   onEditMode: (edit: boolean) => void
   openDraftBtnText?: string
   setErrorText: (error: null | string) => void
-  setImage: (img: (File | string)[]) => void
+  setImage: (
+    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
+  ) => void
   showDraftBtn?: boolean
 }
 

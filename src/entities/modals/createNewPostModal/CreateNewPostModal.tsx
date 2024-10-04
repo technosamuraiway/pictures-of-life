@@ -14,6 +14,7 @@ export const CreateNewPostModal = () => {
         <EditPostPhotoModal
           downloadedImage={downloadedImage}
           onOpen={isEdit}
+          setDownloadedImage={setDownloadedImage}
           setOnOpen={setIsEdit}
         />
       ) : (

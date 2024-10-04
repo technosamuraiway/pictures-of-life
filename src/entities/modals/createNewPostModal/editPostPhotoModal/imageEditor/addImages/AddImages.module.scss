@@ -32,10 +32,6 @@
   justify-content: center;
 
   width: 100%;
-  max-width: 21.875rem;
-}
-
-.dropDownItem {
 }
 
 .activeDropDownItem {
@@ -45,6 +41,16 @@
 
 .imageItem {
   border-radius: 0.125rem;
+}
+
+.addImageBtn {
+  align-self: flex-start;
+  padding: 0;
+  background-color: transparent;
+
+  &:hover {
+    background-color: transparent;
+  }
 }
 
 .addNewImage {

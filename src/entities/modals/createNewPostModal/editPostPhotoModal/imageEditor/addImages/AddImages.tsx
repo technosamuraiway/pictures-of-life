@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { ImageData } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/ImageEditor'
+import { DownloadFile, useRouterLocaleDefinition } from '@/shared'
 import { ActiveEmptyAvatar } from '@public/createPost/ActiveEmptyAvatar'
 import { AddNewImage } from '@public/createPost/AddNewImage'
 import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
@@ -15,9 +16,21 @@ interface IProps {
   currentImageIndex: number
   images: ImageData[]
   setCurrentImageIndex: (currentImageIndex: number) => void
+  setDownloadedImage: (
+    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
+  ) => void
 }
-export const AddImages = ({ currentImageIndex, images, setCurrentImageIndex }: IProps) => {
+
+const MAX_FILE_SIZE = 20 * 1024 * 1024 // 20 МБ в байтах
+
+export const AddImages = ({
+  currentImageIndex,
+  images,
+  setCurrentImageIndex,
+  setDownloadedImage,
+}: IProps) => {
   const [openAddImageDropDown, setOpenAddImageDropDown] = useState<boolean>(false)
+  const t = useRouterLocaleDefinition()
 
   return (
     <Dropdown.Root
@@ -58,7 +71,15 @@ export const AddImages = ({ currentImageIndex, images, setCurrentImageIndex }: I
               </Dropdown.Item>
             )
           })}
-          <AddNewImage className={s.addNewImage} />
+          <DownloadFile
+            btnCN={s.addImageBtn}
+            btnText={<AddNewImage className={s.addNewImage} />}
+            btnVariant={'textButton'}
+            errorSizeText={t.createNewPost.addPhotoModal.errorSizeText}
+            maxImgSize={MAX_FILE_SIZE}
+            multiple
+            setImage={setDownloadedImage}
+          />
         </div>
       </Scrollbar>
     </Dropdown.Root>

@@ -22,6 +22,9 @@ export interface ImageData {
 
 interface IProps {
   downloadedImage: (File | string)[]
+  setDownloadedImage: (
+    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
+  ) => void
 }
 
 export interface IPosition {
@@ -29,7 +32,7 @@ export interface IPosition {
   y: number
 }
 
-export const ImageEditor = ({ downloadedImage }: IProps) => {
+export const ImageEditor = ({ downloadedImage, setDownloadedImage }: IProps) => {
   const [openResetModal, setOpenResetModal] = useState<boolean>(false)
 
   const [images, setImages] = useState<ImageData[]>([])
@@ -214,6 +217,7 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
               currentImageIndex={currentImageIndex}
               images={images}
               setCurrentImageIndex={setCurrentImageIndex}
+              setDownloadedImage={setDownloadedImage}
             />
           </div>
           <Stage height={500} ref={stageRef} width={488}>

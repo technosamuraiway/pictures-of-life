@@ -11,7 +11,9 @@ import { PreviewImgScreen } from '../../../components/previewImgScreen/PreviewIm
 
 interface IProps {
   onEditMode: (edit: boolean) => void
-  setImage: (img: (File | string)[]) => void
+  setImage: (
+    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
+  ) => void
 }
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024 // 20 МБ в байтах
