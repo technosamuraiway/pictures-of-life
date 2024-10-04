@@ -9,12 +9,12 @@ import { v4 as uuidv4 } from 'uuid'
 
 import s from './SwiperSlider.module.scss'
 
-interface SlideData {
-  content: ReactNode // можно передавать как строку, так и React элементы
+type SlideData = {
+  content: ReactNode
   id?: number
 }
 
-interface ICustomSwiperProps {
+interface IProps {
   customClass?: string // Дополнительный класс для кастомизации стилей
   loop?: boolean // Зациклить ли слайды
   navIconCN?: string // Дополнительный класс для кастомизации стилей
@@ -37,7 +37,7 @@ interface ICustomSwiperProps {
  * @param loop - Если true, слайды будут зациклены (по умолчанию true).
  * @param paginationClickable - Если true, кнопки пагинации будут кликабельными (по умолчанию true).
  * @param navigation - Если true, будут отображаться кнопки навигации (по умолчанию true).
- * @param customClass - Кастомный класс для стилей (по умолчанию "mySwiper").
+ * @param customClass - Кастомный класс для стилей Swiper.
  * @param navIconCN - Кастомный класс для navIcon.
  * @param swiperSlideCN - Кастомный класс для swiperSlide.
  * @param paginationCN - Кастомный класс для pagination.
@@ -47,7 +47,7 @@ interface ICustomSwiperProps {
  */
 
 export function SwiperSlider({
-  customClass = 'mySwiper',
+  customClass,
   loop = true,
   navIconCN,
   navigation = true,
@@ -59,7 +59,7 @@ export function SwiperSlider({
   slidesPerView = 1,
   spaceBetween = 30,
   swiperSlideCN,
-}: ICustomSwiperProps) {
+}: IProps) {
   return (
     <Swiper
       className={customClass}

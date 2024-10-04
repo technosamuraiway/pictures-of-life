@@ -31,6 +31,12 @@ export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => act
         toast.error('The email or password are incorrect. Try again please')
       }
 
+      if (serverError.data?.messages[0].message.includes('User with this')) {
+        const newStr = serverError.data?.messages[0].message.replace(/(\w+\s\w+)$/, "doesn't exist")
+
+        toast.error(newStr)
+      }
+
       toast.error(serverError.data?.messages[0].message)
     }
 

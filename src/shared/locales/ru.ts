@@ -101,6 +101,7 @@ export const ru = {
   },
   posts: {
     qustionAboutDelete: 'Вы действительно хотите удалить этот пост?',
+    regUsers: 'Зарегистрированные пользователи:',
     successfulDeletePost: 'Вы успешно удалили этот пост',
   },
   privacyPolicy: {
@@ -211,6 +212,27 @@ export const ru = {
             Мы не несем ответственности за любые ошибки или неточности на нашем веб-сайте.
             Мы оставляем за собой право вносить изменения в наши условия использования в любое время без предварительного уведомления.`,
     title: 'Условия использования',
+  },
+  timeAgo: {
+    ago: 'назад',
+    day: 'день',
+    daysFew: 'дня',
+    daysMany: 'дней',
+    hour: 'час',
+    hoursFew: 'часа',
+    hoursMany: 'часов',
+    minute: 'минута',
+    minutesFew: 'минуты',
+    minutesMany: 'минут',
+    month: 'месяц',
+    monthsFew: 'месяца',
+    monthsMany: 'месяцев',
+    week: 'неделя',
+    weeksFew: 'недели',
+    weeksMany: 'недель',
+    year: 'год',
+    yearsFew: 'года',
+    yearsMany: 'лет',
   },
   title: 'Главная страница',
   validationSchemes: {
