@@ -1,19 +1,18 @@
 .links {
-    display: flex;
-    gap: 30px;
+  display: flex;
+  gap: 30px;
 }
 
-
 .usersContetnt {
-display: flex;
-flex-direction: column;
-gap: 36px;
-align-items: center;
-justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
+  justify-content: space-around;
 
-margin: 24px auto;
+  margin: 24px auto;
 
-.section { 
+  .section {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -26,54 +25,51 @@ margin: 24px auto;
     border-radius: 2px;
 
     .spanContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-        padding: 8px 10px 10px ;
+      padding: 8px 10px 10px;
 
-        background: var(--Dark-700);     
-        border: 1px solid var(--Dark-300);
-        border-radius: 2px;
+      background: var(--Dark-700);
+      border: 1px solid var(--Dark-300);
+      border-radius: 2px;
 
-        .spanDiv { 
-            padding: 0 10px;
-            text-align: center;
+      .spanDiv {
+        padding: 0 10px;
+        text-align: center;
 
-             .span {
-                 color: var(--Light-100);
-             }  
+        .span {
+          color: var(--Light-100);
         }
+      }
     }
-     
-}
+  }
 
-.userPost { 
-   display: flex; 
-   flex-wrap: wrap;
-   gap: 12px;
-   align-items: center;
-   justify-content: space-around;
-
-   margin: 36px auto;
-
-   .userImg {
-    width: 100%;
-    height: 240px;
-    
-   }
-
-   .allContent {
-    height: 240px;
-   }
-
-   .avaName {
+  .userPost {
     display: flex;
-    gap: 9px;
+    flex-wrap: wrap;
+    gap: 12px;
     align-items: center;
-    
+    justify-content: space-around;
 
-    .avatarPlaceholder {
+    margin: 36px auto;
+
+    .userImg {
+      width: 100%;
+      height: 240px;
+    }
+
+    .allContent {
+      height: 240px;
+    }
+
+    .avaName {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+
+      .avatarPlaceholder {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -86,24 +82,22 @@ margin: 24px auto;
         color: var(--Light-100);
 
         background: var(--Primary-300);
-        border-radius: 50%;  
-    }
+        border-radius: 50%;
+      }
 
-    .avatarImg {
+      .avatarImg {
         width: 36px;
         height: 36px;
         border-radius: 50%;
+      }
     }
-   }
 
-   .dateDesc {
-    margin-top: 12px;
-   }
+    .dateDesc {
+      margin-top: 12px;
+    }
 
-   .created {
-    color: var(--Light-900);
-   }
-
-  
-}
+    .created {
+      color: var(--Light-900);
+    }
+  }
 }
