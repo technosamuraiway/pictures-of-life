@@ -3,13 +3,14 @@ import { useState } from 'react'
 import { ExpandIcon } from '@public/createPost/ExpandIcon'
 import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
+import { v4 as uuid } from 'uuid'
 
 import s from './RatioChanger.module.scss'
 
 import { RatioDropDownItem } from '../hooks/useChangeImageRatio'
 
 interface IProps {
-  activeRatioItem: number
+  activeRatioItem: string
   ratioDropDownItems: RatioDropDownItem[]
 }
 
@@ -31,7 +32,7 @@ export const RatioChanger = ({ activeRatioItem, ratioDropDownItems }: IProps) =>
           )}
         />
       }
-      triggerCN={clsx(s.triggerBtn)}
+      triggerCN={s.triggerBtn}
       withArrow={false}
     >
       {ratioDropDownItems.map(item => {
@@ -41,7 +42,7 @@ export const RatioChanger = ({ activeRatioItem, ratioDropDownItems }: IProps) =>
               s.dropDownItem,
               activeRatioItem === item.activeRatio && s.activeDropDownItem
             )}
-            key={`${item.ratioName} - id`}
+            key={uuid()}
             onClick={item.onDropDownItemClick}
           >
             <Typography variant={'regular-text-16'}>{item.ratioName}</Typography>

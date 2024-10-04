@@ -30,7 +30,7 @@ export const ZoomSlider = ({ currentImageScale, onZoomChange }: IProps) => {
           <DefaultZoomIcon className={clsx(s.triggerIcon, s.defaultTriggerIcon)} />
         )
       }
-      triggerCN={clsx(s.triggerBtn)}
+      triggerCN={s.triggerBtn}
       withArrow={false}
     >
       <ScaleSlider

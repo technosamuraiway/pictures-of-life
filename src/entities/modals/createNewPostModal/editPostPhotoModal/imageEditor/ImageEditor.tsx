@@ -1,21 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { Image, Layer, Stage } from 'react-konva'
 
-import { ScaleSlider } from '@/entities/components/scaleSlider/ScaleSlider'
-import { RatioChanger } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/ratioChanger/RatioChanger'
-import { ZoomSlider } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/zoomSlider/ZoomSlider'
-import { ActiveZoomIcon } from '@public/createPost/ActiveZoomIcon'
-import { DefaultZoomIcon } from '@public/createPost/DefaultZoomIcon'
-import { ExpandIcon } from '@public/createPost/ExpandIcon'
-import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
-import clsx from 'clsx'
 import Konva from 'konva'
 
 import s from './ImageEditor.module.scss'
 
+import { AddImages } from './addImages/AddImages'
 import { ConfirmReset } from './confirmReset/ConfirmReset'
 import { useChangeImageRatio } from './hooks/useChangeImageRatio'
 import { useShowStartImage } from './hooks/useShowStartImage'
+import { RatioChanger } from './ratioChanger/RatioChanger'
+import { ZoomSlider } from './zoomSlider/ZoomSlider'
 
 export interface ImageData {
   aspectRatio: string
@@ -35,6 +30,8 @@ export interface IPosition {
 }
 
 export const ImageEditor = ({ downloadedImage }: IProps) => {
+  const [openResetModal, setOpenResetModal] = useState<boolean>(false)
+
   const [images, setImages] = useState<ImageData[]>([])
 
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
@@ -42,10 +39,10 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
   const imageRef = useRef<Konva.Image>(null)
   const stageRef = useRef<Konva.Stage>(null)
   const currentImage = images[currentImageIndex]
-  // const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
-  const [activeRatioItem, setActiveRatioItem] = useState<number>(1)
 
-  const [openResetModal, setOpenResetModal] = useState<boolean>(false)
+  const [activeRatioItem, setActiveRatioItem] = useState<string>(
+    images[currentImageIndex]?.aspectRatio || 'original'
+  )
 
   const { showDownloadedImage } = useShowStartImage(downloadedImage, setImages)
 
@@ -174,7 +171,7 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
 
       img.getLayer()?.batchDraw()
     }
-
+    setActiveRatioItem('original')
     setOpenResetModal(false)
   }
 
@@ -197,17 +194,26 @@ export const ImageEditor = ({ downloadedImage }: IProps) => {
             {/*  <button onClick={() => applyFilter(Konva.Filters.Blur)}>Размытие</button>*/}
             {/*  <button onClick={() => applyFilter(Konva.Filters.Sepia)}>Сепия</button>*/}
             {/*</div>*/}
+            <div className={s.leftButtonsWrapper}>
+              <RatioChanger
+                activeRatioItem={activeRatioItem}
+                ratioDropDownItems={ratioDropDownItems}
+              />
+              <ZoomSlider
+                currentImageScale={currentImage.scale}
+                onZoomChange={onZoomChangeHandler}
+              />
 
-            <RatioChanger
-              activeRatioItem={activeRatioItem}
-              ratioDropDownItems={ratioDropDownItems}
-            />
-            <ZoomSlider currentImageScale={currentImage.scale} onZoomChange={onZoomChangeHandler} />
-
-            <ConfirmReset
-              openResetModal={openResetModal}
-              resetImageSettings={resetImage}
-              setOpenResetModal={setOpenResetModal}
+              <ConfirmReset
+                openResetModal={openResetModal}
+                resetImageSettings={resetImage}
+                setOpenResetModal={setOpenResetModal}
+              />
+            </div>
+            <AddImages
+              currentImageIndex={currentImageIndex}
+              images={images}
+              setCurrentImageIndex={setCurrentImageIndex}
             />
           </div>
           <Stage height={500} ref={stageRef} width={488}>

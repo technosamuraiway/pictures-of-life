@@ -9,14 +9,14 @@ import Konva from 'konva'
 import s from '../ratioChanger/RatioChanger.module.scss'
 
 export interface RatioDropDownItem {
-  activeRatio: number
+  activeRatio: string
   itemIcon: ReactNode
   onDropDownItemClick: () => void
   ratioName: string
 }
 
 export const useChangeImageRatio = (
-  setActiveRatioItem: (activeRatio: number) => void,
+  setActiveRatioItem: (activeRatio: string) => void,
   stageRef: RefObject<Konva.Stage>,
   imageRef: RefObject<Konva.Image>,
   setImages: (images: ((prevImages: ImageData[]) => ImageData[]) | ImageData[]) => void,
@@ -27,32 +27,32 @@ export const useChangeImageRatio = (
 
   const ratioDropDownItems: RatioDropDownItem[] = [
     {
-      activeRatio: 1,
+      activeRatio: 'original',
       itemIcon: <EmptyAvatar className={s.ratioOriginalIcon} />,
-      onDropDownItemClick: () => onDropDownItemClickHandler(1, 'original'),
+      onDropDownItemClick: () => onDropDownItemClickHandler('original', 'original'),
       ratioName: t.createNewPost.editPhotoModal.originalRatio,
     },
     {
-      activeRatio: 2,
+      activeRatio: '1:1',
       itemIcon: <div className={s.ratioSquareIcon} />,
-      onDropDownItemClick: () => onDropDownItemClickHandler(2, '1:1'),
+      onDropDownItemClick: () => onDropDownItemClickHandler('1:1', '1:1'),
       ratioName: '1:1',
     },
     {
-      activeRatio: 3,
+      activeRatio: '4:5',
       itemIcon: <div className={s.ratioPhoneIcon} />,
-      onDropDownItemClick: () => onDropDownItemClickHandler(3, '4:5'),
+      onDropDownItemClick: () => onDropDownItemClickHandler('4:5', '4:5'),
       ratioName: '4:5',
     },
     {
-      activeRatio: 4,
+      activeRatio: '16:9',
       itemIcon: <div className={s.ratioDesktopIcon} />,
-      onDropDownItemClick: () => onDropDownItemClickHandler(4, '16:9'),
+      onDropDownItemClick: () => onDropDownItemClickHandler('16:9', '16:9'),
       ratioName: '16:9',
     },
   ]
 
-  function onDropDownItemClickHandler(activeRatio: number, ratioName: string) {
+  function onDropDownItemClickHandler(activeRatio: string, ratioName: string) {
     changeAspectRatio(ratioName)
     setActiveRatioItem(activeRatio)
   }
