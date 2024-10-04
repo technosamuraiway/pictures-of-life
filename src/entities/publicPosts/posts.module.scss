@@ -1,0 +1,109 @@
+.links {
+    display: flex;
+    gap: 30px;
+}
+
+
+.usersContetnt {
+display: flex;
+flex-direction: column;
+gap: 36px;
+align-items: center;
+justify-content: space-around;
+
+margin: 24px auto;
+
+.section { 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    padding: 12px 24px;
+
+    background: var(--Dark-500);
+    border: 1px solid var(--Dark-300);
+    border-radius: 2px;
+
+    .spanContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 8px 10px 10px ;
+
+        background: var(--Dark-700);     
+        border: 1px solid var(--Dark-300);
+        border-radius: 2px;
+
+        .spanDiv { 
+            padding: 0 10px;
+            text-align: center;
+
+             .span {
+                 color: var(--Light-100);
+             }  
+        }
+    }
+     
+}
+
+.userPost { 
+   display: flex; 
+   flex-wrap: wrap;
+   gap: 12px;
+   align-items: center;
+   justify-content: space-around;
+
+   margin: 36px auto;
+
+   .userImg {
+    width: 100%;
+    height: 240px;
+    
+   }
+
+   .allContent {
+    height: 240px;
+   }
+
+   .avaName {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    
+
+    .avatarPlaceholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 36px;
+        height: 36px;
+
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--Light-100);
+
+        background: var(--Primary-300);
+        border-radius: 50%;  
+    }
+
+    .avatarImg {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+    }
+   }
+
+   .dateDesc {
+    margin-top: 12px;
+   }
+
+   .created {
+    color: var(--Light-900);
+   }
+
+  
+}
+}
