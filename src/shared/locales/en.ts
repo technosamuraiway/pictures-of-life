@@ -95,6 +95,7 @@ export const en: LocaleType = {
   },
   posts: {
     qustionAboutDelete: 'Are you sure you want to delete this post?',
+    regUsers: 'Registered users:',
     successfulDeletePost: 'You have successfully deleted this post',
   },
   privacyPolicy: {
@@ -204,6 +205,27 @@ export const en: LocaleType = {
               We are not responsible for any errors or inaccuracies on our website.
               We reserve the right to make changes to our terms of service at any time without prior notice.`,
     title: 'Terms of Service',
+  },
+  timeAgo: {
+    ago: 'ago',
+    day: 'day',
+    daysFew: 'days',
+    daysMany: 'days',
+    hour: 'hour',
+    hoursFew: 'hours',
+    hoursMany: 'hours',
+    minute: 'min',
+    minutesFew: 'min',
+    minutesMany: 'min',
+    month: 'month',
+    monthsFew: 'months',
+    monthsMany: 'months',
+    week: 'week',
+    weeksFew: 'weeks',
+    weeksMany: 'weeks',
+    year: 'year',
+    yearsFew: 'years',
+    yearsMany: 'years',
   },
   title: 'Main page',
   validationSchemes: {
