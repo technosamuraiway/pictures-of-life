@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from 'react'
 
 import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
 import { SortDirection } from '@/services/types/post.types'
-import { ButtonLink, PATH, convertDate, useRouterLocaleDefinition } from '@/shared'
+import { ButtonLink, PATH, SwiperSlider, convertDate, useRouterLocaleDefinition } from '@/shared'
 
 type Props = {}
 
@@ -48,6 +48,7 @@ export default function Posts(props: Props) {
       }}
     >
       <ButtonLink linkHref={PATH.HOME} title={t.error404Page.btnText} variant={'secondary'} />
+
       <section>
         <div>Registered Users: {allPublicPosts.totalUsers}</div>
       </section>
@@ -60,6 +61,7 @@ export default function Posts(props: Props) {
         <option value={'asc'}>asc</option>
         <option value={'desc'}>desc</option>
       </select>
+
       <div
         style={{
           alignItems: 'center',
@@ -71,14 +73,32 @@ export default function Posts(props: Props) {
         }}
       >
         {allPublicPosts?.items?.map(post => (
-          <div key={post.id}>
+          <div key={post.id} style={{ maxWidth: '300px' }}>
             <p>
               {post.owner.firstName} {post.owner.lastName}
             </p>
             <p>
               {convertDate(post.createdAt)} {post.userName}
             </p>
-            <img alt={'img'} height={300} src={post.images[0].url} width={300} />
+
+            {/* Проверяем, есть ли изображения и их количество */}
+            {post?.images.length > 1 ? (
+              // Если изображений несколько, показываем их в слайдере
+              <SwiperSlider
+                customClass={'customSwiperClass'}
+                loop
+                navigation
+                paginationClickable
+                slides={post.images.map(image => ({
+                  content: <img alt={`img-${post.id}`} height={300} src={image.url} width={300} />,
+                }))}
+                slidesPerView={1} // Можно настроить как нужно
+                spaceBetween={20}
+              />
+            ) : (
+              // Если изображение одно, просто выводим его
+              <img alt={'img'} height={300} src={post?.images[0]?.url} width={300} />
+            )}
           </div>
         ))}
       </div>

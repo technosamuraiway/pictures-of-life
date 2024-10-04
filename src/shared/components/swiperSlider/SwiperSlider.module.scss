@@ -1,0 +1,68 @@
+.navigationPrev {
+  left: 0.75rem;
+}
+
+.navigationNext {
+  right: 0.75rem;
+}
+
+.navigationPrev,
+.navigationNext {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  color: var(--Light-100);
+
+  background-color: var(--Dark-300);
+  border-radius: 0.125rem;
+
+  transition: color 0.3s;
+
+  &:hover {
+    color: var(--Primary-300);
+  }
+}
+
+.pagination {
+  position: absolute;
+  z-index: 10;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+
+  padding: 0.5rem;
+
+  background-color: var(--Dark-300);
+  border-radius: 0.125rem;
+}
+
+.paginationBullet {
+  cursor: pointer;
+
+  width: 0.5rem;
+  height: 0.5rem;
+
+  background-color: var(--Light-100);
+  border-radius: 50%;
+
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--Primary-300);
+  }
+}
+
+.paginationBulletActive {
+  background-color: var(--Primary-500);
+}
