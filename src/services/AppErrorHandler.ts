@@ -29,8 +29,7 @@ export const rtkQueryErrorLogger: Middleware = (_: MiddlewareAPI) => next => act
     if (serverError.data?.statusCode === 400 || serverError.data?.statusCode === 401) {
       if (!Array.isArray(serverError.data?.messages)) {
         toast.error('The email or password are incorrect. Try again please')
-      } else if (serverError.data?.messages[0].message.includes('User with this')) {
-        debugger
+      } else if (serverError.data?.messages[0].message.includes('not founded')) {
         const newStr = serverError.data?.messages[0].message.replace(/(\w+\s\w+)$/, "doesn't exist")
 
         toast.error(newStr)
