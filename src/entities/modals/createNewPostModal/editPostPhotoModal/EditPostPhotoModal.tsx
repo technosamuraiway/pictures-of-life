@@ -4,11 +4,9 @@ import { PostWithoutHeaderModal } from '../../postWithoutHeaderModal/PostWithout
 import { ImageEditor } from './imageEditor/ImageEditor'
 
 interface IProps {
-  downloadedImage: (File | string)[]
+  downloadedImage: string[]
   onOpen: boolean
-  setDownloadedImage: (
-    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
-  ) => void
+  setDownloadedImage: (images: string[]) => void
   setOnOpen: (onOpen: boolean) => void
 }
 
@@ -26,7 +24,7 @@ export const EditPostPhotoModal = ({
     setOnOpen(false)
   }
 
-  const handleCropComplete = (croppedImages: string[]) => {
+  const onCropCompleteHandler = (croppedImages: string[]) => {
     console.log('All images cropped:', croppedImages)
     // Здесь вы можете отправить обрезанные изображения на сервер или
     // выполнить другие действия с ними
@@ -43,7 +41,7 @@ export const EditPostPhotoModal = ({
     >
       <ImageEditor
         downloadedImage={downloadedImage}
-        onCropCompleteProps={handleCropComplete}
+        onCropComplete={onCropCompleteHandler}
         setDownloadedImage={setDownloadedImage}
       />
     </PostWithoutHeaderModal>

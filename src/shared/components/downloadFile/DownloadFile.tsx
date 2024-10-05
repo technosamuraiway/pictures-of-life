@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentPropsWithoutRef, ReactNode, useRef } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, Dispatch, ReactNode, useRef } from 'react'
 import { toast } from 'react-toastify'
 
 import { useRouterLocaleDefinition } from '@/shared'
@@ -17,9 +17,7 @@ interface IProps extends ComponentPropsWithoutRef<'input'> {
   maxImgSize: number
   onEditMode?: (edit: boolean) => void
   setError?: (error: null | string) => void
-  setImage: (
-    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
-  ) => void
+  setImage: Dispatch<React.SetStateAction<string[]>>
 }
 
 export const DownloadFile = ({
@@ -65,18 +63,22 @@ export const DownloadFile = ({
     if (validFiles.length > 10) {
       setError(t.avatarChange.errorMaxCount)
       toast.error(t.avatarChange.errorMaxCount)
+
+      return
     }
 
     if (validFiles.length) {
       onEditMode && onEditMode(true)
       const imageUrls = validFiles.map(file => URL.createObjectURL(file))
 
-      if (imageUrls.length === 1) {
-        setImage(imageUrls)
-      } else {
-        setImage(prevImages => [...prevImages, ...imageUrls])
-        setError(null)
-      }
+      setImage(prevImages => {
+        if (prevImages.length === 0) {
+          return imageUrls
+        } else {
+          return [...imageUrls, ...prevImages]
+        }
+      })
+      setError(null)
     }
   }
 

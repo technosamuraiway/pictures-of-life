@@ -3,19 +3,13 @@ import Cropper, { Area, Point } from 'react-easy-crop'
 
 import { getCroppedImg } from './utils'
 
-interface MultiImageCropperProps {
+interface IProps {
   downloadedImage: string[]
   onCropComplete: (croppedImages: string[]) => void
-  setDownloadedImage: (
-    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
-  ) => void
+  setDownloadedImage: (downloadedImage: string[]) => void
 }
 
-export const ImageEditor: React.FC<MultiImageCropperProps> = ({
-  downloadedImage,
-  onCropComplete,
-  setDownloadedImage,
-}) => {
+export const ImageEditor = ({ downloadedImage, onCropComplete, setDownloadedImage }: IProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
   const [croppedImages, setCroppedImages] = useState<string[]>([])
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })

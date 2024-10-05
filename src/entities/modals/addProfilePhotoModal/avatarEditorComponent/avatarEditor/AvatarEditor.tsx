@@ -1,4 +1,4 @@
-import { ElementRef, forwardRef, useState } from 'react'
+import { Dispatch, ElementRef, forwardRef, useState } from 'react'
 import Avatar from 'react-avatar-editor'
 
 import { ScaleSlider } from '@/entities/components/scaleSlider/ScaleSlider'
@@ -8,12 +8,12 @@ import { Button } from '@technosamurai/techno-ui-kit'
 import s from './AvatarEditor.module.scss'
 
 interface IProps {
-  image: (File | string)[]
+  image: string[]
   isDisableSaveBtn?: boolean
   maxImgSize: number
   onSaveBtnClick: () => void
   setErrorText: (error: null | string) => void
-  setImage: (img: (File | string)[]) => void
+  setImage: Dispatch<React.SetStateAction<string[]>>
 }
 
 const SCALE_STEP = 0.1

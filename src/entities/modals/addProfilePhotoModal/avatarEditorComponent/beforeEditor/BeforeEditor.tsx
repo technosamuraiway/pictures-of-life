@@ -1,3 +1,5 @@
+import { Dispatch } from 'react'
+
 import { PreviewImgScreen } from '@/entities/components/previewImgScreen/PreviewImgScreen'
 import { AvatarChoice, useRouterLocaleDefinition } from '@/shared'
 
@@ -8,7 +10,7 @@ interface IProps {
   maxImgSize: number
   onEditMode: (edit: boolean) => void
   setErrorText: (error: null | string) => void
-  setImage: (img: (File | string)[]) => void
+  setImage: Dispatch<React.SetStateAction<string[]>>
 }
 
 export const BeforeEditor = ({
