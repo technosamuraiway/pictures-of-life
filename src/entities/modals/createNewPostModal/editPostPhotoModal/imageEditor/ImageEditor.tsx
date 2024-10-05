@@ -168,11 +168,6 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
         onCropComplete={onCropComplete}
         onZoomChange={onZoomChange}
         style={{
-          containerStyle: {
-            backgroundColor: '#333',
-            height: '400px',
-            width: '100%',
-          },
           mediaStyle: {
             filter: currentState.filter,
           },
@@ -180,48 +175,48 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
         zoom={currentState.zoom}
       />
 
-      {/*<div className={s.controls}>*/}
-      {/*  <div className={s.controlSection}>*/}
-      {/*    <label htmlFor={'zoom'}>Zoom</label>*/}
-      {/*    <input*/}
-      {/*      className={s.slider}*/}
-      {/*      id={'zoom'}*/}
-      {/*      max={'3'}*/}
-      {/*      min={'1'}*/}
-      {/*      onChange={e => onZoomChange(Number(e.target.value))}*/}
-      {/*      step={'0.1'}*/}
-      {/*      type={'range'}*/}
-      {/*      value={currentState.zoom}*/}
-      {/*    />*/}
-      {/*  </div>*/}
-      {/*  <div className={s.controlSection}>*/}
-      {/*    <label htmlFor={'aspect'}>Aspect Ratio</label>*/}
-      {/*    <select*/}
-      {/*      className={s.select}*/}
-      {/*      id={'aspect'}*/}
-      {/*      onChange={onAspectChange}*/}
-      {/*      value={currentState.aspect}*/}
-      {/*    >*/}
-      {/*      <option value={1}>1:1</option>*/}
-      {/*      <option value={4 / 3}>4:3</option>*/}
-      {/*      <option value={16 / 9}>16:9</option>*/}
-      {/*    </select>*/}
-      {/*  </div>*/}
-      {/*  <div className={s.controlSection}>*/}
-      {/*    <label htmlFor={'filter'}>Filter</label>*/}
-      {/*    <select*/}
-      {/*      className={s.select}*/}
-      {/*      id={'filter'}*/}
-      {/*      onChange={onFilterChange}*/}
-      {/*      value={currentState.filter}*/}
-      {/*    >*/}
-      {/*      <option value={'none'}>None</option>*/}
-      {/*      <option value={'grayscale(100%)'}>Grayscale</option>*/}
-      {/*      <option value={'sepia(100%)'}>Sepia</option>*/}
-      {/*      <option value={'saturate(200%)'}>Saturate</option>*/}
-      {/*    </select>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
+      <div className={s.controls}>
+        {/*<div className={s.controlSection}>*/}
+        {/*  <label htmlFor={'zoom'}>Zoom</label>*/}
+        {/*  <input*/}
+        {/*    className={s.slider}*/}
+        {/*    id={'zoom'}*/}
+        {/*    max={'3'}*/}
+        {/*    min={'1'}*/}
+        {/*    onChange={e => onZoomChange(Number(e.target.value))}*/}
+        {/*    step={'0.1'}*/}
+        {/*    type={'range'}*/}
+        {/*    value={currentState.zoom}*/}
+        {/*  />*/}
+        {/*</div>*/}
+        <div className={s.controlSection}>
+          <label htmlFor={'aspect'}>Aspect Ratio</label>
+          <select
+            className={s.select}
+            id={'aspect'}
+            onChange={onAspectChange}
+            value={currentState.aspect}
+          >
+            <option value={1}>1:1</option>
+            <option value={4 / 3}>4:3</option>
+            <option value={16 / 9}>16:9</option>
+          </select>
+        </div>
+        {/*<div className={s.controlSection}>*/}
+        {/*  <label htmlFor={'filter'}>Filter</label>*/}
+        {/*  <select*/}
+        {/*    className={s.select}*/}
+        {/*    id={'filter'}*/}
+        {/*    onChange={onFilterChange}*/}
+        {/*    value={currentState.filter}*/}
+        {/*  >*/}
+        {/*    <option value={'none'}>None</option>*/}
+        {/*    <option value={'grayscale(100%)'}>Grayscale</option>*/}
+        {/*    <option value={'sepia(100%)'}>Sepia</option>*/}
+        {/*    <option value={'saturate(200%)'}>Saturate</option>*/}
+        {/*  </select>*/}
+        {/*</div>*/}
+      </div>
       {/*<div className={s.navigation}>*/}
       {/*  <button className={s.button} disabled={currentImageIndex === 0} onClick={handlePrevious}>*/}
       {/*    Previous*/}

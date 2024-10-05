@@ -5,6 +5,7 @@
 .cropperContainer {
   width: 30.5rem;
   height: 31.25rem;
+  padding: 0;
 }
 
 //
@@ -43,13 +44,17 @@
 }
 
 .controls {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 0.75rem;
+  left: 0.625rem;
 
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  width: calc(100% - 2 * 0.625rem);
 }
 
 .controlSection {
