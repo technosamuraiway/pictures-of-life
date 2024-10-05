@@ -28,16 +28,23 @@ export const useShowStartImage = (
   }
 
   const imgOnload = (img: HTMLImageElement): void => {
-    setImages((prevImages: ImageData[]) => [
-      ...prevImages,
-      {
+    setImages((prevImages: ImageData[]) => {
+      const newImage = {
         aspectRatio: 'original',
         filters: [],
         id: Date.now().toString(),
         image: img,
         scale: 1,
-      },
-    ])
+      }
+
+      if (downloadedImage.length === 1) {
+        return [newImage]
+      } else if (downloadedImage.length > 10) {
+        return [...prevImages]
+      } else {
+        return [...prevImages, newImage]
+      }
+    })
   }
 
   return {

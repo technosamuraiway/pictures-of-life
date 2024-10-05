@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Image, Layer, Stage } from 'react-konva'
+import { toast } from 'react-toastify'
 
+import { useRouterLocaleDefinition } from '@/shared'
 import Konva from 'konva'
 
 import s from './ImageEditor.module.scss'
@@ -34,7 +36,8 @@ export interface IPosition {
 
 export const ImageEditor = ({ downloadedImage, setDownloadedImage }: IProps) => {
   const [openResetModal, setOpenResetModal] = useState<boolean>(false)
-
+  const [addNewImages, setAddNewImages] = useState<boolean>(false)
+  const t = useRouterLocaleDefinition()
   const [images, setImages] = useState<ImageData[]>([])
 
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
@@ -59,8 +62,18 @@ export const ImageEditor = ({ downloadedImage, setDownloadedImage }: IProps) => 
   )
 
   useEffect(() => {
+    if (downloadedImage.length > 10) {
+      toast.error(t.avatarChange.errorMaxCount)
+      setAddNewImages(false)
+    }
+
     if (downloadedImage && images.length === 0) {
       showDownloadedImage()
+    }
+
+    if (addNewImages) {
+      showDownloadedImage()
+      setAddNewImages(false)
     }
 
     if (imageRef.current && stageRef.current) {
@@ -82,7 +95,7 @@ export const ImageEditor = ({ downloadedImage, setDownloadedImage }: IProps) => 
       image.position({ x, y })
       image.getLayer()?.batchDraw()
     }
-  }, [images, currentImageIndex])
+  }, [images, currentImageIndex, addNewImages])
 
   const applyFilter = (filter: Konva.Filter) => {
     setImages(prevImages => {
@@ -216,6 +229,7 @@ export const ImageEditor = ({ downloadedImage, setDownloadedImage }: IProps) => 
             <AddImages
               currentImageIndex={currentImageIndex}
               images={images}
+              setAddNewImages={setAddNewImages}
               setCurrentImageIndex={setCurrentImageIndex}
               setDownloadedImage={setDownloadedImage}
             />

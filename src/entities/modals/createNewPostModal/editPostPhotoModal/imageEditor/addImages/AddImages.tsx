@@ -15,6 +15,7 @@ import s from './AddImages.module.scss'
 interface IProps {
   currentImageIndex: number
   images: ImageData[]
+  setAddNewImages: (addNewImages: boolean) => void
   setCurrentImageIndex: (currentImageIndex: number) => void
   setDownloadedImage: (
     images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
@@ -26,11 +27,19 @@ const MAX_FILE_SIZE = 20 * 1024 * 1024 // 20 МБ в байтах
 export const AddImages = ({
   currentImageIndex,
   images,
+  setAddNewImages,
   setCurrentImageIndex,
   setDownloadedImage,
 }: IProps) => {
   const [openAddImageDropDown, setOpenAddImageDropDown] = useState<boolean>(false)
   const t = useRouterLocaleDefinition()
+
+  const setDownloadedImageHandler = (
+    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
+  ) => {
+    setAddNewImages(true)
+    setDownloadedImage(images)
+  }
 
   return (
     <Dropdown.Root
@@ -54,10 +63,7 @@ export const AddImages = ({
           {images.map((item, index) => {
             return (
               <Dropdown.Item
-                className={clsx(
-                  s.dropDownItem,
-                  currentImageIndex === index && s.activeDropDownItem
-                )}
+                className={clsx(currentImageIndex === index && s.activeDropDownItem)}
                 key={uuid()}
                 onClick={() => setCurrentImageIndex(index)}
               >
@@ -78,7 +84,7 @@ export const AddImages = ({
             errorSizeText={t.createNewPost.addPhotoModal.errorSizeText}
             maxImgSize={MAX_FILE_SIZE}
             multiple
-            setImage={setDownloadedImage}
+            setImage={setDownloadedImageHandler}
           />
         </div>
       </Scrollbar>
