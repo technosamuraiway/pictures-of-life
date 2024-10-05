@@ -57,6 +57,13 @@
   width: calc(100% - 2 * 0.625rem);
 }
 
+.leftButtonsWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+}
+
 .controlSection {
   display: flex;
   flex-direction: column;

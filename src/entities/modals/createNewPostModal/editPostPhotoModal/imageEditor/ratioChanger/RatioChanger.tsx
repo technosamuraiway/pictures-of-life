@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 
 import { ExpandIcon } from '@public/createPost/ExpandIcon'
 import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
@@ -7,14 +7,18 @@ import { v4 as uuid } from 'uuid'
 
 import s from './RatioChanger.module.scss'
 
-import { RatioDropDownItem } from '../hooks/useChangeImageRatio'
+interface RatioDropDownItem {
+  isActive: boolean
+  itemIcon: ReactNode
+  onDropDownItemClick: () => void
+  ratioName: string
+}
 
 interface IProps {
-  activeRatioItem: string
   ratioDropDownItems: RatioDropDownItem[]
 }
 
-export const RatioChanger = ({ activeRatioItem, ratioDropDownItems }: IProps) => {
+export const RatioChanger = ({ ratioDropDownItems }: IProps) => {
   const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
 
   return (
@@ -35,21 +39,16 @@ export const RatioChanger = ({ activeRatioItem, ratioDropDownItems }: IProps) =>
       triggerCN={s.triggerBtn}
       withArrow={false}
     >
-      {ratioDropDownItems.map(item => {
-        return (
-          <Dropdown.Item
-            className={clsx(
-              s.dropDownItem,
-              activeRatioItem === item.activeRatio && s.activeDropDownItem
-            )}
-            key={uuid()}
-            onClick={item.onDropDownItemClick}
-          >
-            <Typography variant={'regular-text-16'}>{item.ratioName}</Typography>
-            {item.itemIcon}
-          </Dropdown.Item>
-        )
-      })}
+      {ratioDropDownItems.map(item => (
+        <Dropdown.Item
+          className={clsx(s.dropDownItem, item.isActive && s.activeDropDownItem)}
+          key={uuid()}
+          onClick={item.onDropDownItemClick}
+        >
+          <Typography variant={'regular-text-16'}>{item.ratioName}</Typography>
+          {item.itemIcon}
+        </Dropdown.Item>
+      ))}
     </Dropdown.Root>
   )
 }
