@@ -1,4 +1,13 @@
-import { Dispatch, SetStateAction, memo, useCallback, useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import Cropper, { Area, Point } from 'react-easy-crop'
 import { toast } from 'react-toastify'
 
@@ -48,13 +57,17 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
     }
   }, [downloadedImage, setDownloadedImage, t.avatarChange.errorMaxCount])
 
-  const currentState = imageStates[currentImageIndex] || {
-    aspect: 4 / 3,
-    crop: { x: 0, y: 0 },
-    croppedAreaPixels: null,
-    filter: 'none',
-    zoom: 1,
-  }
+  const currentState = useMemo(
+    () =>
+      imageStates[currentImageIndex] || {
+        aspect: 4 / 3,
+        crop: { x: 0, y: 0 },
+        croppedAreaPixels: null,
+        filter: 'none',
+        zoom: 1,
+      },
+    [currentImageIndex, imageStates]
+  )
 
   const updateCurrentImageStateHandler = (newState: Partial<ImageState>) => {
     setImageStates(prev => {
@@ -73,7 +86,7 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
   }
 
   const onFilterChange = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>) => {
+    (event: ChangeEvent<HTMLSelectElement>) => {
       updateCurrentImageStateHandler({ filter: event.target.value })
     },
     [currentImageIndex]
