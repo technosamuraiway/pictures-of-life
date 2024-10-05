@@ -49,8 +49,7 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
     <>
       {changeAvatarIsLoading && <RequestLineLoader />}
       {isEdit ? (
-        image &&
-        !fileError && (
+        image && (
           <AvatarEditor
             image={image}
             isDisableSaveBtn={changeAvatarIsLoading}

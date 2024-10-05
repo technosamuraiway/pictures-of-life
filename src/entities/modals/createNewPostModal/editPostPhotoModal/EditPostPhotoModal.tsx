@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
+
 import { useRouterLocaleDefinition } from '@/shared'
 
 import { PostWithoutHeaderModal } from '../../postWithoutHeaderModal/PostWithoutHeaderModal'
@@ -6,7 +8,7 @@ import { ImageEditor } from './imageEditor/ImageEditor'
 interface IProps {
   downloadedImage: string[]
   onOpen: boolean
-  setDownloadedImage: (images: string[]) => void
+  setDownloadedImage: Dispatch<SetStateAction<string[]>>
   setOnOpen: (onOpen: boolean) => void
 }
 
@@ -21,6 +23,7 @@ export const EditPostPhotoModal = ({
   const onNextButtonClickHandler = () => {}
 
   const onBackButtonClickHandler = () => {
+    setDownloadedImage([])
     setOnOpen(false)
   }
 
@@ -41,7 +44,7 @@ export const EditPostPhotoModal = ({
     >
       <ImageEditor
         downloadedImage={downloadedImage}
-        onCropComplete={onCropCompleteHandler}
+        onComplete={onCropCompleteHandler}
         setDownloadedImage={setDownloadedImage}
       />
     </PostWithoutHeaderModal>

@@ -1,4 +1,4 @@
-import { Dispatch, ElementRef, forwardRef, useState } from 'react'
+import { Dispatch, ElementRef, SetStateAction, forwardRef, useState } from 'react'
 import Avatar from 'react-avatar-editor'
 
 import { ScaleSlider } from '@/entities/components/scaleSlider/ScaleSlider'
@@ -13,7 +13,7 @@ interface IProps {
   maxImgSize: number
   onSaveBtnClick: () => void
   setErrorText: (error: null | string) => void
-  setImage: Dispatch<React.SetStateAction<string[]>>
+  setImage: Dispatch<SetStateAction<string[]>>
 }
 
 const SCALE_STEP = 0.1

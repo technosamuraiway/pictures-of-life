@@ -1,78 +1,238 @@
-import React, { useCallback, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import Cropper, { Area, Point } from 'react-easy-crop'
+
+import s from './ImageEditor.module.scss'
 
 import { getCroppedImg } from './utils'
 
 interface IProps {
   downloadedImage: string[]
-  onCropComplete: (croppedImages: string[]) => void
-  setDownloadedImage: (downloadedImage: string[]) => void
+  onComplete: (croppedImages: string[]) => void
+  setDownloadedImage: Dispatch<SetStateAction<string[]>>
 }
 
-export const ImageEditor = ({ downloadedImage, onCropComplete, setDownloadedImage }: IProps) => {
+interface ImageState {
+  aspect: number
+  crop: Point
+  croppedAreaPixels: Area | null
+  filter: string
+  zoom: number
+}
+
+export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedImage }: IProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
-  const [croppedImages, setCroppedImages] = useState<string[]>([])
-  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
-  const [zoom, setZoom] = useState<number>(1)
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
+  const [imageStates, setImageStates] = useState<ImageState[]>([])
 
-  const onCropChange = useCallback((crop: Point) => {
-    setCrop(crop)
-  }, [])
+  useEffect(() => {
+    if (downloadedImage.length > 0) {
+      setImageStates(
+        downloadedImage.map(() => ({
+          aspect: 4 / 3,
+          crop: { x: 0, y: 0 },
+          croppedAreaPixels: null,
+          filter: 'none',
+          zoom: 1,
+        }))
+      )
+    }
+  }, [downloadedImage])
 
-  const onZoomChange = useCallback((zoom: number) => {
-    setZoom(zoom)
-  }, [])
+  const currentState = imageStates[currentImageIndex] || {
+    aspect: 4 / 3,
+    crop: { x: 0, y: 0 },
+    croppedAreaPixels: null,
+    filter: 'none',
+    zoom: 1,
+  }
 
-  const onCropAreaComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
-    setCroppedAreaPixels(croppedAreaPixels)
-  }, [])
+  const updateCurrentImageState = (newState: Partial<ImageState>) => {
+    setImageStates(prev => {
+      const newStates = [...prev]
 
-  const showCroppedImage = useCallback(async () => {
+      if (newStates[currentImageIndex]) {
+        newStates[currentImageIndex] = { ...newStates[currentImageIndex], ...newState }
+      }
+
+      return newStates
+    })
+  }
+
+  const onCropChange = useCallback(
+    (crop: Point) => {
+      updateCurrentImageState({ crop })
+    },
+    [currentImageIndex]
+  )
+
+  const onZoomChange = useCallback(
+    (zoom: number) => {
+      updateCurrentImageState({ zoom })
+    },
+    [currentImageIndex]
+  )
+
+  const onAspectChange = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      updateCurrentImageState({ aspect: Number(event.target.value) })
+    },
+    [currentImageIndex]
+  )
+
+  const onFilterChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      updateCurrentImageState({ filter: event.target.value })
+    },
+    [currentImageIndex]
+  )
+
+  const onCropComplete = useCallback(
+    (croppedArea: Area, croppedAreaPixels: Area) => {
+      updateCurrentImageState({ croppedAreaPixels })
+    },
+    [currentImageIndex]
+  )
+
+  const processImage = useCallback(async () => {
     try {
-      if (!croppedAreaPixels) {
+      if (!currentState.croppedAreaPixels) {
         throw new Error('Cropped area pixels not set')
       }
 
-      const croppedImage = await getCroppedImg(
+      return await getCroppedImg(
         downloadedImage[currentImageIndex],
-        croppedAreaPixels,
-        0 // rotation
+        currentState.croppedAreaPixels,
+        0, // rotation
+        currentState.filter
       )
-
-      setCroppedImages(prev => [...prev, croppedImage])
-
-      if (currentImageIndex < downloadedImage.length - 1) {
-        setCurrentImageIndex(prev => prev + 1)
-        setCrop({ x: 0, y: 0 })
-        setZoom(1)
-      } else {
-        onCropComplete([...croppedImages, croppedImage])
-      }
     } catch (e) {
       console.error(e)
+
+      return null
     }
-  }, [croppedAreaPixels, currentImageIndex, downloadedImage, croppedImages, onCropComplete])
+  }, [currentImageIndex, downloadedImage, currentState])
+
+  const handleNext = useCallback(async () => {
+    const croppedImage = await processImage()
+
+    if (croppedImage) {
+      setDownloadedImage(prev => {
+        const newImages = [...prev]
+
+        newImages[currentImageIndex] = croppedImage
+
+        return newImages
+      })
+    }
+
+    if (currentImageIndex < downloadedImage.length - 1) {
+      setCurrentImageIndex(prev => prev + 1)
+    } else {
+      onComplete(downloadedImage)
+    }
+  }, [currentImageIndex, downloadedImage, processImage, setDownloadedImage, onComplete])
+
+  const handlePrevious = useCallback(async () => {
+    const croppedImage = await processImage()
+
+    if (croppedImage) {
+      setDownloadedImage(prev => {
+        const newImages = [...prev]
+
+        newImages[currentImageIndex] = croppedImage
+
+        return newImages
+      })
+    }
+
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(prev => prev - 1)
+    }
+  }, [currentImageIndex, processImage, setDownloadedImage])
 
   return (
-    <div className={'crop-container'}>
-      <Cropper
-        aspect={4 / 3}
-        crop={crop}
-        image={downloadedImage[currentImageIndex]}
-        onCropChange={onCropChange}
-        onCropComplete={onCropAreaComplete} // Изменено здесь
-        onZoomChange={onZoomChange}
-        zoom={zoom}
-      />
-      <div>
+    <div className={s.imageEditor}>
+      <div className={s.cropContainer}>
+        <Cropper
+          aspect={currentState.aspect}
+          crop={currentState.crop}
+          image={downloadedImage[currentImageIndex]}
+          onCropChange={onCropChange}
+          onCropComplete={onCropComplete}
+          onZoomChange={onZoomChange}
+          style={{
+            containerStyle: {
+              backgroundColor: '#333',
+              height: '400px',
+              width: '100%',
+            },
+            mediaStyle: {
+              filter: currentState.filter,
+            },
+          }}
+          zoom={currentState.zoom}
+        />
+      </div>
+      <div className={s.controls}>
+        <div className={s.controlSection}>
+          <label htmlFor={'zoom'}>Zoom</label>
+          <input
+            className={s.slider}
+            id={'zoom'}
+            max={'3'}
+            min={'1'}
+            onChange={e => onZoomChange(Number(e.target.value))}
+            step={'0.1'}
+            type={'range'}
+            value={currentState.zoom}
+          />
+        </div>
+        <div className={s.controlSection}>
+          <label htmlFor={'aspect'}>Aspect Ratio</label>
+          <select
+            className={s.select}
+            id={'aspect'}
+            onChange={onAspectChange}
+            value={currentState.aspect}
+          >
+            <option value={1}>1:1</option>
+            <option value={4 / 3}>4:3</option>
+            <option value={16 / 9}>16:9</option>
+          </select>
+        </div>
+        <div className={s.controlSection}>
+          <label htmlFor={'filter'}>Filter</label>
+          <select
+            className={s.select}
+            id={'filter'}
+            onChange={onFilterChange}
+            value={currentState.filter}
+          >
+            <option value={'none'}>None</option>
+            <option value={'grayscale(100%)'}>Grayscale</option>
+            <option value={'sepia(100%)'}>Sepia</option>
+            <option value={'saturate(200%)'}>Saturate</option>
+          </select>
+        </div>
+      </div>
+      <div className={s.navigation}>
+        <button className={s.button} disabled={currentImageIndex === 0} onClick={handlePrevious}>
+          Previous
+        </button>
         <p>
           Image {currentImageIndex + 1} of {downloadedImage.length}
         </p>
-        <button onClick={showCroppedImage} type={'button'}>
+        <button className={s.button} onClick={handleNext}>
           {currentImageIndex < downloadedImage.length - 1 ? 'Next' : 'Finish'}
         </button>
       </div>
     </div>
   )
-}
+})

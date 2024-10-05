@@ -1,4 +1,11 @@
-import { ChangeEvent, ComponentPropsWithoutRef, Dispatch, ReactNode, useRef } from 'react'
+import {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useRef,
+} from 'react'
 import { toast } from 'react-toastify'
 
 import { useRouterLocaleDefinition } from '@/shared'
@@ -17,7 +24,7 @@ interface IProps extends ComponentPropsWithoutRef<'input'> {
   maxImgSize: number
   onEditMode?: (edit: boolean) => void
   setError?: (error: null | string) => void
-  setImage: Dispatch<React.SetStateAction<string[]>>
+  setImage: Dispatch<SetStateAction<string[]>>
 }
 
 export const DownloadFile = ({

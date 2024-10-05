@@ -1,4 +1,4 @@
-import { Dispatch, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { PATH, SquareImg, useRouterLocaleDefinition } from '@/shared'
@@ -11,7 +11,7 @@ import { PreviewImgScreen } from '../../../components/previewImgScreen/PreviewIm
 
 interface IProps {
   onEditMode: (edit: boolean) => void
-  setImage: Dispatch<React.SetStateAction<string[]>>
+  setImage: Dispatch<SetStateAction<string[]>>
 }
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024 // 20 МБ в байтах
