@@ -26,6 +26,12 @@ export const EditPostPhotoModal = ({
     setOnOpen(false)
   }
 
+  const handleCropComplete = (croppedImages: string[]) => {
+    console.log('All images cropped:', croppedImages)
+    // Здесь вы можете отправить обрезанные изображения на сервер или
+    // выполнить другие действия с ними
+  }
+
   return (
     <PostWithoutHeaderModal
       headerTitle={t.createNewPost.editPhotoModal.modalTitle}
@@ -35,7 +41,11 @@ export const EditPostPhotoModal = ({
       onOpen={onOpen}
       setOnOpen={setOnOpen}
     >
-      <ImageEditor downloadedImage={downloadedImage} setDownloadedImage={setDownloadedImage} />
+      <ImageEditor
+        downloadedImage={downloadedImage}
+        onCropCompleteProps={handleCropComplete}
+        setDownloadedImage={setDownloadedImage}
+      />
     </PostWithoutHeaderModal>
   )
 }
