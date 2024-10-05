@@ -158,28 +158,28 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
   }, [currentImageIndex, processImage, setDownloadedImage])
 
   return (
-    <div className={s.imageEditor}>
-      <div className={s.cropContainer}>
-        <Cropper
-          aspect={currentState.aspect}
-          crop={currentState.crop}
-          image={downloadedImage[currentImageIndex]}
-          onCropChange={onCropChange}
-          onCropComplete={onCropComplete}
-          onZoomChange={onZoomChange}
-          style={{
-            containerStyle: {
-              backgroundColor: '#333',
-              height: '400px',
-              width: '100%',
-            },
-            mediaStyle: {
-              filter: currentState.filter,
-            },
-          }}
-          zoom={currentState.zoom}
-        />
-      </div>
+    <div className={s.editorWrapper}>
+      <Cropper
+        aspect={currentState.aspect}
+        classes={{ containerClassName: s.cropperContainer }}
+        crop={currentState.crop}
+        image={downloadedImage[currentImageIndex]}
+        onCropChange={onCropChange}
+        onCropComplete={onCropComplete}
+        onZoomChange={onZoomChange}
+        style={{
+          containerStyle: {
+            backgroundColor: '#333',
+            height: '400px',
+            width: '100%',
+          },
+          mediaStyle: {
+            filter: currentState.filter,
+          },
+        }}
+        zoom={currentState.zoom}
+      />
+
       {/*<div className={s.controls}>*/}
       {/*  <div className={s.controlSection}>*/}
       {/*    <label htmlFor={'zoom'}>Zoom</label>*/}
