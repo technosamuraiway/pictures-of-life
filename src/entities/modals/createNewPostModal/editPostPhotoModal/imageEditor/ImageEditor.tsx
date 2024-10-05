@@ -1,17 +1,8 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  memo,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { Dispatch, SetStateAction, memo, useCallback, useEffect, useState } from 'react'
 import Cropper, { Area, Point } from 'react-easy-crop'
 
-import { useRouterLocaleDefinition } from '@/shared'
-import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
+import { ConfirmReset } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/confirmReset/ConfirmReset'
+import { ZoomSlider } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/zoomSlider/ZoomSlider'
 
 import s from './ImageEditor.module.scss'
 
@@ -24,16 +15,7 @@ interface IProps {
   setDownloadedImage: Dispatch<SetStateAction<string[]>>
 }
 
-// ------- Ratio ------------------
-export interface RatioDropDownItem {
-  activeRatio: string
-  itemIcon: ReactNode
-  onDropDownItemClick: () => void
-  ratioName: string
-}
-// ------------------------------
-
-interface ImageState {
+export interface ImageState {
   aspect: null | number
   crop: Point
   croppedAreaPixels: Area | null
@@ -41,22 +23,23 @@ interface ImageState {
   zoom: number
 }
 
+const initialImageState: ImageState = {
+  aspect: 4 / 3,
+  crop: { x: 0, y: 0 },
+  croppedAreaPixels: null,
+  filter: 'none',
+  zoom: 1,
+}
+
 export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedImage }: IProps) => {
-  const t = useRouterLocaleDefinition()
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
   const [imageStates, setImageStates] = useState<ImageState[]>([])
+  const [openResetModal, setOpenResetModal] = useState<boolean>(false)
+  const [currentAspect, setCurrentAspect] = useState<null | number>(null)
 
   useEffect(() => {
     if (downloadedImage.length > 0) {
-      setImageStates(
-        downloadedImage.map(() => ({
-          aspect: 4 / 3,
-          crop: { x: 0, y: 0 },
-          croppedAreaPixels: null,
-          filter: 'none',
-          zoom: 1,
-        }))
-      )
+      setImageStates(downloadedImage.map(() => ({ ...initialImageState })))
     }
   }, [downloadedImage])
 
@@ -86,29 +69,11 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
     },
     [currentImageIndex]
   )
-
-  const onZoomChange = useCallback(
-    (zoom: number) => {
-      updateCurrentImageState({ zoom })
-    },
-    [currentImageIndex]
-  )
-
-  // ------- Ratio ------------------
-  // const onAspectChange = useCallback(
-  //   (event: ChangeEvent<HTMLSelectElement>) => {
-  //     updateCurrentImageState({ aspect: Number(event.target.value) })
-  //   },
-  //   [currentImageIndex]
-  // )
-  // const onAspectRatioChange = useCallback(
-  //   (newAspect: null | number) => {
-  //     updateCurrentImageState({ aspect: newAspect })
-  //   },
-  //   [currentImageIndex]
-  // )
-
-  // ------------------------------
+  // --------- Zoom ------------
+  const onZoomChange = (zoom: number) => {
+    updateCurrentImageState({ zoom })
+  }
+  // ----------------------------
 
   const onFilterChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -181,73 +146,11 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
     }
   }, [currentImageIndex, processImage, setDownloadedImage])
 
-  // ------- Ratio ------------------
-
-  const [currentAspect, setCurrentAspect] = useState<null | number>(null)
-
-  const ratioDropDownItems = [
-    {
-      isActive: currentAspect === null,
-      itemIcon: <EmptyAvatar className={s.ratioOriginalIcon} />,
-      onDropDownItemClick: () => onAspectRatioChange(null),
-      ratioName: t.createNewPost.editPhotoModal.originalRatio,
-    },
-    {
-      isActive: currentAspect === 1,
-      itemIcon: <div className={s.ratioSquareIcon} />,
-      onDropDownItemClick: () => onAspectRatioChange(1),
-      ratioName: '1:1',
-    },
-    {
-      isActive: currentAspect === 4 / 5,
-      itemIcon: <div className={s.ratioPhoneIcon} />,
-      onDropDownItemClick: () => onAspectRatioChange(4 / 5),
-      ratioName: '4:5',
-    },
-    {
-      isActive: currentAspect === 16 / 9,
-      itemIcon: <div className={s.ratioDesktopIcon} />,
-      onDropDownItemClick: () => onAspectRatioChange(16 / 9),
-      ratioName: '16:9',
-    },
-  ]
-
-  // const onAspectRatioChange = (newAspect: null | number) => {
-  //   setCurrentAspect(newAspect)
-  //   // Здесь ваша логика для изменения соотношения сторон изображения
-  // }
-
-  const onAspectRatioChange = (newAspect: null | number) => {
-    setCurrentAspect(newAspect)
-    updateCurrentImageState({ aspect: newAspect })
+  const resetCurrentImage = () => {
+    updateCurrentImageState(initialImageState)
+    setOpenResetModal(false)
+    setCurrentAspect(null)
   }
-
-  // const ratioDropDownItems = [
-  //   {
-  //     isActive: currentState.aspect === null,
-  //     itemIcon: <EmptyAvatar className={s.ratioOriginalIcon} />,
-  //     onDropDownItemClick: () => onAspectRatioChange(null),
-  //     ratioName: t.createNewPost.editPhotoModal.originalRatio,
-  //   },
-  //   {
-  //     isActive: currentState.aspect === 1,
-  //     itemIcon: <div className={s.ratioSquareIcon} />,
-  //     onDropDownItemClick: () => onAspectRatioChange(1),
-  //     ratioName: '1:1',
-  //   },
-  //   {
-  //     isActive: currentState.aspect === 4 / 5,
-  //     itemIcon: <div className={s.ratioPhoneIcon} />,
-  //     onDropDownItemClick: () => onAspectRatioChange(4 / 5),
-  //     ratioName: '4:5',
-  //   },
-  //   {
-  //     isActive: currentState.aspect === 16 / 9,
-  //     itemIcon: <div className={s.ratioDesktopIcon} />,
-  //     onDropDownItemClick: () => onAspectRatioChange(16 / 9),
-  //     ratioName: '16:9',
-  //   },
-  // ]
 
   // ------------------------------
   return (
@@ -270,13 +173,17 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
 
       <div className={s.buttonsWrapper}>
         <div className={s.leftButtonsWrapper}>
-          <RatioChanger ratioDropDownItems={ratioDropDownItems} />
-          {/*<ZoomSlider currentImageScale={currentImage.scale} onZoomChange={onZoomChangeHandler} />*/}
-          {/*<ConfirmReset*/}
-          {/*  openResetModal={openResetModal}*/}
-          {/*  resetImageSettings={resetImage}*/}
-          {/*  setOpenResetModal={setOpenResetModal}*/}
-          {/*/>*/}
+          <RatioChanger
+            currentAspect={currentAspect}
+            setCurrentAspect={setCurrentAspect}
+            updateCurrentImageState={updateCurrentImageState}
+          />
+          <ZoomSlider onZoomChange={onZoomChange} zoom={currentState.zoom} />
+          <ConfirmReset
+            openResetModal={openResetModal}
+            resetImageSettings={resetCurrentImage}
+            setOpenResetModal={setOpenResetModal}
+          />
         </div>
         {/*<AddImages*/}
         {/*  currentImageIndex={currentImageIndex}*/}

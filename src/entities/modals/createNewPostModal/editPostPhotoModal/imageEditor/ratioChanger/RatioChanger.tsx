@@ -1,11 +1,15 @@
 import { ReactNode, useState } from 'react'
 
+import { useRouterLocaleDefinition } from '@/shared'
 import { ExpandIcon } from '@public/createPost/ExpandIcon'
+import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
 import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import { v4 as uuid } from 'uuid'
 
 import s from './RatioChanger.module.scss'
+
+import { ImageState } from '../ImageEditor'
 
 interface RatioDropDownItem {
   isActive: boolean
@@ -15,11 +19,50 @@ interface RatioDropDownItem {
 }
 
 interface IProps {
-  ratioDropDownItems: RatioDropDownItem[]
+  currentAspect: null | number
+  setCurrentAspect: (currentAspect: null | number) => void
+  updateCurrentImageState: (newState: Partial<ImageState>) => void
 }
 
-export const RatioChanger = ({ ratioDropDownItems }: IProps) => {
+export const RatioChanger = ({
+  currentAspect,
+  setCurrentAspect,
+  updateCurrentImageState,
+}: IProps) => {
   const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
+  const t = useRouterLocaleDefinition()
+
+  const ratioDropDownItems: RatioDropDownItem[] = [
+    {
+      isActive: currentAspect === null,
+      itemIcon: <EmptyAvatar className={s.ratioOriginalIcon} />,
+      onDropDownItemClick: () => onAspectRatioChange(null),
+      ratioName: t.createNewPost.editPhotoModal.originalRatio,
+    },
+    {
+      isActive: currentAspect === 1,
+      itemIcon: <div className={s.ratioSquareIcon} />,
+      onDropDownItemClick: () => onAspectRatioChange(1),
+      ratioName: '1:1',
+    },
+    {
+      isActive: currentAspect === 4 / 5,
+      itemIcon: <div className={s.ratioPhoneIcon} />,
+      onDropDownItemClick: () => onAspectRatioChange(4 / 5),
+      ratioName: '4:5',
+    },
+    {
+      isActive: currentAspect === 16 / 9,
+      itemIcon: <div className={s.ratioDesktopIcon} />,
+      onDropDownItemClick: () => onAspectRatioChange(16 / 9),
+      ratioName: '16:9',
+    },
+  ]
+
+  const onAspectRatioChange = (newAspect: null | number) => {
+    setCurrentAspect(newAspect)
+    updateCurrentImageState({ aspect: newAspect })
+  }
 
   return (
     <Dropdown.Root

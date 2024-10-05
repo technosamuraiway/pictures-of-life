@@ -1,3 +1,32 @@
+.ratioOriginalIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: -0.1875rem;
+}
+
+.ratioSquareIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.ratioPhoneIcon {
+  width: 1.125rem;
+  height: 1.625rem;
+}
+
+.ratioDesktopIcon {
+  width: 1.625rem;
+  height: 1.25rem;
+}
+
+.ratioDesktopIcon,
+.ratioPhoneIcon,
+.ratioSquareIcon {
+  background-color: transparent;
+  border: 0.125rem solid var(--Light-900);
+  border-radius: 0.1875rem;
+}
+
 .dropdownContent {
   display: flex;
   flex-direction: column;
@@ -34,45 +63,6 @@
   border-radius: 0.125rem;
 }
 
-.ratioOriginalIcon {
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: -0.1875rem;
-}
-
-.ratioSquareIcon {
-  width: 1.125rem;
-  height: 1.125rem;
-}
-
-.ratioPhoneIcon {
-  width: 1.125rem;
-  height: 1.625rem;
-}
-
-.ratioDesktopIcon {
-  width: 1.625rem;
-  height: 1.25rem;
-}
-
-.ratioDesktopIcon,
-.ratioPhoneIcon,
-.ratioSquareIcon {
-  background-color: transparent;
-  border: 0.125rem solid var(--Light-900);
-  border-radius: 0.1875rem;
-}
-
-.activeDropDownItem {
-  color: var(--Light-100);
-
-  .ratioDesktopIcon,
-  .ratioPhoneIcon,
-  .ratioSquareIcon {
-    border: 0.125rem solid var(--Light-100);
-  }
-}
-
 .dropDownItem {
   display: flex;
   flex-direction: row;
@@ -87,5 +77,15 @@
     .ratioSquareIcon {
       border: 0.125rem solid var(--Light-100);
     }
+  }
+}
+
+.activeDropDownItem {
+  color: var(--Light-100);
+
+  .ratioDesktopIcon,
+  .ratioPhoneIcon,
+  .ratioSquareIcon {
+    border: 0.125rem solid var(--Light-100);
   }
 }

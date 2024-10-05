@@ -9,12 +9,16 @@ import clsx from 'clsx'
 import s from './ZoomSlider.module.scss'
 
 interface IProps {
-  currentImageScale: number
-  onZoomChange: (currentImageScale: number[]) => void
+  onZoomChange: (zoom: number) => void
+  zoom: number
 }
 
-export const ZoomSlider = ({ currentImageScale, onZoomChange }: IProps) => {
+export const ZoomSlider = ({ onZoomChange, zoom }: IProps) => {
   const [openSliderDropDown, setOpenSliderDropDown] = useState<boolean>(false)
+
+  const onZoomChangeHandler = (zoom: number[]) => {
+    onZoomChange(zoom[0])
+  }
 
   return (
     <Dropdown.Root
@@ -34,13 +38,13 @@ export const ZoomSlider = ({ currentImageScale, onZoomChange }: IProps) => {
       withArrow={false}
     >
       <ScaleSlider
-        onScaleChange={onZoomChange}
-        scale={[currentImageScale]}
+        onScaleChange={onZoomChangeHandler}
+        scale={[zoom]}
         scaleMax={2}
         scaleMin={0.1}
         scaleStep={0.1}
         scaleWrapperCN={s.scaleWrapper}
-        setScale={onZoomChange}
+        setScale={onZoomChangeHandler}
         sliderRootCN={s.sliderRoot}
         sliderWrapperCN={s.sliderWrapper}
         zoomIconCN={s.sliderZoomIcon}
