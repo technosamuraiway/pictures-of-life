@@ -95,6 +95,7 @@ export const ImageEditor = ({ downloadedImage, setDownloadedImage }: IProps) => 
       image.position({ x, y })
       image.getLayer()?.batchDraw()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images, currentImageIndex, addNewImages])
 
   const applyFilter = (filter: Konva.Filter) => {
