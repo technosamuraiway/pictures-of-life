@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
-import { ImageData } from '@/entities/modals/createNewPostModal/editPostPhotoModal/imageEditor/ImageEditor'
 import { DownloadFile, useRouterLocaleDefinition } from '@/shared'
 import { ActiveEmptyAvatar } from '@public/createPost/ActiveEmptyAvatar'
 import { AddNewImage } from '@public/createPost/AddNewImage'
@@ -14,12 +13,9 @@ import s from './AddImages.module.scss'
 
 interface IProps {
   currentImageIndex: number
-  images: ImageData[]
-  setAddNewImages: (addNewImages: boolean) => void
+  images: string[]
   setCurrentImageIndex: (currentImageIndex: number) => void
-  setDownloadedImage: (
-    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
-  ) => void
+  setDownloadedImage: Dispatch<SetStateAction<string[]>>
 }
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024 // 20 МБ в байтах
@@ -27,19 +23,11 @@ const MAX_FILE_SIZE = 20 * 1024 * 1024 // 20 МБ в байтах
 export const AddImages = ({
   currentImageIndex,
   images,
-  setAddNewImages,
   setCurrentImageIndex,
   setDownloadedImage,
 }: IProps) => {
   const [openAddImageDropDown, setOpenAddImageDropDown] = useState<boolean>(false)
   const t = useRouterLocaleDefinition()
-
-  const setDownloadedImageHandler = (
-    images: (File | string)[] | ((prevImages: (File | string)[]) => (File | string)[])
-  ) => {
-    setAddNewImages(true)
-    setDownloadedImage(images)
-  }
 
   return (
     <Dropdown.Root
@@ -67,13 +55,7 @@ export const AddImages = ({
                 key={uuid()}
                 onClick={() => setCurrentImageIndex(index)}
               >
-                <Image
-                  alt={'Image'}
-                  className={s.imageItem}
-                  height={82}
-                  src={item.image}
-                  width={80}
-                />
+                <Image alt={'Image'} className={s.imageItem} height={82} src={item} width={80} />
               </Dropdown.Item>
             )
           })}
@@ -84,7 +66,7 @@ export const AddImages = ({
             errorSizeText={t.createNewPost.addPhotoModal.errorSizeText}
             maxImgSize={MAX_FILE_SIZE}
             multiple
-            setImage={setDownloadedImageHandler}
+            setImage={setDownloadedImage}
           />
         </div>
       </Scrollbar>

@@ -35,8 +35,8 @@
 }
 
 .activeDropDownItem {
+  border: 0.125rem solid var(--Primary-500);
   border-radius: 0.125rem;
-  box-shadow: inset 0 0 10px var(--Primary-500);
 }
 
 .imageItem {

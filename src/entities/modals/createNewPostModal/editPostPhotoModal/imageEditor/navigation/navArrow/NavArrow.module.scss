@@ -1,0 +1,26 @@
+.navArrow {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  color: var(--Light-100);
+
+  background-color: rgb(23 23 23 / 80%);
+  border-radius: 0.125rem;
+
+  transition: color 0.3s;
+
+  &:hover {
+    color: var(--Primary-300);
+  }
+}
