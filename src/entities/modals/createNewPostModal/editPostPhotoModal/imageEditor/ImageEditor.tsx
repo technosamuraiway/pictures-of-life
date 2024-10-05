@@ -175,7 +175,7 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
         zoom={currentState.zoom}
       />
 
-      <div className={s.controls}>
+      <div className={s.buttonsWrapper}>
         {/*<div className={s.controlSection}>*/}
         {/*  <label htmlFor={'zoom'}>Zoom</label>*/}
         {/*  <input*/}
@@ -189,19 +189,19 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
         {/*    value={currentState.zoom}*/}
         {/*  />*/}
         {/*</div>*/}
-        <div className={s.controlSection}>
-          <label htmlFor={'aspect'}>Aspect Ratio</label>
-          <select
-            className={s.select}
-            id={'aspect'}
-            onChange={onAspectChange}
-            value={currentState.aspect}
-          >
-            <option value={1}>1:1</option>
-            <option value={4 / 3}>4:3</option>
-            <option value={16 / 9}>16:9</option>
-          </select>
-        </div>
+        {/*<div className={s.controlSection}>*/}
+        {/*  <label htmlFor={'aspect'}>Aspect Ratio</label>*/}
+        {/*  <select*/}
+        {/*    className={s.select}*/}
+        {/*    id={'aspect'}*/}
+        {/*    onChange={onAspectChange}*/}
+        {/*    value={currentState.aspect}*/}
+        {/*  >*/}
+        {/*    <option value={1}>1:1</option>*/}
+        {/*    <option value={4 / 3}>4:3</option>*/}
+        {/*    <option value={16 / 9}>16:9</option>*/}
+        {/*  </select>*/}
+        {/*</div>*/}
         {/*<div className={s.controlSection}>*/}
         {/*  <label htmlFor={'filter'}>Filter</label>*/}
         {/*  <select*/}
