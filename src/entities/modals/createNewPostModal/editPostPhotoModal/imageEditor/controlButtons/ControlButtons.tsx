@@ -9,6 +9,7 @@ import { RatioChanger } from './ratioChanger/RatioChanger'
 import { ZoomSlider } from './zoomSlider/ZoomSlider'
 
 interface IProps {
+  currentAspect: null | number
   currentImageIndex: number
   currentZoom: number
   downloadedImage: string[]
@@ -19,6 +20,7 @@ interface IProps {
   updateCurrentImageState: (newState: Partial<ImageState>) => void
 }
 export const ControlButtons = ({
+  currentAspect,
   currentImageIndex,
   currentZoom,
   downloadedImage,
@@ -28,13 +30,11 @@ export const ControlButtons = ({
   setDownloadedImage,
   updateCurrentImageState,
 }: IProps) => {
-  const [currentAspect, setCurrentAspect] = useState<null | number>(null)
   const [openResetModal, setOpenResetModal] = useState<boolean>(false)
 
   const resetCurrentImageSettingHandler = () => {
     updateCurrentImageState(initialImageState)
     setOpenResetModal(false)
-    setCurrentAspect(null)
   }
 
   return (
@@ -42,7 +42,6 @@ export const ControlButtons = ({
       <div className={s.leftButtonsWrapper}>
         <RatioChanger
           currentAspect={currentAspect}
-          setCurrentAspect={setCurrentAspect}
           updateCurrentImageState={updateCurrentImageState}
         />
         <ZoomSlider onZoomChange={onZoomChange} zoom={currentZoom} />

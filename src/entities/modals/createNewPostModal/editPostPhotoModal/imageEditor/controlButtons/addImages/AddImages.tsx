@@ -1,10 +1,10 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, MouseEvent, SetStateAction, useState } from 'react'
 
 import { DownloadFile, useRouterLocaleDefinition } from '@/shared'
 import { ActiveEmptyAvatar } from '@public/createPost/ActiveEmptyAvatar'
 import { AddNewImage } from '@public/createPost/AddNewImage'
 import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
-import { Dropdown, Scrollbar } from '@technosamurai/techno-ui-kit'
+import { Dropdown, Scrollbar, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { v4 as uuid } from 'uuid'
@@ -29,6 +29,17 @@ export const AddImages = ({
   const [openAddImageDropDown, setOpenAddImageDropDown] = useState<boolean>(false)
   const t = useRouterLocaleDefinition()
 
+  const onDeleteImageClickHandler = (index: number, event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
+
+    setDownloadedImage(prevImages => prevImages.filter((_, i) => i !== index))
+    if (currentImageIndex === index) {
+      setCurrentImageIndex(Math.max(0, index - 1))
+    } else if (currentImageIndex > index) {
+      setCurrentImageIndex(currentImageIndex - 1)
+    }
+  }
+
   return (
     <Dropdown.Root
       contentAlign={'end'}
@@ -51,11 +62,24 @@ export const AddImages = ({
           {images.map((item, index) => {
             return (
               <Dropdown.Item
-                className={clsx(currentImageIndex === index && s.activeDropDownItem)}
+                className={clsx(
+                  s.dropDownItem,
+                  currentImageIndex === index && s.activeDropDownItem
+                )}
                 key={uuid()}
                 onClick={() => setCurrentImageIndex(index)}
               >
                 <Image alt={'Image'} className={s.imageItem} height={82} src={item} width={80} />
+                <button
+                  aria-label={'Delete image'}
+                  className={s.deleteButton}
+                  onClick={event => onDeleteImageClickHandler(index, event)}
+                  type={'button'}
+                >
+                  <Typography className={s.cross} variant={'bold-text-14'}>
+                    x
+                  </Typography>
+                </button>
               </Dropdown.Item>
             )
           })}

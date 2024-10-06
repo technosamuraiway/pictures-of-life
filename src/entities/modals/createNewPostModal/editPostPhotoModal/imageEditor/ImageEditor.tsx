@@ -145,6 +145,7 @@ export const ImageEditor = memo(({ downloadedImage, onComplete, setDownloadedIma
       </div>
 
       <ControlButtons
+        currentAspect={currentState.aspect}
         currentImageIndex={currentImageIndex}
         currentZoom={currentState.zoom}
         downloadedImage={downloadedImage}

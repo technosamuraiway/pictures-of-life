@@ -1,7 +1,7 @@
 .dropdownContent {
   padding: 0.625rem 0.75rem;
   color: var(--Light-900);
-  background-color: rgb(23 23 23 / 70%);
+  background-color: var(--Dark-500-80);
   animation-duration: 0s;
 }
 
@@ -34,6 +34,10 @@
   width: 100%;
 }
 
+.dropDownItem {
+  position: relative;
+}
+
 .activeDropDownItem {
   border: 0.125rem solid var(--Primary-500);
   border-radius: 0.125rem;
@@ -41,6 +45,40 @@
 
 .imageItem {
   border-radius: 0.125rem;
+}
+
+.deleteButton {
+  cursor: pointer;
+
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1rem;
+  height: 1rem;
+
+  color: var(--Light-100);
+
+  background-color: var(--Dark-500-80);
+  border-radius: 0.25rem;
+
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
+  &:hover {
+    color: var(--Primary-500);
+    background-color: var(--Dark-500);
+  }
+}
+
+.cross {
+  align-self: center;
+  font-size: 0.75rem;
 }
 
 .addImageBtn {
