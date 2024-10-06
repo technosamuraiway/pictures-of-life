@@ -42,6 +42,8 @@ export const ru = {
         negativeResult: 'Нет',
         positiveResult: 'Да',
       },
+      textAreaLabel: 'Добавь описание поста',
+      textAreaPlaceHolder: 'Описание вашего поста начинается здесь...',
     },
 
     title: 'Создать пост',

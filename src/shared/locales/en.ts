@@ -44,6 +44,8 @@ export const en: LocaleType = {
         negativeResult: 'No',
         positiveResult: 'Yes',
       },
+      textAreaLabel: 'Add publication descriptions',
+      textAreaPlaceHolder: 'Your description start here...',
     },
 
     title: 'Создать пост',
