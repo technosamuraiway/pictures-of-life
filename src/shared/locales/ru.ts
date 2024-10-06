@@ -42,6 +42,7 @@ export const ru = {
         negativeResult: 'Нет',
         positiveResult: 'Да',
       },
+      textAreaCharLimit: 'Вы достигли лимита символов!',
       textAreaLabel: 'Добавь описание поста',
       textAreaPlaceHolder: 'Описание вашего поста начинается здесь...',
     },

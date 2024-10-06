@@ -44,6 +44,7 @@ export const en: LocaleType = {
         negativeResult: 'No',
         positiveResult: 'Yes',
       },
+      textAreaCharLimit: 'Your rich char limit!',
       textAreaLabel: 'Add publication descriptions',
       textAreaPlaceHolder: 'Your description start here...',
     },

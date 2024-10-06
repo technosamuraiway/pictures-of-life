@@ -1,0 +1,37 @@
+.postWrapper {
+  height: 50%;
+  padding: 1.5rem;
+  border-bottom: 0.0625rem solid var(--Dark-100);
+}
+
+.avatarWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.textAreaWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.textAreaLabel {
+  color: var(--Light-900);
+}
+
+.textArea {
+  height: 6.25rem;
+}
+
+.charCount {
+  align-self: flex-end;
+}
