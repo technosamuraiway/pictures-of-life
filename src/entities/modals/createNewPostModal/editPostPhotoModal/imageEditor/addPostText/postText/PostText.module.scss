@@ -24,12 +24,18 @@
   flex-direction: column;
 }
 
-.textAreaLabel {
-  color: var(--Light-900);
-}
-
 .textArea {
   height: 6.25rem;
+}
+
+.errorText {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 0;
+}
+
+.wrapper {
+  position: relative;
 }
 
 .charCount {

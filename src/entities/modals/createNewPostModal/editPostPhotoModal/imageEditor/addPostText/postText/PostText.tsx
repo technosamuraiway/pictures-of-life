@@ -12,7 +12,7 @@ export const PostText = () => {
 
   const t = useRouterLocaleDefinition()
 
-  const [charCount, setCharCount] = useState<number>(MAX_CHARS)
+  const [charCount, setCharCount] = useState<number>(0)
 
   const onTextAreaCharChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const usedChars = event.target.value.length
@@ -33,17 +33,16 @@ export const PostText = () => {
         <Typography variant={'regular-text-16'}>{profileData?.userName}</Typography>
       </div>
       <div className={s.textAreaWrapper}>
-        <Typography className={s.textAreaLabel} variant={'regular-text-14'}>
-          {t.createNewPost.editPhotoModal.textAreaLabel}
-        </Typography>
-
         <TextArea
           className={s.textArea}
           errorText={t.createNewPost.editPhotoModal.textAreaCharLimit}
+          errorTextCN={s.errorText}
           isError={charCount >= MAX_CHARS}
           maxLength={MAX_CHARS}
           onChange={onTextAreaCharChangeHandler}
           placeholder={t.createNewPost.editPhotoModal.textAreaPlaceHolder}
+          textAreaLabelText={t.createNewPost.editPhotoModal.textAreaLabel}
+          wrapperCN={s.wrapper}
         />
 
         <Typography className={s.charCount} variant={'regular-text-14'}>
