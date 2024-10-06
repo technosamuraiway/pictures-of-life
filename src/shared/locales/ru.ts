@@ -29,6 +29,7 @@ export const ru = {
       modalExitText:
         'Вы действительно хотите закрыть создание публикации? Если вы закроете, все будет удалено',
       modalExitTitle: 'Закрыть',
+      modalFiltersTitle: 'Фильтры',
       modalTitle: 'Редактор Фото',
       nextBtn: 'Далее',
       originalRatio: 'Оригинал',

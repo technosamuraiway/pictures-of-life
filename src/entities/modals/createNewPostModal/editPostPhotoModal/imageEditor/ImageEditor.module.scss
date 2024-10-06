@@ -1,95 +1,17 @@
+.baseWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .editorWrapper {
   position: relative;
+  width: 30.5rem;
 }
 
 .cropperContainer {
   width: 30.5rem;
   height: 31.25rem;
   padding: 0;
-}
-
-.buttonsWrapper {
-  position: absolute;
-  z-index: 100;
-  bottom: 0.75rem;
-  left: 0.625rem;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-  width: calc(100% - 2 * 0.625rem);
-}
-
-.leftButtonsWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.controlSection {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  label {
-    font-weight: bold;
-  }
-}
-
-.slider {
-  width: 100%;
-  height: 10px;
-
-  appearance: none;
-  opacity: 0.7;
-  background: #ddd;
-  outline: none;
-
-  transition: opacity 0.2s;
-
-  &::-webkit-slider-thumb {
-    cursor: pointer;
-
-    width: 20px;
-    height: 20px;
-
-    appearance: none;
-    background: #4caf50;
-    border-radius: 50%;
-  }
-
-  &::-moz-range-thumb {
-    cursor: pointer;
-
-    width: 20px;
-    height: 20px;
-
-    background: #4caf50;
-    border-radius: 50%;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.select {
-  width: 100%;
-  padding: 10px;
-
-  font-size: 16px;
-
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.navigation {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
 }

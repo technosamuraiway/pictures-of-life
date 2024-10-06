@@ -12,6 +12,7 @@ import s from './PostWithoutHeaderModal.module.scss'
 
 interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
   contentCN?: string
+  editFilter: boolean
   nextBtnTitle?: string
   onBackButtonClick?: () => void
   onNextButtonClick?: () => void
@@ -22,6 +23,7 @@ interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
 export const PostWithoutHeaderModal = ({
   children,
   contentCN,
+  editFilter,
   headerTitle,
   modalSize = 'M',
   nextBtnTitle,
@@ -55,7 +57,7 @@ export const PostWithoutHeaderModal = ({
       <Modal
         contentClassName={clsx(s.wrapper, contentCN)}
         headerTitle={headerTitle}
-        modalSize={modalSize}
+        modalSize={editFilter ? 'XL' : modalSize}
         onOpenChange={onCloseModalHandler}
         open={onOpen}
         showHeader={false}

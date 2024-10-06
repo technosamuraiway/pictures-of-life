@@ -31,6 +31,7 @@ export const en: LocaleType = {
       modalExitText:
         'Do you really want to close the creation of a publication? If you close everything will be deleted',
       modalExitTitle: 'Close',
+      modalFiltersTitle: 'Filters',
       modalTitle: 'Photo Editor',
       nextBtn: 'Next',
       originalRatio: 'Original',

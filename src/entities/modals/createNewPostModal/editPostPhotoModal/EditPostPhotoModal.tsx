@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 import { useRouterLocaleDefinition } from '@/shared'
 
@@ -18,13 +18,24 @@ export const EditPostPhotoModal = ({
   setDownloadedImage,
   setOnOpen,
 }: IProps) => {
+  const [editFilter, setEditFilter] = useState<boolean>(false)
   const t = useRouterLocaleDefinition()
 
-  const onNextButtonClickHandler = () => {}
+  const onNextButtonClickHandler = () => {
+    if (editFilter) {
+    } else {
+      setEditFilter(true)
+    }
+  }
 
   const onBackButtonClickHandler = () => {
-    setDownloadedImage([])
-    setOnOpen(false)
+    if (editFilter) {
+      setEditFilter(false)
+      setOnOpen(true)
+    } else {
+      setDownloadedImage([])
+      setOnOpen(false)
+    }
   }
 
   const onCropCompleteHandler = (croppedImages: string[]) => {
@@ -35,7 +46,12 @@ export const EditPostPhotoModal = ({
 
   return (
     <PostWithoutHeaderModal
-      headerTitle={t.createNewPost.editPhotoModal.modalTitle}
+      editFilter={editFilter}
+      headerTitle={
+        editFilter
+          ? t.createNewPost.editPhotoModal.modalFiltersTitle
+          : t.createNewPost.editPhotoModal.modalTitle
+      }
       nextBtnTitle={t.createNewPost.editPhotoModal.nextBtn}
       onBackButtonClick={onBackButtonClickHandler}
       onNextButtonClick={onNextButtonClickHandler}
@@ -44,6 +60,7 @@ export const EditPostPhotoModal = ({
     >
       <ImageEditor
         downloadedImage={downloadedImage}
+        editFilter={editFilter}
         onComplete={onCropCompleteHandler}
         setDownloadedImage={setDownloadedImage}
       />
