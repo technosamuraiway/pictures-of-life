@@ -1,7 +1,7 @@
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren } from 'react'
 
 import { useMeCurInfoQuery } from '@/services'
-import { PATH, PRIVATE_ROUTES_SET } from '@/shared'
+import { PATH, PUBLIC_ROUTES_SET } from '@/shared'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
@@ -12,35 +12,23 @@ export const AuthGuard: NextPage<PropsWithChildren> = ({ children }) => {
 
   const { data, isLoading } = useMeCurInfoQuery()
 
-  const [value, setValue] = useState(router.pathname)
-
-  // if (isLoading) {
-  //   return <InitLoader />
-  // }
+  if (isLoading) {
+    return <InitLoader />
+  }
 
   const pathWithoutQuery = router.pathname
-  const isPrivateRout = PRIVATE_ROUTES_SET.has(pathWithoutQuery)
+  const isGitHubAuth = router.pathname === PATH.AUTH.URLGITHUBLOGIN
+  const shouldRedirect = !!data === PUBLIC_ROUTES_SET.has(pathWithoutQuery)
 
-  // console.log(isPrivateRout)
-  // console.log(validResponse)
-  //
-  // if (isPrivateRout) {
-  //   router.push(PATH.HOME)
-  // }
+  // не мешаем запросу-авторизации через GitHub
+  if (shouldRedirect && !isGitHubAuth) {
+    router.push(data ? PATH.HOME : PATH.AUTH.SIGNIN)
 
-  // if (!data || isError) {
-  //   router.push(PATH.AUTH.SIGNIN)
-  //
-  //   /* ⛔ если здесь ничего не возвращать, то будут возвращаться children
-  //    * => даже переходя на приватную страницу без авторизации - будет кратковременно
-  //    * отрисовываться данная приватная страница
-  //    * */
-  //   return null
-  // }
-
-  // если: ПРИШЕЛ ОТВЕТ С СЕРВРЕА + ПОЛЬЗОВАТЕЛЬ КАК-ТО ХОЧЕТ ПОПАСТЬ НА auth страничку => отправить на home
-  if (data && isPrivateRout) {
-    router.push(PATH.HOME)
+    /* ⛔ если здесь ничего не возвращать, то будут возвращаться children
+     * => даже переходя на приватную страницу без авторизации - будет кратковременно
+     * отрисовываться данная приватная страница
+     * */
+    return null
   }
 
   return <>{children}</>
