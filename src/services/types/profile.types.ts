@@ -38,3 +38,12 @@ export type ProfileFormValues = {
   region?: string
   userName: string
 }
+
+export type IPostTextArgs = {
+  childrenMetadata: [
+    {
+      uploadId: string
+    },
+  ]
+  description: string
+}

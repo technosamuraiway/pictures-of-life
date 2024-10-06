@@ -1,9 +1,12 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 
+import { useCreateImagePostMutation } from '@/services'
 import { useRouterLocaleDefinition } from '@/shared'
 
 import { PostWithoutHeaderModal } from '../../postWithoutHeaderModal/PostWithoutHeaderModal'
 import { ImageEditor } from './imageEditor/ImageEditor'
+import { ImageState } from './imageEditor/utils/types'
+import { getCroppedImg } from './imageEditor/utils/utils'
 
 interface IProps {
   downloadedImage: string[]
@@ -20,13 +23,39 @@ export const EditPostPhotoModal = ({
 }: IProps) => {
   const [editFilter, setEditFilter] = useState<boolean>(false)
   const [addTextView, setAddTextView] = useState<boolean>(false)
+  const [imageStates, setImageStates] = useState<ImageState[]>([])
   const t = useRouterLocaleDefinition()
 
-  const onNextButtonClickHandler = () => {
+  const [createImagePost, { isLoading: isCreateImagePostLoading }] = useCreateImagePostMutation()
+
+  const processAllImages = async () => {
+    const processedImages = await Promise.all(
+      imageStates.map(async (state, index) => {
+        if (state.croppedAreaPixels) {
+          return await getCroppedImg(
+            downloadedImage[index],
+            state.croppedAreaPixels,
+            0,
+            state.filter
+          )
+        }
+
+        return null
+      })
+    )
+
+    // Фильтруем null значения (если были ошибки при обработке)
+    return processedImages.filter((img): img is string => img !== null)
+  }
+
+  const onNextButtonClickHandler = async () => {
     if (editFilter) {
       setEditFilter(false)
       setAddTextView(true)
     } else if (addTextView) {
+      const processedImages = await processAllImages()
+
+      await createImagePost({ images: processedImages })
     } else {
       setEditFilter(true)
     }
@@ -79,8 +108,10 @@ export const EditPostPhotoModal = ({
         addTextView={addTextView}
         downloadedImage={downloadedImage}
         editFilter={editFilter}
+        imageStates={imageStates}
         onComplete={onCropCompleteHandler}
         setDownloadedImage={setDownloadedImage}
+        setImageStates={setImageStates}
       />
     </PostWithoutHeaderModal>
   )

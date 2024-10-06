@@ -5,7 +5,6 @@ import { EditPostPhotoModal } from './editPostPhotoModal/EditPostPhotoModal'
 
 export const CreateNewPostModal = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
-
   const [downloadedImage, setDownloadedImage] = useState<string[]>([])
 
   return (

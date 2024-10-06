@@ -11,14 +11,15 @@ import { CropperImg } from './cropperImg/CropperImg'
 import { FiltersChanger } from './filtersChanger/FiltersChanger'
 import { Navigation } from './navigation/Navigation'
 import { ImageState } from './utils/types'
-import { getCroppedImg } from './utils/utils'
 
 interface IProps {
   addTextView: boolean
   downloadedImage: string[]
   editFilter: boolean
+  imageStates: ImageState[]
   onComplete: (croppedImages: string[]) => void
   setDownloadedImage: Dispatch<SetStateAction<string[]>>
+  setImageStates: Dispatch<SetStateAction<ImageState[]>>
 }
 
 const initialImageState: ImageState = {
@@ -32,9 +33,16 @@ const initialImageState: ImageState = {
 const MAX_IMAGES = 10
 
 export const ImageEditor = memo(
-  ({ addTextView, downloadedImage, editFilter, onComplete, setDownloadedImage }: IProps) => {
+  ({
+    addTextView,
+    downloadedImage,
+    editFilter,
+    imageStates,
+    setDownloadedImage,
+    setImageStates,
+  }: IProps) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
-    const [imageStates, setImageStates] = useState<ImageState[]>([])
+
     const t = useRouterLocaleDefinition()
 
     useEffect(() => {
@@ -72,28 +80,6 @@ export const ImageEditor = memo(
 
     const onZoomChangeHandler = (zoom: number) => {
       updateCurrentImageStateHandler({ zoom })
-    }
-
-    const processAllImages = async () => {
-      const processedImages = await Promise.all(
-        imageStates.map(async (state, index) => {
-          if (state.croppedAreaPixels) {
-            return await getCroppedImg(
-              downloadedImage[index],
-              state.croppedAreaPixels,
-              0,
-              state.filter
-            )
-          }
-
-          return null
-        })
-      )
-
-      // Фильтруем null значения (если были ошибки при обработке)
-      const validProcessedImages = processedImages.filter((img): img is string => img !== null)
-
-      onComplete(validProcessedImages)
     }
 
     return (

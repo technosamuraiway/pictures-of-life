@@ -1,9 +1,39 @@
+import { IPostTextArgs } from '@/services'
+
 import { inctagramApi } from '../api/inctagram.api'
-import { IPostParams, IPostPublicResponse } from '../types/post.types'
+import {
+  IPostImage,
+  IPostImageArgs,
+  IPostParams,
+  IPostPublicResponse,
+  IPostUser,
+} from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
+      createDescriptionPost: builder.mutation<IPostUser, IPostTextArgs>({
+        query: () => ({
+          method: 'POST',
+          url: `/v1/posts`,
+        }),
+      }),
+      createImagePost: builder.mutation<IPostImage, IPostImageArgs>({
+        invalidatesTags: ['PrivatePosts'],
+        query: ({ images }) => {
+          const formData = new FormData()
+
+          images.forEach(image => {
+            formData.append('file', image)
+          })
+
+          return {
+            body: formData,
+            method: 'POST',
+            url: `v1/posts/image`,
+          }
+        },
+      }),
       deletePost: builder.mutation<void, void>({
         query: () => ({
           method: 'DELETE',
@@ -24,4 +54,9 @@ export const postService = inctagramApi.injectEndpoints({
   },
 })
 
-export const { useDeletePostMutation, useGetAllPublicPostsQuery } = postService
+export const {
+  useCreateDescriptionPostMutation,
+  useCreateImagePostMutation,
+  useDeletePostMutation,
+  useGetAllPublicPostsQuery,
+} = postService

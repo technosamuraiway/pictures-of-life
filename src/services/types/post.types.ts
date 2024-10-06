@@ -42,3 +42,7 @@ export interface IPostParams {
   sortBy?: string
   sortDirection?: SortDirection
 }
+
+export type IPostImageArgs = {
+  images: string[]
+}
