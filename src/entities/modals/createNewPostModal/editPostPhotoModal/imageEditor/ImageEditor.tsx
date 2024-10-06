@@ -5,7 +5,6 @@ import { useRouterLocaleDefinition } from '@/shared'
 
 import s from './ImageEditor.module.scss'
 
-import { AddPostText } from './addPostText/AddPostText'
 import { ControlButtons } from './controlButtons/ControlButtons'
 import { CropperImg } from './cropperImg/CropperImg'
 import { FiltersChanger } from './filtersChanger/FiltersChanger'
@@ -13,11 +12,9 @@ import { Navigation } from './navigation/Navigation'
 import { ImageState } from './utils/types'
 
 interface IProps {
-  addTextView: boolean
   downloadedImage: string[]
   editFilter: boolean
   imageStates: ImageState[]
-  onComplete: (croppedImages: string[]) => void
   setDownloadedImage: Dispatch<SetStateAction<string[]>>
   setImageStates: Dispatch<SetStateAction<ImageState[]>>
 }
@@ -33,14 +30,7 @@ const initialImageState: ImageState = {
 const MAX_IMAGES = 10
 
 export const ImageEditor = memo(
-  ({
-    addTextView,
-    downloadedImage,
-    editFilter,
-    imageStates,
-    setDownloadedImage,
-    setImageStates,
-  }: IProps) => {
+  ({ downloadedImage, editFilter, imageStates, setDownloadedImage, setImageStates }: IProps) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
 
     const t = useRouterLocaleDefinition()
@@ -52,6 +42,7 @@ export const ImageEditor = memo(
         toast.error(t.avatarChange.errorMaxCount)
         setDownloadedImage(prevImages => prevImages.slice(0, MAX_IMAGES))
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [downloadedImage, setDownloadedImage, t.avatarChange.errorMaxCount])
 
     const currentState = useMemo(
@@ -94,7 +85,7 @@ export const ImageEditor = memo(
             onZoomChange={onZoomChangeHandler}
             updateCurrentImageState={updateCurrentImageStateHandler}
           />
-          {!(editFilter || addTextView) && (
+          {!editFilter && (
             <ControlButtons
               currentAspect={currentState.aspect}
               currentImageIndex={currentImageIndex}
@@ -123,7 +114,6 @@ export const ImageEditor = memo(
             updateCurrentImageState={updateCurrentImageStateHandler}
           />
         )}
-        {addTextView && <AddPostText />}
       </div>
     )
   }

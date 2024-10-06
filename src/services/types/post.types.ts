@@ -44,5 +44,5 @@ export interface IPostParams {
 }
 
 export type IPostImageArgs = {
-  images: string[]
+  files: File[]
 }

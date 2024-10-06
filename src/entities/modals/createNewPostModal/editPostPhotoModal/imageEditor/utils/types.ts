@@ -5,5 +5,6 @@ export interface ImageState {
   crop: Point
   croppedAreaPixels: Area | null
   filter: string
+  rotation?: number
   zoom: number
 }

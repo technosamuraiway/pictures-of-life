@@ -14,6 +14,11 @@
   border-bottom: 0.0625rem solid var(--Dark-100);
 }
 
+.invisibleBtn {
+  pointer-events: none;
+  opacity: 0;
+}
+
 .leftIcon {
   width: 1.5rem;
   height: 1.5rem;

@@ -1,26 +1,3 @@
-export const createImage = (url: string): Promise<HTMLImageElement> =>
-  new Promise((resolve, reject) => {
-    const image = new Image()
-
-    image.addEventListener('load', () => resolve(image))
-    image.addEventListener('error', error => reject(error))
-    image.setAttribute('crossOrigin', 'anonymous') // Needed to avoid CORS issues
-    image.src = url
-  })
-
-export function getRadianAngle(degreeValue: number) {
-  return (degreeValue * Math.PI) / 180
-}
-
-export function rotateSize(width: number, height: number, rotation: number) {
-  const rotRad = getRadianAngle(rotation)
-
-  return {
-    height: Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
-    width: Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
-  }
-}
-
 export async function getCroppedImg(
   imageSrc: string,
   pixelCrop: { height: number; width: number; x: number; y: number },
@@ -44,7 +21,7 @@ export async function getCroppedImg(
   canvas.width = bBoxWidth
   canvas.height = bBoxHeight
 
-  // translate canvas context to a central postLocations to allow rotating and flipping around the center
+  // translate canvas context to a central position to allow rotating and flipping around the center
   ctx.translate(bBoxWidth / 2, bBoxHeight / 2)
   ctx.rotate(rotRad)
   ctx.scale(1, 1)
@@ -61,12 +38,38 @@ export async function getCroppedImg(
   canvas.width = pixelCrop.width
   canvas.height = pixelCrop.height
 
-  // paste generated rotate image in the top left corner
+  // place the image data in the new, correctly sized canvas
   ctx.putImageData(data, 0, 0)
 
   // Apply filter
-  ctx.filter = filter
+  if (filter !== 'none') {
+    ctx.filter = filter
+    ctx.drawImage(canvas, 0, 0)
+  }
 
   // As Base64 string
   return canvas.toDataURL('image/jpeg')
+}
+
+const createImage = (url: string): Promise<HTMLImageElement> =>
+  new Promise((resolve, reject) => {
+    const image = new Image()
+
+    image.addEventListener('load', () => resolve(image))
+    image.addEventListener('error', error => reject(error))
+    image.setAttribute('crossOrigin', 'anonymous') // Needed to avoid CORS issues
+    image.src = url
+  })
+
+function getRadianAngle(degreeValue: number) {
+  return (degreeValue * Math.PI) / 180
+}
+
+function rotateSize(width: number, height: number, rotation: number) {
+  const rotRad = getRadianAngle(rotation)
+
+  return {
+    height: Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
+    width: Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
+  }
 }

@@ -66,7 +66,12 @@ export const PostWithoutHeaderModal = ({
         {...rest}
       >
         <div className={s.headerWrapper}>
-          <Button onClick={onBackButtonClick} type={'button'} variant={'iconButton'}>
+          <Button
+            className={clsx(addTextView && s.invisibleBtn)}
+            onClick={onBackButtonClick}
+            type={'button'}
+            variant={'iconButton'}
+          >
             <LeftIcon className={s.leftIcon} />
           </Button>
           <Typography>{headerTitle}</Typography>

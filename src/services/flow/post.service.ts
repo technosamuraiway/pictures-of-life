@@ -20,11 +20,11 @@ export const postService = inctagramApi.injectEndpoints({
       }),
       createImagePost: builder.mutation<IPostImage, IPostImageArgs>({
         invalidatesTags: ['PrivatePosts'],
-        query: ({ images }) => {
+        query: ({ files }) => {
           const formData = new FormData()
 
-          images.forEach(image => {
-            formData.append('file', image)
+          Array.from(files).forEach(file => {
+            formData.append('file', file)
           })
 
           return {
