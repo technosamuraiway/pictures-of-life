@@ -19,7 +19,7 @@ export const PATH = {
 
 // для проверки страниц - authGuard
 // URLGITHUBLOGIN и URLGOOGLELOGIN не используются
-const PUBLIC_ROUTES = [
+export const PUBLIC_ROUTES_SET = new Set([
   PATH.AUTH.CREATENEWPASSWORD,
   PATH.AUTH.FORGOTPASSWORD,
   PATH.AUTH.PRIVACYPOLICY,
@@ -27,6 +27,4 @@ const PUBLIC_ROUTES = [
   PATH.AUTH.SIGNUP,
   PATH.AUTH.TERMSOFSRVICE,
   '/public-page',
-]
-
-export const PUBLIC_ROUTES_SET = new Set(PUBLIC_ROUTES)
+])
