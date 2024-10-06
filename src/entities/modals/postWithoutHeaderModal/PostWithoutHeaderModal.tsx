@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 
 import { ActionConfirmationModal } from '@/entities'
 import { PATH, useRouterLocaleDefinition } from '@/shared'
-import { LeftIcon } from '@public/createPost/LeftIcon'
+import { LeftIcon } from '@public/LeftIcon'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import s from './PostWithoutHeaderModal.module.scss'
 
 interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
+  addTextView: boolean
   contentCN?: string
   editFilter: boolean
   nextBtnTitle?: string
@@ -21,6 +22,7 @@ interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
 }
 
 export const PostWithoutHeaderModal = ({
+  addTextView,
   children,
   contentCN,
   editFilter,
@@ -57,7 +59,7 @@ export const PostWithoutHeaderModal = ({
       <Modal
         contentClassName={clsx(s.wrapper, contentCN)}
         headerTitle={headerTitle}
-        modalSize={editFilter ? 'XL' : modalSize}
+        modalSize={editFilter || addTextView ? 'XL' : modalSize}
         onOpenChange={onCloseModalHandler}
         open={onOpen}
         showHeader={false}

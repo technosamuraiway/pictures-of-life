@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid'
 
 import s from './RatioChanger.module.scss'
 
-import { ImageState } from '../../ImageEditor'
+import { ImageState } from '../../utils/types'
 
 interface RatioDropDownItem {
   aspect: null | number

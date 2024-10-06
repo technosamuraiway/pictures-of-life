@@ -19,10 +19,14 @@ export const EditPostPhotoModal = ({
   setOnOpen,
 }: IProps) => {
   const [editFilter, setEditFilter] = useState<boolean>(false)
+  const [addTextView, setAddTextView] = useState<boolean>(false)
   const t = useRouterLocaleDefinition()
 
   const onNextButtonClickHandler = () => {
     if (editFilter) {
+      setEditFilter(false)
+      setAddTextView(true)
+    } else if (addTextView) {
     } else {
       setEditFilter(true)
     }
@@ -32,6 +36,9 @@ export const EditPostPhotoModal = ({
     if (editFilter) {
       setEditFilter(false)
       setOnOpen(true)
+    } else if (addTextView) {
+      setEditFilter(true)
+      setAddTextView(false)
     } else {
       setDownloadedImage([])
       setOnOpen(false)
@@ -43,21 +50,33 @@ export const EditPostPhotoModal = ({
     // выполнить другие действия с ними
   }
 
+  const headerTitleText = (() => {
+    if (editFilter) {
+      return t.createNewPost.editPhotoModal.modalFiltersTitle
+    } else if (addTextView) {
+      return t.createNewPost.editPhotoModal.modalPublicationTitle
+    } else {
+      return t.createNewPost.editPhotoModal.modalTitle
+    }
+  })()
+
   return (
     <PostWithoutHeaderModal
+      addTextView={addTextView}
       editFilter={editFilter}
-      headerTitle={
-        editFilter
-          ? t.createNewPost.editPhotoModal.modalFiltersTitle
-          : t.createNewPost.editPhotoModal.modalTitle
+      headerTitle={headerTitleText}
+      nextBtnTitle={
+        addTextView
+          ? t.createNewPost.editPhotoModal.publishBtn
+          : t.createNewPost.editPhotoModal.nextBtn
       }
-      nextBtnTitle={t.createNewPost.editPhotoModal.nextBtn}
       onBackButtonClick={onBackButtonClickHandler}
       onNextButtonClick={onNextButtonClickHandler}
       onOpen={onOpen}
       setOnOpen={setOnOpen}
     >
       <ImageEditor
+        addTextView={addTextView}
         downloadedImage={downloadedImage}
         editFilter={editFilter}
         onComplete={onCropCompleteHandler}

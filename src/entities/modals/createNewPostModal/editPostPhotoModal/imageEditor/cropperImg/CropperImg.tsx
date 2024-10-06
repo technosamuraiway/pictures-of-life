@@ -2,7 +2,7 @@ import Cropper, { Area, Point } from 'react-easy-crop'
 
 import s from './CropperImg.module.scss'
 
-import { ImageState } from '../types'
+import { ImageState } from '../utils/types'
 
 interface IProps {
   currentAspect: null | number

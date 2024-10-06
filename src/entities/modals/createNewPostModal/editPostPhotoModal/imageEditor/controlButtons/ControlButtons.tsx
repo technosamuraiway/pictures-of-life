@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 
 import s from './ControlButtons.module.scss'
 
-import { ImageState } from '../types'
+import { ImageState } from '../utils/types'
 import { AddImages } from './addImages/AddImages'
 import { ConfirmReset } from './confirmReset/ConfirmReset'
 import { RatioChanger } from './ratioChanger/RatioChanger'

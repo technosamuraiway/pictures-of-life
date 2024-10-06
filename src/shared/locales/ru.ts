@@ -24,15 +24,18 @@ export const ru = {
       openDraftButtonText: 'Открыть черновик',
     },
     editPhotoModal: {
+      locationInputLabel: 'Добавить локацию',
       modalExitDiscardBtn: 'Сброс',
       modalExitSaveDraftBtn: 'Сохранить черновик',
       modalExitText:
         'Вы действительно хотите закрыть создание публикации? Если вы закроете, все будет удалено',
       modalExitTitle: 'Закрыть',
       modalFiltersTitle: 'Фильтры',
+      modalPublicationTitle: 'Публикация',
       modalTitle: 'Редактор Фото',
       nextBtn: 'Далее',
       originalRatio: 'Оригинал',
+      publishBtn: 'Опубликовать',
       resetSettings: {
         headerTitle: 'Сбросить все изменения',
         mainText: 'Вы действительно хотите сбросить настройки? Все изменения будут потеряны.',

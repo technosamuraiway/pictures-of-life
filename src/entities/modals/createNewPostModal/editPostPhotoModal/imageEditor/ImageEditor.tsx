@@ -1,18 +1,20 @@
-import { Dispatch, SetStateAction, memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { Dispatch, SetStateAction, memo, useEffect, useMemo, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { useRouterLocaleDefinition } from '@/shared'
 
 import s from './ImageEditor.module.scss'
 
+import { AddPostText } from './addPostText/AddPostText'
 import { ControlButtons } from './controlButtons/ControlButtons'
 import { CropperImg } from './cropperImg/CropperImg'
 import { FiltersChanger } from './filtersChanger/FiltersChanger'
 import { Navigation } from './navigation/Navigation'
-import { ImageState } from './types'
-import { getCroppedImg } from './utils'
+import { ImageState } from './utils/types'
+import { getCroppedImg } from './utils/utils'
 
 interface IProps {
+  addTextView: boolean
   downloadedImage: string[]
   editFilter: boolean
   onComplete: (croppedImages: string[]) => void
@@ -30,7 +32,7 @@ const initialImageState: ImageState = {
 const MAX_IMAGES = 10
 
 export const ImageEditor = memo(
-  ({ downloadedImage, editFilter, onComplete, setDownloadedImage }: IProps) => {
+  ({ addTextView, downloadedImage, editFilter, onComplete, setDownloadedImage }: IProps) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
     const [imageStates, setImageStates] = useState<ImageState[]>([])
     const t = useRouterLocaleDefinition()
@@ -106,7 +108,7 @@ export const ImageEditor = memo(
             onZoomChange={onZoomChangeHandler}
             updateCurrentImageState={updateCurrentImageStateHandler}
           />
-          {!editFilter && (
+          {!(editFilter || addTextView) && (
             <ControlButtons
               currentAspect={currentState.aspect}
               currentImageIndex={currentImageIndex}
@@ -135,6 +137,7 @@ export const ImageEditor = memo(
             updateCurrentImageState={updateCurrentImageStateHandler}
           />
         )}
+        {addTextView && <AddPostText />}
       </div>
     )
   }

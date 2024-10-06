@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 
 import s from './FiltersChanger.module.scss'
 
-import { ImageState } from '../types'
+import { ImageState } from '../utils/types'
 
 interface FilterOption {
   name: string

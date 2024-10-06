@@ -26,15 +26,18 @@ export const en: LocaleType = {
       openDraftButtonText: 'Open Draft',
     },
     editPhotoModal: {
+      locationInputLabel: 'Add location',
       modalExitDiscardBtn: 'Discard',
       modalExitSaveDraftBtn: 'Save Draft',
       modalExitText:
         'Do you really want to close the creation of a publication? If you close everything will be deleted',
       modalExitTitle: 'Close',
       modalFiltersTitle: 'Filters',
+      modalPublicationTitle: 'Publication',
       modalTitle: 'Photo Editor',
       nextBtn: 'Next',
       originalRatio: 'Original',
+      publishBtn: 'Publish',
       resetSettings: {
         headerTitle: 'Reset Your Changes',
         mainText: 'Are you sure you want to reset the settings? All changes will be lost.',
