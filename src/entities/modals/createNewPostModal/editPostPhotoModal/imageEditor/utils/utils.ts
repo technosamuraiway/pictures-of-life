@@ -44,7 +44,7 @@ export async function getCroppedImg(
   canvas.width = bBoxWidth
   canvas.height = bBoxHeight
 
-  // translate canvas context to a central location to allow rotating and flipping around the center
+  // translate canvas context to a central postLocations to allow rotating and flipping around the center
   ctx.translate(bBoxWidth / 2, bBoxHeight / 2)
   ctx.rotate(rotRad)
   ctx.scale(1, 1)

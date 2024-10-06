@@ -26,7 +26,7 @@ export const en: LocaleType = {
       openDraftButtonText: 'Open Draft',
     },
     editPhotoModal: {
-      locationInputLabel: 'Add location',
+      locationInputLabel: 'Add locations',
       modalExitDiscardBtn: 'Discard',
       modalExitSaveDraftBtn: 'Save Draft',
       modalExitText:

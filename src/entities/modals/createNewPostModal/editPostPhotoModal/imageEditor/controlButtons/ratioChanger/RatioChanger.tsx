@@ -49,7 +49,7 @@ export const RatioChanger = ({ currentAspect, updateCurrentImageState }: IProps)
         ratioName: '16:9',
       },
     ],
-    []
+    [t.createNewPost.editPhotoModal.originalRatio]
   )
 
   const onAspectRatioChangeHandler = (newAspect: null | number) => {
