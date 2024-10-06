@@ -16,3 +16,15 @@ export const PATH = {
     SETTINGS: '/profile/settings',
   },
 } as const
+
+// для проверки страниц - authGuard
+// URLGITHUBLOGIN и URLGOOGLELOGIN не используются
+export const PUBLIC_ROUTES_SET = new Set([
+  PATH.AUTH.CREATENEWPASSWORD,
+  PATH.AUTH.FORGOTPASSWORD,
+  PATH.AUTH.PRIVACYPOLICY,
+  PATH.AUTH.SIGNIN,
+  PATH.AUTH.SIGNUP,
+  PATH.AUTH.TERMSOFSRVICE,
+  '/public-page',
+])

@@ -26,9 +26,7 @@ export const LogOutItem = ({
   return (
     <>
       <Button className={s.logOutButton} onClick={onClickLogOutBtn} variant={'iconButton'}>
-        <span className={s.logOutIcon}>
-          <LogOutIcon />
-        </span>
+        <LogOutIcon className={s.logOutIcon} />
         <Typography variant={'medium-text-14'}>{t.logOut.logOutButton}</Typography>
       </Button>
       <ActionConfirmationModal

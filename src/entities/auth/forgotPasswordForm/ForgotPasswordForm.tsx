@@ -60,7 +60,10 @@ export const ForgotPasswordForm = ({
   }
 
   const errorEmail =
-    textFieldError && (textFieldError[0].field === 'email' ? textFieldError[0].message : undefined)
+    textFieldError &&
+    (textFieldError[0].field === 'email'
+      ? textFieldError[0].message.replace(/(\w+\s\w+)$/, "doesn't exist")
+      : undefined)
 
   return (
     <form

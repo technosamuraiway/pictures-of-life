@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 
+import { getLayout } from '@/containers'
 import { Confirmation } from '@/entities'
 import { useCheckRecoveryCodeMutation } from '@/services'
 import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { NewPassword, getBaseLayout } from '@/widgets'
+import { NewPassword } from '@/widgets'
 import pngExpired from '@public/confirmEmail/expiredConfirm.png'
 import { useRouter } from 'next/router'
 
@@ -53,5 +54,5 @@ function RecoveryPassword() {
   )
 }
 
-RecoveryPassword.getLayout = getBaseLayout
+RecoveryPassword.getLayout = getLayout
 export default RecoveryPassword
