@@ -13,6 +13,8 @@ import '@/styles/_colors.scss'
 import '@/styles/_tokens.scss'
 import '@/styles/_typography.scss'
 import '@/styles/globals.scss'
+// eslint-disable-next-line import/extensions
+import 'swiper/scss'
 
 export type NextPageWithLayout<P = {}> = {
   getLayout?: (page: ReactElement) => ReactNode
