@@ -39,7 +39,6 @@ export const EditPostPhotoModal = ({
   }
 
   const onCropCompleteHandler = (croppedImages: string[]) => {
-    //console.log('All images cropped:', croppedImages)
     // Здесь вы можете отправить обрезанные изображения на сервер или
     // выполнить другие действия с ними
   }

@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useMemo, useState } from 'react'
 
 import { useRouterLocaleDefinition } from '@/shared'
 import { ExpandIcon } from '@public/createPost/ExpandIcon'
@@ -26,28 +26,31 @@ export const RatioChanger = ({ currentAspect, updateCurrentImageState }: IProps)
   const [openRatioDropDown, setOpenRatioDropDown] = useState<boolean>(false)
   const t = useRouterLocaleDefinition()
 
-  const ratioDropDownItems: RatioDropDownItem[] = [
-    {
-      aspect: 4 / 3,
-      itemIcon: <EmptyAvatar className={s.ratioOriginalIcon} />,
-      ratioName: t.createNewPost.editPhotoModal.originalRatio,
-    },
-    {
-      aspect: 1,
-      itemIcon: <div className={s.ratioSquareIcon} />,
-      ratioName: '1:1',
-    },
-    {
-      aspect: 4 / 5,
-      itemIcon: <div className={s.ratioPhoneIcon} />,
-      ratioName: '4:5',
-    },
-    {
-      aspect: 16 / 9,
-      itemIcon: <div className={s.ratioDesktopIcon} />,
-      ratioName: '16:9',
-    },
-  ]
+  const ratioDropDownItems: RatioDropDownItem[] = useMemo(
+    () => [
+      {
+        aspect: 4 / 3,
+        itemIcon: <EmptyAvatar className={s.ratioOriginalIcon} />,
+        ratioName: t.createNewPost.editPhotoModal.originalRatio,
+      },
+      {
+        aspect: 1,
+        itemIcon: <div className={s.ratioSquareIcon} />,
+        ratioName: '1:1',
+      },
+      {
+        aspect: 4 / 5,
+        itemIcon: <div className={s.ratioPhoneIcon} />,
+        ratioName: '4:5',
+      },
+      {
+        aspect: 16 / 9,
+        itemIcon: <div className={s.ratioDesktopIcon} />,
+        ratioName: '16:9',
+      },
+    ],
+    []
+  )
 
   const onAspectRatioChangeHandler = (newAspect: null | number) => {
     updateCurrentImageState({ aspect: newAspect })

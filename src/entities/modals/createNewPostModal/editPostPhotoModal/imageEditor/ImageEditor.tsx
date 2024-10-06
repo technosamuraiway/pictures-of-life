@@ -1,18 +1,8 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { Dispatch, SetStateAction, memo, useCallback, useEffect, useMemo, useState } from 'react'
 import Cropper, { Area, Point } from 'react-easy-crop'
 import { toast } from 'react-toastify'
 
 import { useRouterLocaleDefinition } from '@/shared'
-import clsx from 'clsx'
 
 import s from './ImageEditor.module.scss'
 
@@ -89,45 +79,39 @@ export const ImageEditor = memo(
       updateCurrentImageStateHandler({ zoom })
     }
 
-    const onFilterChange = useCallback(
-      (event: ChangeEvent<HTMLSelectElement>) => {
-        updateCurrentImageStateHandler({ filter: event.target.value })
-      },
-      [currentImageIndex]
-    )
+    const onFilterChangeHandler = (filter: string) => {
+      updateCurrentImageStateHandler({ filter })
+    }
 
-    const onCropChange = useCallback(
-      (crop: Point) => {
-        updateCurrentImageStateHandler({ crop })
-      },
-      [currentImageIndex]
-    )
+    const onCropChangeHandler = (crop: Point) => {
+      updateCurrentImageStateHandler({ crop })
+    }
 
-    const onCropComplete = useCallback(
-      (croppedArea: Area, croppedAreaPixels: Area) => {
-        updateCurrentImageStateHandler({ croppedAreaPixels })
-      },
-      [currentImageIndex]
-    )
+    const onCropCompleteHandler = (_: unknown, croppedAreaPixels: Area) => {
+      updateCurrentImageStateHandler({ croppedAreaPixels })
+    }
 
-    const processImage = useCallback(async () => {
-      try {
-        if (!currentState.croppedAreaPixels) {
-          throw new Error('Cropped area pixels not set')
-        }
+    const processAllImages = useCallback(async () => {
+      const processedImages = await Promise.all(
+        imageStates.map(async (state, index) => {
+          if (state.croppedAreaPixels) {
+            return await getCroppedImg(
+              downloadedImage[index],
+              state.croppedAreaPixels,
+              0,
+              state.filter
+            )
+          }
 
-        return await getCroppedImg(
-          downloadedImage[currentImageIndex],
-          currentState.croppedAreaPixels,
-          0, // rotation
-          currentState.filter
-        )
-      } catch (e) {
-        console.error(e)
+          return null
+        })
+      )
 
-        return null
-      }
-    }, [currentImageIndex, downloadedImage, currentState])
+      // Фильтруем null значения (если были ошибки при обработке)
+      const validProcessedImages = processedImages.filter((img): img is string => img !== null)
+
+      onComplete(validProcessedImages)
+    }, [downloadedImage, imageStates, onComplete])
 
     return (
       <div className={s.baseWrapper}>
@@ -137,8 +121,8 @@ export const ImageEditor = memo(
               aspect={currentState.aspect !== null ? currentState.aspect : undefined}
               crop={currentState.crop}
               image={downloadedImage[currentImageIndex]}
-              onCropChange={onCropChange}
-              onCropComplete={onCropComplete}
+              onCropChange={onCropChangeHandler}
+              onCropComplete={onCropCompleteHandler}
               onZoomChange={onZoomChangeHandler}
               style={{
                 mediaStyle: {
@@ -169,23 +153,14 @@ export const ImageEditor = memo(
               setCurrentImageIndex={setCurrentImageIndex}
             />
           )}
-
-          {/*<div className={s.controlSection}>*/}
-          {/*  <label htmlFor={'filter'}>Filter</label>*/}
-          {/*  <select*/}
-          {/*    className={s.select}*/}
-          {/*    id={'filter'}*/}
-          {/*    onChange={onFilterChange}*/}
-          {/*    value={currentState.filter}*/}
-          {/*  >*/}
-          {/*    <option value={'none'}>None</option>*/}
-          {/*    <option value={'grayscale(100%)'}>Grayscale</option>*/}
-          {/*    <option value={'sepia(100%)'}>Sepia</option>*/}
-          {/*    <option value={'saturate(200%)'}>Saturate</option>*/}
-          {/*  </select>*/}
-          {/*</div>*/}
         </div>
-        {editFilter && <FiltersChanger />}
+        {editFilter && (
+          <FiltersChanger
+            currentFilter={currentState.filter}
+            image={downloadedImage[currentImageIndex]}
+            onFilterChange={onFilterChangeHandler}
+          />
+        )}
       </div>
     )
   }
