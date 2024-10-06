@@ -12,12 +12,12 @@ export const PostText = () => {
 
   const t = useRouterLocaleDefinition()
 
-  const [charCount, setCharCount] = useState<number>(0)
+  const [charCount, setCharCount] = useState<number>(MAX_CHARS)
 
   const onTextAreaCharChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const remainingChars = MAX_CHARS - event.target.value.length
+    const usedChars = event.target.value.length
 
-    setCharCount(remainingChars)
+    setCharCount(usedChars)
   }
 
   return (
@@ -40,14 +40,14 @@ export const PostText = () => {
         <TextArea
           className={s.textArea}
           errorText={t.createNewPost.editPhotoModal.textAreaCharLimit}
-          isError={charCount === MAX_CHARS}
+          isError={charCount >= MAX_CHARS}
           maxLength={MAX_CHARS}
           onChange={onTextAreaCharChangeHandler}
           placeholder={t.createNewPost.editPhotoModal.textAreaPlaceHolder}
         />
 
         <Typography className={s.charCount} variant={'regular-text-14'}>
-          {`${charCount}/${MAX_CHARS}`}
+          {`${MAX_CHARS - charCount}/${MAX_CHARS}`}
         </Typography>
       </div>
     </div>
