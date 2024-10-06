@@ -21,6 +21,5 @@ function Profile() {
   )
 }
 
-Profile.isPrivate = true
 Profile.getLayout = getLayoutWithNav
 export default Profile

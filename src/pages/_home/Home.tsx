@@ -29,5 +29,4 @@ function Home() {
 }
 
 Home.getLayout = getLayoutWithNav
-Home.isPrivate = true
 export default Home

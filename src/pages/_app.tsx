@@ -16,7 +16,6 @@ import '@/styles/globals.scss'
 
 export type NextPageWithLayout<P = {}> = {
   getLayout?: (page: ReactElement) => ReactNode
-  isPrivate?: boolean
 } & NextPage<P>
 
 type AppPropsWithLayout = {
@@ -27,22 +26,17 @@ export default function App({ Component, pageProps, ...rest }: AppPropsWithLayou
   const { props, store } = wrapper.useWrappedStore(rest)
   const getLayout = Component.getLayout ?? (page => page)
 
-  const pageContent = (
-    <>
-      {getLayout(
-        <>
-          <NextTopLoader color={'#73a5ff'} showSpinner={false} />
-          <Component {...props.pageProps} />
-        </>
-      )}
-    </>
-  )
-
-  const WithAuthGuard = Component.isPrivate ? <AuthGuard>{pageContent}</AuthGuard> : pageContent
-
   return (
     <Provider store={store}>
-      {WithAuthGuard}
+      <AuthGuard>
+        {getLayout(
+          <>
+            <NextTopLoader color={'#73a5ff'} showSpinner={false} />
+            <Component {...props.pageProps} />
+          </>
+        )}
+      </AuthGuard>
+
       <ToastContainer
         autoClose={5000}
         closeOnClick
