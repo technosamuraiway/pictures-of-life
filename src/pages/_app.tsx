@@ -31,7 +31,7 @@ export default function App({ Component, pageProps, ...rest }: AppPropsWithLayou
     <>
       {getLayout(
         <>
-          <NextTopLoader color={'#73a5ff'} />
+          <NextTopLoader color={'#73a5ff'} showSpinner={false} />
           <Component {...props.pageProps} />
         </>
       )}
