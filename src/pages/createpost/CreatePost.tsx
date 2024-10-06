@@ -1,6 +1,6 @@
+import { getLayoutWithNav } from '@/containers'
 import { CreateNewPostModal } from '@/entities'
 import { MetaHead, useRouterLocaleDefinition } from '@/shared'
-import { getLayoutWithNav } from '@/widgets'
 
 const CreatePost = () => {
   const t = useRouterLocaleDefinition()

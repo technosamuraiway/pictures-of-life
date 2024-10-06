@@ -1,6 +1,6 @@
+import { getLayout } from '@/containers'
 import { ServicePrivacy } from '@/entities'
 import { PATH, useRouterLocaleDefinition } from '@/shared'
-import { getBaseLayout } from '@/widgets'
 import { useRouter } from 'next/router'
 
 function PrivacyPolicy() {
@@ -27,5 +27,5 @@ function PrivacyPolicy() {
   )
 }
 
-PrivacyPolicy.getLayout = getBaseLayout
+PrivacyPolicy.getLayout = getLayout
 export default PrivacyPolicy

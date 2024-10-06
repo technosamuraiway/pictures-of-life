@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { getLayout } from '@/containers'
 import { EmailSentModal, OAuth, SignUpForm, SignUpFormValues } from '@/entities'
 import { useSignUpMutation } from '@/services'
 import {
@@ -9,7 +10,6 @@ import {
   RequestLineLoader,
   useRouterLocaleDefinition,
 } from '@/shared'
-import { getBaseLayout } from '@/widgets'
 import { Card } from '@technosamurai/techno-ui-kit'
 
 import s from './SignUp.module.scss'
@@ -61,5 +61,5 @@ function SignUp() {
   )
 }
 
-SignUp.getLayout = getBaseLayout
+SignUp.getLayout = getLayout
 export default SignUp
