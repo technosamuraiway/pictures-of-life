@@ -61,7 +61,7 @@ export async function getCroppedImg(
   canvas.width = pixelCrop.width
   canvas.height = pixelCrop.height
 
-  // paste generated rotate image at the top left corner
+  // paste generated rotate image in the top left corner
   ctx.putImageData(data, 0, 0)
 
   // Apply filter

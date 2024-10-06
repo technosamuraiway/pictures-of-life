@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, memo, useCallback, useEffect, useMemo, useState } from 'react'
-import Cropper, { Area, Point } from 'react-easy-crop'
 import { toast } from 'react-toastify'
 
 import { useRouterLocaleDefinition } from '@/shared'
@@ -7,8 +6,10 @@ import { useRouterLocaleDefinition } from '@/shared'
 import s from './ImageEditor.module.scss'
 
 import { ControlButtons } from './controlButtons/ControlButtons'
+import { CropperImg } from './cropperImg/CropperImg'
 import { FiltersChanger } from './filtersChanger/FiltersChanger'
 import { Navigation } from './navigation/Navigation'
+import { ImageState } from './types'
 import { getCroppedImg } from './utils'
 
 interface IProps {
@@ -16,14 +17,6 @@ interface IProps {
   editFilter: boolean
   onComplete: (croppedImages: string[]) => void
   setDownloadedImage: Dispatch<SetStateAction<string[]>>
-}
-
-export interface ImageState {
-  aspect: null | number
-  crop: Point
-  croppedAreaPixels: Area | null
-  filter: string
-  zoom: number
 }
 
 const initialImageState: ImageState = {
@@ -79,19 +72,7 @@ export const ImageEditor = memo(
       updateCurrentImageStateHandler({ zoom })
     }
 
-    const onFilterChangeHandler = (filter: string) => {
-      updateCurrentImageStateHandler({ filter })
-    }
-
-    const onCropChangeHandler = (crop: Point) => {
-      updateCurrentImageStateHandler({ crop })
-    }
-
-    const onCropCompleteHandler = (_: unknown, croppedAreaPixels: Area) => {
-      updateCurrentImageStateHandler({ croppedAreaPixels })
-    }
-
-    const processAllImages = useCallback(async () => {
+    const processAllImages = async () => {
       const processedImages = await Promise.all(
         imageStates.map(async (state, index) => {
           if (state.croppedAreaPixels) {
@@ -111,27 +92,20 @@ export const ImageEditor = memo(
       const validProcessedImages = processedImages.filter((img): img is string => img !== null)
 
       onComplete(validProcessedImages)
-    }, [downloadedImage, imageStates, onComplete])
+    }
 
     return (
       <div className={s.baseWrapper}>
         <div className={s.editorWrapper}>
-          <div className={s.cropperContainer}>
-            <Cropper
-              aspect={currentState.aspect !== null ? currentState.aspect : undefined}
-              crop={currentState.crop}
-              image={downloadedImage[currentImageIndex]}
-              onCropChange={onCropChangeHandler}
-              onCropComplete={onCropCompleteHandler}
-              onZoomChange={onZoomChangeHandler}
-              style={{
-                mediaStyle: {
-                  filter: currentState.filter,
-                },
-              }}
-              zoom={currentState.zoom}
-            />
-          </div>
+          <CropperImg
+            currentAspect={currentState.aspect}
+            currentCrop={currentState.crop}
+            currentFilter={currentState.filter}
+            currentImg={downloadedImage[currentImageIndex]}
+            currentZoom={currentState.zoom}
+            onZoomChange={onZoomChangeHandler}
+            updateCurrentImageState={updateCurrentImageStateHandler}
+          />
           {!editFilter && (
             <ControlButtons
               currentAspect={currentState.aspect}
@@ -158,7 +132,7 @@ export const ImageEditor = memo(
           <FiltersChanger
             currentFilter={currentState.filter}
             image={downloadedImage[currentImageIndex]}
-            onFilterChange={onFilterChangeHandler}
+            updateCurrentImageState={updateCurrentImageStateHandler}
           />
         )}
       </div>

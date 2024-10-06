@@ -7,6 +7,8 @@ import { v4 as uuid } from 'uuid'
 
 import s from './FiltersChanger.module.scss'
 
+import { ImageState } from '../types'
+
 interface FilterOption {
   name: string
   value: string
@@ -15,10 +17,10 @@ interface FilterOption {
 interface IProps {
   currentFilter: string
   image: string
-  onFilterChange: (filter: string) => void
+  updateCurrentImageState: (newState: Partial<ImageState>) => void
 }
 
-export const FiltersChanger = ({ currentFilter, image, onFilterChange }: IProps) => {
+export const FiltersChanger = ({ currentFilter, image, updateCurrentImageState }: IProps) => {
   const filterOptions: FilterOption[] = useMemo(
     () => [
       { name: 'Original', value: 'none' },
@@ -45,11 +47,19 @@ export const FiltersChanger = ({ currentFilter, image, onFilterChange }: IProps)
     []
   )
 
+  const onFilterChangeHandler = (filter: string) => {
+    updateCurrentImageState({ filter })
+  }
+
   return (
     <Scrollbar maxHeight={500}>
       <div className={s.filtersWrapper}>
         {filterOptions.map(filter => (
-          <div className={s.filterOption} key={uuid()} onClick={() => onFilterChange(filter.value)}>
+          <div
+            className={s.filterOption}
+            key={uuid()}
+            onClick={() => onFilterChangeHandler(filter.value)}
+          >
             <Image
               alt={filter.name}
               className={clsx(s.filterImage, currentFilter === filter.value && s.activeFilter)}
