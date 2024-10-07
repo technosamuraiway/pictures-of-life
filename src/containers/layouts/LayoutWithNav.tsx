@@ -1,10 +1,10 @@
 import { PropsWithChildren, ReactElement } from 'react'
 
-import { NextPage } from 'next'
+import { Layout } from '@/containers/layouts/components/layout/Layout'
 
 import s from './BaseLayout.module.scss'
 
-import { Layout } from './components/layout/Layout'
+import { NextPage } from '../../../next'
 import { NavBar } from './components/navBar/NavBar'
 
 const LayoutWithNav: NextPage<PropsWithChildren> = ({ children }) => {

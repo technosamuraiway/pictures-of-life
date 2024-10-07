@@ -2,13 +2,13 @@ import { PropsWithChildren, useState } from 'react'
 
 import { PATH } from '@/shared'
 import { Header } from '@technosamurai/techno-ui-kit'
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 import 'react-toastify/dist/ReactToastify.css'
 
 import s from './Layout.module.scss'
 
+import { NextPage } from '../../../../../next'
 import { languageSelectOptions } from './languageSelectOptions'
 
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
