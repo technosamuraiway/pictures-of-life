@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
+import { toast } from 'react-toastify'
 
-import { useCreateDescriptionPostMutation, useCreateImagePostMutation } from '@/services'
+import { useCreatePostMutation, useUploadImagesForPostMutation } from '@/services'
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 
 import { PostWithoutHeaderModal } from '../../postWithoutHeaderModal/PostWithoutHeaderModal'
@@ -26,26 +27,26 @@ export const EditPostPhotoModal = ({
   const [imageStates, setImageStates] = useState<ImageState[]>([])
   const t = useRouterLocaleDefinition()
 
-  const [createImagePost, { data: uploadResult, isLoading: isCreateImagePostLoading }] =
-    useCreateImagePostMutation()
+  const [uploadImagesForPost, { data: uploadImagesResult, isLoading: isCreateImagePostLoading }] =
+    useUploadImagesForPostMutation()
   const [createDescriptionPost, { isLoading: isCreateDescriptionPostLoading }] =
-    useCreateDescriptionPostMutation()
+    useCreatePostMutation()
   const { processAllImages } = useGetFilesList(downloadedImage, imageStates)
 
   const onNextButtonClickHandler = async () => {
     if (editFilter) {
       const processedImages = await processAllImages()
 
-      const result = await createImagePost({ files: processedImages })
+      await uploadImagesForPost({ files: processedImages }).unwrap()
 
-      console.log(result)
+      toast.success(t.createNewPost.editPhotoModal.uploadSuccess)
       setEditFilter(false)
       setAddTextView(true)
     } else if (addTextView) {
-      if (uploadResult) {
+      if (uploadImagesResult) {
         await createDescriptionPost({
           description: 'Hello',
-          uploadIds: uploadResult.images.map(img => {
+          uploadIds: uploadImagesResult.images.map(img => {
             return img.uploadId
           }),
         })

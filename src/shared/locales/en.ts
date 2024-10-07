@@ -47,6 +47,7 @@ export const en: LocaleType = {
       textAreaCharLimit: 'Your rich char limit!',
       textAreaLabel: 'Add publication descriptions',
       textAreaPlaceHolder: 'Your description start here...',
+      uploadSuccess: 'You have successfully prepared your images for publication',
     },
 
     title: 'Создать пост',

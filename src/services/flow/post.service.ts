@@ -1,24 +1,23 @@
-import { IPostTextArgs } from '@/services'
-
 import { inctagramApi } from '../api/inctagram.api'
 import {
-  IPostImage,
-  IPostImageArgs,
-  IPostImagesResponse,
+  ICreatePostArgs,
   IPostParams,
   IPostPublicResponse,
   IPostUser,
+  IUploadPostImagesArgs,
+  IUploadPostImagesResponse,
 } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
-      createDescriptionPost: builder.mutation<IPostUser, IPostTextArgs>({
-        invalidatesTags: ['PrivatePosts'],
+      createPost: builder.mutation<IPostUser, ICreatePostArgs>({
+        invalidatesTags: ['Posts'],
+
         query: ({ description, uploadIds }) => ({
           body: {
-            childrenMetadata: uploadIds.map(id => {
-              return { uploadId: id }
+            childrenMetadata: uploadIds.map(uploadId => {
+              return { uploadId }
             }),
             description,
           },
@@ -26,7 +25,25 @@ export const postService = inctagramApi.injectEndpoints({
           url: `/v1/posts`,
         }),
       }),
-      createImagePost: builder.mutation<IPostImagesResponse, IPostImageArgs>({
+      deletePost: builder.mutation<void, void>({
+        query: () => ({
+          method: 'DELETE',
+          url: `v1/posts/88888`, // here will be some logic to define current posts ID
+        }),
+      }),
+      getAllPublicPosts: builder.query<IPostPublicResponse, IPostParams | void>({
+        providesTags: ['Posts'],
+
+        query: arg => {
+          const { endCursorPostId, ...params } = arg ?? {}
+
+          return {
+            params,
+            url: `v1/public-posts/all/${endCursorPostId}`,
+          }
+        },
+      }),
+      uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
         query: ({ files }) => {
           const formData = new FormData()
 
@@ -41,29 +58,13 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
-      deletePost: builder.mutation<void, void>({
-        query: () => ({
-          method: 'DELETE',
-          url: `v1/posts/88888`, // here will be some logic to define current posts ID
-        }),
-      }),
-      getAllPublicPosts: builder.query<IPostPublicResponse, IPostParams | void>({
-        query: arg => {
-          const { endCursorPostId, ...params } = arg ?? {}
-
-          return {
-            params,
-            url: `v1/public-posts/all/${endCursorPostId}`,
-          }
-        },
-      }),
     }
   },
 })
 
 export const {
-  useCreateDescriptionPostMutation,
-  useCreateImagePostMutation,
+  useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
+  useUploadImagesForPostMutation,
 } = postService

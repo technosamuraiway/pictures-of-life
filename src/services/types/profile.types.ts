@@ -38,8 +38,3 @@ export type ProfileFormValues = {
   region?: string
   userName: string
 }
-
-export type IPostTextArgs = {
-  description: string
-  uploadIds: string[]
-}

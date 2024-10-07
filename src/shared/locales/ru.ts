@@ -45,6 +45,7 @@ export const ru = {
       textAreaCharLimit: 'Вы достигли лимита символов!',
       textAreaLabel: 'Добавь описание поста',
       textAreaPlaceHolder: 'Описание вашего поста начинается здесь...',
+      uploadSuccess: 'Вы успешно подготовили изображения к публикации',
     },
 
     title: 'Создать пост',
