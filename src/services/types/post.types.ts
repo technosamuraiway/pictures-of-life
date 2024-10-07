@@ -46,3 +46,7 @@ export interface IPostParams {
 export type IPostImageArgs = {
   files: File[]
 }
+
+export type IPostImagesResponse = {
+  images: IPostImage[]
+}

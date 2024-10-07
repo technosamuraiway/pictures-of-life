@@ -4,6 +4,7 @@ import { inctagramApi } from '../api/inctagram.api'
 import {
   IPostImage,
   IPostImageArgs,
+  IPostImagesResponse,
   IPostParams,
   IPostPublicResponse,
   IPostUser,
@@ -13,13 +14,19 @@ export const postService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
       createDescriptionPost: builder.mutation<IPostUser, IPostTextArgs>({
-        query: () => ({
+        invalidatesTags: ['PrivatePosts'],
+        query: ({ description, uploadIds }) => ({
+          body: {
+            childrenMetadata: uploadIds.map(id => {
+              return { uploadId: id }
+            }),
+            description,
+          },
           method: 'POST',
           url: `/v1/posts`,
         }),
       }),
-      createImagePost: builder.mutation<IPostImage, IPostImageArgs>({
-        invalidatesTags: ['PrivatePosts'],
+      createImagePost: builder.mutation<IPostImagesResponse, IPostImageArgs>({
         query: ({ files }) => {
           const formData = new FormData()
 

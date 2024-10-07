@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 
-import { useCreateImagePostMutation } from '@/services'
+import { useCreateDescriptionPostMutation, useCreateImagePostMutation } from '@/services'
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 
 import { PostWithoutHeaderModal } from '../../postWithoutHeaderModal/PostWithoutHeaderModal'
@@ -26,7 +26,10 @@ export const EditPostPhotoModal = ({
   const [imageStates, setImageStates] = useState<ImageState[]>([])
   const t = useRouterLocaleDefinition()
 
-  const [createImagePost, { isLoading: isCreateImagePostLoading }] = useCreateImagePostMutation()
+  const [createImagePost, { data: uploadResult, isLoading: isCreateImagePostLoading }] =
+    useCreateImagePostMutation()
+  const [createDescriptionPost, { isLoading: isCreateDescriptionPostLoading }] =
+    useCreateDescriptionPostMutation()
   const { processAllImages } = useGetFilesList(downloadedImage, imageStates)
 
   const onNextButtonClickHandler = async () => {
@@ -39,7 +42,14 @@ export const EditPostPhotoModal = ({
       setEditFilter(false)
       setAddTextView(true)
     } else if (addTextView) {
-      console.log('result')
+      if (uploadResult) {
+        await createDescriptionPost({
+          description: 'Hello',
+          uploadIds: uploadResult.images.map(img => {
+            return img.uploadId
+          }),
+        })
+      }
     } else {
       setEditFilter(true)
     }

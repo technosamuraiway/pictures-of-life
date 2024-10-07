@@ -40,10 +40,6 @@ export type ProfileFormValues = {
 }
 
 export type IPostTextArgs = {
-  childrenMetadata: [
-    {
-      uploadId: string
-    },
-  ]
   description: string
+  uploadIds: string[]
 }
