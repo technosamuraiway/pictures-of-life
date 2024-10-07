@@ -39,7 +39,7 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
 
           setIsEdit(false)
           onOpenModal(false)
-          toast.success(t.avatarChange.avatarSaved)
+          toast.success(t.avatarChange.avatarSavedSuccess)
         }
       }, 'image/png')
     }

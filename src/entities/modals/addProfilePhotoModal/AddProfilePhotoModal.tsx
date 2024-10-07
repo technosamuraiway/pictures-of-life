@@ -13,7 +13,7 @@ export const AddProfilePhotoModal = ({ onOpenModal, openModal }: IProps) => {
 
   return (
     <Modal
-      headerTitle={t.avatarChange.addAvatarModalHeader}
+      headerTitle={t.avatarChange.addAvatar.addAvatarModalHeader}
       modalSize={'M'}
       onOpenChange={onOpenModal}
       open={openModal}

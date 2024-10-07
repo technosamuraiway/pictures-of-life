@@ -24,8 +24,8 @@ export const BeforeEditor = ({
 
   return (
     <PreviewImgScreen
-      addImgBtnText={t.avatarChange.addAvatarModalButtonText}
-      errorSizeText={t.avatarChange.errorSizeText}
+      addImgBtnText={t.avatarChange.addAvatar.addAvatarModalButtonText}
+      errorSizeText={t.avatarChange.errors.errorSizeText}
       errorText={errorText}
       maxImgSize={maxImgSize}
       onEditMode={onEditMode}

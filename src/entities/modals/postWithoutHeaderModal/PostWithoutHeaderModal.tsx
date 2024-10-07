@@ -66,12 +66,7 @@ export const PostWithoutHeaderModal = ({
         {...rest}
       >
         <div className={s.headerWrapper}>
-          <Button
-            className={clsx(addTextView && s.invisibleBtn)}
-            onClick={onBackButtonClick}
-            type={'button'}
-            variant={'iconButton'}
-          >
+          <Button onClick={onBackButtonClick} type={'button'} variant={'iconButton'}>
             <LeftIcon className={s.leftIcon} />
           </Button>
           <Typography>{headerTitle}</Typography>
@@ -88,13 +83,13 @@ export const PostWithoutHeaderModal = ({
       </Modal>
       <ActionConfirmationModal
         buttonsWrapperCN={s.modalButtons}
-        headerTitle={t.createNewPost.editPhotoModal.modalExitTitle}
+        headerTitle={t.createNewPost.editPhotoModal.closeEditor.modalExitTitle}
         isOpenModal={openExitModal}
-        modalTextChildren={t.createNewPost.editPhotoModal.modalExitText}
-        negativeButtonChildren={t.createNewPost.editPhotoModal.modalExitSaveDraftBtn}
+        modalTextChildren={t.createNewPost.editPhotoModal.closeEditor.modalExitText}
+        negativeButtonChildren={t.createNewPost.editPhotoModal.closeEditor.modalExitSaveDraftBtn}
         onClickNegativeButton={onDraftBtnClickHandler}
         onClickPositiveButton={onModalDiscardDtnClickHandler}
-        positiveButtonChildren={t.createNewPost.editPhotoModal.modalExitDiscardBtn}
+        positiveButtonChildren={t.createNewPost.editPhotoModal.closeEditor.modalExitDiscardBtn}
         setIsOpenModal={setOpenExitModal}
       />
     </>

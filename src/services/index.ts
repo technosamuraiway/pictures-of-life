@@ -6,5 +6,6 @@ export * from './flow/post.service'
 export * from './flow/profile.service'
 export * from './flow/sessions.service'
 
+export * from './types/post.types'
 export * from './types/profile.types'
 export * from './types/sessions.types'

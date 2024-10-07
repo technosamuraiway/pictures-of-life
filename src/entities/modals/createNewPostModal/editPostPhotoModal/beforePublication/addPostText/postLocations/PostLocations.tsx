@@ -35,7 +35,7 @@ export const PostLocations = () => {
       <div className={s.locationInputWrapper}>
         <TextField
           inputClassName={s.locationInput}
-          label={t.createNewPost.editPhotoModal.locationInputLabel}
+          label={t.createNewPost.editPhotoModal.createPost.locationInputLabel}
           onChange={e => setCurrentLocation(e.target.value)}
           onKeyDown={onKeyDownHandler}
           value={currentLocation}

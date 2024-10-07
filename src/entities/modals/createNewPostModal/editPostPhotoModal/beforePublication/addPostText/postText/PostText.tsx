@@ -1,13 +1,19 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 
 import { useGetProfileQuery } from '@/services'
 import { RoundAvatar, useRouterLocaleDefinition } from '@/shared'
 import { TextArea, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './PostText.module.scss'
+
 const MAX_CHARS = 500
 
-export const PostText = () => {
+interface IProps {
+  postDescription: string
+  setPostDescription: Dispatch<SetStateAction<string>>
+}
+
+export const PostText = ({ postDescription, setPostDescription }: IProps) => {
   const { data: profileData } = useGetProfileQuery()
 
   const t = useRouterLocaleDefinition()
@@ -17,6 +23,7 @@ export const PostText = () => {
   const onTextAreaCharChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const usedChars = event.target.value.length
 
+    setPostDescription(event.target.value)
     setCharCount(usedChars)
   }
 
@@ -35,13 +42,14 @@ export const PostText = () => {
       <div className={s.textAreaWrapper}>
         <TextArea
           className={s.textArea}
-          errorText={t.createNewPost.editPhotoModal.textAreaCharLimit}
+          errorText={t.createNewPost.editPhotoModal.createPost.textAreaCharLimit}
           errorTextCN={s.errorText}
           isError={charCount >= MAX_CHARS}
           maxLength={MAX_CHARS}
           onChange={onTextAreaCharChangeHandler}
-          placeholder={t.createNewPost.editPhotoModal.textAreaPlaceHolder}
-          textAreaLabelText={t.createNewPost.editPhotoModal.textAreaLabel}
+          placeholder={t.createNewPost.editPhotoModal.createPost.textAreaPlaceHolder}
+          textAreaLabelText={t.createNewPost.editPhotoModal.createPost.textAreaLabel}
+          value={postDescription}
           wrapperCN={s.wrapper}
         />
 

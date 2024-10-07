@@ -50,9 +50,9 @@ export const AvatarEditor = forwardRef<ElementRef<typeof Avatar>, IProps>(
         />
         <div className={s.buttonsWrapper}>
           <DownloadFile
-            btnText={t.avatarChange.addNewAvatarBtn}
+            btnText={t.avatarChange.addAvatar.addNewAvatarBtn}
             btnVariant={'outline'}
-            errorSizeText={t.avatarChange.errorSizeText}
+            errorSizeText={t.avatarChange.errors.errorSizeText}
             isDisabledBtn={isDisableSaveBtn}
             maxImgSize={maxImgSize}
             setError={setErrorText}

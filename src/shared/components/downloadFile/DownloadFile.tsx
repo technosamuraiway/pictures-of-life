@@ -58,8 +58,8 @@ export const DownloadFile = ({
         return false
       }
       if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-        setError(t.avatarChange.errorFormatText)
-        toast.error(t.avatarChange.errorFormatText)
+        setError(t.avatarChange.errors.errorFormatText)
+        toast.error(t.avatarChange.errors.errorFormatText)
 
         return false
       }
@@ -68,8 +68,8 @@ export const DownloadFile = ({
     })
 
     if (validFiles.length > 10) {
-      setError(t.avatarChange.errorMaxCount)
-      toast.error(t.avatarChange.errorMaxCount)
+      setError(t.createNewPost.addPhotoModal.errorMaxCount)
+      toast.error(t.createNewPost.addPhotoModal.errorMaxCount)
 
       return
     }
