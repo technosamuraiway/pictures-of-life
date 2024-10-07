@@ -16,7 +16,12 @@ export const ConfirmReset = ({ openResetModal, resetImageSettings, setOpenResetM
 
   return (
     <>
-      <button className={s.triggerButton} onClick={() => setOpenResetModal(true)} type={'button'}>
+      <button
+        className={s.triggerButton}
+        onClick={() => setOpenResetModal(true)}
+        title={t.createNewPost.editPhotoModal.resetSettings.headerTitle}
+        type={'button'}
+      >
         <ResetIcon className={clsx(s.resetIcon, openResetModal && s.activeResetIcon)} />
       </button>
       <ActionConfirmationModal

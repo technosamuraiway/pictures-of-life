@@ -55,6 +55,7 @@ export const AddImages = ({
         )
       }
       triggerCN={s.triggerBtn}
+      triggerTitle={t.createNewPost.editPhotoModal.addImage}
       withArrow={false}
     >
       <Scrollbar maxWidth={350}>

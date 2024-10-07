@@ -30,6 +30,7 @@ export const ru = {
       openDraftButtonText: 'Открыть черновик',
     },
     editPhotoModal: {
+      addImage: 'Добавить новые картинки',
       closeEditor: {
         modalExitDiscardBtn: 'Сброс',
         modalExitSaveDraftBtn: 'Сохранить черновик',
@@ -51,12 +52,14 @@ export const ru = {
       modalTitle: 'Редактор Фото',
       nextBtn: 'Далее',
       originalRatio: 'Оригинал',
+      ratioChange: 'Изменение соотношения сторон картинки',
       resetSettings: {
         headerTitle: 'Сбросить все изменения',
         mainText: 'Вы действительно хотите сбросить настройки? Все изменения будут потеряны.',
         negativeResult: 'Нет',
         positiveResult: 'Да',
       },
+      zoomChange: 'Изменение масштаба картинки',
     },
     title: 'Создать пост',
   },

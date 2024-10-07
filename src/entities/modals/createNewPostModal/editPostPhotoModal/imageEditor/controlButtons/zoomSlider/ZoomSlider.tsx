@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { ScaleSlider } from '@/entities/components/scaleSlider/ScaleSlider'
+import { useRouterLocaleDefinition } from '@/shared'
 import { ActiveZoomIcon } from '@public/createPost/ActiveZoomIcon'
 import { DefaultZoomIcon } from '@public/createPost/DefaultZoomIcon'
 import { Dropdown } from '@technosamurai/techno-ui-kit'
@@ -15,6 +16,7 @@ interface IProps {
 
 export const ZoomSlider = ({ onZoomChange, zoom }: IProps) => {
   const [openSliderDropDown, setOpenSliderDropDown] = useState<boolean>(false)
+  const t = useRouterLocaleDefinition()
 
   const onZoomChangeHandler = (zoom: number[]) => {
     onZoomChange(zoom[0])
@@ -35,6 +37,7 @@ export const ZoomSlider = ({ onZoomChange, zoom }: IProps) => {
         )
       }
       triggerCN={s.triggerBtn}
+      triggerTitle={t.createNewPost.editPhotoModal.zoomChange}
       withArrow={false}
     >
       <ScaleSlider

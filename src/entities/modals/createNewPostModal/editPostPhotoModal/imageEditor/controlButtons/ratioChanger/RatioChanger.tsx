@@ -72,6 +72,7 @@ export const RatioChanger = ({ currentAspect, updateCurrentImageState }: IProps)
         />
       }
       triggerCN={s.triggerBtn}
+      triggerTitle={t.createNewPost.editPhotoModal.ratioChange}
       withArrow={false}
     >
       {ratioDropDownItems.map(item => (
