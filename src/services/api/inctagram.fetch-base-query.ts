@@ -1,3 +1,4 @@
+import { PATH } from '@/shared'
 import {
   BaseQueryFn,
   FetchArgs,
@@ -6,8 +7,6 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
 import Router from 'next/router'
-
-import { PATH } from '../../shared/utils/pathVariables'
 
 /*
  * Как начать работать с Automatic re-authorization by extending fetchBaseQuery?
@@ -82,8 +81,11 @@ export const baseQueryWithReauth: BaseQueryFn<
           /* повторяем запрос, который упал из-за старого access token, только уже с новым access token*/
           result = await baseQuery(args, api, extraOptions)
         } else {
-          /* если не получилось получить новый access token, то перенаправляем пользователя на страничку регистрации*/
-          await Router.push(PATH.AUTH.SIGNIN)
+          /* если не получилось получить новый access token, то перенаправляем пользователя на страничку регистрации
+           * логика переадрессации для me запроса распологается в authGuard */
+          if (!result?.meta?.request?.url.includes('/api/v1/auth/me')) {
+            await Router.push(PATH.AUTH.SIGNIN)
+          }
         }
       } finally {
         /* относится к mutex => просто скипаем */
