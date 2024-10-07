@@ -74,6 +74,10 @@
     color: var(--Primary-500);
     background-color: var(--Dark-500);
   }
+
+  &:focus:not(:hover) {
+    outline: 0.125rem solid var(--Primary-500);
+  }
 }
 
 .cross {
