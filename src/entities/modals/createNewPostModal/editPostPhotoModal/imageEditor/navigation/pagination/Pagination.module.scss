@@ -19,8 +19,14 @@
   background-color: var(--Light-900);
   border-radius: 50%;
 
-  &:focus {
+  &:focus-visible {
+    border: none;
     outline: none;
+  }
+
+  &:focus-visible:enabled {
+    border: none;
+    outline: 0.125rem solid var(--Primary-300);
   }
 
   &:hover {

@@ -90,6 +90,13 @@ export const ImageEditor = ({
           onZoomChange={onZoomChangeHandler}
           updateCurrentImageState={updateCurrentImageStateHandler}
         />
+        {downloadedImage.length > 1 && (
+          <Navigation
+            currentImageIndex={currentImageIndex}
+            downloadedImageLength={downloadedImage.length}
+            setCurrentImageIndex={setCurrentImageIndex}
+          />
+        )}
         {!editFilter && (
           <ControlButtons
             currentAspect={currentState.aspect}
@@ -101,14 +108,6 @@ export const ImageEditor = ({
             setCurrentImageIndex={setCurrentImageIndex}
             setDownloadedImage={setDownloadedImage}
             updateCurrentImageState={updateCurrentImageStateHandler}
-          />
-        )}
-
-        {downloadedImage.length > 1 && (
-          <Navigation
-            currentImageIndex={currentImageIndex}
-            downloadedImageLength={downloadedImage.length}
-            setCurrentImageIndex={setCurrentImageIndex}
           />
         )}
       </div>

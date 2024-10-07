@@ -34,6 +34,7 @@ export const AddPostPhotoModal = ({ onEditMode, setImage }: IProps) => {
 
   return (
     <Modal
+      closeButtonClassName={s.closeButton}
       headerTitle={t.createNewPost.addPhotoModal.modalTitle}
       modalSize={'M'}
       onOpenChange={modalHandler}
