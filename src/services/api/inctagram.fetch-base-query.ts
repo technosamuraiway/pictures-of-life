@@ -83,7 +83,17 @@ export const baseQueryWithReauth: BaseQueryFn<
           result = await baseQuery(args, api, extraOptions)
         } else {
           /* если не получилось получить новый access token, то перенаправляем пользователя на страничку регистрации*/
-          await Router.push(PATH.AUTH.SIGNIN)
+
+          /* нужно добавить в исключение me запрос и запрос google-login */
+          const isMeRequest = result?.meta?.request?.url.includes('/api/v1/auth/me')
+          const isGoogleLoginRequest = result?.meta?.request?.url.includes(
+            '/api/v1/auth/google/login'
+          )
+
+          /* redirect будет работать на все запросы кроме me и google-login */
+          if (!isMeRequest && !isGoogleLoginRequest) {
+            await Router.push(PATH.AUTH.SIGNIN)
+          }
         }
       } finally {
         /* относится к mutex => просто скипаем */
