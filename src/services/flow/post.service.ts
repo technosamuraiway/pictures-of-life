@@ -1,5 +1,5 @@
 import { inctagramApi } from '../api/inctagram.api'
-import { IPostParams, IPostPublicResponse } from '../types/post.types'
+import { IPostParams, IPostPublicResponse, IPostUser } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
   endpoints: builder => {
@@ -17,6 +17,23 @@ export const postService = inctagramApi.injectEndpoints({
           return {
             params,
             url: `v1/public-posts/all/${endCursorPostId}`,
+          }
+        },
+      }),
+      getUserPublicPosts: builder.query<
+        IPostPublicResponse,
+        { params?: IPostParams; userId: number }
+      >({
+        query: ({ params, userId }) => {
+          const { endCursorPostId, ...restParams } = params ?? {}
+          const url = endCursorPostId
+            ? `v1/public-posts/user/${userId}/${endCursorPostId}`
+            : `v1/public-posts/user/${userId}`
+
+          return {
+            method: 'GET',
+            params: restParams, // Передаем остальные параметры в запрос
+            url,
           }
         },
       }),
