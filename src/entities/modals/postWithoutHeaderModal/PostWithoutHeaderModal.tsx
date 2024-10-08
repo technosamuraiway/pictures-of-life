@@ -14,6 +14,7 @@ interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
   addTextView: boolean
   contentCN?: string
   editFilter: boolean
+  isDisabled?: boolean
   nextBtnTitle?: string
   onBackButtonClick?: () => void
   onNextButtonClick?: () => void
@@ -27,6 +28,7 @@ export const PostWithoutHeaderModal = ({
   contentCN,
   editFilter,
   headerTitle,
+  isDisabled,
   modalSize = 'M',
   nextBtnTitle,
   onBackButtonClick,
@@ -66,12 +68,18 @@ export const PostWithoutHeaderModal = ({
         {...rest}
       >
         <div className={s.headerWrapper}>
-          <Button onClick={onBackButtonClick} type={'button'} variant={'iconButton'}>
+          <Button
+            disabled={isDisabled}
+            onClick={onBackButtonClick}
+            type={'button'}
+            variant={'iconButton'}
+          >
             <LeftIcon className={s.leftIcon} />
           </Button>
           <Typography>{headerTitle}</Typography>
           <Button
             className={s.nextButton}
+            disabled={isDisabled}
             onClick={onNextButtonClick}
             type={'button'}
             variant={'outline'}

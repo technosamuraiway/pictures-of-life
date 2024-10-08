@@ -98,6 +98,7 @@ export const EditPostPhotoModal = ({
         addTextView={addTextView}
         editFilter={editFilter}
         headerTitle={headerTitleText}
+        isDisabled={isCreatePostLoading || isCreateImagePostLoading}
         nextBtnTitle={
           addTextView
             ? t.createNewPost.editPhotoModal.createPost.publishBtn
@@ -119,6 +120,7 @@ export const EditPostPhotoModal = ({
             downloadedImage={downloadedImage}
             editFilter={editFilter}
             imageStates={imageStates}
+            isDisabled={isCreateImagePostLoading}
             setDownloadedImage={setDownloadedImage}
             setImageStates={setImageStates}
           />

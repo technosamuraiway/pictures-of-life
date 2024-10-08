@@ -15,6 +15,7 @@ interface IProps {
   downloadedImage: string[]
   editFilter: boolean
   imageStates: ImageState[]
+  isDisabled?: boolean
   setDownloadedImage: Dispatch<SetStateAction<string[]>>
   setImageStates: Dispatch<SetStateAction<ImageState[]>>
 }
@@ -33,6 +34,7 @@ export const ImageEditor = ({
   downloadedImage,
   editFilter,
   imageStates,
+  isDisabled,
   setDownloadedImage,
   setImageStates,
 }: IProps) => {
@@ -115,6 +117,7 @@ export const ImageEditor = ({
         <FiltersChanger
           currentFilter={currentState.filter}
           image={downloadedImage[currentImageIndex]}
+          isDisabled={isDisabled}
           updateCurrentImageState={updateCurrentImageStateHandler}
         />
       )}

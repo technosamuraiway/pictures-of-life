@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, memo, useCallback, useState } from 'react'
 
 import s from './ControlButtons.module.scss'
 
@@ -19,44 +19,46 @@ interface IProps {
   setDownloadedImage: Dispatch<SetStateAction<string[]>>
   updateCurrentImageState: (newState: Partial<ImageState>) => void
 }
-export const ControlButtons = ({
-  currentAspect,
-  currentImageIndex,
-  currentZoom,
-  downloadedImage,
-  initialImageState,
-  onZoomChange,
-  setCurrentImageIndex,
-  setDownloadedImage,
-  updateCurrentImageState,
-}: IProps) => {
-  const [openResetModal, setOpenResetModal] = useState<boolean>(false)
+export const ControlButtons = memo(
+  ({
+    currentAspect,
+    currentImageIndex,
+    currentZoom,
+    downloadedImage,
+    initialImageState,
+    onZoomChange,
+    setCurrentImageIndex,
+    setDownloadedImage,
+    updateCurrentImageState,
+  }: IProps) => {
+    const [openResetModal, setOpenResetModal] = useState<boolean>(false)
 
-  const resetCurrentImageSettingHandler = () => {
-    updateCurrentImageState(initialImageState)
-    setOpenResetModal(false)
-  }
+    const resetCurrentImageSettingHandler = useCallback(() => {
+      updateCurrentImageState(initialImageState)
+      setOpenResetModal(false)
+    }, [initialImageState, setOpenResetModal, updateCurrentImageState])
 
-  return (
-    <div className={s.buttonsWrapper}>
-      <div className={s.leftButtonsWrapper}>
-        <RatioChanger
-          currentAspect={currentAspect}
-          updateCurrentImageState={updateCurrentImageState}
-        />
-        <ZoomSlider onZoomChange={onZoomChange} zoom={currentZoom} />
-        <ConfirmReset
-          openResetModal={openResetModal}
-          resetImageSettings={resetCurrentImageSettingHandler}
-          setOpenResetModal={setOpenResetModal}
+    return (
+      <div className={s.buttonsWrapper}>
+        <div className={s.leftButtonsWrapper}>
+          <RatioChanger
+            currentAspect={currentAspect}
+            updateCurrentImageState={updateCurrentImageState}
+          />
+          <ZoomSlider onZoomChange={onZoomChange} zoom={currentZoom} />
+          <ConfirmReset
+            openResetModal={openResetModal}
+            resetImageSettings={resetCurrentImageSettingHandler}
+            setOpenResetModal={setOpenResetModal}
+          />
+        </div>
+        <AddImages
+          currentImageIndex={currentImageIndex}
+          images={downloadedImage}
+          setCurrentImageIndex={setCurrentImageIndex}
+          setDownloadedImage={setDownloadedImage}
         />
       </div>
-      <AddImages
-        currentImageIndex={currentImageIndex}
-        images={downloadedImage}
-        setCurrentImageIndex={setCurrentImageIndex}
-        setDownloadedImage={setDownloadedImage}
-      />
-    </div>
-  )
-}
+    )
+  }
+)

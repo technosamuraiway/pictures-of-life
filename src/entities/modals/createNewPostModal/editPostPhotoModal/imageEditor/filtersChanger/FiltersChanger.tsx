@@ -17,10 +17,16 @@ interface FilterOption {
 interface IProps {
   currentFilter: string
   image: string
+  isDisabled?: boolean
   updateCurrentImageState: (newState: Partial<ImageState>) => void
 }
 
-export const FiltersChanger = ({ currentFilter, image, updateCurrentImageState }: IProps) => {
+export const FiltersChanger = ({
+  currentFilter,
+  image,
+  isDisabled,
+  updateCurrentImageState,
+}: IProps) => {
   const filterOptions: FilterOption[] = useMemo(
     () => [
       { name: 'Original', value: 'none' },
@@ -56,7 +62,7 @@ export const FiltersChanger = ({ currentFilter, image, updateCurrentImageState }
       <div className={s.filtersWrapper}>
         {filterOptions.map(filter => (
           <div
-            className={s.filterOption}
+            className={clsx(s.filterOption, isDisabled && s.disable)}
             key={uuid()}
             onClick={() => onFilterChangeHandler(filter.value)}
           >

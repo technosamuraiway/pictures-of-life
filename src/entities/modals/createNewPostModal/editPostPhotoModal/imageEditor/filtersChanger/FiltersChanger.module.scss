@@ -24,6 +24,10 @@
   }
 }
 
+.disable {
+  pointer-events: none;
+}
+
 .filterImage {
   object-fit: cover;
 }

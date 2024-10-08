@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 
 import { IUploadPostImagesResponse } from '@/services'
 import { SwiperSlider } from '@/shared'
@@ -10,7 +10,7 @@ interface IProps {
   uploadImagesResult?: IUploadPostImagesResponse
 }
 
-export const ShowSlides = ({ uploadImagesResult }: IProps) => {
+export const ShowSlides = memo(({ uploadImagesResult }: IProps) => {
   const slides = useMemo(() => {
     return (
       uploadImagesResult?.images.map(image => ({
@@ -37,13 +37,13 @@ export const ShowSlides = ({ uploadImagesResult }: IProps) => {
         ))}
     </div>
   )
-}
+})
 
 interface ISwiperImage {
   className?: string
   src: string
 }
 
-const SwiperImage = ({ className, src }: ISwiperImage) => {
+const SwiperImage = memo(({ className, src }: ISwiperImage) => {
   return <Image alt={'Your post image'} className={className} height={504} src={src} width={490} />
-}
+})

@@ -82,7 +82,7 @@ export const DownloadFile = ({
         if (prevImages.length === 0) {
           return imageUrls
         } else {
-          return [...imageUrls, ...prevImages]
+          return [...prevImages, ...imageUrls]
         }
       })
       setError(null)
