@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
+import { getLayout } from '@/containers'
 import { EmailSentModal, ForgotPasswordForm, ForgotPasswordFormValues } from '@/entities'
 import { IServerError, MessagesFromErrorType, useForgotPasswordMutation } from '@/services'
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { getBaseLayout } from '@/widgets'
 import { Card, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './ForgotPassword.module.scss'
@@ -62,5 +62,5 @@ function ForgotPassword() {
   )
 }
 
-ForgotPassword.getLayout = getBaseLayout
+ForgotPassword.getLayout = getLayout
 export default ForgotPassword

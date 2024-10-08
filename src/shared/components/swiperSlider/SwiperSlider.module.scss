@@ -1,3 +1,11 @@
+.navigationPrev {
+  left: 0.75rem;
+}
+
+.navigationNext {
+  right: 0.75rem;
+}
+
 .navigationPrev,
 .navigationNext {
   cursor: pointer;
@@ -20,14 +28,6 @@
   &:hover {
     color: var(--Primary-300);
   }
-}
-
-.navigationPrev {
-  left: 0.75rem;
-}
-
-.navigationNext {
-  right: 0.75rem;
 }
 
 .pagination {

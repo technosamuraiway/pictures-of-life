@@ -1,8 +1,6 @@
-import { useState } from 'react'
-
+import { getLayoutWithNav } from '@/containers'
 import { useGetProfileQuery } from '@/services'
 import { MetaHead, PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { getLayoutWithNav } from '@/widgets'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 
 function Profile() {

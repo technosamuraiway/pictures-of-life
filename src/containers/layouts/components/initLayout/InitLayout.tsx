@@ -7,11 +7,11 @@ import { useRouter } from 'next/router'
 
 import 'react-toastify/dist/ReactToastify.css'
 
-import s from './Layout.module.scss'
+import s from './InitLayout.module.scss'
 
 import { languageSelectOptions } from './languageSelectOptions'
 
-export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
+export const InitLayout: NextPage<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
   const { asPath, pathname, query } = router
 

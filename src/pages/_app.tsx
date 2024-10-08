@@ -4,16 +4,17 @@ import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import { Slide, ToastContainer } from 'react-toastify'
 
+import { AuthGuard } from '@/containers'
 import { wrapper } from '@/services/store'
 import { NextPage } from 'next'
 import NextTopLoader from 'nextjs-toploader'
 
-// eslint-disable-next-line import/extensions
-import 'swiper/scss'
 import '@/styles/_colors.scss'
 import '@/styles/_tokens.scss'
 import '@/styles/_typography.scss'
 import '@/styles/globals.scss'
+// eslint-disable-next-line import/extensions
+import 'swiper/scss'
 
 export type NextPageWithLayout<P = {}> = {
   getLayout?: (page: ReactElement) => ReactNode
@@ -29,12 +30,15 @@ export default function App({ Component, pageProps, ...rest }: AppPropsWithLayou
 
   return (
     <Provider store={store}>
-      {getLayout(
-        <>
-          <NextTopLoader color={'#73a5ff'} />
-          <Component {...props.pageProps} />
-        </>
-      )}
+      <AuthGuard>
+        {getLayout(
+          <>
+            <NextTopLoader color={'#73a5ff'} showSpinner={false} />
+            <Component {...props.pageProps} />
+          </>
+        )}
+      </AuthGuard>
+
       <ToastContainer
         autoClose={5000}
         closeOnClick
