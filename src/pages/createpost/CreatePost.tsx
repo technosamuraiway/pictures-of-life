@@ -5,6 +5,7 @@ import { getLayoutWithNav } from '@/widgets'
 const CreatePost = () => {
   const t = useRouterLocaleDefinition()
 
+  // comment
   return (
     <>
       <MetaHead title={t.createNewPost.title} />
