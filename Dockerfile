@@ -7,7 +7,6 @@ FROM node:20.11-alpine as builder
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN npm install canvas --build-from-source
 RUN npm run build:production
 
 FROM node:20.11-alpine as runner
