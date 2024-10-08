@@ -1,4 +1,3 @@
-import { CreateNewPostModal } from '@/entities'
 import { MetaHead, useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 
@@ -10,7 +9,7 @@ const CreatePost = () => {
   return (
     <>
       <MetaHead title={t.createNewPost.title} />
-      <CreateNewPostModal />
+      {/*<CreateNewPostModal />*/}
     </>
   )
 }
