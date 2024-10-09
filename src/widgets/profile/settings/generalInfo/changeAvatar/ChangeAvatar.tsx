@@ -21,7 +21,7 @@ export const ChangeAvatar = () => {
 
   const confirmDeleteAvatarHandler = async () => {
     await deleteAvatar().unwrap()
-    toast.success(t.avatarChange.deleteAvatarSuccess)
+    toast.success(t.avatarChange.deleteAvatar.deleteAvatarSuccess)
 
     setOpenDeleteAvatarModal(false)
   }
@@ -34,18 +34,18 @@ export const ChangeAvatar = () => {
     <div className={s.wrapper}>
       {deleteAvatarIsLoading && <RequestLineLoader />}
       <RoundAvatar
-        addAvatarBtnText={t.avatarChange.addAvatarButton}
+        addAvatarBtnText={t.avatarChange.addAvatar.addAvatarButton}
         isShowAddBtn
         onClickAddAvatar={addAvatarModalHandler}
         onClickDeleteAvatar={deleteAvatarModalHandler}
       />
       <ActionConfirmationModal
-        headerTitle={t.avatarChange.deleteAvatarModalHeader}
+        headerTitle={t.avatarChange.deleteAvatar.deleteAvatarModalHeader}
         isOpenModal={openDeleteAvatarModal}
-        modalTextChildren={t.avatarChange.deleteAvatarModalText}
-        negativeButtonChildren={t.avatarChange.deleteAvatarModalButtonNo}
+        modalTextChildren={t.avatarChange.deleteAvatar.deleteAvatarModalText}
+        negativeButtonChildren={t.avatarChange.deleteAvatar.deleteAvatarModalButtonNo}
         onClickPositiveButton={confirmDeleteAvatarHandler}
-        positiveButtonChildren={t.avatarChange.deleteAvatarModalButtonYes}
+        positiveButtonChildren={t.avatarChange.deleteAvatar.deleteAvatarModalButtonYes}
         setIsOpenModal={setOpenDeleteAvatarModal}
       />
       <AddProfilePhotoModal onOpenModal={setOpenAddAvatarModal} openModal={openAddAvatarModal} />

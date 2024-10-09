@@ -1,0 +1,11 @@
+.baseWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.editorWrapper {
+  position: relative;
+  width: 30.5rem;
+}

@@ -36,6 +36,7 @@ export const ActionConfirmationModal = ({
 
   return (
     <Modal
+      closeButtonClassName={s.closeButton}
       contentClassName={s.contentWrapper}
       headerTitle={headerTitle}
       onOpenChange={setIsOpenModal}

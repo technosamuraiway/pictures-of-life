@@ -33,14 +33,11 @@ export const AvatarChoice = ({
       alt={`${profileData?.userName} avatar`}
       className={clsx(s.avatarImg, imgCN)}
       height={height}
+      priority
       src={profileData.avatars[0].url}
       width={width}
     />
   ) : (
-    <SquareImg
-      altText={`${profileData?.userName} empty avatar`}
-      imgSVGWrapperCN={imgSVGWrapperCN}
-      imgSvgCN={imgSvgCN}
-    />
+    <SquareImg imgSVGWrapperCN={imgSVGWrapperCN} imgSvgCN={imgSvgCN} />
   )
 }

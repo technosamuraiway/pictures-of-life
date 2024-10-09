@@ -42,3 +42,16 @@ export interface IPostParams {
   sortBy?: string
   sortDirection?: SortDirection
 }
+
+export type IUploadPostImagesArgs = {
+  files: File[]
+}
+
+export type IUploadPostImagesResponse = {
+  images: IPostImage[]
+}
+
+export type ICreatePostArgs = {
+  description: string
+  uploadIds: string[]
+}

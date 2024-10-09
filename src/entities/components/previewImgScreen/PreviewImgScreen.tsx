@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
 
 import { DownloadFile } from '@/shared'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
@@ -16,7 +16,7 @@ interface IProps {
   onEditMode: (edit: boolean) => void
   openDraftBtnText?: string
   setErrorText: (error: null | string) => void
-  setImage: (img: (File | string)[]) => void
+  setImage: Dispatch<SetStateAction<string[]>>
   showDraftBtn?: boolean
 }
 

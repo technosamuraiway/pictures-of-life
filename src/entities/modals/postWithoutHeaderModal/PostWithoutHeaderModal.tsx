@@ -11,7 +11,10 @@ import { useRouter } from 'next/router'
 import s from './PostWithoutHeaderModal.module.scss'
 
 interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
+  addTextView: boolean
   contentCN?: string
+  editFilter: boolean
+  isDisabled?: boolean
   nextBtnTitle?: string
   onBackButtonClick?: () => void
   onNextButtonClick?: () => void
@@ -20,9 +23,12 @@ interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
 }
 
 export const PostWithoutHeaderModal = ({
+  addTextView,
   children,
   contentCN,
+  editFilter,
   headerTitle,
+  isDisabled,
   modalSize = 'M',
   nextBtnTitle,
   onBackButtonClick,
@@ -39,34 +45,41 @@ export const PostWithoutHeaderModal = ({
     setOpenExitModal(true)
   }
 
-  const onModalDiscardDtnClickHandler = () => {
+  const onModalDiscardDtnClickHandler = async () => {
+    await replace(PATH.HOME)
     setOnOpen(false)
-    replace(PATH.HOME)
   }
 
-  const onDraftBtnClickHandler = () => {
-    setOnOpen(false)
+  const onDraftBtnClickHandler = async () => {
     toast.info('Здесь будет функционал черновиков, когда-нибудь точно появится!')
-    replace(PATH.HOME)
+    await replace(PATH.HOME)
+    setOnOpen(false)
   }
 
   return (
     <>
       <Modal
         contentClassName={clsx(s.wrapper, contentCN)}
-        modalSize={modalSize}
+        headerTitle={headerTitle}
+        modalSize={editFilter || addTextView ? 'XL' : modalSize}
         onOpenChange={onCloseModalHandler}
         open={onOpen}
         showHeader={false}
         {...rest}
       >
         <div className={s.headerWrapper}>
-          <Button onClick={onBackButtonClick} type={'button'} variant={'iconButton'}>
+          <Button
+            disabled={isDisabled}
+            onClick={onBackButtonClick}
+            type={'button'}
+            variant={'iconButton'}
+          >
             <LeftIcon className={s.leftIcon} />
           </Button>
           <Typography>{headerTitle}</Typography>
           <Button
             className={s.nextButton}
+            disabled={isDisabled}
             onClick={onNextButtonClick}
             type={'button'}
             variant={'outline'}
@@ -78,13 +91,13 @@ export const PostWithoutHeaderModal = ({
       </Modal>
       <ActionConfirmationModal
         buttonsWrapperCN={s.modalButtons}
-        headerTitle={t.createNewPost.editPhotoModal.modalExitTitle}
+        headerTitle={t.createNewPost.editPhotoModal.closeEditor.modalExitTitle}
         isOpenModal={openExitModal}
-        modalTextChildren={t.createNewPost.editPhotoModal.modalExitText}
-        negativeButtonChildren={t.createNewPost.editPhotoModal.modalExitSaveDraftBtn}
+        modalTextChildren={t.createNewPost.editPhotoModal.closeEditor.modalExitText}
+        negativeButtonChildren={t.createNewPost.editPhotoModal.closeEditor.modalExitSaveDraftBtn}
         onClickNegativeButton={onDraftBtnClickHandler}
         onClickPositiveButton={onModalDiscardDtnClickHandler}
-        positiveButtonChildren={t.createNewPost.editPhotoModal.modalExitDiscardBtn}
+        positiveButtonChildren={t.createNewPost.editPhotoModal.closeEditor.modalExitDiscardBtn}
         setIsOpenModal={setOpenExitModal}
       />
     </>

@@ -1,0 +1,91 @@
+.ratioOriginalIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: -0.1875rem;
+}
+
+.ratioSquareIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.ratioPhoneIcon {
+  width: 1.125rem;
+  height: 1.625rem;
+}
+
+.ratioDesktopIcon {
+  width: 1.625rem;
+  height: 1.25rem;
+}
+
+.ratioDesktopIcon,
+.ratioPhoneIcon,
+.ratioSquareIcon {
+  background-color: transparent;
+  border: 0.125rem solid var(--Light-900);
+  border-radius: 0.1875rem;
+}
+
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  justify-content: center;
+
+  width: 9.75rem;
+  padding: 0.625rem 0.75rem;
+
+  color: var(--Light-900);
+
+  background-color: rgb(23 23 23 / 70%);
+
+  animation-duration: 0s;
+}
+
+.triggerIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.activeTriggerIcon {
+  color: var(--Primary-500);
+}
+
+.defaultTriggerIcon {
+  color: var(--Light-100);
+}
+
+.triggerBtn {
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: var(--Dark-500);
+  border-radius: 0.125rem;
+}
+
+.dropDownItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    color: var(--Light-100);
+
+    .ratioDesktopIcon,
+    .ratioPhoneIcon,
+    .ratioSquareIcon {
+      border: 0.125rem solid var(--Light-100);
+    }
+  }
+}
+
+.activeDropDownItem {
+  color: var(--Light-100);
+
+  .ratioDesktopIcon,
+  .ratioPhoneIcon,
+  .ratioSquareIcon {
+    border: 0.125rem solid var(--Light-100);
+  }
+}
