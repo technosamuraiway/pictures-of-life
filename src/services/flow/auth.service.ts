@@ -63,9 +63,15 @@ export const authService = inctagramApi.injectEndpoints({
       }),
       logOut: builder.mutation<void, void>({
         async onQueryStarted(_, { queryFulfilled }) {
-          await queryFulfilled
+          /* Очень важно удалить токен именно не дожидаясь ответа.
+
+             Сценарий: если удалить refreshToken и нажать logout - accessToken останется
+             и все запросы буду проходить...
+
+             Почему так? видимо для успешного запроса - logout нужен refreshToken в cookie, а его нет */
 
           localStorage.removeItem('accessToken')
+          await queryFulfilled
         },
         query: args => ({
           body: args,
