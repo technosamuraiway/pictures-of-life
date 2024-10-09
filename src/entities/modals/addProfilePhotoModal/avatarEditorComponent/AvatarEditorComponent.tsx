@@ -19,7 +19,7 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
   const [changeAvatar, { isLoading: changeAvatarIsLoading }] = useChangeAvatarMutation()
 
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  const [image, setImage] = useState<(File | string)[]>([''])
+  const [image, setImage] = useState<string[]>([])
 
   const editorRef = useRef<Avatar | null>(null)
 
@@ -39,7 +39,7 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
 
           setIsEdit(false)
           onOpenModal(false)
-          toast.success(t.avatarChange.avatarSaved)
+          toast.success(t.avatarChange.avatarSavedSuccess)
         }
       }, 'image/png')
     }
@@ -49,8 +49,7 @@ export const AvatarEditorComponent = ({ onOpenModal }: IProps) => {
     <>
       {changeAvatarIsLoading && <RequestLineLoader />}
       {isEdit ? (
-        image &&
-        !fileError && (
+        image && (
           <AvatarEditor
             image={image}
             isDisableSaveBtn={changeAvatarIsLoading}

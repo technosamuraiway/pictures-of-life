@@ -9,30 +9,36 @@ import s from './RoundAvatar.module.scss'
 import { AvatarChoice } from '../avatarChoice/AvatarChoice'
 
 interface IProps {
-  addAvatarBtnText: string
+  addAvatarBtnText?: string
+  avatarCN?: string
   avatarWrapperCN?: string
   btnCN?: string
   deleteAvatarBtnCN?: string
   deleteAvatarBtnWrapperCN?: string
   deleteBtnChildren?: ReactNode
+  imgCN?: string
   isShowAddBtn: boolean
+  isShowDeleteBtn?: boolean
   onClickAddAvatar?: () => void
   onClickDeleteAvatar?: () => void
 }
 export const RoundAvatar = ({
   addAvatarBtnText,
+  avatarCN,
   avatarWrapperCN,
   btnCN,
   deleteAvatarBtnCN,
   deleteAvatarBtnWrapperCN,
   deleteBtnChildren = '✖',
+  imgCN,
   isShowAddBtn,
+  isShowDeleteBtn = true,
   onClickAddAvatar,
   onClickDeleteAvatar,
 }: IProps) => {
   const { data: profileData } = useGetProfileQuery()
 
-  const avatarCondition = profileData?.avatars && profileData.avatars.length > 0
+  const avatarCondition = profileData?.avatars && profileData.avatars.length > 0 && isShowDeleteBtn
 
   return (
     <div className={clsx(s.wrapper, avatarWrapperCN)}>
@@ -48,7 +54,7 @@ export const RoundAvatar = ({
           </Button>
         </div>
       )}
-      <AvatarChoice imgSVGWrapperCN={s.imgWrapper} />
+      <AvatarChoice imgCN={imgCN} imgSVGWrapperCN={clsx(s.imgWrapper, avatarCN)} />
       {isShowAddBtn && (
         <Button
           className={btnCN}

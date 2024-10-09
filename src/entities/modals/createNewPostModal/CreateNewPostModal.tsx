@@ -5,15 +5,19 @@ import { EditPostPhotoModal } from './editPostPhotoModal/EditPostPhotoModal'
 
 export const CreateNewPostModal = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
-
-  const [image, setImage] = useState<(File | string)[]>([''])
+  const [downloadedImage, setDownloadedImage] = useState<string[]>([])
 
   return (
     <>
       {isEdit ? (
-        <EditPostPhotoModal image={image} onOpen={isEdit} setOnOpen={setIsEdit} />
+        <EditPostPhotoModal
+          downloadedImage={downloadedImage}
+          onOpen={isEdit}
+          setDownloadedImage={setDownloadedImage}
+          setOnOpen={setIsEdit}
+        />
       ) : (
-        <AddPostPhotoModal onEditMode={setIsEdit} setImage={setImage} />
+        <AddPostPhotoModal onEditMode={setIsEdit} setImage={setDownloadedImage} />
       )}
     </>
   )

@@ -1,0 +1,39 @@
+.paginationWrapper {
+  position: absolute;
+  z-index: 170;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 0.375rem;
+  justify-content: center;
+}
+
+.paginationDot {
+  cursor: pointer;
+
+  width: 0.5rem;
+  height: 0.5rem;
+
+  background-color: var(--Light-900);
+  border-radius: 50%;
+
+  &:focus-visible {
+    border: none;
+    outline: none;
+  }
+
+  &:hover {
+    color: var(--Primary-300);
+  }
+
+  &:focus-visible:enabled {
+    border: none;
+    outline: 0.125rem solid var(--Primary-300);
+  }
+}
+
+.activeDot {
+  background-color: var(--Primary-500);
+}

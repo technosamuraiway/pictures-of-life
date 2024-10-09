@@ -1,3 +1,13 @@
+.closeButton {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 0.125rem solid var(--Primary-300);
+  }
+}
+
 .childrenWrapper {
   display: flex;
   flex-direction: column;

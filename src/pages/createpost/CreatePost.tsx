@@ -5,6 +5,7 @@ import { MetaHead, useRouterLocaleDefinition } from '@/shared'
 const CreatePost = () => {
   const t = useRouterLocaleDefinition()
 
+  // comment
   return (
     <>
       <MetaHead title={t.createNewPost.title} />

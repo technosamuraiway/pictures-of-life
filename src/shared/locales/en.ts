@@ -2,38 +2,67 @@ import { LocaleType } from './ru'
 
 export const en: LocaleType = {
   avatarChange: {
-    addAvatarButton: 'Add a Profile Photo',
-    addAvatarModalButtonText: 'Select from Computer',
-    addAvatarModalHeader: 'Add a Profile Photo',
-    addNewAvatarBtn: 'Add New Photo',
+    addAvatar: {
+      addAvatarButton: 'Add a Profile Photo',
+      addAvatarModalButtonText: 'Select from Computer',
+      addAvatarModalHeader: 'Add a Profile Photo',
+      addNewAvatarBtn: 'Add New Photo',
+    },
     avatarImgAltText: 'Your avatar here',
-    avatarSaved: 'Avatar saved successfully!',
-    deleteAvatarModalButtonNo: 'No',
-    deleteAvatarModalButtonYes: 'Yes',
-    deleteAvatarModalHeader: 'Delete Avatar',
-    deleteAvatarModalText: 'Are you sure you want to delete the avatar?',
-    deleteAvatarSuccess: 'Avatar was deleted successfully!',
-    errorFormatText: 'Error! The format of the uploaded photo must be PNG or JPEG',
-    errorSizeText: 'Error! Photo size must be less than 10 MB!',
+    avatarSavedSuccess: 'Avatar saved successfully!',
+    deleteAvatar: {
+      deleteAvatarModalButtonNo: 'No',
+      deleteAvatarModalButtonYes: 'Yes',
+      deleteAvatarModalHeader: 'Delete Avatar',
+      deleteAvatarModalText: 'Are you sure you want to delete the avatar?',
+      deleteAvatarSuccess: 'Avatar was deleted successfully!',
+    },
+    errors: {
+      errorFormatText: 'Error! The format of the uploaded photo must be PNG or JPEG',
+      errorSizeText: 'Error! Photo size must be less than 10 MB!',
+    },
     saveBtn: 'Save',
   },
   createNewPost: {
     addPhotoModal: {
       addImgModalButtonText: 'Select from Computer',
+      errorMaxCount: 'Error! You cannot upload more than 10 files!',
       errorSizeText: 'Error! Photo size must be less than 20 MB!',
       modalTitle: 'Add Photo',
       openDraftButtonText: 'Open Draft',
     },
     editPhotoModal: {
-      modalExitDiscardBtn: 'Discard',
-      modalExitSaveDraftBtn: 'Save Draft',
-      modalExitText:
-        'Do you really want to close the creation of a publication? If you close everything will be deleted',
-      modalExitTitle: 'Close',
+      addImage: 'Add new images',
+      closeEditor: {
+        modalExitDiscardBtn: 'Discard',
+        modalExitSaveDraftBtn: 'Save Draft',
+        modalExitText:
+          'Do you really want to close the creation of a publication? If you close everything will be deleted',
+        modalExitTitle: 'Close',
+      },
+      createPost: {
+        createPostSuccess: 'You have successfully published your post',
+        locationInputLabel: 'Add locations',
+        modalPublicationTitle: 'Publication',
+        publishBtn: 'Publish',
+        textAreaCharLimit: 'Your rich char limit!',
+        textAreaLabel: 'Add publication descriptions',
+        textAreaPlaceHolder: 'Your description start here...',
+        uploadSuccess: 'You have successfully prepared your images for publication',
+      },
+      modalFiltersTitle: 'Filters',
       modalTitle: 'Photo Editor',
       nextBtn: 'Next',
+      originalRatio: 'Original',
+      ratioChange: 'Adjust the aspect ratio of the image',
+      resetSettings: {
+        headerTitle: 'Reset Your Changes',
+        mainText: 'Are you sure you want to reset the settings? All changes will be lost.',
+        negativeResult: 'No',
+        positiveResult: 'Yes',
+      },
+      zoomChange: 'Adjust the zoom of the image',
     },
-
     title: 'Создать пост',
   },
   error404Page: {
