@@ -19,11 +19,11 @@
 
   padding-left: 0;
 
-  background-color: transparent;
+  background-color: transparent !important;
   border: none;
 
   &:active:enabled {
-    background-color: transparent;
+    background-color: transparent !important;
   }
 }
 
