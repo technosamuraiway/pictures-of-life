@@ -1,6 +1,10 @@
+
 import Posts from '@/entities/publicPosts/posts'
 import { MetaHead } from '@/shared'
 import { getBaseLayout } from '@/widgets'
+
+
+
 function Public() {
   return (
     <>
