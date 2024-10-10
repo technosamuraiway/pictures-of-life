@@ -1,5 +1,6 @@
 export { rtkQueryErrorLogger } from './AppErrorHandler'
 export type { IServerError, MessagesFromErrorType } from './AppErrorHandler'
+export { AuthGuard } from './containers/AuthGuard'
 
 export * from './flow/auth.service'
 export * from './flow/post.service'
