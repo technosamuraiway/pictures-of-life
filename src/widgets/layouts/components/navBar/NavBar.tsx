@@ -1,8 +1,6 @@
 import { useState } from 'react'
 
 import { useLazyMeCurInfoQuery } from '@/services'
-import { inctagramApi } from '@/services/api/inctagram.api'
-import { useAppDispatch } from '@/services/store'
 import { PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
 import {
   ActiveCreateIcon,
@@ -30,8 +28,6 @@ import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
   const [meDataLazy] = useLazyMeCurInfoQuery()
-
-  const dispatch = useAppDispatch()
 
   const { handleLogout, isLoadingLogout } = useLogout()
   const t = useRouterLocaleDefinition()
@@ -132,17 +128,6 @@ export function NavBar() {
 
   const onClickModalPositiveButtonHandler = async () => {
     await handleLogout()
-
-    /* 📛 очистка всего кеша STORE 📛
-     * зачем нужно? => после logout, у нас остается me-запрос в кеше,
-     * и когда мы через routes переходим ДАЖЕ на приватную страницу
-     * me-запрос не происходит, так как он в кеше...
-     * => даже после logout мы можем посещать приватные страницы
-     *
-     * почему бы не воспользоваться ВАЛИДАЦИЕЙ тегов в RTK-query-api ['me']?
-     * => потому что Logout запрос ничего не возвращает => валидацию на него не повесить */
-    dispatch(inctagramApi.util.resetApiState())
-
     setOpenModal(false)
   }
 
