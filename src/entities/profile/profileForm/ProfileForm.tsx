@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { IProfile, ProfileFormValues, profileValidationScheme } from '@/entities'
@@ -23,7 +23,8 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
   const router = useRouter()
   const currentPath = router.asPath
 
-  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null)
+  const { data: profileData, isLoading } = useGetProfileQuery()
+  const [errorMessage, setErrorMessage] = useState('')
 
   const profileTranslate: IProfile = {
     aboutMe: {
@@ -48,27 +49,36 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
     },
   }
 
-  const { data: profileData } = useGetProfileQuery()
-
-  const defaultValues = {
-    aboutMe: profileData?.aboutMe || '',
-    city: profileData?.city || '',
-    country: profileData?.country || '',
-    dateOfBirth: profileData?.dateOfBirth
-      ? new Date(profileData.dateOfBirth).toLocaleDateString('en-US')
-      : '',
-    firstName: profileData?.firstName || '',
-    lastName: profileData?.lastName || '',
-    region: profileData?.region || '',
-    userName: profileData?.userName || '',
-  }
-
-  const { control, handleSubmit, register, setValue, watch } = useForm<ProfileFormValues>({
-    defaultValues,
+  const { control, handleSubmit, register, reset, setValue, watch } = useForm<ProfileFormValues>({
+    defaultValues: {
+      aboutMe: '',
+      city: '',
+      country: '',
+      dateOfBirth: '',
+      firstName: '',
+      lastName: '',
+      region: '',
+      userName: '',
+    },
     resolver: zodResolver(profileValidationScheme(profileTranslate)),
   })
 
-  const [errorMessage, setErrorMessage] = useState('')
+  useEffect(() => {
+    if (profileData) {
+      reset({
+        aboutMe: profileData.aboutMe || '',
+        city: profileData.city || '',
+        country: profileData.country || '',
+        dateOfBirth: profileData.dateOfBirth
+          ? new Date(profileData.dateOfBirth).toISOString().split('T')[0]
+          : '',
+        firstName: profileData.firstName || '',
+        lastName: profileData.lastName || '',
+        region: profileData.region || '',
+        userName: profileData.userName || '',
+      })
+    }
+  }, [profileData, reset])
 
   const checkAge = (birthDate: Date) => {
     const today = new Date()
@@ -82,7 +92,6 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
 
   const handleDateChange = ({ start }: { start?: Date | null }) => {
     if (start) {
-      setDateOfBirth(start)
       if (checkAge(start) < 13) {
         setErrorMessage(t.settingsPage.infoForm.errorMessage)
       } else {
@@ -90,9 +99,8 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         setValue('dateOfBirth', start.toISOString())
       }
     } else {
-      setDateOfBirth(null)
-      setValue('dateOfBirth', '')
       setErrorMessage('')
+      setValue('dateOfBirth', '')
     }
   }
 
@@ -174,10 +182,11 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       />
 
       <div>
-        <Typography className={s.labelColor} variant={'regular-text-14'}>
-          {t.settingsPage.infoForm.textArea}
-        </Typography>
-        <TextArea {...register('aboutMe')} placeholder={t.settingsPage.infoForm.textAreaPlace} />
+        <TextArea
+          {...register('aboutMe')}
+          placeholder={t.settingsPage.infoForm.textAreaPlace}
+          textAreaLabelText={t.settingsPage.infoForm.textArea}
+        />
       </div>
 
       <Button
