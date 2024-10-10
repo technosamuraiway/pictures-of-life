@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { useGetProfileQuery, useLazyMeCurInfoQuery } from '@/services'
+import { useLazyMeCurInfoQuery } from '@/services'
 import { PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
 import {
   ActiveCreateIcon,
@@ -128,7 +128,6 @@ export function NavBar() {
 
   const onClickModalPositiveButtonHandler = async () => {
     await handleLogout()
-
     setOpenModal(false)
   }
 
