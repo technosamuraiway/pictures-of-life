@@ -43,6 +43,23 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+      getUserPublicPosts: builder.query<
+        IPostPublicResponse,
+        { params?: IPostParams; userId: number }
+      >({
+        query: ({ params, userId }) => {
+          const { endCursorPostId, ...restParams } = params ?? {}
+          const url = endCursorPostId
+            ? `v1/public-posts/user/${userId}/${endCursorPostId}`
+            : `v1/public-posts/user/${userId}`
+
+          return {
+            method: 'GET',
+            params: restParams, // Передаем остальные параметры в запрос
+            url,
+          }
+        },
+      }),
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
         query: ({ files }) => {
           const formData = new FormData()
@@ -66,5 +83,6 @@ export const {
   useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
+  useGetUserPublicPostsQuery,
   useUploadImagesForPostMutation,
 } = postService
