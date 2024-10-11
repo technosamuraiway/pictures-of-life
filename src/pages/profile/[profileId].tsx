@@ -1,24 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { useGetProfileQuery } from '@/services'
-import { MetaHead, PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { API } from '@/services/api-SSG/inctagram-SSG.api'
+import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
-import { Button, Typography } from '@technosamurai/techno-ui-kit'
+import { GetStaticProps } from 'next'
 
 function Profile() {
   const t = useRouterLocaleDefinition()
 
-  const { data: profileData, isLoading: getProfileIsLoading } = useGetProfileQuery()
+  const fetchProfile = async () => {
+    try {
+      const res = await API.profileAPI.getProfile()
+
+      return res
+    } catch (err) {
+      console.error('Error fetching profile:', err)
+    }
+  }
+
+  // const { data: profileData, isLoading: getProfileIsLoading } = useGetProfileQuery()
 
   return (
     <>
-      {getProfileIsLoading && <RequestLineLoader />}
+      {/*{getProfileIsLoading && <RequestLineLoader />}*/}
       <MetaHead title={t.profilePage.title} />
-      <div>It Is {profileData?.userName} profile</div>
-      <Typography variant={'h2'}>id: {profileData?.id}</Typography>
-      <Button as={'a'} href={PATH.PROFILE.SETTINGS} variant={'secondary'}>
-        {t.profilePage.settingButton}
-      </Button>
+      <button onClick={fetchProfile}>REQUEST</button>
+      <div>1</div>
     </>
   )
 }
