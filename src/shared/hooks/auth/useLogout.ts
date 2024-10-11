@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify'
 
-import { useLogOutMutation } from '@/services'
-import { inctagramApi } from '@/services/api/inctagram.api'
+import { inctagramApi, useLogOutMutation } from '@/services'
 import { useAppDispatch } from '@/services/store'
 import { useRouter } from 'next/router'
 
