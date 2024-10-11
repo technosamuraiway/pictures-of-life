@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react'
-
 import { API } from '@/services/api-SSG/inctagram-SSG.api'
-import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { MetaHead, useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
-import { GetStaticProps } from 'next'
 
 function Profile() {
   const t = useRouterLocaleDefinition()

@@ -1,3 +1,4 @@
+import { inctagramApi } from '@/services/api/inctagram.api'
 import { ProfileAPI } from '@/services/api-SSG/profile.api'
 import { PATH } from '@/shared'
 import axios from 'axios'
@@ -51,11 +52,13 @@ instance.interceptors.response.use(
 
           // повторяем упавший запрос
           return instance(originalRequest)
-        } else {
-          await Router.push(PATH.AUTH.SIGNIN)
         }
       } catch (error) {
-        console.error('ERROR')
+        // в AuthGuard есть проверка me запроса, data от me  кеше
+        // если не очистить кеш, то роутер перенаправит на signin а там автоматически на home
+        // => нужно очистить кеш перед перенаправлением
+        inctagramApi.util.resetApiState()
+        await Router.push(PATH.AUTH.SIGNIN)
       }
     }
 
