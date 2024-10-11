@@ -1,24 +1,39 @@
 // @flow
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
 import { SortDirection } from '@/services/types/post.types'
 import { ButtonLink, PATH, SwiperSlider, convertDate, useRouterLocaleDefinition } from '@/shared'
+import { useDeletePost } from '@/shared/hooks/posts/useDeletePost'
+import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
+
+import s from './posts.module.scss'
+import clsx from 'clsx'
 
 type Props = {}
 
 export default function Posts(props: Props) {
-  const [sortDirectionVal, setSortDirectionVal] = useState<SortDirection>('asc')
   const t = useRouterLocaleDefinition()
+  const [sortDirectionVal, setSortDirectionVal] = useState<SortDirection>('desc')
+  const { handleDeletePost, isSuccessDeletePost } = useDeletePost()
+  const [isModal, setIsModal] = useState(false)
+  const [currentPostId, setCurrentPostId] = useState<number>(0)
   const {
     data: allPublicPosts,
     isError,
     isLoading,
+    refetch,
   } = useGetAllPublicPostsQuery({
     pageSize: 50,
     sortBy: 'userName',
     sortDirection: sortDirectionVal,
   })
+
+  useEffect(() => {
+    if (isSuccessDeletePost) {
+      refetch()
+    }
+  }, [isSuccessDeletePost, refetch])
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -34,6 +49,54 @@ export default function Posts(props: Props) {
     const value = e.target.value as SortDirection
 
     setSortDirectionVal(value)
+  }
+
+  async function onPositiveButtonClick(){
+    await handleDeletePost(currentPostId)
+    setIsModal(false)
+  }
+ 
+  function onHandleClickDelWithModal(postId: number): void {
+    if (!isModal) {
+      setIsModal(true)
+    }
+    setCurrentPostId(postId)
+  }
+
+  function onHandleCloseModal() {
+    setIsModal(false)
+  }
+
+  if (isModal) {
+    return (
+      <Modal
+        closeButtonClassName={s.closeButton}
+        onOpenChange={setIsModal}
+        headerTitle={'Delete Post'}
+        open={isModal}
+      >
+        <div className={s.childrenWrapper}>
+          <Typography variant={'regular-text-16'}>{t.posts.qustionAboutDelete}</Typography>
+          <div className={s.buttonsWrapper}>
+            <Button
+              className={s.modalButton}
+              onClick={onPositiveButtonClick}
+              type={'button'}
+              variant={'outline'}
+            >
+              {t.logOut.buttonYes}
+            </Button>
+            <Button
+              className={s.modalButton}
+              onClick={onHandleCloseModal}
+              type={'button'}
+            >
+              {t.logOut.buttonNo}
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    )
   }
 
   return (
@@ -58,8 +121,8 @@ export default function Posts(props: Props) {
         style={{ color: 'blue' }}
         value={sortDirectionVal}
       >
-        <option value={'asc'}>asc</option>
         <option value={'desc'}>desc</option>
+        <option value={'asc'}>asc</option>
       </select>
 
       <div
@@ -84,20 +147,32 @@ export default function Posts(props: Props) {
             {/* Проверяем, есть ли изображения и их количество */}
             {post?.images.length > 1 ? (
               // Если изображений несколько, показываем их в слайдере
-              <SwiperSlider
-                customClass={'customSwiperClass'}
-                loop
-                navigation
-                paginationClickable
-                slides={post.images.map(image => ({
-                  content: <img alt={`img-${post.id}`} height={300} src={image.url} width={300} />,
-                }))}
-                slidesPerView={1} // Можно настроить как нужно
-                spaceBetween={20}
-              />
+              <>
+                <SwiperSlider
+                  customClass={'customSwiperClass'}
+                  loop
+                  navigation
+                  paginationClickable
+                  slides={post.images.map(image => ({
+                    content: (
+                      <img alt={`img-${post.id}`} height={300} src={image.url} width={300} />
+                    ),
+                  }))}
+                  slidesPerView={1} // Можно настроить как нужно
+                  spaceBetween={20}
+                />
+                <Button onClick={() => onHandleClickDelWithModal(post?.id)} type={'danger'}>
+                  Delete
+                </Button>
+              </>
             ) : (
               // Если изображение одно, просто выводим его
-              <img alt={'img'} height={300} src={post?.images[0]?.url} width={300} />
+              <>
+                <img alt={'img'} height={300} src={post?.images[0]?.url} width={300} />
+                <Button onClick={() => onHandleClickDelWithModal(post?.id)} type={'danger'}>
+                  Delete
+                </Button>
+              </>
             )}
           </div>
         ))}
