@@ -12,26 +12,36 @@ const instance = axios.create({
   withCredentials: true,
 })
 
-instance.interceptors.request.use(request => {
-  const accessToken = localStorage.getItem('accessToken')
+instance.interceptors.request.use(
+  request => {
+    const accessToken = localStorage.getItem('accessToken')
 
-  if (accessToken) {
-    request.headers['Authorization'] = `Bearer ${accessToken}`
+    if (accessToken) {
+      request.headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
+    return request
+  },
+  error => {
+    Promise.reject(error)
   }
-
-  return request
-})
+)
 
 instance.interceptors.response.use(
-  response => {
-    return response
-  },
-  async function (error) {
+  response => response,
+  async error => {
     const originalRequest = error.config
 
     // originalRequest._retry = true - для избегания отлавнивания|осуществления безконечных повторных запросов
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true
+    if (error.response.status === 401 && !originalRequest.sent) {
+      originalRequest.sent = true
+
+      // останавливаем безконечный цикл
+      if (originalRequest.url === 'v1/auth/update-tokens') {
+        console.log('💚💚💚💚💚💚')
+
+        return
+      }
 
       try {
         const refreshResult = await instance.post<UpdateTokenResponse>('v1/auth/update-tokens')
@@ -44,8 +54,8 @@ instance.interceptors.response.use(
         } else {
           await Router.push(PATH.AUTH.SIGNIN)
         }
-      } finally {
-        console.log('error')
+      } catch (error) {
+        console.error('ERROR')
       }
     }
 
