@@ -64,8 +64,6 @@ export const authService = inctagramApi.injectEndpoints({
       logOut: builder.mutation<void, void>({
         async onQueryStarted(_, { queryFulfilled }) {
           await queryFulfilled
-
-          localStorage.removeItem('accessToken')
         },
         query: args => ({
           body: args,
@@ -126,7 +124,6 @@ export const {
   useCreateNewPasswordMutation,
   useForgotPasswordMutation,
   useGoogleSignUpMutation,
-  useLazyMeCurInfoQuery,
   useLogOutMutation,
   useMeCurInfoQuery,
   useResendConfirmEmailMutation,

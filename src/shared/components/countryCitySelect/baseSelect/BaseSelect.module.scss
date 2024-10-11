@@ -5,26 +5,26 @@
 
 .rootWrapper {
   position: relative;
+
+  & .iconButton {
+    position: absolute;
+    top: 1.5rem;
+    right: 0;
+
+    padding-left: 0;
+
+    background-color: transparent;
+    border: none;
+
+    &:active:enabled {
+      background-color: transparent;
+    }
+  }
 }
 
 .selectRoot {
   padding-right: 2.5rem;
   border: 0.0625rem solid var(--Dark-100);
-}
-
-.iconButton {
-  position: absolute;
-  top: 1.5rem;
-  right: 0;
-
-  padding-left: 0;
-
-  background-color: transparent;
-  border: none;
-
-  &:active:enabled {
-    background-color: transparent;
-  }
 }
 
 .arrowIcon {

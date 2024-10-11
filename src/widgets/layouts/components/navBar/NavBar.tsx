@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { useGetProfileQuery, useLazyMeCurInfoQuery } from '@/services'
+import { useMeCurInfoQuery } from '@/services'
 import { PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
 import {
   ActiveCreateIcon,
@@ -27,14 +27,13 @@ import { LogOutItem } from './logOutItem/LogOutItem'
 import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
-  const [meDataLazy] = useLazyMeCurInfoQuery()
+  const { data: meData } = useMeCurInfoQuery()
 
   const { handleLogout, isLoadingLogout } = useLogout()
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
   const [openModal, setOpenModal] = useState<boolean>(false)
-  const [email, setEmail] = useState<string>('TestEmail@.com')
 
   // Данные для навигации
   const firstItems: NavItem[] = [
@@ -60,7 +59,7 @@ export function NavBar() {
       activeIconComponent: <ActiveProfileIcon />,
       altText: `${t.navBar.myProfile} Icon`,
       defaultIconComponent: <DefaultProfileIcon />,
-      hrefLink: `${PATH.PROFILE.BASEPROFILE}/1370`,
+      hrefLink: `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`,
       id: 456,
       isDisabled: false,
       text: t.navBar.myProfile,
@@ -118,17 +117,11 @@ export function NavBar() {
 
   // ------ Работа с модальным окном -------
   const onClickLogOutHandler = async () => {
-    const result = await meDataLazy()
-
-    if (result) {
-      setEmail(result.data?.email as string)
-      setOpenModal(true)
-    }
+    setOpenModal(true)
   }
 
   const onClickModalPositiveButtonHandler = async () => {
     await handleLogout()
-
     setOpenModal(false)
   }
 
@@ -141,7 +134,7 @@ export function NavBar() {
         wrapperClassName={s.secondArrayWrapper}
       />
       <LogOutItem
-        email={email}
+        email={meData?.email}
         isDisableButtons={isLoadingLogout}
         isOpenModal={openModal}
         onClickLogOutBtn={onClickLogOutHandler}

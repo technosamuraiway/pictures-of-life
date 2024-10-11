@@ -83,7 +83,9 @@ export const baseQueryWithReauth: BaseQueryFn<
           result = await baseQuery(args, api, extraOptions)
         } else {
           /* если не получилось получить новый access token, то перенаправляем пользователя на страничку регистрации*/
-          await Router.push(PATH.AUTH.SIGNIN)
+          if (!result?.meta?.request.url.includes('v1/auth/me')) {
+            await Router.push(PATH.AUTH.SIGNIN)
+          }
         }
       } finally {
         /* относится к mutex => просто скипаем */

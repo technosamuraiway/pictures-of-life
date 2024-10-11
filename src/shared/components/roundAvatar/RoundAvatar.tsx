@@ -45,7 +45,7 @@ export const RoundAvatar = ({
       {avatarCondition && (
         <div className={clsx(s.deleteAvatarBtnWrapper, deleteAvatarBtnWrapperCN)}>
           <Button
-            className={clsx(s.deleteAvatarBtn, deleteAvatarBtnCN)}
+            className={clsx(deleteAvatarBtnCN)}
             onClick={onClickDeleteAvatar}
             type={'button'}
             variant={'iconButton'}
