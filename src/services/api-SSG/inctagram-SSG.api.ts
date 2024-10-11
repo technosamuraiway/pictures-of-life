@@ -32,14 +32,14 @@ instance.interceptors.response.use(
   async error => {
     const originalRequest = error.config
 
-    // originalRequest._retry = true - для избегания отлавнивания|осуществления безконечных повторных запросов
-    if (error.response.status === 401 && !originalRequest.sent) {
+    // originalRequest._retry = true - для избегания безконечных повторных запросов
+    // => у меня не работает пришлось добавлять условие ниже
+    if (error.response.status === 401 && !originalRequest.sent && !originalRequest._retry) {
+      originalRequest._retry = true
       originalRequest.sent = true
 
       // останавливаем безконечный цикл
       if (originalRequest.url === 'v1/auth/update-tokens') {
-        console.log('💚💚💚💚💚💚')
-
         return
       }
 
