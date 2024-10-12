@@ -1,26 +1,20 @@
 import React, { PropsWithChildren } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { useMeCurInfoQuery } from '@/services'
-import { inctagramApi } from '@/services/api/inctagram.api'
 import { InitLoader, PATH, PUBLIC_ROUTES_SET } from '@/shared'
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
-export const AuthGuard: NextPage<PropsWithChildren> = ({ children }) => {
-  const dispatch = useDispatch()
-  const { pathname, push } = useRouter()
+export const AuthGuard = ({ children }: PropsWithChildren) => {
+  const { pathname, replace } = useRouter()
+  const { data, status } = useMeCurInfoQuery()
 
-  const { data, isLoading } = useMeCurInfoQuery()
-
-  if (isLoading) {
+  // почему не isLoading? - потому что он пропускает код дальше при самом первом рендере
+  if (status === 'pending') {
     return <InitLoader />
   }
 
   if (!!data === PUBLIC_ROUTES_SET.has(pathname)) {
-    push(data ? PATH.HOME : PATH.AUTH.SIGNIN)
-
-    dispatch(inctagramApi.util.resetApiState())
+    replace(data ? PATH.PROFILE.BASEPROFILE : PATH.AUTH.SIGNIN)
 
     /* Если ничего не возвращать в этом блоке => то будут возвращаться children
      *  даже переход на публичную страницу без авторизации - будет кратковременно отрисовыываться приватная страница */

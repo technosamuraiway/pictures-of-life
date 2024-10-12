@@ -1,7 +1,7 @@
 import { IProfileResponse } from '@/services'
 import { AxiosInstance } from 'axios'
 
-export class ProfileAPI {
+export class ProfileAxiosApi {
   constructor(private instance: AxiosInstance) {}
 
   public getProfile() {

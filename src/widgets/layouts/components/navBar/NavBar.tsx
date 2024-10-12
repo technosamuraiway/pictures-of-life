@@ -59,7 +59,7 @@ export function NavBar() {
       activeIconComponent: <ActiveProfileIcon />,
       altText: `${t.navBar.myProfile} Icon`,
       defaultIconComponent: <DefaultProfileIcon />,
-      hrefLink: `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`,
+      hrefLink: PATH.PROFILE.BASEPROFILE,
       id: 456,
       isDisabled: false,
       text: t.navBar.myProfile,

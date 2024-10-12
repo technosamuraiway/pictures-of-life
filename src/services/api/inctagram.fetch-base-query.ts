@@ -1,3 +1,4 @@
+import { inctagramApi } from '@/services'
 import {
   BaseQueryFn,
   FetchArgs,
@@ -82,6 +83,9 @@ export const baseQueryWithReauth: BaseQueryFn<
           /* повторяем запрос, который упал из-за старого access token, только уже с новым access token*/
           result = await baseQuery(args, api, extraOptions)
         } else {
+          /* не удалось обновить данные => очищаем стор*/
+          inctagramApi.util.resetApiState()
+
           /* если не получилось получить новый access token, то перенаправляем пользователя на страничку регистрации*/
           if (!result?.meta?.request.url.includes('v1/auth/me')) {
             await Router.push(PATH.AUTH.SIGNIN)

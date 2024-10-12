@@ -1,8 +1,9 @@
 import { inctagramApi } from '@/services/api/inctagram.api'
-import { ProfileAPI } from '@/services/api-SSG/profile.api'
 import { PATH } from '@/shared'
 import axios from 'axios'
 import Router from 'next/router'
+
+import { ProfileAxiosApi } from './profile-axios.api'
 
 type UpdateTokenResponse = {
   accessToken: string
@@ -66,7 +67,7 @@ instance.interceptors.response.use(
   }
 )
 
-const profileAPI = new ProfileAPI(instance)
+const profileAPI = new ProfileAxiosApi(instance)
 
 export const API = {
   profileAPI,
