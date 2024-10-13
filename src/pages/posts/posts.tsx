@@ -1,15 +1,25 @@
 // @flow
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
-import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
+import { DeletePostModal } from '@/entities'
+import { useDeletePostMutation, useGetAllPublicPostsQuery } from '@/services/flow/post.service'
 import { SortDirection } from '@/services/types/post.types'
 import { ButtonLink, PATH, SwiperSlider, convertDate, useRouterLocaleDefinition } from '@/shared'
+import { useDeletePost } from '@/shared/hooks/posts/useDeletePost'
+import { getLayoutWithNav } from '@/widgets'
+import { Button } from '@technosamurai/techno-ui-kit'
+
+import s from './posts.module.scss'
 
 type Props = {}
 
-export default function Posts(props: Props) {
-  const [sortDirectionVal, setSortDirectionVal] = useState<SortDirection>('asc')
+function Posts(props: Props) {
   const t = useRouterLocaleDefinition()
+  const [sortDirectionVal, setSortDirectionVal] = useState<SortDirection>('desc')
+  const { handleDeletePost } = useDeletePost()
+  const [isModal, setIsModal] = useState(false)
+  const [currentPostId, setCurrentPostId] = useState<number>(0)
   const {
     data: allPublicPosts,
     isError,
@@ -36,6 +46,22 @@ export default function Posts(props: Props) {
     setSortDirectionVal(value)
   }
 
+  async function onPositiveButtonClick() {
+    await handleDeletePost(currentPostId)
+    setIsModal(false)
+  }
+
+  function onHandleOpenModal(postId: number) {
+    setIsModal(true)
+    if (postId) {
+      setCurrentPostId(postId)
+    }
+  }
+
+  function onHandleCloseModal() {
+    setIsModal(false)
+  }
+
   return (
     <div
       style={{
@@ -58,8 +84,8 @@ export default function Posts(props: Props) {
         style={{ color: 'blue' }}
         value={sortDirectionVal}
       >
-        <option value={'asc'}>asc</option>
         <option value={'desc'}>desc</option>
+        <option value={'asc'}>asc</option>
       </select>
 
       <div
@@ -84,24 +110,49 @@ export default function Posts(props: Props) {
             {/* Проверяем, есть ли изображения и их количество */}
             {post?.images.length > 1 ? (
               // Если изображений несколько, показываем их в слайдере
-              <SwiperSlider
-                customClass={'customSwiperClass'}
-                loop
-                navigation
-                paginationClickable
-                slides={post.images.map(image => ({
-                  content: <img alt={`img-${post.id}`} height={300} src={image.url} width={300} />,
-                }))}
-                slidesPerView={1} // Можно настроить как нужно
-                spaceBetween={20}
-              />
+              <>
+                <SwiperSlider
+                  customClass={'customSwiperClass'}
+                  loop
+                  navigation
+                  paginationClickable
+                  slides={post.images.map(image => ({
+                    content: (
+                      <img alt={`img-${post.id}`} height={300} src={image.url} width={300} />
+                    ),
+                  }))}
+                  slidesPerView={1} // Можно настроить как нужно
+                  spaceBetween={20}
+                />
+                <Button onClick={() => onHandleOpenModal(post.id)} type={'danger'}>
+                  Delete
+                </Button>
+              </>
             ) : (
               // Если изображение одно, просто выводим его
-              <img alt={'img'} height={300} src={post?.images[0]?.url} width={300} />
+              <>
+                <img alt={'img'} height={300} src={post?.images[0]?.url} width={300} />
+                <Button onClick={() => onHandleOpenModal(post?.id)} type={'danger'}>
+                  Delete
+                </Button>
+              </>
             )}
           </div>
         ))}
       </div>
+      <DeletePostModal
+        headerTitle={t.posts.qustionAboutDelete}
+        isOpenModal={isModal}
+        modalTextChildren={t.posts.qustionAboutDelete}
+        negativeButtonChildren={t.logOut.buttonNo}
+        onClickNegativeButton={onHandleCloseModal}
+        onClickPositiveButton={onPositiveButtonClick}
+        positiveButtonChildren={t.logOut.buttonYes}
+        setIsOpenModal={setIsModal}
+      />
     </div>
   )
 }
+
+Posts.getLayout = getLayoutWithNav
+export default Posts

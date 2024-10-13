@@ -1,16 +1,16 @@
 .links {
   display: flex;
-  gap: 1.875rem; 
+  gap: 1.875rem;
 }
 
 .usersContetnt {
   display: flex;
   flex-direction: column;
-  gap: 2.25rem; 
+  gap: 2.25rem;
   align-items: center;
   justify-content: space-around;
 
-  margin: 1.5rem auto; 
+  margin: 1.5rem auto;
 
   .section {
     display: flex;
@@ -18,25 +18,25 @@
     justify-content: space-between;
 
     width: 100%;
-    padding: 0.75rem 1.5rem; 
+    padding: 0.75rem 1.5rem;
 
     background: var(--Dark-500);
     border: 1px solid var(--Dark-300);
-    border-radius: 0.125rem; 
+    border-radius: 0.125rem;
 
     .spanContainer {
       display: flex;
       align-items: center;
       justify-content: center;
 
-      padding: 0.5rem 0.625rem 0.625rem; 
+      padding: 0.5rem 0.625rem 0.625rem;
 
       background: var(--Dark-700);
       border: 1px solid var(--Dark-300);
-      border-radius: 0.125rem; 
+      border-radius: 0.125rem;
 
       .spanDiv {
-        padding: 0 0.625rem; 
+        padding: 0 0.625rem;
         text-align: center;
         border-right: 1px solid var(--Dark-300);
 
@@ -54,27 +54,27 @@
   .userPost {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem; 
+    gap: 0.75rem;
     align-items: center;
     justify-content: space-around;
 
-    margin: 2.25rem auto; 
+    margin: 2.25rem auto;
 
     .swipperDiv {
       position: relative;
-      width: 15rem; 
-      height: 22.5rem; 
+      width: 15rem;
+      height: 22.5rem;
 
       .imageContainer,
       .expandedImageContainer {
         position: relative;
         width: 100%;
-        height: 15rem; 
+        height: 15rem;
         transition: height 0.3s ease-in-out;
       }
 
       .expandedImageContainer {
-        height: 6.25rem; 
+        height: 6.25rem;
       }
 
       .userImg {
@@ -87,11 +87,11 @@
       .allContent {
         position: absolute;
         z-index: 20;
-        top: 15rem; 
+        top: 15rem;
 
         width: 100%;
-        height: 11.25rem; 
-        padding-top: 0.75rem; 
+        height: 11.25rem;
+        padding-top: 0.75rem;
 
         color: var(--Light-100);
 
@@ -103,11 +103,11 @@
       .allContentExpanded {
         position: absolute;
         z-index: 20;
-        bottom: 6.25rem; 
+        bottom: 6.25rem;
 
         width: 100%;
-        height: 17.5rem; 
-        padding: 0.75rem; 
+        height: 17.5rem;
+        padding: 0.75rem;
 
         color: var(--Light-100);
 
@@ -118,7 +118,7 @@
     .avaName {
       cursor: pointer;
       display: flex;
-      gap: 0.563rem; 
+      gap: 0.563rem;
       align-items: center;
 
       .avatarPlaceholder {
@@ -126,8 +126,8 @@
         align-items: center;
         justify-content: center;
 
-        width: 2.25rem; 
-        height: 2.25rem; 
+        width: 2.25rem;
+        height: 2.25rem;
 
         font-size: 1.125rem;
         font-weight: 700;
@@ -138,14 +138,14 @@
       }
 
       .avatarImg {
-        width: 2.25rem; 
-        height: 2.25rem; 
+        width: 2.25rem;
+        height: 2.25rem;
         border-radius: 50%;
       }
     }
 
     .dateDesc {
-      margin-top: 0.75rem; 
+      margin-top: 0.75rem;
     }
 
     .created {
@@ -180,7 +180,7 @@
   float: inline-end;
   display: inline;
 
-  font-size: 0.875rem; 
+  font-size: 0.875rem;
   color: var(--Primary-500);
   text-decoration: underline;
 }

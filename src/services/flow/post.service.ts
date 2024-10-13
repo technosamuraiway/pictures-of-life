@@ -26,15 +26,15 @@ export const postService = inctagramApi.injectEndpoints({
           url: `/v1/posts`,
         }),
       }),
-      deletePost: builder.mutation<void, void>({
-        query: () => ({
+      deletePost: builder.mutation<void, number>({
+        invalidatesTags: ['Posts'],
+        query: postID => ({
           method: 'DELETE',
-          url: `v1/posts/88888`, // here will be some logic to define current posts ID
+          url: `v1/posts/${postID}`,
         }),
       }),
       getAllPublicPosts: builder.query<IPostPublicResponse, IPostParams | void>({
         providesTags: ['Posts'],
-
         query: arg => {
           const { endCursorPostId, ...params } = arg ?? {}
 
@@ -66,7 +66,7 @@ export const postService = inctagramApi.injectEndpoints({
 
           return {
             method: 'GET',
-            params: restParams, // Передаем остальные параметры в запрос
+            params: restParams,
             url,
           }
         },
