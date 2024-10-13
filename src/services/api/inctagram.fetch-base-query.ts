@@ -86,6 +86,9 @@ export const baseQueryWithReauth: BaseQueryFn<
           /* не удалось обновить данные => очищаем стор*/
           inctagramApi.util.resetApiState()
 
+          /* не удалось обновить данные => удаляем невалидный accessToken*/
+          localStorage.removeItem('accessToken')
+
           /* если не получилось получить новый access token, то перенаправляем пользователя на страничку регистрации*/
           if (!result?.meta?.request.url.includes('v1/auth/me')) {
             await Router.push(PATH.AUTH.SIGNIN)

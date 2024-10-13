@@ -3,7 +3,7 @@ import { PATH } from '@/shared'
 import axios from 'axios'
 import Router from 'next/router'
 
-import { ProfileAxiosApi } from './profile-axios.api'
+import { ProfileApi } from './profile.api'
 
 type UpdateTokenResponse = {
   accessToken: string
@@ -67,7 +67,7 @@ instance.interceptors.response.use(
   }
 )
 
-const profileAPI = new ProfileAxiosApi(instance)
+const profileAPI = new ProfileApi(instance)
 
 export const API = {
   profileAPI,
