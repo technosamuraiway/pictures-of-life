@@ -98,6 +98,20 @@ export const en: LocaleType = {
     logOutSuccess: 'Logout successful. See you next time!',
     logOutText: 'Are you really want to log out of your account <1>email</1> ?',
   },
+  months: {
+    april: 'April',
+    august: 'August',
+    december: 'December',
+    february: 'February',
+    january: 'January',
+    july: 'July',
+    june: 'June',
+    march: 'March',
+    may: 'May',
+    november: 'November',
+    october: 'October',
+    september: 'September',
+  },
   navBar: {
     create: 'Create',
     favorites: 'Favorites',
@@ -123,6 +137,7 @@ export const en: LocaleType = {
     title: 'Password recovery page',
   },
   posts: {
+    failToDeletePost: "You're trying to delete someone else's post",
     qustionAboutDelete: 'Are you sure you want to delete this post?',
     regUsers: 'Registered users:',
     successfulDeletePost: 'You have successfully deleted this post',

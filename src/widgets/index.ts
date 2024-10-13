@@ -7,5 +7,6 @@ export { getBaseLayout } from './layouts/BaseLayout'
 export { getLayoutWithNav } from './layouts/LayoutWithNav'
 
 export { Devices } from './profile/settings/devices/Devices'
+
 // ============================== [ profile ] ======================================
 export { GeneralInfo } from './profile/settings/generalInfo/GeneralInfo'

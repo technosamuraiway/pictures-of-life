@@ -1,5 +1,6 @@
 import { inctagramApi } from '../api/inctagram.api'
 import {
+  ICommentResponse,
   ICreatePostArgs,
   IPostParams,
   IPostPublicResponse,
@@ -25,15 +26,15 @@ export const postService = inctagramApi.injectEndpoints({
           url: `/v1/posts`,
         }),
       }),
-      deletePost: builder.mutation<void, void>({
-        query: () => ({
+      deletePost: builder.mutation<void, number>({
+        invalidatesTags: ['Posts'],
+        query: postID => ({
           method: 'DELETE',
-          url: `v1/posts/88888`, // here will be some logic to define current posts ID
+          url: `v1/posts/${postID}`,
         }),
       }),
       getAllPublicPosts: builder.query<IPostPublicResponse, IPostParams | void>({
         providesTags: ['Posts'],
-
         query: arg => {
           const { endCursorPostId, ...params } = arg ?? {}
 
@@ -42,6 +43,16 @@ export const postService = inctagramApi.injectEndpoints({
             url: `v1/public-posts/all/${endCursorPostId}`,
           }
         },
+      }),
+      getPostComments: builder.query<
+        ICommentResponse,
+        { params?: Record<string, any>; postId: number }
+      >({
+        query: ({ params, postId }) => ({
+          method: 'GET',
+          params,
+          url: `/v1/public-posts/${postId}/comments`,
+        }),
       }),
       getUserPublicPosts: builder.query<
         IPostPublicResponse,
@@ -55,7 +66,7 @@ export const postService = inctagramApi.injectEndpoints({
 
           return {
             method: 'GET',
-            params: restParams, // Передаем остальные параметры в запрос
+            params: restParams,
             url,
           }
         },
@@ -83,6 +94,7 @@ export const {
   useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
+  useGetPostCommentsQuery,
   useGetUserPublicPostsQuery,
   useUploadImagesForPostMutation,
 } = postService
