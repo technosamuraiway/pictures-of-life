@@ -1,10 +1,17 @@
+import { IProfileResponse } from '@/services'
+import { API } from '@/services/api-SSG-axios/inctagram-SSG-axios.api'
 import { getLayoutWithNav } from '@/widgets'
 
 export const getStaticProps = async () => {
-  const res = await fetch('https://rickandmortyapi.com/api/character', { method: 'GET' })
-  const data = await res.json()
+  const data = await API.profileAPI.getProfile()
 
   console.log(data)
+
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
 
   return {
     props: {
@@ -13,17 +20,11 @@ export const getStaticProps = async () => {
   }
 }
 
-// type Props = {
-//   data: IProfileResponse
-// }
-
 type Props = {
-  data: any
+  data: IProfileResponse
 }
 
 function Profile({ data }: Props) {
-  console.log(data)
-
   return <div>123</div>
 }
 

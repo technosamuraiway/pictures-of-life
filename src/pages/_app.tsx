@@ -24,7 +24,7 @@ type AppPropsWithLayout = {
   Component: NextPageWithLayout
 } & AppProps
 
-export default function App({ Component, pageProps, ...rest }: AppPropsWithLayout) {
+export default function App({ Component, ...rest }: AppPropsWithLayout) {
   const { props, store } = wrapper.useWrappedStore(rest)
   const getLayout = Component.getLayout ?? (page => page)
 
