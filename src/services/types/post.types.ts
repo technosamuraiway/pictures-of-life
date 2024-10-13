@@ -55,3 +55,32 @@ export type ICreatePostArgs = {
   description: string
   uploadIds: string[]
 }
+
+export interface ICommentResponse {
+  items: IComment[]
+  pageSize: number
+  totalCount: number
+}
+
+export interface IComment {
+  answerCount: number
+  content: string
+  createdAt: string
+  from: ICommentAuthor
+  id: number
+  isLiked: boolean
+  likeCount: number
+  postId: number
+}
+
+export interface ICommentAuthor {
+  avatars: IAvatar[]
+  id: number
+  username: string
+}
+
+export interface IAvatar {
+  height: number
+  url: string
+  width: number
+}

@@ -1,5 +1,6 @@
 import { inctagramApi } from '../api/inctagram.api'
 import {
+  ICommentResponse,
   ICreatePostArgs,
   IPostParams,
   IPostPublicResponse,
@@ -43,6 +44,16 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+      getPostComments: builder.query<
+        ICommentResponse,
+        { params?: Record<string, any>; postId: number }
+      >({
+        query: ({ params, postId }) => ({
+          method: 'GET',
+          params,
+          url: `/v1/public-posts/${postId}/comments`,
+        }),
+      }),
       getUserPublicPosts: builder.query<
         IPostPublicResponse,
         { params?: IPostParams; userId: number }
@@ -83,6 +94,7 @@ export const {
   useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
+  useGetPostCommentsQuery,
   useGetUserPublicPostsQuery,
   useUploadImagesForPostMutation,
 } = postService

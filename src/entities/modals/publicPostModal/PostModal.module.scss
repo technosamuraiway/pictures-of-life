@@ -1,0 +1,151 @@
+.modal {
+  height: 35.188rem;
+}
+
+.modalContent {
+  display: flex;
+  height: 100%;
+}
+
+.customSwiperClass {
+  height: 35.188rem;
+}
+
+.imageDiv {
+  width: 50%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.textContentDiv {
+  width: 50%;
+}
+
+.avaName {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+
+  border-bottom: 1px solid var(--Dark-100);
+}
+
+.avaNameDiv {
+  display: flex;
+  gap: 0.563rem;
+  align-items: center;
+}
+
+.closeBtn {
+  position: relative;
+  z-index: 60;
+  bottom: 3.125rem;
+  left: 4.375rem;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  border: none;
+  outline: none;
+}
+
+.avatarImg {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+}
+
+.avatarPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  background: var(--Primary-300);
+  border-radius: 50%;
+}
+
+.description {
+  display: flex;
+  gap: 0.563rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.textDescr {
+  display: -webkit-box;
+  width: 24.063rem;
+  color: var(--Light-500);
+  word-break: break-word;
+}
+
+.created {
+  margin-left: 4.188rem;
+  color: var(--Light-900);
+}
+
+.scrollbar {
+  width: 26.875rem;
+}
+
+.descComDiv {
+  height: 18.75rem;
+}
+
+.descriptionComments {
+  display: flex;
+  gap: 0.563rem;
+  width: 30rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.answerDivDiv {
+  display: flex;
+  gap: 0.438rem;
+  margin-left: 2.688rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.answerDiv {
+  width: 1.25rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--Light-900);
+}
+
+.textAnswer {
+  color: var(--Light-900);
+}
+
+.likeImgLike {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem 0;
+  border-top: 1px solid var(--Dark-100);
+}
+
+.likedImage {
+  position: relative;
+  z-index: 1;
+
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: -0.5rem;
+
+  border-radius: 50%;
+}
+
+.likedImage:first-child {
+  margin-left: 0;
+}
+
+.createdPost {
+  margin-left: 1.5rem;
+  color: var(--Light-900);
+}

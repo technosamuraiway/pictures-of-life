@@ -17,9 +17,11 @@ function formatNumberWithLeadingZerosArray(num: number, totalLength: number): st
 
 export default function Posts(props: Props) {
   const [sortDirectionVal, setSortDirectionVal] = useState<SortDirection>('desc')
+
   const t = useRouterLocaleDefinition()
   const router = useRouter()
   const [expandedPosts, setExpandedPosts] = useState<Record<string, boolean>>({})
+
   const {
     data: allPublicPosts,
     isError,
@@ -39,7 +41,7 @@ export default function Posts(props: Props) {
     return <div>Loading...</div>
   }
   if (isError) {
-    return <div style={{ color: 'red' }}>Something Wrong...</div>
+    return <div style={{ color: 'red' }}>Something went wrong...</div>
   }
   if (!allPublicPosts) {
     return null
@@ -48,13 +50,21 @@ export default function Posts(props: Props) {
   const formattedUsers = formatNumberWithLeadingZerosArray(allPublicPosts.totalUsers, 6)
 
   const toggleText = (postId: number) => {
-    const postIdString = postId.toString() // Преобразование идентификатора поста в строку
+    const postIdString = postId.toString()
 
     setExpandedPosts(prev => ({
       ...prev,
-      [postIdString]: !prev[postIdString], // Переключение состояния для конкретного поста
+      [postIdString]: !prev[postIdString],
     }))
   }
+
+  const handleImageClick = (post: any) => {
+    router.push({
+      pathname: `/public-post/${post.id}`,
+      query: { userId: post.ownerId },
+    })
+  }
+
   const handleUserClick = (userId: number) => {
     router.push(`/public-user/${userId}`)
   }
@@ -90,13 +100,25 @@ export default function Posts(props: Props) {
                     navigation
                     paginationClickable
                     slides={post.images.map(image => ({
-                      content: <img alt={`img-${post.id}`} className={s.userImg} src={image.url} />,
+                      content: (
+                        <img
+                          alt={`img-${post.id}`}
+                          className={s.userImg}
+                          onClick={() => handleImageClick(post)}
+                          src={image.url}
+                        />
+                      ),
                     }))}
                     slidesPerView={1}
                     spaceBetween={20}
                   />
                 ) : (
-                  <img alt={'img'} className={s.userImg} src={post?.images[0]?.url} />
+                  <img
+                    alt={'img'}
+                    className={s.userImg}
+                    onClick={() => handleImageClick(post)}
+                    src={post?.images[0]?.url}
+                  />
                 )}
               </div>
               <div className={expandedPosts[post.id] ? s.allContentExpanded : s.allContent}>
