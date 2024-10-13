@@ -1,39 +1,34 @@
 // @flow
 import { ChangeEvent, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
-import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
+import { DeletePostModal } from '@/entities'
+import { useDeletePostMutation, useGetAllPublicPostsQuery } from '@/services/flow/post.service'
 import { SortDirection } from '@/services/types/post.types'
 import { ButtonLink, PATH, SwiperSlider, convertDate, useRouterLocaleDefinition } from '@/shared'
 import { useDeletePost } from '@/shared/hooks/posts/useDeletePost'
-import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
+import { getLayoutWithNav } from '@/widgets'
+import { Button } from '@technosamurai/techno-ui-kit'
 
 import s from './posts.module.scss'
-import clsx from 'clsx'
 
 type Props = {}
 
-export default function Posts(props: Props) {
+function Posts(props: Props) {
   const t = useRouterLocaleDefinition()
   const [sortDirectionVal, setSortDirectionVal] = useState<SortDirection>('desc')
-  const { handleDeletePost, isSuccessDeletePost } = useDeletePost()
+  const { handleDeletePost } = useDeletePost()
   const [isModal, setIsModal] = useState(false)
   const [currentPostId, setCurrentPostId] = useState<number>(0)
   const {
     data: allPublicPosts,
     isError,
     isLoading,
-    refetch,
   } = useGetAllPublicPostsQuery({
     pageSize: 50,
     sortBy: 'userName',
     sortDirection: sortDirectionVal,
   })
-
-  useEffect(() => {
-    if (isSuccessDeletePost) {
-      refetch()
-    }
-  }, [isSuccessDeletePost, refetch])
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -51,52 +46,20 @@ export default function Posts(props: Props) {
     setSortDirectionVal(value)
   }
 
-  async function onPositiveButtonClick(){
+  async function onPositiveButtonClick() {
     await handleDeletePost(currentPostId)
     setIsModal(false)
   }
- 
-  function onHandleClickDelWithModal(postId: number): void {
-    if (!isModal) {
-      setIsModal(true)
+
+  function onHandleOpenModal(postId: number) {
+    setIsModal(true)
+    if (postId) {
+      setCurrentPostId(postId)
     }
-    setCurrentPostId(postId)
   }
 
   function onHandleCloseModal() {
     setIsModal(false)
-  }
-
-  if (isModal) {
-    return (
-      <Modal
-        closeButtonClassName={s.closeButton}
-        onOpenChange={setIsModal}
-        headerTitle={'Delete Post'}
-        open={isModal}
-      >
-        <div className={s.childrenWrapper}>
-          <Typography variant={'regular-text-16'}>{t.posts.qustionAboutDelete}</Typography>
-          <div className={s.buttonsWrapper}>
-            <Button
-              className={s.modalButton}
-              onClick={onPositiveButtonClick}
-              type={'button'}
-              variant={'outline'}
-            >
-              {t.logOut.buttonYes}
-            </Button>
-            <Button
-              className={s.modalButton}
-              onClick={onHandleCloseModal}
-              type={'button'}
-            >
-              {t.logOut.buttonNo}
-            </Button>
-          </div>
-        </div>
-      </Modal>
-    )
   }
 
   return (
@@ -161,7 +124,7 @@ export default function Posts(props: Props) {
                   slidesPerView={1} // Можно настроить как нужно
                   spaceBetween={20}
                 />
-                <Button onClick={() => onHandleClickDelWithModal(post?.id)} type={'danger'}>
+                <Button onClick={() => onHandleOpenModal(post.id)} type={'danger'}>
                   Delete
                 </Button>
               </>
@@ -169,7 +132,7 @@ export default function Posts(props: Props) {
               // Если изображение одно, просто выводим его
               <>
                 <img alt={'img'} height={300} src={post?.images[0]?.url} width={300} />
-                <Button onClick={() => onHandleClickDelWithModal(post?.id)} type={'danger'}>
+                <Button onClick={() => onHandleOpenModal(post?.id)} type={'danger'}>
                   Delete
                 </Button>
               </>
@@ -177,6 +140,19 @@ export default function Posts(props: Props) {
           </div>
         ))}
       </div>
+      <DeletePostModal
+        headerTitle={t.posts.qustionAboutDelete}
+        isOpenModal={isModal}
+        modalTextChildren={t.posts.qustionAboutDelete}
+        negativeButtonChildren={t.logOut.buttonNo}
+        onClickNegativeButton={onHandleCloseModal}
+        onClickPositiveButton={onPositiveButtonClick}
+        positiveButtonChildren={t.logOut.buttonYes}
+        setIsOpenModal={setIsModal}
+      />
     </div>
   )
 }
+
+Posts.getLayout = getLayoutWithNav
+export default Posts

@@ -26,6 +26,7 @@ export const postService = inctagramApi.injectEndpoints({
         }),
       }),
       deletePost: builder.mutation<void, number>({
+        invalidatesTags: ['Posts'],
         query: postID => ({
           method: 'DELETE',
           url: `v1/posts/${postID}`,
@@ -33,7 +34,6 @@ export const postService = inctagramApi.injectEndpoints({
       }),
       getAllPublicPosts: builder.query<IPostPublicResponse, IPostParams | void>({
         providesTags: ['Posts'],
-
         query: arg => {
           const { endCursorPostId, ...params } = arg ?? {}
 
