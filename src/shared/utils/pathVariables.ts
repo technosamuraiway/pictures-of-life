@@ -15,6 +15,7 @@ export const PATH = {
     BASEPROFILE: '/profile',
     SETTINGS: '/profile/settings',
   },
+  PUBLIC: '/public'
 } as const
 
 export const PUBLIC_ROUTES_SET = new Set<string>([
