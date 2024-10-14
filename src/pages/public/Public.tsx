@@ -1,7 +1,7 @@
 
 import Posts from '@/entities/publicPosts/posts'
 import { MetaHead } from '@/shared'
-import { getBaseLayout } from '@/widgets'
+import { getPublicLayout } from '@/widgets'
 
 
 
@@ -14,5 +14,5 @@ function Public() {
   )
 }
 
-Public.getLayout = getBaseLayout
+Public.getLayout = getPublicLayout
 export default Public
