@@ -1,25 +1,24 @@
 .layout {
   overflow: hidden;
+  height: 100vh;
+}
+
+.container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   width: 100%;
-  max-width: 1120px;
-  height: 100vh;
+  max-width: 74.375rem;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 1.0625rem;
 }
 
 .header {
   position: sticky;
   z-index: 100;
   top: 0;
-  height: var(--header-height);
-}
 
-.content {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  height: var(--header-height);
+
+  background-color: inherit;
 }

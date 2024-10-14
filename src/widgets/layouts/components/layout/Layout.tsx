@@ -40,7 +40,7 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         onLogoClick={logoClickHandler}
       />
 
-      <div className={s.content}>{children}</div>
+      <div className={s.container}>{children}</div>
     </div>
   )
 }

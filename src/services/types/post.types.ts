@@ -5,6 +5,8 @@ export interface IPostPublicResponse {
   totalUsers: number
 }
 
+export type IPostsByName = Omit<IPostPublicResponse, 'totalUsers'>
+
 export interface IPostUser {
   avatarOwner: string
   createdAt: string
