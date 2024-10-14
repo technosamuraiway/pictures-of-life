@@ -2,7 +2,12 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+  max-width: 1120px;
   height: 100vh;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 .header {

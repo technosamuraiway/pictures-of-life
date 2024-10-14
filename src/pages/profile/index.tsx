@@ -1,12 +1,22 @@
-import { IProfileResponse } from '@/services'
+import { useGetProfileQuery } from '@/services'
+import { MetaHead, RequestLineLoader } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
+import Image from 'next/image'
 
-type Props = {
-  data: IProfileResponse
-}
+function Profile() {
+  const { data, isLoading } = useGetProfileQuery()
 
-function Profile({ data }: Props) {
-  return <div>123</div>
+  const avatarsList = data?.avatars.map(el => (
+    <Image alt={'avatar item'} height={200} key={el.createdAt} src={el.url} width={200} />
+  ))
+
+  return (
+    <>
+      {isLoading && <RequestLineLoader />}
+      <MetaHead title={'Profile info'} />
+      <div>{avatarsList}</div>
+    </>
+  )
 }
 
 Profile.getLayout = getLayoutWithNav
