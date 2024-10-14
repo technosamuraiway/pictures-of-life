@@ -1,6 +1,6 @@
 interface ImageData {
-  id: string
   dataUrl: string // Изображение хранится в виде строки Base64.
+  id: string
 }
 
 const DB_NAME = 'imageDB'
@@ -18,6 +18,7 @@ function openDB(): Promise<IDBDatabase> {
     // Срабатывает, если база данных создается впервые или обновляется до новой версии
     request.onupgradeneeded = event => {
       const db = request.result
+
       if (!db.objectStoreNames.contains(STORE_NAME)) {
         db.createObjectStore(STORE_NAME, { keyPath: 'id' }) // Создание хранилища с ключом 'id'
       }
@@ -65,10 +66,12 @@ export async function getImagesFromDB(id?: string): Promise<ImageData | ImageDat
 
     if (id) {
       const request = store.get(id) // Получаем изображение по идентификатору
+
       request.onsuccess = () => resolve(request.result || null) // Успешно получено
       request.onerror = () => reject(request.error) // Ошибка при получении
     } else {
       const request = store.getAll() // Получаем все изображения
+
       request.onsuccess = () => resolve(request.result) // Успешно получено
       request.onerror = () => reject(request.error) // Ошибка при получении
     }

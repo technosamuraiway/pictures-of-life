@@ -4,19 +4,13 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { DeletePostModal } from '@/entities'
 import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
 import { SortDirection } from '@/services/types/post.types'
-import {
-  ButtonLink,
-  PATH,
-  SwiperSlider,
-  convertDate,
-  useRouterLocaleDefinition,
-} from '@/shared'
+import { ButtonLink, PATH, SwiperSlider, convertDate, useRouterLocaleDefinition } from '@/shared'
 import { useDeletePost } from '@/shared/hooks/posts/useDeletePost'
+import { checkIfImagesExistInDB, getImagesFromDB } from '@/shared/utils/saveImagesToDB'
 import { getLayoutWithNav } from '@/widgets'
 import { Button } from '@technosamurai/techno-ui-kit'
 
 import s from './posts.module.scss'
-import { checkIfImagesExistInDB, getImagesFromDB} from '@/shared/utils/saveImagesToDB'
 
 type Props = {}
 
@@ -67,32 +61,6 @@ function Posts(props: Props) {
   function onHandleCloseModal() {
     setIsModal(false)
   }
-
-  async function fetchAndDisplayAllImages() {
-    try {
-      // Получаем все изображения из базы данных
-      const images = await getImagesFromDB();
-
-      if (Array.isArray(images)) {
-        // Если изображения найдены, выводим их в консоль или на страницу
-        images.forEach(image => {
-          console.log('Изображение:', image);
-
-          // Пример добавления изображения на страницу
-          const imgElement = document.createElement('img');
-          imgElement.src = image.dataUrl; // Используем Base64 строку для отображения изображения
-          document.body.appendChild(imgElement); // Добавляем изображение на страницу
-        });
-      } else {
-        console.log('Изображения не найдены');
-      }
-    } catch (error) {
-      console.error('Ошибка при получении изображений:', error);
-    }
-  }
-
-  fetchAndDisplayAllImages();
-
 
   return (
     <div
