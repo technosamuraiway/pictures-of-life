@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { PATH, SquareImg, useRouterLocaleDefinition } from '@/shared'
+import { checkIfImagesExistInDB, PATH, SquareImg, useRouterLocaleDefinition } from '@/shared'
 import { Modal } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
@@ -22,15 +22,19 @@ export const AddPostPhotoModal = ({ onEditMode, setImage }: IProps) => {
 
   const [openAddPostPhoto, setOpenAddPostPhoto] = useState<boolean>(true)
   const [fileError, setFileError] = useState<null | string>(null)
+  const [isDraftBtn, setIsDraftBtn] = useState<boolean>(false)
 
   const modalHandler = () => {
     openAddPostPhoto ? push(PATH.HOME) : setOpenAddPostPhoto(true)
   }
 
-  const onDraftBtnClickHandler = () => {
-    toast.info('Здесь будет функционал черновиков, когда-нибудь точно!')
-    push(PATH.HOME)
+  const onDraftBtnClickHandler = async () => {
+    toast.info('Здесь working on DRAFT going!')
+    const imagesExist = await checkIfImagesExistInDB()
+    setIsDraftBtn(imagesExist)
+    // push(PATH.HOME)
   }
+
 
   return (
     <Modal
@@ -51,7 +55,7 @@ export const AddPostPhotoModal = ({ onEditMode, setImage }: IProps) => {
         openDraftBtnText={t.createNewPost.addPhotoModal.openDraftButtonText}
         setErrorText={setFileError}
         setImage={setImage}
-        showDraftBtn
+        showDraftBtn ={isDraftBtn}
       >
         <SquareImg imgSVGWrapperCN={s.imgWrapper} />
       </PreviewImgScreen>

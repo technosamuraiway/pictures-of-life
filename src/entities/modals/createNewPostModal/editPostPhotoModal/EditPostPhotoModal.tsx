@@ -15,6 +15,9 @@ import { ImageEditor } from './imageEditor/ImageEditor'
 import { ImageState } from './imageEditor/utils/types'
 import { useGetFilesList } from './imageEditor/utils/useGetFilesList'
 
+
+import { saveImagesToDB, getImagesFromDB } from '@/shared/utils/saveImagesToDB'
+
 interface IProps {
   downloadedImage: string[]
   onOpen: boolean
@@ -42,9 +45,24 @@ export const EditPostPhotoModal = ({
   const { data: profileData } = useGetProfileQuery()
   const { processAllImages } = useGetFilesList(downloadedImage, imageStates)
 
+  // Updated onNextButtonClickHandler to save images to IndexedDB
   const onNextButtonClickHandler = async () => {
     if (editFilter) {
       const processedImages = await processAllImages()
+
+      // Save the processed images to IndexedDB before uploading
+      try {
+        const imagesToSave = processedImages.map((file, index) => ({
+          id: `image-${index}`,  // Generate unique ID for each image
+          dataUrl: URL.createObjectURL(file)  // You can adjust how you store images here
+        }))
+        await saveImagesToDB(imagesToSave)
+
+        toast.success('Images saved to draft (IndexedDB) successfully!')
+      } catch (error) {
+        console.error('Failed to save images to IndexedDB:', error)
+        toast.error('Failed to save images to draft.')
+      }
 
       await uploadImagesForPost({ files: processedImages }).unwrap()
 
