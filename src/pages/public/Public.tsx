@@ -1,8 +1,6 @@
-
-import Posts from '@/entities/publicPosts/posts'
-import { MetaHead } from '@/shared'
-import { getPublicLayout } from '@/widgets'
-
+import Posts from "@/entities/publicPosts/posts";
+import { MetaHead } from "@/shared";
+import { getBaseLayout } from "@/widgets";
 
 
 function Public() {
@@ -14,5 +12,5 @@ function Public() {
   )
 }
 
-Public.getLayout = getPublicLayout
+Public.getLayout = getBaseLayout
 export default Public

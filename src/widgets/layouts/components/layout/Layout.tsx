@@ -1,6 +1,7 @@
 import { PropsWithChildren, useState } from 'react'
 
-import { PATH } from '@/shared'
+import { useMeCurInfoQuery } from '@/services'
+import { PATH, PUBLIC_ROUTES_SET_WITH_BTN, useRouterLocaleDefinition } from '@/shared'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -14,6 +15,10 @@ import { languageSelectOptions } from './languageSelectOptions'
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
   const { asPath, pathname, query } = router
+  const { data } = useMeCurInfoQuery()
+  const t = useRouterLocaleDefinition()
+
+  const isWithButtons = PUBLIC_ROUTES_SET_WITH_BTN.has(pathname)
 
   /* Управление стейтом кнопки выбора языка.
    *  Начальное значение берется из uri-params
@@ -27,7 +32,15 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
 
   /* cb-function для возврата на страничку Home */
   const logoClickHandler = () => {
-    router.push(PATH.HOME)
+    router.push(PATH.PUBLIC)
+  }
+
+  const logInClickHandler = () => {
+    router.push(PATH.AUTH.SIGNIN)
+  }
+
+  const signUpClickHandler = () => {
+    router.push(PATH.AUTH.SIGNUP)
   }
 
   return (
@@ -37,7 +50,12 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         changeLanguageBtnCurrentValue={langValue}
         changeLanguageBtnOptions={languageSelectOptions}
         className={s.header}
+        logInBtnChildren={t.publicButtons.logIn}
+        onLogInClick={logInClickHandler}
         onLogoClick={logoClickHandler}
+        onSignUpClick={signUpClickHandler}
+        signUpBtnChildren={t.publicButtons.signUp}
+        withAuthButtons={!data && isWithButtons}
       />
       <div className={s.content}>{children}</div>
     </div>

@@ -4,7 +4,7 @@ import PostModal from '@/entities/modals/publicPostModal/PostModal'
 import { useGetUserPublicPostsQuery } from '@/services/flow/post.service'
 import { IPostUser } from '@/services/types/post.types'
 import { MetaHead, PATH } from '@/shared'
-import { getPublicLayout } from '@/widgets'
+import { getBaseLayout } from '@/widgets'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -78,5 +78,5 @@ const PublicPostPage = () => {
   )
 }
 
-PublicPostPage.getLayout = getPublicLayout
+PublicPostPage.getLayout = getBaseLayout
 export default PublicPostPage
