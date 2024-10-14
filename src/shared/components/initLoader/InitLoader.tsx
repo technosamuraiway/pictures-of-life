@@ -1,8 +1,14 @@
+import clsx from 'clsx'
+
 import s from './InitLoader.module.scss'
 
-export const InitLoader = () => {
+type Props = {
+  loaderCN?: string
+}
+
+export const InitLoader = ({ loaderCN }: Props) => {
   return (
-    <div className={s.container}>
+    <div className={clsx(s.container, loaderCN)}>
       <div className={s.loader}>
         <span></span>
       </div>

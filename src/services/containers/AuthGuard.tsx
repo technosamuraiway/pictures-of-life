@@ -14,7 +14,7 @@ export const AuthGuard = ({ children }: PropsWithChildren) => {
   }
 
   if (!!data === PUBLIC_ROUTES_SET.has(pathname)) {
-    replace(data ? PATH.PROFILE.BASEPROFILE : PATH.AUTH.SIGNIN)
+    replace(data ? PATH.HOME : PATH.AUTH.SIGNIN)
 
     /* Если ничего не возвращать в этом блоке => то будут возвращаться children
      *  даже переход на публичную страницу без авторизации - будет кратковременно отрисовыываться приватная страница */

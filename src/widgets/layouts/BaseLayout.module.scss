@@ -12,9 +12,5 @@
   flex-grow: 1;
   align-items: center;
 
-  padding: 2.25rem 4rem 1.25rem 1.5rem;
-}
-
-.mainWithNav {
-  width: calc(100vw - var(--navBar-width));
+  padding: 2.25rem 0 0 1.5rem;
 }

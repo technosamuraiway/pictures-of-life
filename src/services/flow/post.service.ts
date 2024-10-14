@@ -4,6 +4,7 @@ import {
   IPostParams,
   IPostPublicResponse,
   IPostUser,
+  IPostsByName,
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
 } from '../types/post.types'
@@ -40,6 +41,14 @@ export const postService = inctagramApi.injectEndpoints({
           return {
             params,
             url: `v1/public-posts/all/${endCursorPostId}`,
+          }
+        },
+      }),
+      getPostsByUserName: builder.query<IPostsByName, string>({
+        query: userName => {
+          return {
+            method: 'GET',
+            url: `/v1/posts/${userName}`,
           }
         },
       }),
@@ -83,6 +92,7 @@ export const {
   useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
+  useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
   useUploadImagesForPostMutation,
 } = postService
