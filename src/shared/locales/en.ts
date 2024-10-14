@@ -137,6 +137,7 @@ export const en: LocaleType = {
     title: 'Password recovery page',
   },
   posts: {
+    failToDeletePost: "You're trying to delete someone else's post",
     qustionAboutDelete: 'Are you sure you want to delete this post?',
     regUsers: 'Registered users:',
     successfulDeletePost: 'You have successfully deleted this post',

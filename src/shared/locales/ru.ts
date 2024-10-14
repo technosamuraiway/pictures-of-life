@@ -136,6 +136,7 @@ export const ru = {
     title: 'Восстановления пароля',
   },
   posts: {
+    failToDeletePost: 'Вы пытаетесь удалить пост другого пользователя',
     qustionAboutDelete: 'Вы действительно хотите удалить этот пост?',
     regUsers: 'Зарегистрированные пользователи:',
     successfulDeletePost: 'Вы успешно удалили этот пост',
