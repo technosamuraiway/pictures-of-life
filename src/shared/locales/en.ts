@@ -161,6 +161,10 @@ export const en: LocaleType = {
     settingButton: 'Profile Settings',
     title: 'Profile',
   },
+  publicButtons: {
+    logIn: 'Log in',
+    signUp: 'Sign up',
+  },
   settingsPage: {
     devices: {
       activeSessions: 'Active sessions',
