@@ -160,6 +160,10 @@ export const ru = {
     settingButton: 'Настройки Профиля',
     title: 'Профиль',
   },
+  publicButtons: {
+    logIn: 'Авторизоваться',
+    signUp: 'Зарегистрироваться',
+  },
   settingsPage: {
     devices: {
       activeSessions: 'Активные сессии',
