@@ -184,45 +184,45 @@ export async function getImagesFromDB(id?: string): Promise<ImageData | ImageDat
 export const checkIfImagesExistInDB = async (storeName: string = 'images'): Promise<boolean> => {
   try {
     // Открываем уже существующую базу данных через openDB()
-    const db = await openDB();
+    const db = await openDB()
 
     return new Promise<boolean>((resolve, reject) => {
       try {
         // Проверяем, существует ли хранилище объектов
         if (!db.objectStoreNames.contains(storeName)) {
           // console.warn(`Хранилище "${storeName}" не найдено в базе данных.`);
-          resolve(false); // Если хранилища нет, то изображения отсутствуют
-          return;
+          resolve(false) // Если хранилища нет, то изображения отсутствуют
+
+          return
         }
 
         // Открываем транзакцию только для чтения
-        const transaction = db.transaction([storeName], 'readonly');
-        const objectStore = transaction.objectStore(storeName);
+        const transaction = db.transaction([storeName], 'readonly')
+        const objectStore = transaction.objectStore(storeName)
 
         // Считаем количество записей в хранилище
-        const countRequest = objectStore.count();
+        const countRequest = objectStore.count()
 
         countRequest.onsuccess = () => {
-          resolve(countRequest.result > 0); // Если количество больше 0, изображения есть
-        };
+          resolve(countRequest.result > 0) // Если количество больше 0, изображения есть
+        }
 
         countRequest.onerror = () => {
           // console.error('Ошибка при подсчете элементов в хранилище');
-          reject(false); // Ошибка при подсчете записей
-        };
+          reject(false) // Ошибка при подсчете записей
+        }
       } catch (error) {
         // console.error('Ошибка при проверке хранилища:', error);
-        reject(false); // Любая другая ошибка приводит к отказу
+        reject(false) // Любая другая ошибка приводит к отказу
       }
-    });
+    })
   } catch (error) {
     // console.error('Ошибка при открытии базы данных:', error);
-    return false; // Возвращаем false, если база данных не может быть открыта
+    return false // Возвращаем false, если база данных не может быть открыта
   }
-};
+}
 
-
-/* Проверка происходит вызовом асинхр. функции и дождаться результат. Возвращает булево  
+/* Проверка происходит вызовом асинхр. функции и дождаться результат. Возвращает булево
 
 let resultIsImage;
 

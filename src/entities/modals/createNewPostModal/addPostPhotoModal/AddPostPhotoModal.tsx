@@ -1,7 +1,13 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { PATH, SquareImg, checkIfImagesExistInDB, useRouterLocaleDefinition } from '@/shared'
+import {
+  PATH,
+  SquareImg,
+  checkIfImagesExistInDB,
+  getImagesFromDB,
+  useRouterLocaleDefinition,
+} from '@/shared'
 import { Modal } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
@@ -28,22 +34,38 @@ export const AddPostPhotoModal = ({ onEditMode, setImage }: IProps) => {
     openAddPostPhoto ? push(PATH.HOME) : setOpenAddPostPhoto(true)
   }
 
-async function checkImages() {
-  const ifExistsImages = async function isImageExistsInDB() {
-    const imagesExist = await checkIfImagesExistInDB();
-    return imagesExist;
-  };
+  async function checkImages() {
+    const ifExistsImages = async function isImageExistsInDB() {
+      return await checkIfImagesExistInDB()
+    }
 
-  const result = await ifExistsImages();
-  setIsDraftBtn(result)
-}
+    const result = await ifExistsImages()
 
-checkImages(); 
+    setIsDraftBtn(result)
+  }
+
+  checkImages()
 
   const onDraftBtnClickHandler = async () => {
-    toast.info('Здесь working on DRAFT going!')
+    async function fetchAndDisplayAllImages() {
+      try {
+        const images = await getImagesFromDB()
 
-    // push(PATH.HOME)
+        if (Array.isArray(images)) {
+          const newArray = images.map(el => {
+            return el.dataUrl
+          })
+
+          setImage(newArray)
+          onEditMode(true)
+        }
+      } catch (error) {
+        toast.error('Ошибка при получении изображений:')
+      }
+    }
+
+    // Вызов функции для получения и отображения всех изображений
+    await fetchAndDisplayAllImages()
   }
 
   return (
