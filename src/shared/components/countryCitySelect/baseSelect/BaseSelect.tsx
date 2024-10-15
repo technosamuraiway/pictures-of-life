@@ -1,12 +1,13 @@
-import type { Item } from '../CountryCitySelect'
-
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { Button, DownIcon, Scrollbar, TextField, UpIcon } from '@technosamurai/techno-ui-kit'
 
 import s from './BaseSelect.module.scss'
 
+import { Item } from '../CountryCitySelect'
+
 interface IProps {
+  defaultValue?: string
   emptyField?: string
   filteredItems: Item[]
   isItemOpen: boolean
@@ -22,6 +23,7 @@ interface IProps {
 }
 
 export const BaseSelect = ({
+  defaultValue,
   emptyField = 'Empty field',
   filteredItems,
   isItemOpen,
@@ -35,16 +37,25 @@ export const BaseSelect = ({
   setIsItemOpen,
   setSearchItemTerm,
 }: IProps) => {
+  const filterItems = (value: string) => {
+    return itemsList.filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
+  }
+
+  // useState(() => {
+  //   if (defaultValue && defaultValue !== searchItemTerm) {
+  //     setSearchItemTerm(defaultValue)
+  //     setFilteredItems(filterItems(defaultValue))
+  //   }
+  // })
+
   const onItemChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const currentValue = event.target.value
 
     setSearchItemTerm(currentValue)
-    const filteredArray = itemsList.filter(item =>
-      item.name.toLowerCase().includes(currentValue.toLowerCase())
-    )
+    const filteredArray = filterItems(currentValue)
 
     setFilteredItems(filteredArray)
-    setIsItemOpen(filteredArray.length > 0 && currentValue.length > 0)
+    setIsItemOpen(filteredArray.length > 0)
   }
 
   const toggleItemDropdownHandler = () => {
@@ -55,6 +66,7 @@ export const BaseSelect = ({
     <div className={s.wrapper}>
       <div className={s.rootWrapper}>
         <TextField
+          defaultValue={searchItemTerm}
           inputClassName={s.selectRoot}
           label={labelText}
           onChange={onItemChangeHandler}

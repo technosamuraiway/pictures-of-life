@@ -120,6 +120,9 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
   const userName = watch('userName')
   const firstName = watch('firstName')
   const lastName = watch('lastName')
+  const country = watch('country')
+  const region = watch('region')
+  const city = watch('city')
   const isButtonDisabled = !userName || !firstName || !lastName || !!errorMessage
 
   return (
@@ -176,6 +179,9 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       </div>
 
       <CountryCitySelect
+        defaultCityValue={city}
+        defaultCountryValue={country}
+        defaultStateValue={region}
         onCityChange={cityName => setValue('city', cityName)}
         onCountryChange={countryName => setValue('country', countryName)}
         onStateChange={stateName => setValue('region', stateName)}

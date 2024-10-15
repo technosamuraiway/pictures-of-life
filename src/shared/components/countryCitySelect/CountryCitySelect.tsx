@@ -13,12 +13,22 @@ export type Item = {
 }
 
 interface IProps {
+  defaultCityValue?: string
+  defaultCountryValue?: string
+  defaultStateValue?: string
   onCityChange: (cityName: string) => void
   onCountryChange: (countryName: string) => void
   onStateChange: (stateName: string) => void
 }
 
-export const CountryCitySelect = ({ onCityChange, onCountryChange, onStateChange }: IProps) => {
+export const CountryCitySelect = ({
+  defaultCityValue,
+  defaultCountryValue,
+  defaultStateValue,
+  onCityChange,
+  onCountryChange,
+  onStateChange,
+}: IProps) => {
   const [countriesList, setCountriesList] = useState<Item[]>([])
   const [statesList, setStatesList] = useState<Item[]>([])
   const [citiesList, setCitiesList] = useState<Item[]>([])
@@ -27,9 +37,9 @@ export const CountryCitySelect = ({ onCityChange, onCountryChange, onStateChange
   const [filteredStates, setFilteredStates] = useState<Item[]>([])
   const [filteredCities, setFilteredCities] = useState<Item[]>([])
 
-  const [searchCountryTerm, setSearchCountryTerm] = useState('')
-  const [searchStateTerm, setSearchStateTerm] = useState('')
-  const [searchCityTerm, setSearchCityTerm] = useState('')
+  const [searchCountryTerm, setSearchCountryTerm] = useState(defaultCountryValue || '')
+  const [searchStateTerm, setSearchStateTerm] = useState(defaultStateValue || '')
+  const [searchCityTerm, setSearchCityTerm] = useState(defaultCityValue || '')
 
   const [isCountryOpen, setIsCountryOpen] = useState(false)
   const [isStateOpen, setIsStateOpen] = useState(false)
