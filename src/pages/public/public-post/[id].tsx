@@ -8,34 +8,34 @@ import { getBaseLayout } from '@/widgets'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import s from './[postId].module.scss'
+import s from './[id].module.scss'
 
 const PublicPostPage = () => {
   const router = useRouter()
-  const { postId, userId } = router.query
+  const { id, userId } = router.query
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const [selectedPost, setSelectedPost] = useState<IPostUser | null>(null)
-
+  
   const { data: userPosts, isLoading } = useGetUserPublicPostsQuery({
     params: {},
     userId: Number(userId),
   })
 
   useEffect(() => {
-    if (postId && userPosts) {
-      const post = userPosts.items.find(p => p.id === Number(postId))
+    if (id && userPosts) {
+      const post = userPosts.items.find(p => p.id === Number(id))
 
       if (post) {
         setSelectedPost(post)
-
-        setIsModalOpen(true)
+        setIsModalOpen(true) 
       }
     }
-  }, [postId, userPosts])
+  }, [id, userPosts])
 
   const handleModalClose = () => {
     setIsModalOpen(false)
+    
   }
 
   if (isLoading) {
@@ -46,10 +46,7 @@ const PublicPostPage = () => {
     <div>
       <MetaHead title={'Public User Page'} />
       <div className={s.container}>
-        <div className={s.links}>
-          <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
-          <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
-        </div>
+        
 
         {selectedPost && (
           <div className={s.postContent}>

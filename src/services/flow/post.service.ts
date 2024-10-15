@@ -58,11 +58,12 @@ export const postService = inctagramApi.injectEndpoints({
         IPostPublicResponse,
         { params?: IPostParams; userId: number }
       >({
-        query: ({ params, userId }) => {
-          const { endCursorPostId, ...restParams } = params ?? {}
-          const url = endCursorPostId
-            ? `v1/public-posts/user/${userId}/${endCursorPostId}`
+        query: ({ params = {}, userId }) => {
+          const url = params.endCursorPostId
+            ? `v1/public-posts/user/${userId}/${params.endCursorPostId}`
             : `v1/public-posts/user/${userId}`
+
+          const { endCursorPostId, ...restParams } = params
 
           return {
             method: 'GET',

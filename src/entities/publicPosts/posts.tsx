@@ -4,7 +4,6 @@ import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
 import { SortDirection } from '@/services/types/post.types'
 import { PATH, SwiperSlider, TimeAgo, useRouterLocaleDefinition } from '@/shared'
 import { Typography } from '@technosamurai/techno-ui-kit'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './posts.module.scss'
@@ -60,7 +59,7 @@ export default function Posts(props: Props) {
 
   const handleImageClick = (post: any) => {
     router.push({
-      pathname: `/public-post/${post.id}`,
+      pathname: `/public/public-post/${post.id}`,
       query: { userId: post.ownerId },
     })
   }
@@ -71,10 +70,6 @@ export default function Posts(props: Props) {
 
   return (
     <>
-      <div className={s.links}>
-        <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
-        <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
-      </div>
       <div className={s.usersContetnt}>
         <section className={s.section}>
           <Typography variant={'bold-text-16'}>{t.posts.regUsers}</Typography>

@@ -16,7 +16,7 @@ export const PATH = {
     SETTINGS: '/profile/settings',
   },
   PUBLIC: '/public',
-  PUBLICPOST: '/public-post/[postId]',
+  PUBLICPOST: '/public/public-post/[id]',
   PUBLICUSER: '/public-user/[userId]',
 } as const
 
