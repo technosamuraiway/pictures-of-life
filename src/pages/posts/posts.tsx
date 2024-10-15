@@ -1,12 +1,12 @@
 // @flow
 import { ChangeEvent, useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
 
 import { DeletePostModal } from '@/entities'
-import { useDeletePostMutation, useGetAllPublicPostsQuery } from '@/services/flow/post.service'
+import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
 import { SortDirection } from '@/services/types/post.types'
 import { ButtonLink, PATH, SwiperSlider, convertDate, useRouterLocaleDefinition } from '@/shared'
 import { useDeletePost } from '@/shared/hooks/posts/useDeletePost'
+import { checkIfImagesExistInDB, getImagesFromDB } from '@/shared/utils/saveImagesToDB'
 import { getLayoutWithNav } from '@/widgets'
 import { Button } from '@technosamurai/techno-ui-kit'
 
