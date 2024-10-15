@@ -5,7 +5,8 @@ import {
   IPostParams,
   IPostPublicResponse,
   IPostUser,
-  IPostsByName,
+  IPostsByNameArgs,
+  IPostsByNameResponse,
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
 } from '../types/post.types'
@@ -55,10 +56,13 @@ export const postService = inctagramApi.injectEndpoints({
           url: `/v1/public-posts/${postId}/comments`,
         }),
       }),
-      getPostsByUserName: builder.query<IPostsByName, string>({
-        query: userName => {
+      getPostsByUserName: builder.query<IPostsByNameResponse, IPostsByNameArgs>({
+        query: args => {
+          const { pageNumber, pageSize, sortBy, sortDirection, userName } = args
+
           return {
             method: 'GET',
+            params: { pageNumber, pageSize, sortBy, sortDirection },
             url: `/v1/posts/${userName}`,
           }
         },
@@ -103,8 +107,8 @@ export const {
   useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
-  useGetPostsByUserNameQuery,
   useGetPostCommentsQuery,
+  useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
   useUploadImagesForPostMutation,
 } = postService

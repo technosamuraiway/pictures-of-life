@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { useGetPostsByUserNameQuery, useGetProfileQuery } from '@/services'
+import { useAppSelector, useGetPostsByUserNameQuery, useGetProfileQuery } from '@/services'
+import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { InitLoader, MetaHead } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import Image from 'next/image'
@@ -8,11 +9,17 @@ import Image from 'next/image'
 import { ProfileInfo } from './_ui/ProfileInfo/ProfileInfo'
 
 function Profile() {
-  const { data: profileData, isLoading: isProfileLoading } = useGetProfileQuery()
+  const meRequestData = useAppSelector(meSelectorData)
+  const { data: profileData, isLoading: isProfileLoading } = useGetProfileQuery(undefined, {
+    skip: !meRequestData,
+  })
 
   const { data: postsData, isLoading: isPostsLoading } = useGetPostsByUserNameQuery(
-    profileData?.userName ?? ''
+    { userName: profileData?.userName || '' },
+    { skip: !profileData }
   )
+
+  console.log(postsData)
 
   // массив постов
   const postsImagesArray = useMemo(() => {
@@ -30,7 +37,7 @@ function Profile() {
   return (
     <>
       <MetaHead title={'Profile info'} />
-      <div style={{ backgroundColor: 'darkblue', width: '100%' }}>
+      <div style={{ width: '100%' }}>
         <ProfileInfo
           about={profileData?.aboutMe || 'no info'}
           avatar={profileData?.avatars[0].url || ''}
