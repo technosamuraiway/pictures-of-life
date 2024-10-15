@@ -37,9 +37,9 @@ export const CountryCitySelect = ({
   const [filteredStates, setFilteredStates] = useState<Item[]>([])
   const [filteredCities, setFilteredCities] = useState<Item[]>([])
 
-  const [searchCountryTerm, setSearchCountryTerm] = useState(defaultCountryValue || '')
-  const [searchStateTerm, setSearchStateTerm] = useState(defaultStateValue || '')
-  const [searchCityTerm, setSearchCityTerm] = useState(defaultCityValue || '')
+  const [searchCountryTerm, setSearchCountryTerm] = useState('')
+  const [searchStateTerm, setSearchStateTerm] = useState('')
+  const [searchCityTerm, setSearchCityTerm] = useState('')
 
   const [isCountryOpen, setIsCountryOpen] = useState(false)
   const [isStateOpen, setIsStateOpen] = useState(false)
@@ -56,7 +56,10 @@ export const CountryCitySelect = ({
       setCountriesList(result)
       setFilteredCountries(result)
     })
-  }, [])
+    defaultCountryValue && setSearchCountryTerm(defaultCountryValue)
+    defaultStateValue && setSearchStateTerm(defaultStateValue)
+    defaultCityValue && setSearchCityTerm(defaultCityValue)
+  }, [defaultCountryValue, defaultStateValue, defaultCityValue])
 
   const onClickCountrySelectHandler = (country: Item) => {
     setSearchCountryTerm(country.name)
