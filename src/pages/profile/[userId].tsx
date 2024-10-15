@@ -1,30 +1,33 @@
 import { useMemo } from 'react'
 
-import { useAppSelector, useGetPostsByUserNameQuery, useGetProfileQuery } from '@/services'
+import { useAppSelector, useGetProfileQuery, useGetUserPublicPostsQuery } from '@/services'
 import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { InitLoader, MetaHead } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import { ProfileInfo } from './_ui/ProfileInfo/ProfileInfo'
 
 function Profile() {
+  const {
+    query: { userId },
+  } = useRouter()
   const meRequestData = useAppSelector(meSelectorData)
+
   const { data: profileData, isLoading: isProfileLoading } = useGetProfileQuery(undefined, {
     skip: !meRequestData,
   })
 
-  const { data: postsData, isLoading: isPostsLoading } = useGetPostsByUserNameQuery(
-    { userName: profileData?.userName || '' },
+  const { data: postsData, isLoading: isPostsLoading } = useGetUserPublicPostsQuery(
+    { userId: Number(userId) },
     { skip: !profileData }
   )
-
-  console.log(postsData)
 
   // массив постов
   const postsImagesArray = useMemo(() => {
     return postsData?.items.reduce((acc, post) => {
-      acc.push(post.avatarOwner)
+      acc.push(post.images[0]?.url)
 
       return acc
     }, [] as Array<string>)

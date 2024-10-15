@@ -1,5 +1,4 @@
 .layout {
-  overflow: hidden;
   height: 100vh;
 }
 
@@ -20,5 +19,5 @@
 
   height: var(--header-height);
 
-  background-color: inherit;
+  background-color: var(--Dark-700);
 }

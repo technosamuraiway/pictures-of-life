@@ -8,8 +8,8 @@
   flex-direction: column;
   gap: 3.75rem;
 
-  width: 100%;
-  max-width: var(--navBar-width);
+  width: var(--navBar-width);
+  min-width: var(--navBar-width);
   height: calc(100vh - var(--header-height));
   padding: 4.5rem 0 0;
 

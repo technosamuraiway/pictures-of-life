@@ -13,6 +13,7 @@ import '@/styles/_colors.scss'
 import '@/styles/_tokens.scss'
 import '@/styles/_typography.scss'
 import '@/styles/globals.scss'
+import '@/styles/_scroll.scss'
 // eslint-disable-next-line import/extensions
 import 'swiper/scss'
 
