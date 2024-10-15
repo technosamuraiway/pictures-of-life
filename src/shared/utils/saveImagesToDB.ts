@@ -29,6 +29,27 @@ function openDB(): Promise<IDBDatabase> {
   })
 }
 
+// Функция для очистки хранилища IndexedDB
+export async function clearImagesFromDB(): Promise<void> {
+  const db = await openDB();
+
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(STORE_NAME, 'readwrite'); // Открываем транзакцию с правами на запись
+    const store = transaction.objectStore(STORE_NAME); // Получаем доступ к хранилищу
+    const clearRequest = store.clear(); // Очищаем хранилище
+
+    clearRequest.onsuccess = () => {
+      // console.log('Хранилище успешно очищено');
+      resolve();
+    };
+
+    clearRequest.onerror = () => {
+      // console.error('Ошибка при очистке хранилища:', clearRequest.error);
+      reject(clearRequest.error);
+    };
+  });
+}
+
 /**
  * Функция для сохранения одного или нескольких изображений в IndexedDB
  * @param {ImageData | ImageData[]} images - Изображение или массив изображений для сохранения.
@@ -164,7 +185,7 @@ export const checkIfImagesExistInDB = async (storeName: string = 'images'): Prom
   })
 }
 
-/* Проверка происходит вызовом асинхр. функции и дождаться результать надо. Возвращает булево  
+/* Проверка происходит вызовом асинхр. функции и дождаться результат. Возвращает булево  
 
 let resultIsImage;
 
