@@ -28,11 +28,21 @@ export const AddPostPhotoModal = ({ onEditMode, setImage }: IProps) => {
     openAddPostPhoto ? push(PATH.HOME) : setOpenAddPostPhoto(true)
   }
 
+async function checkImages() {
+  const ifExistsImages = async function isImageExistsInDB() {
+    const imagesExist = await checkIfImagesExistInDB();
+    return imagesExist;
+  };
+
+  const result = await ifExistsImages();
+  setIsDraftBtn(result)
+}
+
+checkImages(); 
+
   const onDraftBtnClickHandler = async () => {
     toast.info('Здесь working on DRAFT going!')
-    const imagesExist = await checkIfImagesExistInDB()
 
-    setIsDraftBtn(imagesExist)
     // push(PATH.HOME)
   }
 

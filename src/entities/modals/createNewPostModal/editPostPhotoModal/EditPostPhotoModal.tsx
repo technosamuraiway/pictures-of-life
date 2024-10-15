@@ -7,7 +7,6 @@ import {
   useUploadImagesForPostMutation,
 } from '@/services'
 import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { getImagesFromDB, saveImagesToDB } from '@/shared/utils/saveImagesToDB'
 import { useRouter } from 'next/router'
 
 import { PostWithoutHeaderModal } from '../../postWithoutHeaderModal/PostWithoutHeaderModal'
@@ -43,25 +42,10 @@ export const EditPostPhotoModal = ({
   const { data: profileData } = useGetProfileQuery()
   const { processAllImages } = useGetFilesList(downloadedImage, imageStates)
 
-  // Updated onNextButtonClickHandler to save images to IndexedDB
+
   const onNextButtonClickHandler = async () => {
     if (editFilter) {
       const processedImages = await processAllImages()
-
-      // Save the processed images to IndexedDB before uploading
-      try {
-        const imagesToSave = processedImages.map((file, index) => ({
-          dataUrl: URL.createObjectURL(file), // You can adjust how you store images here
-          id: `image-${index}`, // Generate unique ID for each image
-        }))
-
-        await saveImagesToDB(imagesToSave)
-
-        toast.success('Images saved to draft (IndexedDB) successfully!')
-      } catch (error) {
-        console.error('Failed to save images to IndexedDB:', error)
-        toast.error('Failed to save images to draft.')
-      }
 
       await uploadImagesForPost({ files: processedImages }).unwrap()
 

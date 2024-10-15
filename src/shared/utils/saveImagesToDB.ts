@@ -31,23 +31,23 @@ function openDB(): Promise<IDBDatabase> {
 
 // Функция для очистки хранилища IndexedDB
 export async function clearImagesFromDB(): Promise<void> {
-  const db = await openDB();
+  const db = await openDB()
 
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, 'readwrite'); // Открываем транзакцию с правами на запись
-    const store = transaction.objectStore(STORE_NAME); // Получаем доступ к хранилищу
-    const clearRequest = store.clear(); // Очищаем хранилище
+    const transaction = db.transaction(STORE_NAME, 'readwrite') // Открываем транзакцию с правами на запись
+    const store = transaction.objectStore(STORE_NAME) // Получаем доступ к хранилищу
+    const clearRequest = store.clear() // Очищаем хранилище
 
     clearRequest.onsuccess = () => {
       // console.log('Хранилище успешно очищено');
-      resolve();
-    };
+      resolve()
+    }
 
     clearRequest.onerror = () => {
       // console.error('Ошибка при очистке хранилища:', clearRequest.error);
-      reject(clearRequest.error);
-    };
-  });
+      reject(clearRequest.error)
+    }
+  })
 }
 
 /**
@@ -72,6 +72,30 @@ export async function saveImagesToDB(images: ImageData | ImageData[]): Promise<v
     transaction.onerror = () => reject(transaction.error) // Ошибка транзакции
   })
 }
+
+/* Пример использования сохранения в базу данных
+  const images: ImageData[] = [
+  {
+    id: 'image-2',
+    dataUrl: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...' // Это пример Base64 изображения
+  },
+  {
+    id: 'image-3',
+    dataUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA...' // Это пример другого Base64 изображения
+  }
+];
+
+async function saveMultipleImages() {
+  try {
+    await saveImagesToDB(images); // Сохраняем массив изображений в IndexedDB
+    console.log('Изображения успешно сохранены в базе данных!');
+  } catch (error) {
+    console.error('Ошибка при сохранении изображений:', error);
+  }
+}
+
+  saveMultipleImages();
+*/
 
 /**
  * Функция для получения одного или всех изображений из IndexedDB
@@ -158,32 +182,45 @@ export async function getImagesFromDB(id?: string): Promise<ImageData | ImageDat
  * @returns {Promise<boolean>} - Промис, который возвращает true, если есть сохраненные изображения, иначе false.
  */
 export const checkIfImagesExistInDB = async (storeName: string = 'images'): Promise<boolean> => {
-  return new Promise<boolean>((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION) // Открываем базу данных
+  try {
+    // Открываем уже существующую базу данных через openDB()
+    const db = await openDB();
 
-    request.onerror = event => {
-      console.error('Database error:', event)
-      reject(false) // Ошибка при открытии базы данных
-    }
+    return new Promise<boolean>((resolve, reject) => {
+      try {
+        // Проверяем, существует ли хранилище объектов
+        if (!db.objectStoreNames.contains(storeName)) {
+          // console.warn(`Хранилище "${storeName}" не найдено в базе данных.`);
+          resolve(false); // Если хранилища нет, то изображения отсутствуют
+          return;
+        }
 
-    request.onsuccess = event => {
-      const db = (event.target as IDBOpenDBRequest).result // Получаем экземпляр базы данных
-      const transaction = db.transaction([storeName], 'readonly') // Открываем транзакцию только для чтения
-      const objectStore = transaction.objectStore(storeName) // Доступ к хранилищу
+        // Открываем транзакцию только для чтения
+        const transaction = db.transaction([storeName], 'readonly');
+        const objectStore = transaction.objectStore(storeName);
 
-      const countRequest = objectStore.count() // Подсчитываем количество записей в хранилище
+        // Считаем количество записей в хранилище
+        const countRequest = objectStore.count();
 
-      countRequest.onsuccess = () => {
-        resolve(countRequest.result > 0) // Если количество больше 0, значит изображения есть
+        countRequest.onsuccess = () => {
+          resolve(countRequest.result > 0); // Если количество больше 0, изображения есть
+        };
+
+        countRequest.onerror = () => {
+          // console.error('Ошибка при подсчете элементов в хранилище');
+          reject(false); // Ошибка при подсчете записей
+        };
+      } catch (error) {
+        // console.error('Ошибка при проверке хранилища:', error);
+        reject(false); // Любая другая ошибка приводит к отказу
       }
+    });
+  } catch (error) {
+    // console.error('Ошибка при открытии базы данных:', error);
+    return false; // Возвращаем false, если база данных не может быть открыта
+  }
+};
 
-      countRequest.onerror = () => {
-        console.error('Error counting items in the store')
-        reject(false) // Ошибка при подсчете записей
-      }
-    }
-  })
-}
 
 /* Проверка происходит вызовом асинхр. функции и дождаться результат. Возвращает булево  
 
