@@ -6,10 +6,10 @@ import { useRouter } from 'next/router'
 
 export const AuthGuard = ({ children }: PropsWithChildren) => {
   const { pathname, replace } = useRouter()
-  const { data, status } = useMeCurInfoQuery()
+  const { data, isLoading } = useMeCurInfoQuery()
 
   // почему не isLoading? - потому что он пропускает код дальше при самом первом рендере
-  if (status === 'pending') {
+  if (isLoading) {
     return <InitLoader />
   }
 

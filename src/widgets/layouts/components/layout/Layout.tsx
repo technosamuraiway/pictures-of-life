@@ -1,5 +1,7 @@
 import { PropsWithChildren, useState } from 'react'
 
+import { useAppSelector } from '@/services'
+import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { PATH } from '@/shared'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
@@ -14,6 +16,8 @@ import { languageSelectOptions } from './languageSelectOptions'
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
   const { asPath, pathname, query } = router
+
+  const meRequestData = useAppSelector(meSelectorData)
 
   /* Управление стейтом кнопки выбора языка.
    *  Начальное значение берется из uri-params
