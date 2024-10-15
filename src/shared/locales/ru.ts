@@ -97,6 +97,20 @@ export const ru = {
     logOutSuccess: 'Вы успешно вышли из приложения. Увидимся в следующий раз!',
     logOutText: 'Вы действительно хотите выйти из аккаунта <1>email</1> ?',
   },
+  months: {
+    april: 'Апрель',
+    august: 'Август',
+    december: 'Декабрь',
+    february: 'Февраль',
+    january: 'Январь',
+    july: 'Июль',
+    june: 'Июнь',
+    march: 'Март',
+    may: 'Май',
+    november: 'Ноябрь',
+    october: 'Октябрь',
+    september: 'Сентябрь',
+  },
   navBar: {
     create: 'Создать',
     favorites: 'Любимое',
@@ -122,6 +136,7 @@ export const ru = {
     title: 'Восстановления пароля',
   },
   posts: {
+    failToDeletePost: 'Вы пытаетесь удалить пост другого пользователя',
     qustionAboutDelete: 'Вы действительно хотите удалить этот пост?',
     regUsers: 'Зарегистрированные пользователи:',
     successfulDeletePost: 'Вы успешно удалили этот пост',
@@ -144,6 +159,10 @@ export const ru = {
   profilePage: {
     settingButton: 'Настройки Профиля',
     title: 'Профиль',
+  },
+  publicButtons: {
+    logIn: 'Авторизоваться',
+    signUp: 'Зарегистрироваться',
   },
   settingsPage: {
     devices: {

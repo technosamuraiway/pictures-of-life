@@ -15,6 +15,9 @@ export const PATH = {
     BASEPROFILE: '/profile',
     SETTINGS: '/profile/settings',
   },
+  PUBLIC: '/public',
+  PUBLICPOST: '/public-post/[postId]',
+  PUBLICUSER: '/public-user/[userId]',
 } as const
 
 export const PUBLIC_ROUTES_SET = new Set<string>([
@@ -26,5 +29,13 @@ export const PUBLIC_ROUTES_SET = new Set<string>([
   PATH.AUTH.TERMSOFSRVICE,
   PATH.AUTH.URLGITHUBLOGIN,
   PATH.AUTH.URLGOOGLELOGIN,
-  '/github',
+  PATH.PUBLIC,
+  PATH.PUBLICPOST,
+  PATH.PUBLICUSER,
+])
+
+export const PUBLIC_ROUTES_SET_WITH_BTN = new Set<string>([
+  PATH.PUBLIC,
+  PATH.PUBLICPOST,
+  PATH.PUBLICUSER,
 ])

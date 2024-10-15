@@ -12,6 +12,8 @@ export { ActionConfirmationModal } from './modals/actionConfirmationModal/Action
 export { AddProfilePhotoModal } from './modals/addProfilePhotoModal/AddProfilePhotoModal'
 
 export { CreateNewPostModal } from './modals/createNewPostModal/CreateNewPostModal'
+export { DeletePostModal } from './modals/deletePostModal/DeletePostModal'
+
 export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'
 
 // ============================== [ profile ] ======================================

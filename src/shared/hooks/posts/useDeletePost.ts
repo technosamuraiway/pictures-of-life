@@ -1,31 +1,38 @@
 import { toast } from 'react-toastify'
 
 import { useDeletePostMutation } from '@/services'
-import { useRouter } from 'next/router'
 
-import { PATH } from '../../utils'
 import { useRouterLocaleDefinition } from '../useRouterLocaleDefinition'
+
+type serverError = {
+  data: {
+    error: string
+    messages: { field: string; message: string }[]
+  }
+  status: number
+}
 
 export function useDeletePost() {
   const t = useRouterLocaleDefinition()
-  const router = useRouter()
   const [
     deletePost,
     { isError: isErrorDeletePost, isLoading: isLoadingDeletePost, isSuccess: isSuccessDeletePost },
-  ] = useDeletePostMutation()
+  ] = useDeletePostMutation({
+    fixedCacheKey: 'deletePostKey',
+  })
 
-  const handleLogout = async () => {
-    const qustionAboutDelete = prompt(t.posts.qustionAboutDelete)
+  const handleDeletePost = async (postID: number) => {
+    try {
+      await deletePost(postID).unwrap()
+      toast.info(t.posts.successfulDeletePost)
+    } catch (e: unknown) {
+      const serverError = e as serverError
 
-    if (!qustionAboutDelete) {
-      return
+      if (serverError.status === 403 && serverError.data.messages.length > 0) {
+        toast.error(t.posts.failToDeletePost)
+      }
     }
-    await deletePost().unwrap()
-
-    // router.replace(PATH) // here will be a path of router after deleting of post
-
-    toast.info(t.posts.successfulDeletePost)
   }
 
-  return { handleLogout, isErrorDeletePost, isLoadingDeletePost, isSuccessDeletePost }
+  return { handleDeletePost, isErrorDeletePost, isLoadingDeletePost, isSuccessDeletePost }
 }
