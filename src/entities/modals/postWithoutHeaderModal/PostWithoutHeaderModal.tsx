@@ -2,17 +2,19 @@ import { ComponentPropsWithoutRef, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { ActionConfirmationModal } from '@/entities'
-import { PATH, useRouterLocaleDefinition } from '@/shared'
+import { PATH, saveImagesToDB, useRouterLocaleDefinition } from '@/shared'
 import { LeftIcon } from '@public/LeftIcon'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import { v4 as uuid } from 'uuid'
 
 import s from './PostWithoutHeaderModal.module.scss'
 
 interface IProps extends ComponentPropsWithoutRef<typeof Modal> {
   addTextView: boolean
   contentCN?: string
+  downloadedImage: string[]
   editFilter: boolean
   isDisabled?: boolean
   nextBtnTitle?: string
@@ -26,6 +28,7 @@ export const PostWithoutHeaderModal = ({
   addTextView,
   children,
   contentCN,
+  downloadedImage,
   editFilter,
   headerTitle,
   isDisabled,
@@ -51,7 +54,21 @@ export const PostWithoutHeaderModal = ({
   }
 
   const onDraftBtnClickHandler = async () => {
-    toast.info('Здесь будет функционал черновиков, когда-нибудь точно появится!')
+    const indexedImages = downloadedImage.map(img => {
+      return { dataUrl: img, id: uuid(), lastUpdated: Date.now() }
+    })
+
+    async function saveMultipleImages() {
+      try {
+        await saveImagesToDB(indexedImages) // Сохраняем массив изображений в IndexedDB
+        toast.success('Изображения успешно сохранены в базе данных!')
+      } catch (error) {
+        toast.error('Ошибка при сохранении изображений:')
+      }
+    }
+
+    await saveMultipleImages()
+
     await replace(PATH.HOME)
     setOnOpen(false)
   }
