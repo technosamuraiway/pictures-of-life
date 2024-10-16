@@ -1,12 +1,12 @@
 import { memo } from 'react'
 
 import { StatsInfoItem } from '@/pages/profile/_ui/components/StatsInfoItem'
-import { PATH } from '@/shared'
+import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import s from './ProfileInfo.module.scss'
+import s from './InfoPanel.module.scss'
 
 interface iProps {
   about: string
@@ -14,7 +14,8 @@ interface iProps {
   userName: string
 }
 
-export const ProfileInfo = memo(({ about, avatar, userName }: iProps) => {
+export const InfoPanel = memo(({ about, avatar, userName }: iProps) => {
+  const t = useRouterLocaleDefinition()
   const { push } = useRouter()
 
   return (
@@ -32,13 +33,13 @@ export const ProfileInfo = memo(({ about, avatar, userName }: iProps) => {
             {userName}
           </Typography>
           <Button as={'a'} onClick={() => push(PATH.PROFILE.SETTINGS)} variant={'secondary'}>
-            Profile Settings
+            {t.profile.info.btn}
           </Button>
         </div>
         <div className={s.infoMiddle}>
-          <StatsInfoItem num={2218} title={'Following'} />
-          <StatsInfoItem num={2358} title={'Followers'} />
-          <StatsInfoItem num={2764} title={'Publications'} />
+          <StatsInfoItem num={2218} title={t.profile.info.stats.following} />
+          <StatsInfoItem num={2358} title={t.profile.info.stats.followers} />
+          <StatsInfoItem num={2764} title={t.profile.info.stats.publications} />
         </div>
         <Typography variant={'regular-text-16'}>{about}</Typography>
       </div>

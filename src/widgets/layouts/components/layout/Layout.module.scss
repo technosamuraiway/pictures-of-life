@@ -1,6 +1,8 @@
 .scrollContainer {
   scrollbar-gutter: stable;
-  overflow-y: auto;
+
+  overflow: hidden auto;
+
   width: 100%;
   height: calc(100vh - var(--header-height));
 }
