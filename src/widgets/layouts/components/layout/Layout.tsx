@@ -45,7 +45,7 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   }
 
   return (
-    <div className={s.layout}>
+    <>
       <Header
         changeLanguageBtn={changeLanguageBtnHandler}
         changeLanguageBtnCurrentValue={langValue}
@@ -59,7 +59,9 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         withAuthButtons={isWithButtons}
       />
 
-      <div className={s.container}>{children}</div>
-    </div>
+      <div className={s.scrollContainer}>
+        <div className={s.container}>{children}</div>
+      </div>
+    </>
   )
 }

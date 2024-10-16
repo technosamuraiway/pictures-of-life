@@ -10,14 +10,10 @@
 
 html,
 body {
-  overflow-x: hidden;
+  overflow: hidden;
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-html {
-  overflow-y: hidden;
 }
 
 body {
@@ -30,11 +26,13 @@ body {
   даже если контент не выподает за viewport
   */
 
-  scrollbar-gutter: stable;
-
   min-width: 360px;
-  margin: var(--header-height) 0 0 12px;
-  padding: 0;
+
+  /*
+  зачем тут !important ?
+  => селект в хедере, когда активирован, перебивает стиль и ширина body скачет
+  */
+  padding-top: var(--header-height) !important;
 
   font-size: 100%;
   -webkit-font-smoothing: antialiased;

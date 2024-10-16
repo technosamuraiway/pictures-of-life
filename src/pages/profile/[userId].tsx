@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
 
+import { ProfileInfo } from '@/pages/profile/_ui/profileInfo/ProfileInfo'
 import { useAppSelector, useGetProfileQuery, useGetUserPublicPostsQuery } from '@/services'
 import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { InitLoader, MetaHead } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-
-import { ProfileInfo } from './_ui/ProfileInfo/ProfileInfo'
 
 function Profile() {
   const {

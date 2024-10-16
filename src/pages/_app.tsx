@@ -1,19 +1,20 @@
 import type { AppProps } from 'next/app'
 
-import { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import { Slide, ToastContainer } from 'react-toastify'
 
 import { AuthGuard } from '@/services'
 import { wrapper } from '@/services/store'
+import { InitLoader } from '@/shared'
 import { NextPage } from 'next'
 import NextTopLoader from 'nextjs-toploader'
 
 import '@/styles/_colors.scss'
+import '@/styles/_scroll.scss'
 import '@/styles/_tokens.scss'
 import '@/styles/_typography.scss'
 import '@/styles/globals.scss'
-import '@/styles/_scroll.scss'
 // eslint-disable-next-line import/extensions
 import 'swiper/scss'
 

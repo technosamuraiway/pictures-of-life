@@ -10,8 +10,16 @@
   flex-grow: 1;
   align-items: center;
 
-  //overflow-y: auto;
-  padding: 2.25rem 0 0 1.5rem;
+  padding-top: 2.25rem;
+  padding-bottom: 2.25rem;
+}
 
-  background-color: #5d523c;
+.mainWithNav {
+  padding-right: 1.0625rem;
+  padding-left: 11.5rem;
+}
+
+.main {
+  padding-right: 1.0625rem;
+  padding-left: 1.0625rem;
 }

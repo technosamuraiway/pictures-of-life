@@ -1,5 +1,3 @@
-import { memo } from 'react'
-
 import { Typography } from '@technosamurai/techno-ui-kit'
 
 interface iProps {

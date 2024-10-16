@@ -1,25 +1,29 @@
-.layout {
-  background-color: #0a6638;
+.scrollContainer {
+  scrollbar-gutter: stable;
+  overflow-y: auto;
+  width: 100%;
+  height: calc(100vh - var(--header-height));
 }
 
 .container {
-  flex-direction: row;
-
+  position: relative;
   width: 100%;
   max-width: 74.375rem;
-
-  //height: 100vh;
   margin: 0 auto;
-  padding: 0 1.0625rem;
 }
 
 .header {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   top: 0;
 
   width: 100%;
   height: var(--header-height);
+
+  /* main сдвинут влево из-за скролла, поэтому
+  подвиним хедер также влево */
+
+  padding-right: 12px;
 
   background-color: var(--Dark-700);
 }

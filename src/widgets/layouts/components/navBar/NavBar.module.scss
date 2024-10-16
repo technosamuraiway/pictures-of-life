@@ -1,7 +1,5 @@
 .wrapper {
-  position: absolute;
-  top: var(--header-height);
-  left: 0;
+  position: fixed;
 
   display: flex;
   flex-direction: column;
@@ -9,9 +7,9 @@
 
   width: var(--navBar-width);
   min-width: var(--navBar-width);
-  padding: 4.5rem 0 0;
+  height: 100%;
+  padding: 4.5rem 0 0 1.0625rem;
 
-  background-color: #990f2b;
   border-right: 0.0625rem solid var(--Dark-300);
 }
 
