@@ -1,8 +1,3 @@
-.links {
-  display: flex;
-  gap: 1.875rem;
-}
-
 .usersContetnt {
   display: flex;
   flex-direction: column;
@@ -80,8 +75,19 @@
       .userImg {
         cursor: pointer;
         width: 100%;
-        height: 100%;
+        height: 15rem;
         object-fit: cover;
+      }
+
+      .imgNF {
+        cursor: not-allowed;
+
+        max-width: 100%;
+        max-height: 100%;
+
+        background-color: var(--Light-900);
+
+        fill: var(--Dark-700);
       }
 
       .allContent {
