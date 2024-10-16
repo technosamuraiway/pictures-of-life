@@ -5,6 +5,7 @@ import { IPostUser, SortDirection } from '@/services/types/post.types'
 import { SwiperSlider, TimeAgo, useRouterLocaleDefinition } from '@/shared'
 import { formatDate } from '@/shared/utils/dateFormatter'
 import { CloseIcon } from '@public/CloseIcon'
+import { ImageNotFound } from '@public/ImageNotFound'
 import { Modal, Scrollbar, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './PostModal.module.scss'
@@ -17,6 +18,8 @@ interface PostModalProps {
 
 const PostModal: React.FC<PostModalProps> = ({ isOpen, onRequestClose, post }) => {
   const [sortDirectionVal, setSortDirectionVal] = useState<SortDirection>('desc')
+  const [imageError, setImageError] = useState<Record<number, boolean>>({}) // Для обработки ошибок изображений
+
   const {
     data: commentsData,
     isError,
@@ -31,6 +34,13 @@ const PostModal: React.FC<PostModalProps> = ({ isOpen, onRequestClose, post }) =
     onRequestClose()
   }
 
+  const handleImageError = (index: number) => {
+    setImageError(prevErrors => ({
+      ...prevErrors,
+      [index]: true,
+    }))
+  }
+
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -39,7 +49,7 @@ const PostModal: React.FC<PostModalProps> = ({ isOpen, onRequestClose, post }) =
     return <div>Failed to load comments</div>
   }
 
-  const likedImages = post.images.slice(0, 3)
+  const likedImages = post.images.slice(0, 4)
   const totalLikes = commentsData?.items?.reduce((total, comment) => total + comment.likeCount, 0)
 
   return (
@@ -58,14 +68,38 @@ const PostModal: React.FC<PostModalProps> = ({ isOpen, onRequestClose, post }) =
               loop
               navigation
               paginationClickable
-              slides={post.images.map(image => ({
-                content: <img alt={`img-${post.id}`} className={s.image} src={image.url} />,
-              }))}
+              slides={post.images.map((image, index) => {
+                if (imageError[index]) {
+                  return { content: <ImageNotFound className={s.image} /> }
+                }
+
+                return {
+                  content: (
+                    <img
+                      alt={`img-${post.id}-${index}`}
+                      className={s.image}
+                      onError={() => handleImageError(index)}
+                      src={image.url}
+                    />
+                  ),
+                }
+              })}
               slidesPerView={1}
               spaceBetween={20}
             />
           ) : (
-            <img alt={'post-image'} className={s.image} src={post?.images[0].url} />
+            <>
+              {imageError[0] ? (
+                <ImageNotFound className={s.image} />
+              ) : (
+                <img
+                  alt={'post-image'}
+                  className={s.image}
+                  onError={() => handleImageError(0)}
+                  src={post?.images[0].url}
+                />
+              )}
+            </>
           )}
         </div>
         <div className={s.textContentDiv}>
@@ -142,14 +176,21 @@ const PostModal: React.FC<PostModalProps> = ({ isOpen, onRequestClose, post }) =
             {likedImages.length > 0 && (
               <div className={s.likedImagesContainer}>
                 <div className={s.likedImages}>
-                  {likedImages.map((image, index: number) => (
-                    <img
-                      alt={`liked-image-${index}`}
-                      className={s.likedImage}
-                      key={index}
-                      src={image.url}
-                    />
-                  ))}
+                  {likedImages.map((image, index: number) => {
+                    if (imageError[index]) {
+                      return <ImageNotFound className={s.likedImage} key={index} />
+                    }
+
+                    return (
+                      <img
+                        alt={`liked-image-${index}`}
+                        className={s.likedImage}
+                        key={index}
+                        onError={() => handleImageError(index)}
+                        src={image.url}
+                      />
+                    )
+                  })}
                 </div>
               </div>
             )}
