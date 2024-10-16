@@ -1,8 +1,8 @@
 import { memo } from 'react'
 
 import { IPostImage } from '@/services'
-import { SwiperSlider, useRouterLocaleDefinition } from '@/shared'
-import noImage from '@public/error404.png'
+import { SwiperSlider, useProfileLocale } from '@/shared'
+import { ImageNotFound } from '@public/ImageNotFound'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import Image, { StaticImageData } from 'next/image'
 
@@ -22,7 +22,7 @@ interface iSlideItem {
 }
 
 export const PostsShower = memo(({ posts }: iPostsShower) => {
-  const t = useRouterLocaleDefinition()
+  const t = useProfileLocale()
 
   const postsWithSwiper = posts?.map((post, index) =>
     post.length > 0 ? (
@@ -31,14 +31,13 @@ export const PostsShower = memo(({ posts }: iPostsShower) => {
       </div>
     ) : (
       <div className={s.slideGroup} key={index}>
-        <SlideItem alt={'no-image'} src={noImage} />
+        <ImageNotFound height={230} width={230} />
+        {/*<SlideItem alt={'no-image'} src={noImage} />*/}
       </div>
     )
   )
 
-  const noPostsTitle = (
-    <Typography variant={'h1'}>😥 {t.profile.postsShower.noPostsTitle} 😥</Typography>
-  )
+  const noPostsTitle = <Typography variant={'h1'}>😥 {t.postsShower.noPostsTitle} 😥</Typography>
 
   return <div className={s.postsShower}>{posts ? postsWithSwiper : noPostsTitle}</div>
 })
