@@ -61,6 +61,34 @@ function Profile() {
               ))
             : 'No images'}
         </div>
+        <div>
+          {postsImagesArray && postsImagesArray.length > 0
+            ? postsImagesArray.map((item, index) => (
+                <Image
+                  alt={`image-${index}`}
+                  height={200}
+                  key={index}
+                  src={item}
+                  style={{ objectFit: 'cover' }}
+                  width={200}
+                />
+              ))
+            : 'No images'}
+        </div>
+        <div>
+          {postsImagesArray && postsImagesArray.length > 0
+            ? postsImagesArray.map((item, index) => (
+                <Image
+                  alt={`image-${index}`}
+                  height={200}
+                  key={index}
+                  src={item}
+                  style={{ objectFit: 'cover' }}
+                  width={200}
+                />
+              ))
+            : 'No images'}
+        </div>
       </div>
     </>
   )

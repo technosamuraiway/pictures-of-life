@@ -1,22 +1,24 @@
 .layout {
-  height: 100vh;
+  background-color: #0a6638;
 }
 
 .container {
-  display: flex;
   flex-direction: row;
 
   width: 100%;
   max-width: 74.375rem;
+
+  //height: 100vh;
   margin: 0 auto;
   padding: 0 1.0625rem;
 }
 
 .header {
-  position: sticky;
+  position: absolute;
   z-index: 100;
   top: 0;
 
+  width: 100%;
   height: var(--header-height);
 
   background-color: var(--Dark-700);
