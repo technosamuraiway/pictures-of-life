@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 
-import { InfoPanel } from '@/pages/profile/_ui/profileInfo/InfoPanel'
-import { PostsShower } from '@/pages/profile/_ui/profilePosts/PostsShower'
+import { InfoPanel, PostsShower } from '@/pages/profile/_ui'
 import {
   IPostImage,
   useAppSelector,
