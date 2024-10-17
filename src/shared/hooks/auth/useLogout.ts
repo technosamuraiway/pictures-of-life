@@ -4,7 +4,6 @@ import { inctagramApi, useLogOutMutation } from '@/services'
 import { useAppDispatch } from '@/services/store'
 import { useRouter } from 'next/router'
 
-import { PATH } from '../../utils'
 import { useRouterLocaleDefinition } from '../useRouterLocaleDefinition'
 
 type serverError = {
@@ -22,8 +21,8 @@ export function useLogout() {
 
   const logoutPurification = () => {
     localStorage.removeItem('accessToken')
-    router.replace(PATH.AUTH.SIGNIN)
     dispatch(inctagramApi.util.resetApiState())
+    // router.replace(PATH.AUTH.SIGNIN)
     toast.info(t.logOut.logOutSuccess)
   }
 

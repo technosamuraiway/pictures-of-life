@@ -124,6 +124,7 @@ export const {
   useCreateNewPasswordMutation,
   useForgotPasswordMutation,
   useGoogleSignUpMutation,
+  useLazyMeCurInfoQuery,
   useLogOutMutation,
   useMeCurInfoQuery,
   useResendConfirmEmailMutation,

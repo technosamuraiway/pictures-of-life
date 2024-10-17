@@ -5,6 +5,16 @@ export interface IPostPublicResponse {
   totalUsers: number
 }
 
+export type IPostsByNameResponse = {
+  page: number
+  pagesCount: string
+} & Omit<IPostPublicResponse, 'totalCount' | 'totalUsers'>
+
+export type IPostsByNameArgs = { pageNumber?: number; userName: string } & Omit<
+  IPostParams,
+  'endCursorPostId'
+>
+
 export interface IPostUser {
   avatarOwner: string
   createdAt: string

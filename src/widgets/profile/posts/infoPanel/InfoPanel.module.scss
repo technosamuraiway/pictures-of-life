@@ -1,0 +1,31 @@
+.profileInfo {
+  display: flex;
+  flex-flow: row wrap;
+  column-gap: 2.375rem;
+  justify-content: center;
+
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.info {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  row-gap: 1.25rem;
+
+  &Top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &Middle {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 6.25rem;
+  }
+}

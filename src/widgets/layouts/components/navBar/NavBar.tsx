@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-import { useMeCurInfoQuery } from '@/services'
+import { useAppSelector } from '@/services'
+import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
 import {
   ActiveCreateIcon,
@@ -27,7 +28,7 @@ import { LogOutItem } from './logOutItem/LogOutItem'
 import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
-  const { data: meData } = useMeCurInfoQuery()
+  const meData = useAppSelector(meSelectorData)
 
   const { handleLogout, isLoadingLogout } = useLogout()
   const t = useRouterLocaleDefinition()
