@@ -95,21 +95,3 @@ export interface IAvatar {
   url: string
   width: number
 }
-
-// export interface IUserProfile {
-//   id: number
-//   userName: string
-//   firstName: string
-//   lastName: string
-//   city?: string
-//   country?: string
-//   region?: string
-//   dateOfBirth?: string
-//   aboutMe?: string
-//   avatars: IAvatar[]
-//   isFollowing: boolean
-//   isFollowedBy: boolean
-//   followingCount: number
-//   followersCount: number
-//   publicationsCount: number
-// }
