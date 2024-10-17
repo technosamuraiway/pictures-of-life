@@ -9,6 +9,7 @@ import {
   IPostsByNameResponse,
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
+  // IUserProfile,
 } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
@@ -85,6 +86,21 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+
+      // getUserProfileByUserName: builder.query<IUserProfile, string>({
+      //   query: (userName) => {
+      //     const token = localStorage.getItem('authToken') || '';
+      //     return {
+      //       method: 'GET',
+      //       url: `/v1/users/${userName}`,
+      //       headers: {
+      //         Authorization: `Bearer ${token}`,
+      //         Accept: 'application/json',
+      //       },
+      //     };
+      //   },
+      // }),
+
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
         query: ({ files }) => {
           const formData = new FormData()
@@ -112,4 +128,5 @@ export const {
   useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
   useUploadImagesForPostMutation,
+  // useGetUserProfileByUserNameQuery,
 } = postService
