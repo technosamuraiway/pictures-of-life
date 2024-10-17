@@ -1,20 +1,25 @@
 .layoutContainer {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - var(--header-height));
 }
 
 .mainWithNav,
 .main {
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
 
-  padding: 2.25rem 4rem 1.25rem 1.5rem;
+  padding-top: 2.25rem;
+  padding-bottom: 2.25rem;
 }
 
 .mainWithNav {
-  width: calc(100vw - var(--navBar-width));
+  padding-right: 1.0625rem;
+  padding-left: 11.5rem;
+}
+
+.main {
+  padding-right: 1.0625rem;
+  padding-left: 1.0625rem;
 }

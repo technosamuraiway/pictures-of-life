@@ -5,6 +5,16 @@ export interface IPostPublicResponse {
   totalUsers: number
 }
 
+export type IPostsByNameResponse = {
+  page: number
+  pagesCount: string
+} & Omit<IPostPublicResponse, 'totalCount' | 'totalUsers'>
+
+export type IPostsByNameArgs = { pageNumber?: number; userName: string } & Omit<
+  IPostParams,
+  'endCursorPostId'
+>
+
 export interface IPostUser {
   avatarOwner: string
   createdAt: string
@@ -16,6 +26,7 @@ export interface IPostUser {
   location: any
   owner: IPostOwner
   ownerId: number
+  totalCount: number
   updatedAt: string
   userName: string
 }
@@ -84,3 +95,21 @@ export interface IAvatar {
   url: string
   width: number
 }
+
+// export interface IUserProfile {
+//   id: number
+//   userName: string
+//   firstName: string
+//   lastName: string
+//   city?: string
+//   country?: string
+//   region?: string
+//   dateOfBirth?: string
+//   aboutMe?: string
+//   avatars: IAvatar[]
+//   isFollowing: boolean
+//   isFollowedBy: boolean
+//   followingCount: number
+//   followersCount: number
+//   publicationsCount: number
+// }

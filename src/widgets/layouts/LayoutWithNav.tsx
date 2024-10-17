@@ -10,10 +10,8 @@ import { NavBar } from './components/navBar/NavBar'
 const LayoutWithNav: NextPage<PropsWithChildren> = ({ children }) => {
   return (
     <Layout>
-      <div className={s.layoutContainer}>
-        <NavBar />
-        <main className={s.mainWithNav}>{children}</main>
-      </div>
+      <NavBar />
+      <main className={s.mainWithNav}>{children}</main>
     </Layout>
   )
 }

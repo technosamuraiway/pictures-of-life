@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
 import { SortDirection } from '@/services/types/post.types'
-import { PATH, SwiperSlider, TimeAgo, useRouterLocaleDefinition } from '@/shared'
+import { SwiperSlider, TimeAgo, useRouterLocaleDefinition } from '@/shared'
+import { ImageNotFound } from '@public/ImageNotFound'
 import { Typography } from '@technosamurai/techno-ui-kit'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './posts.module.scss'
@@ -21,6 +21,7 @@ export default function Posts(props: Props) {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
   const [expandedPosts, setExpandedPosts] = useState<Record<string, boolean>>({})
+  const [imageErrors, setImageErrors] = useState<Record<number, Record<number, boolean>>>({})
 
   const {
     data: allPublicPosts,
@@ -60,7 +61,7 @@ export default function Posts(props: Props) {
 
   const handleImageClick = (post: any) => {
     router.push({
-      pathname: `/public-post/${post.id}`,
+      pathname: `/public/post/${post.id}`,
       query: { userId: post.ownerId },
     })
   }
@@ -69,12 +70,18 @@ export default function Posts(props: Props) {
     router.push(`/public-user/${userId}`)
   }
 
+  const handleImageError = (postId: number, imageIndex: number) => {
+    setImageErrors(prevErrors => ({
+      ...prevErrors,
+      [postId]: {
+        ...prevErrors[postId],
+        [imageIndex]: true,
+      },
+    }))
+  }
+
   return (
     <>
-      <div className={s.links}>
-        <Link href={PATH.AUTH.SIGNIN}>Sign-in</Link>
-        <Link href={PATH.AUTH.SIGNUP}>Sign-up</Link>
-      </div>
       <div className={s.usersContetnt}>
         <section className={s.section}>
           <Typography variant={'bold-text-16'}>{t.posts.regUsers}</Typography>
@@ -93,32 +100,48 @@ export default function Posts(props: Props) {
           {allPublicPosts?.items?.slice(0, 4).map(post => (
             <div className={s.swipperDiv} key={post.id}>
               <div className={expandedPosts[post.id] ? s.expandedImageContainer : s.imageContainer}>
-                {post?.images.length > 1 ? (
+                {post?.images && post?.images.length > 1 ? (
                   <SwiperSlider
                     customClass={'customSwiperClass'}
                     loop
                     navigation
                     paginationClickable
-                    slides={post.images.map(image => ({
+                    slides={post.images.map((image, index) => ({
                       content: (
-                        <img
-                          alt={`img-${post.id}`}
-                          className={s.userImg}
-                          onClick={() => handleImageClick(post)}
-                          src={image.url}
-                        />
+                        <>
+                          {imageErrors[post.id]?.[index] ? (
+                            <ImageNotFound className={s.imgNF} />
+                          ) : (
+                            <img
+                              alt={`img-${post.id}-${index}`}
+                              className={s.userImg}
+                              onClick={() => handleImageClick(post)}
+                              onError={() => handleImageError(post.id, index)}
+                              src={image.url}
+                            />
+                          )}
+                        </>
                       ),
                     }))}
                     slidesPerView={1}
                     spaceBetween={20}
                   />
                 ) : (
-                  <img
-                    alt={'img'}
-                    className={s.userImg}
-                    onClick={() => handleImageClick(post)}
-                    src={post?.images[0]?.url}
-                  />
+                  <>
+                    {imageErrors[post.id]?.[0] ? (
+                      <ImageNotFound className={s.imgNF} />
+                    ) : (
+                      <img
+                        alt={'img'}
+                        className={s.userImg}
+                        onClick={() => handleImageClick(post)}
+                        onError={() => {
+                          handleImageError(post.id, 0)
+                        }}
+                        src={`${post?.images[0]?.url}`}
+                      />
+                    )}
+                  </>
                 )}
               </div>
               <div className={expandedPosts[post.id] ? s.allContentExpanded : s.allContent}>

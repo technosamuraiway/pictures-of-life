@@ -1,0 +1,73 @@
+.scrollContainer {
+  text-align: center;
+}
+
+.authButton {
+  cursor: pointer;
+  margin: 0 0.625rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+}
+
+.postContent {
+  margin-top: 2.1875rem;
+  padding: 0 5rem;
+}
+
+.avatarImg {
+width: 15rem;
+height: 15rem;
+border-radius: 50%;
+} 
+
+.avatarPlaceholderPost {
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+
+  width: 15rem;
+  height: 15rem;
+
+  font-size: 6.25rem;
+  color: var(--Light-100);
+  text-align: center;
+  
+  background: var(--Primary-500);
+  border-radius: 50%; 
+}
+
+.username {
+  color: var(--Light-100);
+}
+
+.imageContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.625rem;
+  justify-content: center;
+
+  margin-top: 3.3125rem;
+}
+
+.postImage {
+  width: 14.25rem; 
+  height: auto; 
+}
+
+.description {
+  max-width: 45.625rem;
+  margin-top: 1.5625rem;
+  font-size: 1rem;
+}
+
+.avaDescr {
+  display: flex;
+  gap: 2.375rem;
+} 
+
+.follPublic {
+  display: flex;
+  gap: 6.25rem;
+  align-items: center;
+  margin-top: 1.875rem;
+}

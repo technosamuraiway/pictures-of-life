@@ -1,16 +1,14 @@
 .wrapper {
-  position: sticky;
-  top: var(--header-height);
-  left: 0;
+  position: fixed;
 
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 3.75rem;
 
   width: var(--navBar-width);
-  height: calc(100vh - var(--header-height));
-  padding: 4.5rem 2rem 6.875rem 3.75rem;
+  min-width: var(--navBar-width);
+  height: 100%;
+  padding: 4.5rem 0 0 1.0625rem;
 
   border-right: 0.0625rem solid var(--Dark-300);
 }

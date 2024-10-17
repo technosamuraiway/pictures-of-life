@@ -13,9 +13,10 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@reduxjs/toolkit": "^2.2.7",
-    "@technosamurai/techno-ui-kit": "^0.0.42",
+    "@technosamurai/techno-ui-kit": "^0.0.43",
     "@types/react-google-recaptcha": "^2.1.9",
     "async-mutex": "^0.5.0",
+    "axios": "1.7.7",
     "clsx": "^2.1.1",
     "country-list": "^2.3.0",
     "jwt-decode": "^4.0.0",
@@ -31,6 +32,7 @@
     "react-hook-form": "^7.53.0",
     "react-redux": "^9.1.2",
     "react-toastify": "^10.0.5",
+    "reselect": "^5.1.1",
     "swiper": "^11.1.14",
     "uuid": "^10.0.0",
     "zod": "^3.23.8"
