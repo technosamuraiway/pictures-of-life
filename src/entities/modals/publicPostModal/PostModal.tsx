@@ -49,7 +49,7 @@ const PostModal: React.FC<PostModalProps> = ({ isOpen, onRequestClose, post }) =
     return <div>Failed to load comments</div>
   }
 
-  const likedImages = post.images.slice(0, 4)
+  const likedImages = post.images.slice(0, 3)
   const totalLikes = commentsData?.items?.reduce((total, comment) => total + comment.likeCount, 0)
 
   return (
