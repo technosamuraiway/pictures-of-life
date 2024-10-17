@@ -7,6 +7,7 @@ import {
   useUploadImagesForPostMutation,
 } from '@/services'
 import { PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { clearImagesFromDB } from '@/shared/utils/saveImagesToDB'
 import { useRouter } from 'next/router'
 
 import { PostWithoutHeaderModal } from '../../postWithoutHeaderModal/PostWithoutHeaderModal'
@@ -60,6 +61,12 @@ export const EditPostPhotoModal = ({
           }),
         }).unwrap()
 
+        try {
+          await clearImagesFromDB()
+        } catch (e) {
+          toast.error('Error indexDB')
+        }
+
         replace(`${PATH.PROFILE.BASEPROFILE}/${profileData?.id}`)
         toast.success(t.createNewPost.editPhotoModal.createPost.createPostSuccess)
       }
@@ -96,6 +103,7 @@ export const EditPostPhotoModal = ({
       {(isCreateImagePostLoading || isCreatePostLoading) && <RequestLineLoader />}
       <PostWithoutHeaderModal
         addTextView={addTextView}
+        downloadedImage={downloadedImage}
         editFilter={editFilter}
         headerTitle={headerTitleText}
         isDisabled={isCreatePostLoading || isCreateImagePostLoading}

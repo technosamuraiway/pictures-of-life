@@ -1,20 +1,31 @@
-.layout {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+.scrollContainer {
+  scrollbar-gutter: stable;
+
+  overflow: hidden auto;
+
+  width: 100%;
+  height: calc(100vh - var(--header-height));
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 74.375rem;
+  margin: 0 auto;
 }
 
 .header {
-  position: sticky;
+  position: fixed;
   z-index: 100;
   top: 0;
-  height: var(--header-height);
-}
 
-.content {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  width: 100%;
+  height: var(--header-height);
+
+  /* main сдвинут влево из-за скролла, поэтому
+  подвиним хедер также влево */
+
+  padding-right: 12px;
+
+  background-color: var(--Dark-700);
 }

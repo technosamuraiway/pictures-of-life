@@ -5,8 +5,11 @@ import {
   IPostParams,
   IPostPublicResponse,
   IPostUser,
+  IPostsByNameArgs,
+  IPostsByNameResponse,
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
+  // IUserProfile,
 } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
@@ -54,15 +57,27 @@ export const postService = inctagramApi.injectEndpoints({
           url: `/v1/public-posts/${postId}/comments`,
         }),
       }),
+      getPostsByUserName: builder.query<IPostsByNameResponse, IPostsByNameArgs>({
+        query: args => {
+          const { pageNumber, pageSize, sortBy, sortDirection, userName } = args
+
+          return {
+            method: 'GET',
+            params: { pageNumber, pageSize, sortBy, sortDirection },
+            url: `/v1/posts/${userName}`,
+          }
+        },
+      }),
       getUserPublicPosts: builder.query<
         IPostPublicResponse,
         { params?: IPostParams; userId: number }
       >({
-        query: ({ params, userId }) => {
-          const { endCursorPostId, ...restParams } = params ?? {}
-          const url = endCursorPostId
-            ? `v1/public-posts/user/${userId}/${endCursorPostId}`
+        query: ({ params = {}, userId }) => {
+          const url = params.endCursorPostId
+            ? `v1/public-posts/user/${userId}/${params.endCursorPostId}`
             : `v1/public-posts/user/${userId}`
+
+          const { endCursorPostId, ...restParams } = params
 
           return {
             method: 'GET',
@@ -71,6 +86,21 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+
+      // getUserProfileByUserName: builder.query<IUserProfile, string>({
+      //   query: (userName) => {
+      //     const token = localStorage.getItem('authToken') || '';
+      //     return {
+      //       method: 'GET',
+      //       url: `/v1/users/${userName}`,
+      //       headers: {
+      //         Authorization: `Bearer ${token}`,
+      //         Accept: 'application/json',
+      //       },
+      //     };
+      //   },
+      // }),
+
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
         query: ({ files }) => {
           const formData = new FormData()
@@ -95,6 +125,8 @@ export const {
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
   useGetPostCommentsQuery,
+  useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
   useUploadImagesForPostMutation,
+  // useGetUserProfileByUserNameQuery,
 } = postService
