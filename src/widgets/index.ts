@@ -6,6 +6,9 @@ export { ResendLink } from './auth/resendLink/ResendLink'
 export { getBaseLayout } from './layouts/BaseLayout'
 
 export { getLayoutWithNav } from './layouts/LayoutWithNav'
+
+export { InfoPanel } from './profile/posts/infoPanel/InfoPanel'
+export { PostsShower } from './profile/posts/postsShower/PostsShower'
 export { Devices } from './profile/settings/devices/Devices'
 
 // ============================== [ profile ] ======================================

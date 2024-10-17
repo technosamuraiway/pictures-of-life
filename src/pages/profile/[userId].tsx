@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 
-import { InfoPanel, PostsShower } from '@/pages/profile/_ui'
 import {
   IPostImage,
   useAppSelector,
@@ -9,7 +8,7 @@ import {
 } from '@/services'
 import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { InitLoader, MetaHead } from '@/shared'
-import { getLayoutWithNav } from '@/widgets'
+import { InfoPanel, PostsShower, getLayoutWithNav } from '@/widgets'
 import { useRouter } from 'next/router'
 
 function Profile() {
