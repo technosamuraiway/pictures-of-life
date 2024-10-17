@@ -1,5 +1,3 @@
-import { profilePageLocals } from '@/shared/locales/pages/profile-page.locale'
-
 export const ru = {
   avatarChange: {
     addAvatar: {
@@ -158,7 +156,19 @@ export const ru = {
       Вы имеете право запросить доступ, исправление или удаление ваших личных данных, которые мы храним. Вы также можете отозвать свое согласие на обработку ваших данных или ограничить их использование. Для этого свяжитесь с нами по указанным контактным данным.`,
     title: 'Политика конфиденциальности',
   },
-  profile: { ...profilePageLocals.ru },
+  profile: {
+    info: {
+      btn: 'Настройки профиля',
+      stats: {
+        followers: 'Подписчиков',
+        following: 'Подписок',
+        publications: 'Публикаций',
+      },
+    },
+    postsShower: {
+      noPostsTitle: 'Нет постов',
+    },
+  },
   profilePage: {
     settingButton: 'Настройки Профиля',
     title: 'Профиль',
