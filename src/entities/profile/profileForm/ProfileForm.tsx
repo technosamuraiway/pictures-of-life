@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { IProfile, ProfileFormValues, profileValidationScheme } from '@/entities'
 import { useGetProfileQuery } from '@/services'
-import { CountryCitySelect, PATH, formatDateToISOString, useRouterLocaleDefinition } from '@/shared'
+import { CountryCitySelect, PATH, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, MyDatePicker, TextArea, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -23,7 +23,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
   const router = useRouter()
   const currentPath = router.asPath
 
-  const { data: profileData, isLoading } = useGetProfileQuery()
+  const { data: profileData } = useGetProfileQuery()
   const [errorMessage, setErrorMessage] = useState('')
 
   const profileTranslate: IProfile = {
@@ -110,7 +110,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       aboutMe: data.aboutMe || '',
       city: data.city || '',
       country: data.country || '',
-      dateOfBirth: data.dateOfBirth ? formatDateToISOString(data.dateOfBirth) : '',
+      dateOfBirth: data.dateOfBirth || '',
       region: data.region || '',
     }
 
@@ -120,6 +120,10 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
   const userName = watch('userName')
   const firstName = watch('firstName')
   const lastName = watch('lastName')
+  const country = watch('country')
+  const region = watch('region')
+  const city = watch('city')
+  const dateOfBirth = watch('dateOfBirth')
   const isButtonDisabled = !userName || !firstName || !lastName || !!errorMessage
 
   return (
@@ -148,7 +152,6 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         type={'text'}
         withStar
       />
-
       <div className={s.dateOfBirthWrapper}>
         <Typography className={s.labelColor} variant={'regular-text-14'}>
           {t.settingsPage.infoForm.dateBirth}
@@ -156,6 +159,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
 
         <MyDatePicker
           {...register('dateOfBirth')}
+          defaultSingleValue={dateOfBirth}
           errorMessage={errorMessage}
           locale={t.locale}
           mode={'single'}
@@ -176,6 +180,9 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       </div>
 
       <CountryCitySelect
+        defaultCityValue={city}
+        defaultCountryValue={country}
+        defaultStateValue={region}
         onCityChange={cityName => setValue('city', cityName)}
         onCountryChange={countryName => setValue('country', countryName)}
         onStateChange={stateName => setValue('region', stateName)}

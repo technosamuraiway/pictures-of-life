@@ -13,12 +13,22 @@ export type Item = {
 }
 
 interface IProps {
+  defaultCityValue?: string
+  defaultCountryValue?: string
+  defaultStateValue?: string
   onCityChange: (cityName: string) => void
   onCountryChange: (countryName: string) => void
   onStateChange: (stateName: string) => void
 }
 
-export const CountryCitySelect = ({ onCityChange, onCountryChange, onStateChange }: IProps) => {
+export const CountryCitySelect = ({
+  defaultCityValue,
+  defaultCountryValue,
+  defaultStateValue,
+  onCityChange,
+  onCountryChange,
+  onStateChange,
+}: IProps) => {
   const [countriesList, setCountriesList] = useState<Item[]>([])
   const [statesList, setStatesList] = useState<Item[]>([])
   const [citiesList, setCitiesList] = useState<Item[]>([])
@@ -46,7 +56,10 @@ export const CountryCitySelect = ({ onCityChange, onCountryChange, onStateChange
       setCountriesList(result)
       setFilteredCountries(result)
     })
-  }, [])
+    defaultCountryValue && setSearchCountryTerm(defaultCountryValue)
+    defaultStateValue && setSearchStateTerm(defaultStateValue)
+    defaultCityValue && setSearchCityTerm(defaultCityValue)
+  }, [defaultCountryValue, defaultStateValue, defaultCityValue])
 
   const onClickCountrySelectHandler = (country: Item) => {
     setSearchCountryTerm(country.name)
