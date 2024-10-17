@@ -1,3 +1,4 @@
 module.exports = {
-  extends: '@it-incubator/stylelint-config',
+  extends: '@it-incubator/eslint-config',
+  ignorePatterns: ['en.ts', 'ru.ts'],
 }
