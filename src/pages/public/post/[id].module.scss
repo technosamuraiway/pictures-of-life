@@ -41,8 +41,8 @@ border-radius: 50%;
 }
 
 .imageContainer {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.625rem;
   justify-content: center;
 
