@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import { PATH, useRouterLocaleDefinition } from '@/shared'
