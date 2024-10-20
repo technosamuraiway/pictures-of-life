@@ -7,11 +7,17 @@ export { ServicePrivacy } from './auth/servicePrivacy/ServicePrivacy'
 export { SignInForm } from './auth/signInForm/SignInForm'
 export { SignUpForm } from './auth/signUpForm/SignUpForm'
 
+// ============================== [ controlled ] =======================================
+export { ControlledCheckbox } from './controlled/controlledCheckbox/ControlledCheckbox'
+export { ControlledSingleCalendar } from './controlled/controlledSingleCalendar/ControlledSingleCalendar'
+export { ControlledTextField } from './controlled/controlledTextField/ControlledTextField'
+
 // ============================== [ modals ] ======================================
 export { ActionConfirmationModal } from './modals/actionConfirmationModal/ActionConfirmationModal'
-export { AddProfilePhotoModal } from './modals/addProfilePhotoModal/AddProfilePhotoModal'
 
+export { AddProfilePhotoModal } from './modals/addProfilePhotoModal/AddProfilePhotoModal'
 export { CreateNewPostModal } from './modals/createNewPostModal/CreateNewPostModal'
+
 export { DeletePostModal } from './modals/deletePostModal/DeletePostModal'
 
 export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'

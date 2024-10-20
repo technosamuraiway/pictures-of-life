@@ -1,5 +1,7 @@
 export { browserTheme } from './browserTheme'
 export { convertDate } from './convertDate'
+export { convertDateToDateValue } from './convertDateToDateValue'
+export { convertDateValueToDate } from './convertDateValueToDate'
 export { findIcon } from './findIcon'
 export { formatDateToISOString } from './formatDateToISOString'
 export { PATH, PUBLIC_ROUTES_SET, PUBLIC_ROUTES_SET_WITH_BTN } from './pathVariables'

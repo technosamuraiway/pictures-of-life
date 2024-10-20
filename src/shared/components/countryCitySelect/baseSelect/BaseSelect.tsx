@@ -1,10 +1,10 @@
-import type { Item } from '../CountryCitySelect'
-
 import { ChangeEvent } from 'react'
 
 import { Button, DownIcon, Scrollbar, TextField, UpIcon } from '@technosamurai/techno-ui-kit'
 
 import s from './BaseSelect.module.scss'
+
+import { Item } from '../CountryCitySelect'
 
 interface IProps {
   emptyField?: string
@@ -35,16 +35,18 @@ export const BaseSelect = ({
   setIsItemOpen,
   setSearchItemTerm,
 }: IProps) => {
+  const filterItems = (value: string) => {
+    return itemsList.filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
+  }
+
   const onItemChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const currentValue = event.target.value
 
     setSearchItemTerm(currentValue)
-    const filteredArray = itemsList.filter(item =>
-      item.name.toLowerCase().includes(currentValue.toLowerCase())
-    )
+    const filteredArray = filterItems(currentValue)
 
     setFilteredItems(filteredArray)
-    setIsItemOpen(filteredArray.length > 0 && currentValue.length > 0)
+    setIsItemOpen(filteredArray.length > 0)
   }
 
   const toggleItemDropdownHandler = () => {
