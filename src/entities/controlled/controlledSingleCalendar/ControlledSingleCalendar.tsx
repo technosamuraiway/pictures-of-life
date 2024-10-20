@@ -1,16 +1,17 @@
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import { PATH, useRouterLocaleDefinition } from '@/shared'
-import { CalendarDate, DateValue, parseDate } from '@internationalized/date'
+import {
+  PATH,
+  convertDateToDateValue,
+  convertDateValueToDate,
+  useRouterLocaleDefinition,
+} from '@/shared'
+import { DateValue } from '@internationalized/date'
 import { Calendar, CalendarProps, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './ControlledSingleCalendar.module.scss'
-
-function convertDateToDateValue(dateValue: DateValue): Date {
-  return new Date(dateValue.year, dateValue.month - 1, dateValue.day)
-}
 
 type ControlledCalendarProps<T extends FieldValues> = {
   setErrorMessage: (errorMessage: string) => void
@@ -38,27 +39,6 @@ export const ControlledSingleCalendar = <T extends FieldValues>({
     rules,
   })
 
-  const onValueChangeHandler = (date: DateValue) => {
-    const singleDate = convertDateToDateValue(date as DateValue)
-
-    if (singleDate && !isNaN(singleDate.getTime())) {
-      const age = checkAge(singleDate)
-
-      if (age < 13) {
-        setErrorMessage(t.settingsPage.infoForm.errorMessage)
-      } else {
-        setErrorMessage('')
-        onChange(singleDate)
-      }
-    } else {
-      setErrorMessage('')
-      onChange(undefined)
-    }
-  }
-
-  const dateValue =
-    value && new CalendarDate(value.getFullYear(), value.getMonth() + 1, value.getDate())
-
   const checkAge = (birthDate: Date): number => {
     const today = new Date()
     let age = today.getFullYear() - birthDate.getFullYear()
@@ -71,29 +51,40 @@ export const ControlledSingleCalendar = <T extends FieldValues>({
     return age
   }
 
+  const onValueChangeHandler = (date: DateValue) => {
+    const singleDate = convertDateValueToDate(date)
+    const age = checkAge(singleDate)
+
+    if (age < 13) {
+      setErrorMessage(t.settingsPage.infoForm.errorMessage)
+    } else {
+      setErrorMessage('')
+      onChange(singleDate)
+    }
+  }
+
+  const dateValue = convertDateToDateValue(value)
+
   return (
     <div className={s.dateOfBirthWrapper}>
       <Calendar
         {...field}
         {...rest}
-        errorMessage={error?.message}
+        errorMessage={error?.message || errorMessage}
         mode={'single'}
         onSingleChange={onValueChangeHandler}
         valueSingle={dateValue}
       />
-      {error?.message ||
-        (errorMessage && (
-          <div className={s.errorDiv}>
-            <Typography variant={'regular-text-14'}>{error?.message || errorMessage}</Typography>
-            <Link
-              href={`${PATH.AUTH.PRIVACYPOLICY}?previousPath=${encodeURIComponent(currentPath)}`}
-            >
-              <Typography className={s.linkPrivacy} variant={'small-link'}>
-                {t.settingsPage.infoForm.privacyPol}
-              </Typography>
-            </Link>
-          </div>
-        ))}
+      {(error?.message || errorMessage) && (
+        <div className={s.errorDiv}>
+          <Typography variant={'regular-text-14'}>{error?.message || errorMessage}</Typography>
+          <Link href={`${PATH.AUTH.PRIVACYPOLICY}?previousPath=${encodeURIComponent(currentPath)}`}>
+            <Typography className={s.linkPrivacy} variant={'small-link'}>
+              {t.settingsPage.infoForm.privacyPol}
+            </Typography>
+          </Link>
+        </div>
+      )}
     </div>
   )
 }

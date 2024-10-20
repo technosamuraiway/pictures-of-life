@@ -96,7 +96,6 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
   const country = watch('country')
   const region = watch('region')
   const city = watch('city')
-  const dateOfBirth = watch('dateOfBirth')
   const isButtonDisabled = !userName || !firstName || !lastName || !!errorMessage
 
   return (
@@ -142,13 +141,11 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         onCountryChange={countryName => setValue('country', countryName)}
         onStateChange={stateName => setValue('region', stateName)}
       />
-
       <TextArea
         {...register('aboutMe')}
         placeholder={t.settingsPage.infoForm.textAreaPlace}
         textAreaLabelText={t.settingsPage.infoForm.textArea}
       />
-
       <Button
         className={s.submitButton}
         disabled={buttonDisabled || isButtonDisabled}

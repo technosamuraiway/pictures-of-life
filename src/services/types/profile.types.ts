@@ -32,7 +32,7 @@ export type ProfileFormValues = {
   aboutMe?: string
   city?: string
   country?: string
-  dateOfBirth?: Date
+  dateOfBirth?: Date | null
   firstName: string
   lastName: string
   region?: string
