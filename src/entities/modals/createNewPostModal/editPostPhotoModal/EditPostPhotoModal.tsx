@@ -48,10 +48,11 @@ export const EditPostPhotoModal = ({
       const processedImages = await processAllImages()
 
       await uploadImagesForPost({ files: processedImages }).unwrap()
-
-      toast.success(t.createNewPost.editPhotoModal.createPost.uploadSuccess)
-      setEditFilter(false)
-      setAddTextView(true)
+      if (processedImages.length > 0) {
+        toast.success(t.createNewPost.editPhotoModal.createPost.uploadSuccess)
+        setEditFilter(false)
+        setAddTextView(true)
+      }
     } else if (addTextView) {
       if (uploadImagesResult) {
         await createPost({
@@ -106,7 +107,7 @@ export const EditPostPhotoModal = ({
         downloadedImage={downloadedImage}
         editFilter={editFilter}
         headerTitle={headerTitleText}
-        isDisabled={isCreatePostLoading || isCreateImagePostLoading}
+        isDisabled={isCreatePostLoading || isCreateImagePostLoading || downloadedImage.length <= 0}
         nextBtnTitle={
           addTextView
             ? t.createNewPost.editPhotoModal.createPost.publishBtn

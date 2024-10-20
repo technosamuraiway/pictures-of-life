@@ -167,7 +167,7 @@ export const profileValidationScheme = (profile: IProfile) => {
     aboutMe: aboutMe(profile.aboutMe),
     city: z.string().optional(),
     country: z.string().optional(),
-    dateOfBirth: z.string().optional(),
+    dateOfBirth: z.date().optional(),
     firstName: firstLastName(profile.firstName),
     lastName: firstLastName(profile.lastName),
     region: z.string().optional(),
