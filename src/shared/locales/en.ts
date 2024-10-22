@@ -143,6 +143,8 @@ export const en: LocaleType = {
     qustionAboutDelete: 'Are you sure you want to delete this post?',
     regUsers: 'Registered users:',
     successfulDeletePost: 'You have successfully deleted this post',
+    successfulErrorMesseng: 'Failed to load comments',
+    successfulPostLoading: 'Something went wrong...',
   },
   privacyPolicy: {
     backToProfile: 'Back to Profile Settings',

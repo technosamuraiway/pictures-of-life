@@ -142,6 +142,8 @@ export const ru = {
     qustionAboutDelete: 'Вы действительно хотите удалить этот пост?',
     regUsers: 'Зарегистрированные пользователи:',
     successfulDeletePost: 'Вы успешно удалили этот пост',
+    successfulErrorMesseng: 'Не удалось загрузить комментарии',
+    successfulPostLoading: 'Что-то пошло не так...',
   },
   privacyPolicy: {
     backToProfile: 'Вернуться к заполнению профиля',
