@@ -1,0 +1,14 @@
+.dateOfBirthWrapper {
+  position: relative;
+}
+
+.errorDiv {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  color: var(--Danger-500);
+}
+
+.linkPrivacy {
+  color: var(--Danger-500);
+}
