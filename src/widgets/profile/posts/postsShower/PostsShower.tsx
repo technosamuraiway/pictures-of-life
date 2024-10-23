@@ -16,19 +16,13 @@ interface iPostsShower {
 export const PostsShower = memo(({ posts }: iPostsShower) => {
   const t = useRouterLocaleDefinition()
 
-  function showIdInUrl(id: number) {
-    return () => {
-      console.log(id)
-    }
-  }
-
   const postsWithSwiper = posts?.map(post =>
     post.images.length > 0 ? (
-      <div className={s.slideGroup} key={post.id} onClick={showIdInUrl(post.id)}>
+      <div className={s.slideGroup} key={post.id}>
         <SlideGroup images={post.images} />
       </div>
     ) : (
-      <div className={s.slideGroup} key={post.id} onClick={showIdInUrl(post.id)}>
+      <div className={s.slideGroup} key={post.id}>
         <ImageNotFound height={230} width={230} />
         {/*<SlideItem alt={'no-image'} src={noImage} />*/}
       </div>
