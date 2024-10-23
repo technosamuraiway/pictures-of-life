@@ -1,6 +1,5 @@
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 
-import { IPostImage } from '@/services'
 import { InitLoader, MetaHead } from '@/shared'
 import {
   InfoPanel,

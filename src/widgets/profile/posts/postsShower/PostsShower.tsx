@@ -19,7 +19,7 @@ export const PostsShower = memo(({ posts }: iPostsShower) => {
   const postsWithSwiper = posts?.map(post =>
     post.images.length > 0 ? (
       <div className={s.slideGroup} key={post.id}>
-        <SlideGroup images={post.images} />
+        <SlideGroup id={post.id} images={post.images} />
       </div>
     ) : (
       <div className={s.slideGroup} key={post.id}>

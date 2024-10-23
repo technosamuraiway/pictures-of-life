@@ -1,11 +1,14 @@
 import { MetaHead, PATH, useGoogleAuth } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import s from './Home.module.scss'
 
 function Home() {
   const { isGoogleSignLoading } = useGoogleAuth()
+
+  const { push } = useRouter()
 
   return (
     <>
@@ -23,6 +26,24 @@ function Home() {
             <Link href={PATH.PUBLIC}>Public Posts</Link>
             <Link href={'/posts'}>Mock all POSTS</Link>
           </div>
+
+          <button
+            onClick={() => {
+              push(`${PATH.PROFILE.BASEPROFILE}/${1478}`)
+            }}
+            type={'button'}
+          >
+            🟢🟢🟢 Надежда 🟢🟢🟢
+          </button>
+
+          <button
+            onClick={() => {
+              push(`${PATH.PROFILE.BASEPROFILE}/${1480}`)
+            }}
+            type={'button'}
+          >
+            🔵🔵🔵 Дмитрий 🔵🔵🔵
+          </button>
         </>
       )}
     </>
