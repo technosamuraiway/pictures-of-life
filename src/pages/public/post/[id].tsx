@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react'
 
-import PostModal from '@/entities/modals/publicPostModal/PostModal'
+import { PostModal } from '@/entities/modals/publicPostModal/PostModal'
 import { useGetUserPublicPostsQuery } from '@/services/flow/post.service'
-import { MetaHead } from '@/shared'
+import { MetaHead, RequestLineLoader } from '@/shared'
 import { getBaseLayout } from '@/widgets'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
+import { v4 as uuid } from 'uuid'
 
 import s from './[id].module.scss'
 
@@ -35,12 +36,11 @@ const PublicPostPage = () => {
     setIsModalOpen(false)
   }
 
-  if (isLoadingPosts ) {
-    return <div>Loading...</div>
-  }
+ 
 
   return (
     <div>
+      {isLoadingPosts && <RequestLineLoader />}
       <MetaHead title={'Public User Page'} />
       <div className={s.container}>
         
@@ -82,7 +82,7 @@ const PublicPostPage = () => {
                 <img
                   alt={`post-image-${index}`}
                   className={s.postImage}
-                  key={index}
+                  key={uuid()}
                   src={image.url}
                 />
               ))}

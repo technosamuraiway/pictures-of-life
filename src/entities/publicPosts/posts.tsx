@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { useGetAllPublicPostsQuery } from '@/services/flow/post.service'
-import { SortDirection } from '@/services/types/post.types'
-import { SwiperSlider, TimeAgo, useRouterLocaleDefinition } from '@/shared'
+import { IPostUser, SortDirection } from '@/services/types/post.types'
+import { PATH, RequestLineLoader, SwiperSlider, TimeAgo, useRouterLocaleDefinition } from '@/shared'
 import { ImageNotFound } from '@public/ImageNotFound'
 import { Typography } from '@technosamurai/techno-ui-kit'
+import Image, { StaticImageData } from 'next/image'
 import { useRouter } from 'next/router'
+import { v4 as uuid } from 'uuid'
 
 import s from './posts.module.scss'
 
@@ -26,7 +29,7 @@ export default function Posts(props: Props) {
   const {
     data: allPublicPosts,
     isError,
-    isLoading,
+    isLoading: postIsLoading,
   } = useGetAllPublicPostsQuery(
     {
       pageSize: 50,
@@ -38,11 +41,8 @@ export default function Posts(props: Props) {
     }
   )
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
   if (isError) {
-    return <div style={{ color: 'red' }}>Something went wrong...</div>
+    return toast.success(t.posts.successfulPostLoading)
   }
   if (!allPublicPosts) {
     return null
@@ -59,15 +59,11 @@ export default function Posts(props: Props) {
     }))
   }
 
-  const handleImageClick = (post: any) => {
+  const handleImageClick = (post: IPostUser) => {
     router.push({
-      pathname: `/public/post/${post.id}`,
-      query: { userId: post.ownerId },
+      pathname: PATH.PUBLICPOST + `/${post.id}`,
+      query: { id: post.id, userId: post.ownerId },
     })
-  }
-
-  const handleUserClick = (userId: number) => {
-    router.push(`/public-user/${userId}`)
   }
 
   const handleImageError = (postId: number, imageIndex: number) => {
@@ -82,23 +78,24 @@ export default function Posts(props: Props) {
 
   return (
     <>
+      {postIsLoading && <RequestLineLoader />}
       <div className={s.usersContetnt}>
-        <section className={s.section}>
+        <div className={s.section}>
           <Typography variant={'bold-text-16'}>{t.posts.regUsers}</Typography>
           <div className={s.spanContainer}>
             {formattedUsers.map((el, ind) => (
-              <div className={s.spanDiv} key={ind}>
+              <div className={s.spanDiv} key={uuid()}>
                 <Typography className={s.span} variant={'bold-text-16'}>
                   {el}
                 </Typography>
               </div>
             ))}
           </div>
-        </section>
+        </div>
 
         <div className={s.userPost}>
           {allPublicPosts?.items?.slice(0, 4).map(post => (
-            <div className={s.swipperDiv} key={post.id}>
+            <div className={s.swipperDiv} key={uuid()}>
               <div className={expandedPosts[post.id] ? s.expandedImageContainer : s.imageContainer}>
                 {post?.images && post?.images.length > 1 ? (
                   <SwiperSlider
@@ -145,7 +142,7 @@ export default function Posts(props: Props) {
                 )}
               </div>
               <div className={expandedPosts[post.id] ? s.allContentExpanded : s.allContent}>
-                <div className={s.avaName} onClick={() => handleUserClick(post.ownerId)}>
+                <div className={s.avaName}>
                   {post.avatarOwner ? (
                     <img alt={'Avatar'} className={s.avatarImg} src={post.avatarOwner} />
                   ) : (
@@ -167,9 +164,13 @@ export default function Posts(props: Props) {
                       {post.description}
                     </Typography>
                     {post.description.length > 100 && (
-                      <span className={s.showMoreButton} onClick={() => toggleText(post.id)}>
+                      <Typography
+                        className={s.showMoreButton}
+                        onClick={() => toggleText(post.id)}
+                        variant={'small-text'}
+                      >
                         {expandedPosts[post.id] ? 'Hide' : 'Show more'}
-                      </span>
+                      </Typography>
                     )}
                   </div>
                 </div>
