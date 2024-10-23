@@ -1,36 +1,15 @@
 import { useMemo } from 'react'
 
-import {
-  IPostImage,
-  useAppSelector,
-  useGetProfileQuery,
-  useGetUserPublicPostsQuery,
-} from '@/services'
-import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
-import { meSelectorData } from '@/services/selectors/auth.selectors'
+import { IPostImage } from '@/services'
 import { InitLoader, MetaHead } from '@/shared'
-import { InfoPanel, PostsShower, getLayoutWithNav } from '@/widgets'
+import { InfoPanel, PostsShower, getLayoutWithNav, useGetProfilePageData } from '@/widgets'
 import { useRouter } from 'next/router'
 
 function Profile() {
-  const {
-    query: { userId },
-  } = useRouter()
-  const meRequestData = useAppSelector(meSelectorData)
+  const { query } = useRouter()
 
-  const { data: profileData, isLoading: isProfileLoading } = useGetProfileQuery(undefined, {
-    skip: !meRequestData,
-  })
-
-  const { data: userData, isLoading: isUserDataLoading } = useGetUserByUserNameQuery(
-    profileData?.userName ?? '',
-    { skip: !profileData }
-  )
-
-  const { data: postsData, isLoading: isPostsLoading } = useGetUserPublicPostsQuery(
-    { userId: Number(userId) },
-    { skip: !profileData }
-  )
+  const { isPostsLoading, isProfileLoading, isUserDataLoading, postsData, profileData, userData } =
+    useGetProfilePageData(query.userId as string)
 
   // кешированный массив постов
   const postsImagesArray = useMemo(() => {
