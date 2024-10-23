@@ -1,8 +1,14 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { IPostImage } from '@/services'
 import { InitLoader, MetaHead } from '@/shared'
-import { InfoPanel, PostsShower, getLayoutWithNav, useGetProfilePageData } from '@/widgets'
+import {
+  InfoPanel,
+  PostWithId,
+  PostsShower,
+  getLayoutWithNav,
+  useGetProfilePageData,
+} from '@/widgets'
 import { useRouter } from 'next/router'
 
 function Profile() {
@@ -13,14 +19,11 @@ function Profile() {
 
   // кешированный массив постов
   const postsImagesArray = useMemo(() => {
-    return postsData?.items.reduce(
-      (acc, post) => {
-        acc.push(post.images)
+    return postsData?.items.reduce((acc, post) => {
+      acc.push({ id: post.id, images: post.images })
 
-        return acc
-      },
-      [] as Array<IPostImage[]>
-    )
+      return acc
+    }, [] as PostWithId[])
   }, [postsData])
 
   if (isProfileLoading || isPostsLoading || isUserDataLoading) {
