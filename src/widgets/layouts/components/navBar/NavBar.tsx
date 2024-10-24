@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useAppSelector } from '@/services'
 import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
+import { useGetProfilePageData } from '@/widgets'
 import {
   ActiveCreateIcon,
   ActiveFavoritesIcon,
@@ -33,6 +34,8 @@ export function NavBar() {
   const { handleLogout, isLoadingLogout } = useLogout()
   const t = useRouterLocaleDefinition()
   const router = useRouter()
+
+  const isOwnProfile = meData?.userId == router.query.userId
 
   const [openModal, setOpenModal] = useState<boolean>(false)
 
@@ -111,6 +114,11 @@ export function NavBar() {
       return router.pathname === PATH.HOME
     } else {
       const trimmedPath = '/' + itemPath.split('/').slice(1, 2)
+
+      // условие для не active icon in nav когда чужой профиль
+      if (!isOwnProfile && itemPath === `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`) {
+        return false
+      }
 
       return router.pathname.startsWith(trimmedPath) && router.pathname !== PATH.HOME
     }

@@ -5,14 +5,6 @@ type Owner = {
   lastName: string
 }
 
-type Avatar = {
-  createdAt: string
-  fileSize: number
-  height: number
-  url: string
-  width: number
-}
-
 export type GetPublicUserPostByIdResponse = {
   avatarOwner: string
   createdAt: string
@@ -25,12 +17,5 @@ export type GetPublicUserPostByIdResponse = {
   owner: Owner
   ownerId: number
   updatedAt: string
-  userName: string
-}
-
-export type GetPublicUserProfileByIdResponse = {
-  aboutMe: string
-  avatars: Avatar[]
-  id: number
   userName: string
 }

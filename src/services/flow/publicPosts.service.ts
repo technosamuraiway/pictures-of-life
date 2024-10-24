@@ -1,11 +1,8 @@
 import { inctagramApi } from '@/services'
 
-import {
-  GetPublicUserPostByIdResponse,
-  GetPublicUserProfileByIdResponse,
-} from '../types/publicPosts.types'
+import { GetPublicUserPostByIdResponse } from '../types/publicPosts.types'
 
-export const publicPostsService = inctagramApi.injectEndpoints({
+const publicPostsService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
       getPublicUserPostById: builder.query<GetPublicUserPostByIdResponse, string>({
@@ -13,14 +10,6 @@ export const publicPostsService = inctagramApi.injectEndpoints({
           return {
             method: 'GET',
             url: `/v1/public-posts/${postId}`,
-          }
-        },
-      }),
-      getPublicUserProfileById: builder.query<GetPublicUserProfileByIdResponse, string>({
-        query: profileId => {
-          return {
-            method: 'GET',
-            url: `/v1/public-user/profile/${profileId}`,
           }
         },
       }),

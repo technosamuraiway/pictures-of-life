@@ -13,8 +13,15 @@ import { useRouter } from 'next/router'
 function Profile() {
   const { query } = useRouter()
 
-  const { isPostsLoading, isProfileLoading, isUserDataLoading, postsData, profileData, userData } =
-    useGetProfilePageData(query.userId as string)
+  const {
+    isOwnProfile,
+    isPostsLoading,
+    isProfileLoading,
+    isUserDataLoading,
+    postsData,
+    profileData,
+    userData,
+  } = useGetProfilePageData(query.userId as string)
 
   // кешированный массив постов
   const postsImagesArray = useMemo(() => {
@@ -36,6 +43,7 @@ function Profile() {
       <InfoPanel
         about={profileData?.aboutMe || 'no info'}
         avatar={profileData?.avatars[0].url || ''}
+        isWithSettingsBtn={isOwnProfile}
         userFollowers={userData?.followersCount || 0}
         userFollowing={userData?.followingCount || 0}
         userName={profileData?.userName || 'no info'}
