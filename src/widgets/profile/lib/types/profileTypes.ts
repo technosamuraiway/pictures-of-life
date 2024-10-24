@@ -1,4 +1,4 @@
-import { IPostImage } from '@/services'
+import { IPostImage } from '@/services/types/_common.types'
 
 export type PostWithId = {
   id: number

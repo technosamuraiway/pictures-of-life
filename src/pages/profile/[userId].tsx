@@ -5,6 +5,7 @@ import {
   InfoPanel,
   PostWithId,
   PostsShower,
+  ProfilePostModal,
   getLayoutWithNav,
   useGetProfilePageData,
 } from '@/widgets'
@@ -51,6 +52,8 @@ function Profile() {
       />
 
       <PostsShower posts={postsImagesArray} />
+
+      <ProfilePostModal />
     </>
   )
 }
