@@ -1,3 +1,5 @@
+import { IPostImage } from './_common.types'
+
 export interface IPostPublicResponse {
   items: IPostUser[]
   pageSize: number
@@ -29,15 +31,6 @@ export interface IPostUser {
   totalCount: number
   updatedAt: string
   userName: string
-}
-
-export interface IPostImage {
-  createdAt: string
-  fileSize: number
-  height: number
-  uploadId: string
-  url: string
-  width: number
 }
 
 export interface IPostOwner {

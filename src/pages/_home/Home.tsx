@@ -44,6 +44,15 @@ function Home() {
           >
             🔵🔵🔵 Дмитрий 🔵🔵🔵
           </button>
+
+          <button
+            onClick={() => {
+              push(`${PATH.PROFILE.BASEPROFILE}/${1574}`)
+            }}
+            type={'button'}
+          >
+            🟣🟣🟣 Александр 🟣🟣🟣
+          </button>
         </>
       )}
     </>
