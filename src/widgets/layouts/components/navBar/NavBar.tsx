@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useAppSelector } from '@/services'
 import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
-import { useGetProfilePageData } from '@/widgets'
 import {
   ActiveCreateIcon,
   ActiveFavoritesIcon,

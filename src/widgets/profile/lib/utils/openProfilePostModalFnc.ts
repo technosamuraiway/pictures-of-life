@@ -1,7 +1,7 @@
 import { PATH } from '@/shared'
 import Router from 'next/router'
 
-export function openProfilePostModal(postId: string) {
+export function openProfilePostModalFnc(postId: string) {
   const { push, query } = Router
 
   return () => {

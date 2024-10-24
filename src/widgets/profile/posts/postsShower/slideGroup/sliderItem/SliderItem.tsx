@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import { openProfilePostModal } from '@/widgets/profile/lib/utils/openProfilePostModal'
+import { openProfilePostModalFnc } from '@/widgets/profile/lib/utils/openProfilePostModalFnc'
 import Image, { StaticImageData } from 'next/image'
 
 interface iSlideItem {
@@ -14,7 +14,7 @@ export const SlideItem = memo(({ alt, id, src }: iSlideItem) => {
     <Image
       alt={alt}
       height={230}
-      onClick={openProfilePostModal(String(id))}
+      onClick={openProfilePostModalFnc(String(id))}
       src={src}
       width={230}
     />

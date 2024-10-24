@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 
 import s from './InfoPanel.module.scss'
 
-import { StatsInfoItem } from './ui/StatsInfoItem'
+import { StatsInfoItem } from './statsInfoItem/StatsInfoItem'
 
 interface iProps {
   about: string

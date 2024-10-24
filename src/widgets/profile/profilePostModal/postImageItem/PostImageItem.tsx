@@ -3,13 +3,18 @@ import { memo } from 'react'
 import { IPostImage } from '@/services'
 import { ImageNotFound } from '@public/ImageNotFound'
 
-import s from './PostImage.module.scss'
+import s from './PostImageItem.module.scss'
 
 interface iProps {
-  images: IPostImage[]
+  images: IPostImage[] | undefined
 }
 
-export const PostImage = memo(({ images }: iProps) => {
+export const PostImageItem = memo(({ images }: iProps) => {
+  // если нет postId в query то images[postId] === undefined
+  if (images === undefined) {
+    return null
+  }
+
   const isWithImage = images.length > 0
 
   return (

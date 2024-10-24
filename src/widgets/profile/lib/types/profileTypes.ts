@@ -4,3 +4,5 @@ export type PostWithId = {
   id: number
   images: IPostImage[]
 }
+
+export type PostsAssociativeArray = Record<string, IPostImage[]>

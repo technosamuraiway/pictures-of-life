@@ -4,6 +4,7 @@ import { InitLoader, MetaHead } from '@/shared'
 import {
   InfoPanel,
   PostWithId,
+  PostsAssociativeArray,
   PostsShower,
   ProfilePostModal,
   getLayoutWithNav,
@@ -25,12 +26,21 @@ function Profile() {
   } = useGetProfilePageData(query.userId as string)
 
   // кешированный массив постов
-  const postsImagesArray = useMemo(() => {
+  const postsArray = useMemo(() => {
     return postsData?.items.reduce((acc, post) => {
       acc.push({ id: post.id, images: post.images })
 
       return acc
     }, [] as PostWithId[])
+  }, [postsData])
+
+  // кешированный ассоциативный массив
+  const postsAssociativeArray = useMemo(() => {
+    return postsData?.items.reduce((acc, post) => {
+      acc[post.id] = post.images
+
+      return acc
+    }, {} as PostsAssociativeArray)
   }, [postsData])
 
   if (isProfileLoading || isPostsLoading || isUserDataLoading) {
@@ -51,9 +61,9 @@ function Profile() {
         userPublications={userData?.publicationsCount || 0}
       />
 
-      <PostsShower posts={postsImagesArray} />
+      <PostsShower posts={postsArray} />
 
-      <ProfilePostModal />
+      <ProfilePostModal postsAssociativeArray={postsAssociativeArray ?? {}} />
     </>
   )
 }

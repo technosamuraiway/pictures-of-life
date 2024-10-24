@@ -2,7 +2,7 @@ import { memo } from 'react'
 
 import { useRouterLocaleDefinition } from '@/shared'
 import { PostWithId } from '@/widgets'
-import { openProfilePostModal } from '@/widgets/profile/lib/utils/openProfilePostModal'
+import { openProfilePostModalFnc } from '@/widgets/profile/lib/utils/openProfilePostModalFnc'
 import { ImageNotFound } from '@public/ImageNotFound'
 import { Typography } from '@technosamurai/techno-ui-kit'
 
@@ -24,7 +24,11 @@ export const PostsShower = memo(({ posts }: iPostsShower) => {
       </div>
     ) : (
       <div className={s.slideGroup} key={post.id}>
-        <ImageNotFound height={230} onClick={openProfilePostModal(String(post.id))} width={230} />
+        <ImageNotFound
+          height={230}
+          onClick={openProfilePostModalFnc(String(post.id))}
+          width={230}
+        />
       </div>
     )
   )
