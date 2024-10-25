@@ -6,22 +6,20 @@ import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 export function useGetProfilePageData(userId: string) {
   const { isOwnProfile, meData: meRequestData } = useMeWithRouter()
 
-  const { data: profileData, isLoading: isProfileLoading } = useGetPublicUserProfileByIdQuery(
-    userId,
-    {
-      skip: !meRequestData,
-    }
-  )
+  const { data: profileData, isLoading: isProfileLoading } =
+    useGetPublicUserProfileByIdQuery(userId)
+
+  const isAuthorizedWithProfileData = !profileData || !meRequestData
 
   const { data: userData, isLoading: isUserDataLoading } = useGetUserByUserNameQuery(
     profileData?.userName ?? '',
-    { skip: !profileData }
+    { skip: isAuthorizedWithProfileData }
   )
 
-  const { data: postsData, isLoading: isPostsLoading } = useGetUserPublicPostsQuery(
-    { userId: Number(userId) },
-    { skip: !meRequestData }
-  )
+  const { data: postsData, isLoading: isPostsLoading } = useGetUserPublicPostsQuery({
+    pageSize: 50,
+    userId: Number(userId),
+  })
 
   return {
     isOwnProfile,

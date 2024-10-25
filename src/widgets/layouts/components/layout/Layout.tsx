@@ -12,8 +12,6 @@ import s from './Layout.module.scss'
 import { languageSelectOptions } from './languageSelectOptions'
 
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
-  // const router = useRouter()
-  // const meRequestData = useAppSelector(meSelectorData)
   const { meData: meRequestData, router } = useMeWithRouter()
   const { asPath, pathname, query } = router
 
@@ -43,6 +41,10 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const signUpClickHandler = () => {
     router.push(PATH.AUTH.SIGNUP)
   }
+
+  console.log(!meRequestData)
+  console.log()
+  console.log(isWithButtons)
 
   return (
     <>

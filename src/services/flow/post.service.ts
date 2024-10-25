@@ -2,6 +2,7 @@ import { inctagramApi } from '../api/inctagram.api'
 import {
   ICommentResponse,
   ICreatePostArgs,
+  IGetUserPublicPostsArgs,
   IPostParams,
   IPostPublicResponse,
   IPostUser,
@@ -68,11 +69,8 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
-      getUserPublicPosts: builder.query<
-        IPostPublicResponse,
-        { params?: IPostParams; userId: number }
-      >({
-        query: ({ params = {}, userId }) => {
+      getUserPublicPosts: builder.query<IPostPublicResponse, IGetUserPublicPostsArgs>({
+        query: ({ userId, ...params }) => {
           const url = params.endCursorPostId
             ? `v1/public-posts/user/${userId}/${params.endCursorPostId}`
             : `v1/public-posts/user/${userId}`

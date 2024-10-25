@@ -47,6 +47,10 @@ export interface IPostParams {
   sortDirection?: SortDirection
 }
 
+export interface IGetUserPublicPostsArgs extends IPostParams {
+  userId: number
+}
+
 export type IUploadPostImagesArgs = {
   files: File[]
 }

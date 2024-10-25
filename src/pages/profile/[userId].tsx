@@ -55,10 +55,10 @@ function Profile() {
         about={profileData?.aboutMe || 'no info'}
         avatar={profileData?.avatars[0].url || ''}
         isWithSettingsBtn={isOwnProfile}
-        userFollowers={userData?.followersCount || 0}
-        userFollowing={userData?.followingCount || 0}
+        userFollowers={userData?.followersCount || 999}
+        userFollowing={userData?.followingCount || 999}
         userName={profileData?.userName || 'no info'}
-        userPublications={userData?.publicationsCount || 0}
+        userPublications={userData?.publicationsCount || 999}
       />
 
       <PostsShower posts={postsArray} />
