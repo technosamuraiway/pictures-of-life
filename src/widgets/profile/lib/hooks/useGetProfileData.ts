@@ -1,10 +1,10 @@
-import { useAppSelector, useGetUserPublicPostsQuery } from '@/services'
+import { useGetUserPublicPostsQuery } from '@/services'
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
 import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
-import { meSelectorData } from '@/services/selectors/auth.selectors'
+import { useMeWithRouter } from '@/shared'
 
 export function useGetProfilePageData(userId: string) {
-  const meRequestData = useAppSelector(meSelectorData)
+  const { isOwnProfile, meData: meRequestData } = useMeWithRouter()
 
   const { data: profileData, isLoading: isProfileLoading } = useGetPublicUserProfileByIdQuery(
     userId,
@@ -22,8 +22,6 @@ export function useGetProfilePageData(userId: string) {
     { userId: Number(userId) },
     { skip: !meRequestData }
   )
-
-  const isOwnProfile = meRequestData?.userId === profileData?.id
 
   return {
     isOwnProfile,

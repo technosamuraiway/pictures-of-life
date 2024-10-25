@@ -1,11 +1,13 @@
 import { PropsWithChildren, useState } from 'react'
 
-import { useAppSelector } from '@/services'
-import { meSelectorData } from '@/services/selectors/auth.selectors'
-import { PATH, PUBLIC_ROUTES_SET_WITH_BTN, useRouterLocaleDefinition } from '@/shared'
+import {
+  PATH,
+  PUBLIC_ROUTES_SET_WITH_BTN,
+  useMeWithRouter,
+  useRouterLocaleDefinition,
+} from '@/shared'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -14,9 +16,11 @@ import s from './Layout.module.scss'
 import { languageSelectOptions } from './languageSelectOptions'
 
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
-  const router = useRouter()
+  // const router = useRouter()
+  // const meRequestData = useAppSelector(meSelectorData)
+  const { meData: meRequestData, router } = useMeWithRouter()
   const { asPath, pathname, query } = router
-  const meRequestData = useAppSelector(meSelectorData)
+
   const t = useRouterLocaleDefinition()
 
   const isWithButtons = !meRequestData && PUBLIC_ROUTES_SET_WITH_BTN.has(pathname)
