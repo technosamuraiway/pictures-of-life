@@ -42,10 +42,6 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
     router.push(PATH.AUTH.SIGNUP)
   }
 
-  console.log(!meRequestData)
-  console.log()
-  console.log(isWithButtons)
-
   return (
     <>
       <Header

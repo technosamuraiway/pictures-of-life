@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import { InitLoader, MetaHead } from '@/shared'
 import {
   InfoPanel,
-  PostWithId,
   PostsAssociativeArray,
   PostsShower,
   ProfilePostModal,
@@ -26,13 +25,10 @@ function Profile() {
   } = useGetProfilePageData(query.userId as string)
 
   // кешированный массив постов
-  const postsArray = useMemo(() => {
-    return postsData?.items.reduce((acc, post) => {
-      acc.push({ id: post.id, images: post.images })
-
-      return acc
-    }, [] as PostWithId[])
-  }, [postsData])
+  const postsArray = useMemo(
+    () => postsData?.items.map(item => ({ id: item.id, images: item.images })),
+    [postsData]
+  )
 
   // кешированный ассоциативный массив
   const postsAssociativeArray = useMemo(() => {
@@ -61,7 +57,7 @@ function Profile() {
         userPublications={userData?.publicationsCount || 999}
       />
 
-      <PostsShower posts={postsArray} />
+      <PostsShower posts={postsArray ?? []} />
 
       <ProfilePostModal postsAssociativeArray={postsAssociativeArray ?? {}} />
     </>
