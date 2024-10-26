@@ -1,0 +1,21 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.wrapperUser {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+.wrapperPosts {
+  margin-top: 1rem;
+}
+
+.text {
+  text-align: center;
+  margin-bottom: 1rem;
+}
