@@ -1,0 +1,41 @@
+/* Radio button styling */
+.radioButton {
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  justify-content: center;
+}
+
+/* Hide the default radio button */
+.radioInput {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Custom radio button */
+.radioLabel {
+  position: relative;
+  padding-left: 2rem; /* Space between custom radio button and label */
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+}
+
+/* Custom radio button appearance */
+.radioLabel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+
+  width: 1.5rem; /* Slightly smaller radio button */
+  height: 1.5rem; /* Match the width */
+  border-radius: 50%;
+  border: 0.125rem solid white; /* Solid white border */
+  background: transparent;
+}
+
+/* When the radio button is checked */
+.radioInput:checked + .radioLabel::before {
+  background: white;
+  box-shadow: inset 0 0 0 0.25rem black; /* Inner dot for the selected radio button */
+}

@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, TextArea } from '@technosamurai/techno-ui-kit';
 
 import {
   ControlledSingleCalendar,
@@ -7,24 +9,23 @@ import {
   IProfile,
   ProfileFormValues,
   profileValidationScheme,
-} from '@/entities'
-import { useGetProfileQuery } from '@/services'
-import { CountryCitySelect, useRouterLocaleDefinition } from '@/shared'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, TextArea } from '@technosamurai/techno-ui-kit'
+} from '@/entities';
+import { useGetProfileQuery } from '@/services';
+import { CountryCitySelect, useRouterLocaleDefinition } from '@/shared';
 
-import s from './ProfileForm.module.scss'
+import s from './ProfileForm.module.scss';
 
 interface IProps {
-  buttonDisabled: boolean
-  onSubmitProfileForm: (data: ProfileFormValues) => void
+  buttonDisabled: boolean;
+  onSubmitProfileForm: (data: ProfileFormValues) => Promise<void>;
 }
 
 export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => {
-  const t = useRouterLocaleDefinition()
+  const t = useRouterLocaleDefinition();
 
-  const { data: profileData } = useGetProfileQuery()
-  const [errorMessage, setErrorMessage] = useState('')
+  const { data: profileData } = useGetProfileQuery();
+  const [errorMessage, setErrorMessage] = useState('');
+
   const profileTranslate: IProfile = {
     aboutMe: {
       aboutMe: t.validationSchemes.aboutMe,
@@ -46,7 +47,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       minimumNumber: t.validationSchemes.minimumNumber,
       username: t.validationSchemes.username,
     },
-  }
+  };
 
   const { control, handleSubmit, register, reset, setValue, watch } = useForm<ProfileFormValues>({
     defaultValues: {
@@ -60,7 +61,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       userName: '',
     },
     resolver: zodResolver(profileValidationScheme(profileTranslate)),
-  })
+  });
 
   useEffect(() => {
     if (profileData) {
@@ -73,30 +74,18 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         lastName: profileData.lastName || '',
         region: profileData.region || '',
         userName: profileData.userName || '',
-      })
+      });
     }
-  }, [profileData, reset])
+  }, [profileData, reset]);
 
-  const onSubmitFormHandler = (data: ProfileFormValues) => {
-    const formattedData = {
-      ...data,
-      aboutMe: data.aboutMe || '',
-      city: data.city || '',
-      country: data.country || '',
-      dateOfBirth: data.dateOfBirth || undefined,
-      region: data.region || '',
-    }
+  const onSubmitFormHandler = async (data: ProfileFormValues) => {
+    await onSubmitProfileForm(data);
+  };
 
-    onSubmitProfileForm(formattedData)
-  }
-
-  const userName = watch('userName')
-  const firstName = watch('firstName')
-  const lastName = watch('lastName')
-  const country = watch('country')
-  const region = watch('region')
-  const city = watch('city')
-  const isButtonDisabled = !userName || !firstName || !lastName || !!errorMessage
+  const userName = watch('userName');
+  const firstName = watch('firstName');
+  const lastName = watch('lastName');
+  const isButtonDisabled = !userName || !firstName || !lastName || !!errorMessage;
 
   return (
     <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitFormHandler)}>
@@ -134,9 +123,9 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       />
 
       <CountryCitySelect
-        defaultCityValue={city}
-        defaultCountryValue={country}
-        defaultStateValue={region}
+        defaultCityValue={watch('city')}
+        defaultCountryValue={watch('country')}
+        defaultStateValue={watch('region')}
         onCityChange={cityName => setValue('city', cityName)}
         onCountryChange={countryName => setValue('country', countryName)}
         onStateChange={stateName => setValue('region', stateName)}
@@ -154,5 +143,5 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         {t.settingsPage.infoForm.saveBtn}
       </Button>
     </form>
-  )
-}
+  );
+};
