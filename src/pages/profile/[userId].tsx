@@ -7,7 +7,6 @@ import {
   PostsShower,
   ProfilePostModal,
   getLayoutWithNav,
-  useFetchMorePosts,
   useGetProfilePageData,
 } from '@/widgets'
 import { useRouter } from 'next/router'
@@ -20,13 +19,11 @@ function Profile() {
     isPostsLoading,
     isProfileLoading,
     isUserDataLoading,
-    loadMorePosts,
     postsData,
     profileData,
+    ref,
     userData,
   } = useGetProfilePageData(query.userId as string)
-
-  const { ref } = useFetchMorePosts(loadMorePosts, isPostsLoading)
 
   // кешированный массив постов
   const postsArray = useMemo(

@@ -1,4 +1,5 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 import { useGetUserPublicPostsQuery } from '@/services'
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
@@ -9,6 +10,7 @@ import { useProfilePageStore } from '../store/zustandStore'
 
 export function useGetProfilePageData(userId: string) {
   const { lastPostId: endCursorPostId, setLastPostId: setEndCursorPostId } = useProfilePageStore()
+  const { inView, ref } = useInView()
 
   const { isOwnProfile, meData: meRequestData } = useMeWithRouter()
 
@@ -42,6 +44,12 @@ export function useGetProfilePageData(userId: string) {
     }
   }, [postsData])
 
+  useEffect(() => {
+    if (inView && !isPostsLoading) {
+      loadMorePosts()
+    }
+  }, [inView, isPostsLoading, loadMorePosts])
+
   return {
     isOwnProfile,
     isPostsLoading,
@@ -50,6 +58,7 @@ export function useGetProfilePageData(userId: string) {
     loadMorePosts,
     postsData,
     profileData,
+    ref,
     userData,
   }
 }
