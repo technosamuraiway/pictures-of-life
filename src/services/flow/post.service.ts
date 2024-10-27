@@ -10,7 +10,6 @@ import {
   IPostsByNameResponse,
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
-  // IUserProfile,
 } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
@@ -70,6 +69,20 @@ export const postService = inctagramApi.injectEndpoints({
         },
       }),
       getUserPublicPosts: builder.query<IPostPublicResponse, IGetUserPublicPostsArgs>({
+        forceRefetch({ currentArg, previousArg }) {
+          return currentArg?.endCursorPostId !== previousArg?.endCursorPostId
+        },
+        merge: (currentCache, newItems) => {
+          if (currentCache) {
+            return {
+              ...currentCache,
+              items: [...currentCache.items, ...newItems.items],
+              totalCount: newItems.totalCount,
+            }
+          } else {
+            return newItems
+          }
+        },
         query: ({ userId, ...params }) => {
           const url = params.endCursorPostId
             ? `v1/public-posts/user/${userId}/${params.endCursorPostId}`
@@ -82,6 +95,9 @@ export const postService = inctagramApi.injectEndpoints({
             params: restParams,
             url,
           }
+        },
+        serializeQueryArgs: ({ endpointName }) => {
+          return endpointName
         },
       }),
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({

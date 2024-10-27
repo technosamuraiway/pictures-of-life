@@ -19,6 +19,7 @@ function Profile() {
     isPostsLoading,
     isProfileLoading,
     isUserDataLoading,
+    loadMorePosts,
     postsData,
     profileData,
     userData,
@@ -26,17 +27,19 @@ function Profile() {
 
   // кешированный массив постов
   const postsArray = useMemo(
-    () => postsData?.items.map(item => ({ id: item.id, images: item.images })),
+    () => postsData?.items.map(item => ({ id: item.id, images: item.images })) || [],
     [postsData]
   )
 
   // кешированный ассоциативный массив
   const postsAssociativeArray = useMemo(() => {
-    return postsData?.items.reduce((acc, post) => {
-      acc[post.id] = post.images
+    return (
+      postsData?.items.reduce((acc, post) => {
+        acc[post.id] = post.images
 
-      return acc
-    }, {} as PostsAssociativeArray)
+        return acc
+      }, {} as PostsAssociativeArray) || {}
+    )
   }, [postsData])
 
   if (isProfileLoading || isPostsLoading || isUserDataLoading) {
@@ -57,9 +60,13 @@ function Profile() {
         userPublications={userData?.publicationsCount || 999}
       />
 
-      <PostsShower posts={postsArray ?? []} />
+      <button onClick={loadMorePosts} type={'button'}>
+        REFETCH
+      </button>
 
-      <ProfilePostModal postsAssociativeArray={postsAssociativeArray ?? {}} />
+      <PostsShower posts={postsArray} />
+
+      <ProfilePostModal postsAssociativeArray={postsAssociativeArray} />
     </>
   )
 }
