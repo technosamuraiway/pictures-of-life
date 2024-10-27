@@ -6,13 +6,50 @@ import { IPostUser, SortDirection } from '@/services/types/post.types'
 import { PATH, RequestLineLoader, SwiperSlider, TimeAgo, useRouterLocaleDefinition } from '@/shared'
 import { ImageNotFound } from '@public/ImageNotFound'
 import { Typography } from '@technosamurai/techno-ui-kit'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { v4 as uuid } from 'uuid'
 
 import s from './posts.module.scss'
 
 type Props = {}
+
+interface iSlideItem {
+  alt: string
+  onClick: () => void
+  src: string
+}
+
+interface iSlideGroup {
+  images: { url: string }[]
+  onImageClick: () => void
+}
+
+const SlideItem = memo(({ alt, onClick, src }: iSlideItem) => {
+  return (
+    <Image alt={alt} className={s.userImg} height={100} onClick={onClick} src={src} width={230} />
+  )
+})
+
+const SlideGroup = memo(({ images, onImageClick }: iSlideGroup) => {
+  const firstImage = images[0]
+
+  const postsGroupWithSwiper = (
+    <SwiperSlider
+      customClass={s.customSwiperClass}
+      navigation
+      paginationClickable
+      slides={images.map(image => ({
+        content: <SlideItem alt={image.url} onClick={onImageClick} src={image.url} />,
+      }))}
+      spaceBetween={20}
+    />
+  )
+
+  const onlyOnePost = <SlideItem alt={firstImage.url} onClick={onImageClick} src={firstImage.url} />
+
+  return <>{images.length > 1 ? postsGroupWithSwiper : onlyOnePost}</>
+})
 
 function formatNumberWithLeadingZerosArray(num: number, totalLength: number): string[] {
   return num.toString().padStart(totalLength, '0').split('')
@@ -24,7 +61,6 @@ export default function Posts(props: Props) {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
   const [expandedPosts, setExpandedPosts] = useState<Record<string, boolean>>({})
-  const [imageErrors, setImageErrors] = useState<Record<number, Record<number, boolean>>>({})
 
   const {
     data: allPublicPosts,
@@ -66,16 +102,6 @@ export default function Posts(props: Props) {
     })
   }
 
-  const handleImageError = (postId: number, imageIndex: number) => {
-    setImageErrors(prevErrors => ({
-      ...prevErrors,
-      [postId]: {
-        ...prevErrors[postId],
-        [imageIndex]: true,
-      },
-    }))
-  }
-
   return (
     <>
       {postIsLoading && <RequestLineLoader />}
@@ -97,54 +123,22 @@ export default function Posts(props: Props) {
           {allPublicPosts?.items?.slice(0, 4).map(post => (
             <div className={s.swipperDiv} key={uuid()}>
               <div className={expandedPosts[post.id] ? s.expandedImageContainer : s.imageContainer}>
-                {post?.images && post?.images.length > 1 ? (
-                  <SwiperSlider
-                    customClass={'customSwiperClass'}
-                    loop
-                    navigation
-                    paginationClickable
-                    slides={post.images.map((image, index) => ({
-                      content: (
-                        <>
-                          {imageErrors[post.id]?.[index] ? (
-                            <ImageNotFound className={s.imgNF} />
-                          ) : (
-                            <img
-                              alt={`img-${post.id}-${index}`}
-                              className={s.userImg}
-                              onClick={() => handleImageClick(post)}
-                              onError={() => handleImageError(post.id, index)}
-                              src={image.url}
-                            />
-                          )}
-                        </>
-                      ),
-                    }))}
-                    slidesPerView={1}
-                    spaceBetween={20}
-                  />
+                {post?.images && post?.images.length > 0 ? (
+                  <SlideGroup images={post.images} onImageClick={() => handleImageClick(post)} />
                 ) : (
-                  <>
-                    {imageErrors[post.id]?.[0] ? (
-                      <ImageNotFound className={s.imgNF} />
-                    ) : (
-                      <img
-                        alt={'img'}
-                        className={s.userImg}
-                        onClick={() => handleImageClick(post)}
-                        onError={() => {
-                          handleImageError(post.id, 0)
-                        }}
-                        src={`${post?.images[0]?.url}`}
-                      />
-                    )}
-                  </>
+                  <ImageNotFound className={s.imgNF} onClick={() => handleImageClick(post)} />
                 )}
               </div>
               <div className={expandedPosts[post.id] ? s.allContentExpanded : s.allContent}>
                 <div className={s.avaName}>
                   {post.avatarOwner ? (
-                    <img alt={'Avatar'} className={s.avatarImg} src={post.avatarOwner} />
+                    <Image
+                      alt={'Avatar'}
+                      className={s.avatarImg}
+                      height={36}
+                      src={post.avatarOwner}
+                      width={36}
+                    />
                   ) : (
                     <div className={s.avatarPlaceholder}>
                       {post.userName.charAt(0).toUpperCase()}

@@ -96,7 +96,13 @@ export const PostModal = ({ isOpen, onRequestClose, post }: PostModalProps) => {
             <div className={s.avaName}>
               <div className={s.avaNameDiv}>
                 {post.avatarOwner ? (
-                  <img alt={'Avatar'} className={s.avatarImg} src={post.avatarOwner} />
+                  <Image
+                    alt={'Avatar'}
+                    className={s.avatarImg}
+                    height={36}
+                    src={post.avatarOwner}
+                    width={36}
+                  />
                 ) : (
                   <div className={s.avatarPlaceholder}>{post.userName.charAt(0).toUpperCase()}</div>
                 )}
