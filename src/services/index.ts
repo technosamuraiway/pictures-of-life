@@ -14,9 +14,9 @@ export * from './flow/profile.service'
 export * from './flow/sessions.service'
 
 export { useAppSelector } from './store'
+
 export type { IPostImage } from './types/_common.types'
-
 export * from './types/post.types'
-export * from './types/profile.types'
 
+export * from './types/profile.types'
 export * from './types/sessions.types'

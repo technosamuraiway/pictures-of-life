@@ -1,13 +1,14 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 
 import { useGetUserPublicPostsQuery } from '@/services'
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
 import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
-import { Undefinedable } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 
+import { useProfilePageStore } from '../store/zustandStore'
+
 export function useGetProfilePageData(userId: string) {
-  const [endCursorPostId, setEndCursorPostId] = useState<Undefinedable<number>>(undefined)
+  const { lastPostId: endCursorPostId, setLastPostId: setEndCursorPostId } = useProfilePageStore()
 
   const { isOwnProfile, meData: meRequestData } = useMeWithRouter()
 
