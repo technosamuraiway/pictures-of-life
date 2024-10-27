@@ -7,6 +7,7 @@ import {
   PostsShower,
   ProfilePostModal,
   getLayoutWithNav,
+  useFetchMorePosts,
   useGetProfilePageData,
 } from '@/widgets'
 import { useRouter } from 'next/router'
@@ -24,6 +25,8 @@ function Profile() {
     profileData,
     userData,
   } = useGetProfilePageData(query.userId as string)
+
+  const { ref } = useFetchMorePosts(loadMorePosts, isPostsLoading)
 
   // кешированный массив постов
   const postsArray = useMemo(
@@ -60,11 +63,10 @@ function Profile() {
         userPublications={userData?.publicationsCount || 999}
       />
 
-      <button onClick={loadMorePosts} type={'button'}>
-        REFETCH
-      </button>
-
       <PostsShower posts={postsArray} />
+
+      {isPostsLoading && <div>Loading more posts...</div>}
+      <div ref={ref} style={{ height: '20px' }} />
 
       <ProfilePostModal postsAssociativeArray={postsAssociativeArray} />
     </>
