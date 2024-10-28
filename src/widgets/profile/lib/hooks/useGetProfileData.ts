@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { useLazyGetUserPublicPostsQuery } from '@/services'
+import { IGetUserPublicPostsArgs, useLazyGetUserPublicPostsQuery } from '@/services'
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
 import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
@@ -32,35 +32,31 @@ export function useGetProfilePageData(userId: string) {
     useLazyGetUserPublicPostsQuery()
 
   useEffect(() => {
+    const getPostsArgs: IGetUserPublicPostsArgs = {
+      endCursorPostId: undefined,
+      userId: Number(userId),
+    }
+
     if (userIdStore !== userId) {
+      // запрос для другого профиля
       setUserIdStore(userId)
-      fetchPosts({ endCursorPostId: undefined, pageSize: 12, userId: Number(userId) })
+      fetchPosts(getPostsArgs)
     } else {
       if (!postsData) {
-        fetchPosts({ endCursorPostId: undefined, pageSize: 12, userId: Number(userId) })
+        fetchPosts(getPostsArgs)
       }
     }
   }, [userId, postsData])
-
-  // const { data: postsData, isLoading: isPostsLoading } = useGetUserPublicPostsQuery(
-  //   {
-  //     endCursorPostId,
-  //     pageSize: endCursorPostId ? 8 : 12,
-  //     sortBy: 'createdAt',
-  //     sortDirection: 'desc',
-  //     userId: Number(userIdStore),
-  //   },
-  //   // гарантирует, что запрос будет выполнен заново при изменении endCursorPostId
-  //   { refetchOnMountOrArgChange: true }
-  // )
 
   const loadMorePosts = useCallback(() => {
     if (postsData && postsData.items.length > 0) {
       const lastPostId = postsData.items[postsData.items.length - 1].id
 
-      // setEndCursorPostId(lastPostId)
-
-      fetchPosts({ endCursorPostId: lastPostId, pageSize: 8, userId: Number(userIdStore) })
+      fetchPosts({
+        endCursorPostId: lastPostId,
+        pageSize: 8,
+        userId: Number(userIdStore),
+      })
     }
   }, [postsData])
 

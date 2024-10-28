@@ -8,11 +8,11 @@ import { useRouter } from 'next/router'
 import { PostComments } from './postComments/PostComments'
 import { PostImageItem } from './postImageItem/PostImageItem'
 
-interface iProps {
+interface IProps {
   postsAssociativeArray: PostsAssociativeArray
 }
 
-export const ProfilePostModal = memo(({ postsAssociativeArray }: iProps) => {
+export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
   const { push, query } = useRouter()
 
   const { postId, userId } = query

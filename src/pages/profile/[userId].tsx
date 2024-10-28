@@ -42,7 +42,7 @@ function Profile() {
     )
   }, [postsData])
 
-  if (isProfileLoading || isPostsLoading || isUserDataLoading) {
+  if (isProfileLoading || isUserDataLoading) {
     return <InitLoader />
   }
 
@@ -61,8 +61,6 @@ function Profile() {
       />
 
       <PostsShower posts={postsArray} />
-
-      {isPostsLoading && <div>Loading more posts...</div>}
 
       <div ref={ref} style={{ height: '20px', width: '100%' }}></div>
 

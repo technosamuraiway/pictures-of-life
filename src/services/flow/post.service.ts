@@ -69,9 +69,6 @@ export const postService = inctagramApi.injectEndpoints({
         },
       }),
       getUserPublicPosts: builder.query<IPostPublicResponse, IGetUserPublicPostsArgs>({
-        forceRefetch({ currentArg, previousArg }) {
-          return currentArg?.endCursorPostId !== previousArg?.endCursorPostId
-        },
         merge: (currentCache, newItems, { arg }) => {
           if (arg.endCursorPostId === undefined) {
             // Если endCursorPostId не определен, это новый запрос, поэтому заменяем кеш
@@ -91,11 +88,13 @@ export const postService = inctagramApi.injectEndpoints({
             ? `v1/public-posts/user/${userId}/${params.endCursorPostId}`
             : `v1/public-posts/user/${userId}`
 
-          const { endCursorPostId, ...restParams } = params
-
           return {
             method: 'GET',
-            params: restParams,
+            params: {
+              pageSize: params.pageSize || 12,
+              sortBy: params.sortBy || 'createdAt',
+              sortDirection: params.sortDirection || 'desc',
+            },
             url,
           }
         },
