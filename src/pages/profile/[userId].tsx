@@ -63,7 +63,8 @@ function Profile() {
       <PostsShower posts={postsArray} />
 
       {isPostsLoading && <div>Loading more posts...</div>}
-      <div ref={ref} style={{ height: '20px' }} />
+
+      <div ref={ref} style={{ height: '20px', width: '100%' }}></div>
 
       <ProfilePostModal postsAssociativeArray={postsAssociativeArray} />
     </>

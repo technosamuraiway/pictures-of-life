@@ -1,15 +1,19 @@
 import { useCallback, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { useGetUserPublicPostsQuery } from '@/services'
+import { useLazyGetUserPublicPostsQuery } from '@/services'
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
 import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 
-import { useProfilePageStore } from '../store/zustandStore'
+import { useUserIdStore } from '../store/useUserIdStore'
 
 export function useGetProfilePageData(userId: string) {
-  const { lastPostId: endCursorPostId, setLastPostId: setEndCursorPostId } = useProfilePageStore()
+  const { setUserIdStore, userIdStore } = useUserIdStore()
+  /*
+  inView - булево значение, которое показывает, находится ли отслеживаемый элемент в области видимости (true) или нет (false).
+  ref -  функция для отслеживания.
+  * */
   const { inView, ref } = useInView()
 
   const { isOwnProfile, meData: meRequestData } = useMeWithRouter()
@@ -24,23 +28,39 @@ export function useGetProfilePageData(userId: string) {
     { skip: isAuthorizedWithProfileData }
   )
 
-  const { data: postsData, isLoading: isPostsLoading } = useGetUserPublicPostsQuery(
-    {
-      endCursorPostId,
-      pageSize: endCursorPostId ? 8 : 12,
-      sortBy: 'createdAt',
-      sortDirection: 'desc',
-      userId: Number(userId),
-    },
-    // гарантирует, что запрос будет выполнен заново при изменении endCursorPostId
-    { refetchOnMountOrArgChange: true }
-  )
+  const [fetchPosts, { data: postsData, isLoading: isPostsLoading }] =
+    useLazyGetUserPublicPostsQuery()
+
+  useEffect(() => {
+    if (userIdStore !== userId) {
+      setUserIdStore(userId)
+      fetchPosts({ endCursorPostId: undefined, pageSize: 12, userId: Number(userId) })
+    } else {
+      if (!postsData) {
+        fetchPosts({ endCursorPostId: undefined, pageSize: 12, userId: Number(userId) })
+      }
+    }
+  }, [userId, postsData])
+
+  // const { data: postsData, isLoading: isPostsLoading } = useGetUserPublicPostsQuery(
+  //   {
+  //     endCursorPostId,
+  //     pageSize: endCursorPostId ? 8 : 12,
+  //     sortBy: 'createdAt',
+  //     sortDirection: 'desc',
+  //     userId: Number(userIdStore),
+  //   },
+  //   // гарантирует, что запрос будет выполнен заново при изменении endCursorPostId
+  //   { refetchOnMountOrArgChange: true }
+  // )
 
   const loadMorePosts = useCallback(() => {
     if (postsData && postsData.items.length > 0) {
       const lastPostId = postsData.items[postsData.items.length - 1].id
 
-      setEndCursorPostId(lastPostId)
+      // setEndCursorPostId(lastPostId)
+
+      fetchPosts({ endCursorPostId: lastPostId, pageSize: 8, userId: Number(userIdStore) })
     }
   }, [postsData])
 
@@ -48,7 +68,7 @@ export function useGetProfilePageData(userId: string) {
     if (inView && !isPostsLoading) {
       loadMorePosts()
     }
-  }, [inView, isPostsLoading, loadMorePosts])
+  }, [inView, isPostsLoading])
 
   return {
     isOwnProfile,

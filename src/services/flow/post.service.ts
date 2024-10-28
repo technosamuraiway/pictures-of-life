@@ -72,15 +72,18 @@ export const postService = inctagramApi.injectEndpoints({
         forceRefetch({ currentArg, previousArg }) {
           return currentArg?.endCursorPostId !== previousArg?.endCursorPostId
         },
-        merge: (currentCache, newItems) => {
+        merge: (currentCache, newItems, { arg }) => {
+          if (arg.endCursorPostId === undefined) {
+            // Если endCursorPostId не определен, это новый запрос, поэтому заменяем кеш
+            return newItems
+          }
+
           if (currentCache) {
             return {
               ...currentCache,
               items: [...currentCache.items, ...newItems.items],
               totalCount: newItems.totalCount,
             }
-          } else {
-            return newItems
           }
         },
         query: ({ userId, ...params }) => {
@@ -96,8 +99,8 @@ export const postService = inctagramApi.injectEndpoints({
             url,
           }
         },
-        serializeQueryArgs: ({ endpointName }) => {
-          return endpointName
+        serializeQueryArgs: ({ endpointName, queryArgs }) => {
+          return `${endpointName}-${queryArgs.userId}`
         },
       }),
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
@@ -126,6 +129,7 @@ export const {
   useGetPostCommentsQuery,
   useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
+  useLazyGetUserPublicPostsQuery,
   useUploadImagesForPostMutation,
   // useGetUserProfileByUserNameQuery,
 } = postService
