@@ -91,7 +91,7 @@ export const postService = inctagramApi.injectEndpoints({
           return {
             method: 'GET',
             params: {
-              pageSize: params.pageSize || 12,
+              pageSize: params.pageSize || 8,
               sortBy: params.sortBy || 'createdAt',
               sortDirection: params.sortDirection || 'desc',
             },
