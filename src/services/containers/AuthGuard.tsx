@@ -13,6 +13,11 @@ export const AuthGuard = ({ children }: PropsWithChildren) => {
     return <InitLoader />
   }
 
+  // если страничка и публичная, и приватная - одновременно
+  if (pathname === PATH.PROFILE.BASEPROFILEWITHQUERY) {
+    return <>{children}</>
+  }
+
   if (!!data === PUBLIC_ROUTES_SET.has(pathname)) {
     replace(data ? PATH.HOME : PATH.PUBLIC)
 

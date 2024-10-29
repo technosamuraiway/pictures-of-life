@@ -7,11 +7,12 @@ import { useRouter } from 'next/router'
 
 import s from './InfoPanel.module.scss'
 
-import { StatsInfoItem } from './ui/StatsInfoItem'
+import { StatsInfoItem } from './statsInfoItem/StatsInfoItem'
 
 interface iProps {
   about: string
   avatar: string
+  isWithSettingsBtn: boolean
   userFollowers: number
   userFollowing: number
   userName: string
@@ -19,9 +20,23 @@ interface iProps {
 }
 
 export const InfoPanel = memo(
-  ({ about, avatar, userFollowers, userFollowing, userName, userPublications }: iProps) => {
+  ({
+    about,
+    avatar,
+    isWithSettingsBtn,
+    userFollowers,
+    userFollowing,
+    userName,
+    userPublications,
+  }: iProps) => {
     const t = useRouterLocaleDefinition()
     const { push } = useRouter()
+
+    const settingsButton = isWithSettingsBtn && (
+      <Button as={'a'} onClick={() => push(PATH.PROFILE.SETTINGS)} variant={'secondary'}>
+        {t.profile.info.btn}
+      </Button>
+    )
 
     return (
       <div className={s.profileInfo}>
@@ -37,9 +52,7 @@ export const InfoPanel = memo(
             <Typography as={'h1'} variant={'h1'}>
               {userName}
             </Typography>
-            <Button as={'a'} onClick={() => push(PATH.PROFILE.SETTINGS)} variant={'secondary'}>
-              {t.profile.info.btn}
-            </Button>
+            {settingsButton}
           </div>
           <div className={s.infoMiddle}>
             <StatsInfoItem num={userFollowing} title={t.profile.info.stats.following} />

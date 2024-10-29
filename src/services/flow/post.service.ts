@@ -2,6 +2,7 @@ import { inctagramApi } from '../api/inctagram.api'
 import {
   ICommentResponse,
   ICreatePostArgs,
+  IGetUserPublicPostsArgs,
   IPostParams,
   IPostPublicResponse,
   IPostUser,
@@ -9,7 +10,6 @@ import {
   IPostsByNameResponse,
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
-  // IUserProfile,
 } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
@@ -68,22 +68,38 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
-      getUserPublicPosts: builder.query<
-        IPostPublicResponse,
-        { params?: IPostParams; userId: number }
-      >({
-        query: ({ params = {}, userId }) => {
+      getUserPublicPosts: builder.query<IPostPublicResponse, IGetUserPublicPostsArgs>({
+        merge: (currentCache, newItems, { arg }) => {
+          if (arg.endCursorPostId === undefined) {
+            // Если endCursorPostId не определен, это новый запрос, поэтому заменяем кеш
+            return newItems
+          }
+
+          if (currentCache) {
+            return {
+              ...currentCache,
+              items: [...currentCache.items, ...newItems.items],
+              totalCount: newItems.totalCount,
+            }
+          }
+        },
+        query: ({ userId, ...params }) => {
           const url = params.endCursorPostId
             ? `v1/public-posts/user/${userId}/${params.endCursorPostId}`
             : `v1/public-posts/user/${userId}`
 
-          const { endCursorPostId, ...restParams } = params
-
           return {
             method: 'GET',
-            params: restParams,
+            params: {
+              pageSize: params.pageSize || 8,
+              sortBy: params.sortBy || 'createdAt',
+              sortDirection: params.sortDirection || 'desc',
+            },
             url,
           }
+        },
+        serializeQueryArgs: ({ endpointName, queryArgs }) => {
+          return `${endpointName}-${queryArgs.userId}`
         },
       }),
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
@@ -112,6 +128,7 @@ export const {
   useGetPostCommentsQuery,
   useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
+  useLazyGetUserPublicPostsQuery,
   useUploadImagesForPostMutation,
   // useGetUserProfileByUserNameQuery,
 } = postService
