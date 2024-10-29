@@ -1,46 +1,23 @@
-import { useMemo } from 'react'
-
 import { InitLoader, MetaHead } from '@/shared'
 import {
   InfoPanel,
-  PostsAssociativeArray,
   PostsShower,
   ProfilePostModal,
   getLayoutWithNav,
-  useGetProfilePageData,
+  useProfilePage,
 } from '@/widgets'
-import { useRouter } from 'next/router'
 
 function Profile() {
-  const { query } = useRouter()
-
   const {
     isOwnProfile,
-    isPostsLoading,
     isProfileLoading,
     isUserDataLoading,
-    postsData,
+    postsArray,
+    postsAssociativeArray,
     profileData,
     ref,
     userData,
-  } = useGetProfilePageData(query.userId as string)
-
-  // кешированный массив постов
-  const postsArray = useMemo(
-    () => postsData?.items.map(item => ({ id: item.id, images: item.images })) || [],
-    [postsData]
-  )
-
-  // кешированный ассоциативный массив
-  const postsAssociativeArray = useMemo(() => {
-    return (
-      postsData?.items.reduce((acc, post) => {
-        acc[post.id] = post.images
-
-        return acc
-      }, {} as PostsAssociativeArray) || {}
-    )
-  }, [postsData])
+  } = useProfilePage()
 
   if (isProfileLoading || isUserDataLoading) {
     return <InitLoader />
@@ -62,7 +39,7 @@ function Profile() {
 
       <PostsShower posts={postsArray} />
 
-      <div ref={ref} style={{ height: '20px', width: '100%' }}></div>
+      <div ref={ref} style={{ height: '20px', width: '100%' }} />
 
       <ProfilePostModal postsAssociativeArray={postsAssociativeArray} />
     </>
