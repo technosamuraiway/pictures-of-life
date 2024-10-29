@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
-import { useAppSelector } from '@/services'
-import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { PATH, useLogout, useRouterLocaleDefinition } from '@/shared'
+import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import {
   ActiveCreateIcon,
   ActiveFavoritesIcon,
@@ -20,7 +19,6 @@ import {
   DefaultStatisticsIcon,
   NavItem,
 } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
 
 import s from './NavBar.module.scss'
 
@@ -28,11 +26,10 @@ import { LogOutItem } from './logOutItem/LogOutItem'
 import { NavBarItems } from './navBarItems/NavBarItems'
 
 export function NavBar() {
-  const meData = useAppSelector(meSelectorData)
+  const { isOwnProfile, meData, router } = useMeWithRouter()
 
   const { handleLogout, isLoadingLogout } = useLogout()
   const t = useRouterLocaleDefinition()
-  const router = useRouter()
 
   const [openModal, setOpenModal] = useState<boolean>(false)
 
@@ -111,6 +108,11 @@ export function NavBar() {
       return router.pathname === PATH.HOME
     } else {
       const trimmedPath = '/' + itemPath.split('/').slice(1, 2)
+
+      // условие для не active icon in nav когда чужой профиль
+      if (!isOwnProfile && itemPath === `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`) {
+        return false
+      }
 
       return router.pathname.startsWith(trimmedPath) && router.pathname !== PATH.HOME
     }
