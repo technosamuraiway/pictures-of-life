@@ -1,0 +1,12 @@
+.root.root {
+  height: 563px;
+
+  &:focus-visible,
+  &:active {
+    border: none;
+  }
+}
+
+.postsItem {
+  width: 490px;
+}

@@ -2,11 +2,13 @@ import { memo, useMemo } from 'react'
 
 import { PATH } from '@/shared'
 import { PostsAssociativeArray } from '@/widgets'
+import { PostsItem } from '@/widgets/profile/components/postsItem/PostsItem'
 import { Modal } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
+import s from './ProfilePostModal.module.scss'
+
 import { PostComments } from './postComments/PostComments'
-import { PostImageItem } from './postImageItem/PostImageItem'
 
 interface IProps {
   postsAssociativeArray: PostsAssociativeArray
@@ -23,16 +25,29 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
     push({ pathname: `${PATH.PROFILE.BASEPROFILE}/${userId}` })
   }
 
-  // const { data, isLoading } = useGetPublicUserPostByIdQuery(postId as string, {
-  //   skip: !isModalOpen,
-  // })
+  if (!postId) {
+    return null
+  }
 
   return (
     <>
-      {/*{isLoading && <RequestLineLoader />}*/}
-      <Modal modalSize={'XL'} onOpenChange={onOpenChange} open={isModalOpen} showHeader={false}>
-        <PostImageItem images={postsAssociativeArray[postId as string]} />
-        <PostComments />
+      <Modal
+        contentClassName={s.root}
+        modalSize={'XL'}
+        onOpenChange={onOpenChange}
+        open={isModalOpen}
+        showHeader={false}
+      >
+        123
+        {/*<PostImageItem images={postsAssociativeArray[postId as string]} />*/}
+        {/*<PostsItem*/}
+        {/*  images={postsAssociativeArray[postId as string]}*/}
+        {/*  imgHeight={563}*/}
+        {/*  imgWidth={490}*/}
+        {/*  postId={Number(postId)}*/}
+        {/*  rootCN={s.postsItem}*/}
+        {/*/>*/}
+        {/*<PostComments />*/}
       </Modal>
     </>
   )
