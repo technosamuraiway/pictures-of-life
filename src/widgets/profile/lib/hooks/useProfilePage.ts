@@ -16,6 +16,7 @@ export function useProfilePage() {
     isAuthorized,
     isOwnProfile,
     isPostsLoading,
+    isPostsLoadingInitial,
     isPostsLoadingWithScroll,
     isProfileLoading,
     isUserDataLoading,
@@ -52,6 +53,7 @@ export function useProfilePage() {
   return {
     isOwnProfile,
     isPostsLoading,
+    isPostsLoadingInitial,
     isPostsLoadingWithScroll,
     isProfileLoading,
     isUserDataLoading,

@@ -11,6 +11,7 @@ function Profile() {
   const {
     isOwnProfile,
     isPostsLoading,
+    isPostsLoadingInitial,
     isPostsLoadingWithScroll,
     isProfileLoading,
     isUserDataLoading,
@@ -22,7 +23,7 @@ function Profile() {
   } = useProfilePage()
 
   // !при scroll-posts-fetching => isPostsLoading все ровно false
-  if (isProfileLoading || isUserDataLoading || isPostsLoading) {
+  if (isProfileLoading || isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
     return <InitLoader />
   }
 
