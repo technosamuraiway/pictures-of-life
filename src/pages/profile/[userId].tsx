@@ -1,4 +1,4 @@
-import { InitLoader, MetaHead } from '@/shared'
+import { InitLoader, MetaHead, RequestLineLoader } from '@/shared'
 import {
   InfoPanel,
   PostsShower,
@@ -10,6 +10,8 @@ import {
 function Profile() {
   const {
     isOwnProfile,
+    isPostsLoading,
+    isPostsLoadingWithScroll,
     isProfileLoading,
     isUserDataLoading,
     postsArray,
@@ -19,13 +21,16 @@ function Profile() {
     userData,
   } = useProfilePage()
 
-  if (isProfileLoading || isUserDataLoading) {
+  // !при scroll-posts-fetching => isPostsLoading все ровно false
+  if (isProfileLoading || isUserDataLoading || isPostsLoading) {
     return <InitLoader />
   }
 
   return (
     <>
       <MetaHead title={'Profile info'} />
+
+      {isPostsLoadingWithScroll && <RequestLineLoader />}
 
       <InfoPanel
         about={profileData?.aboutMe || 'no info'}

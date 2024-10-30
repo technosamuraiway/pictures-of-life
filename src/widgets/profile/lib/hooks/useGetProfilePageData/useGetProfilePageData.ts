@@ -16,14 +16,19 @@ export const useGetProfilePageData = (userId: string) => {
     { skip: !profileData || !isAuthorized }
   )
 
-  const [getPostsTrigger, { data: postsData, isLoading: isPostsLoading }] =
-    useLazyGetUserPublicPostsQuery()
+  const [
+    getPostsTrigger,
+    { data: postsData, isLoading: isPostsLoading, status: postsFetchingStatus },
+  ] = useLazyGetUserPublicPostsQuery()
+
+  const isPostsLoadingWithScroll = postsFetchingStatus === 'pending' && !isPostsLoading
 
   return {
     getPostsTrigger,
     isAuthorized,
     isOwnProfile,
     isPostsLoading,
+    isPostsLoadingWithScroll,
     isProfileLoading,
     isUserDataLoading,
     postsData,
