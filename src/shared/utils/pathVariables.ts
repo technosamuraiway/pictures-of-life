@@ -13,6 +13,7 @@ export const PATH = {
   HOME: '/',
   PROFILE: {
     BASEPROFILE: '/profile',
+    BASEPROFILEWITHQUERY: '/profile/[userId]',
     SETTINGS: '/profile/settings',
   },
   PUBLIC: '/public',
@@ -38,4 +39,5 @@ export const PUBLIC_ROUTES_SET_WITH_BTN = new Set<string>([
   PATH.PUBLIC,
   PATH.PUBLICPOST + '/[id]',
   PATH.PUBLICUSER,
+  PATH.PROFILE.BASEPROFILEWITHQUERY,
 ])

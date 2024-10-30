@@ -32,7 +32,6 @@ const PublicPostPage = () => {
 
   
   const { data: userPosts, isLoading: isLoadingPosts } = useGetUserPublicPostsQuery({
-    params: {},
     userId: Number(userId),
   })
 
