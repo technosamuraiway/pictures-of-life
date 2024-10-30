@@ -7,7 +7,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  width: 100%;
   align-items: center;
 
   padding-top: 2.25rem;
@@ -15,11 +15,5 @@
 }
 
 .mainWithNav {
-  padding-right: 1.0625rem;
   padding-left: 11.5rem;
-}
-
-.main {
-  padding-right: 1.0625rem;
-  padding-left: 1.0625rem;
 }
