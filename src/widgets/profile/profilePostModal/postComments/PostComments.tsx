@@ -1,9 +1,19 @@
 import { memo } from 'react'
 
+import clsx from 'clsx'
+
 import s from './PostComments.module.scss'
 
-interface iProps {}
+import { PostCommentsHeader } from './postCommentsHeader/PostCommentsHeader'
 
-export const PostComments = memo(({}: iProps) => {
-  return <div className={s.root}></div>
+interface iProps {
+  rootCN?: string
+}
+
+export const PostComments = memo(({ rootCN }: iProps) => {
+  return (
+    <div className={clsx(s.root, rootCN)}>
+      <PostCommentsHeader />
+    </div>
+  )
 })

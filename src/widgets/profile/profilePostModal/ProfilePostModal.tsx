@@ -1,13 +1,12 @@
 import { memo, useMemo } from 'react'
 
-import { PATH } from '@/shared'
 import { PostsAssociativeArray } from '@/widgets'
 import { PostsItem } from '@/widgets/profile/components/postsItem/PostsItem'
 import { Modal } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
 
 import s from './ProfilePostModal.module.scss'
 
+import { useCloseProfilePostModalWithRouter } from '../lib/hooks/useCloseProfilePostModalWithRouter'
 import { PostComments } from './postComments/PostComments'
 
 interface IProps {
@@ -15,15 +14,17 @@ interface IProps {
 }
 
 export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
-  const { push, query } = useRouter()
+  // const { push, query } = useRouter()
 
-  const { postId, userId } = query
+  const { close, query } = useCloseProfilePostModalWithRouter()
+
+  const { postId } = query
 
   const isModalOpen = useMemo(() => !!postId, [postId])
 
-  function onOpenChange() {
-    push({ pathname: `${PATH.PROFILE.BASEPROFILE}/${userId}` })
-  }
+  // function onOpenChange() {
+  //   push({ pathname: `${PATH.PROFILE.BASEPROFILE}/${userId}` })
+  // }
 
   if (!postId) {
     return null
@@ -34,20 +35,19 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
       <Modal
         contentClassName={s.root}
         modalSize={'XL'}
-        onOpenChange={onOpenChange}
+        onOpenChange={close}
         open={isModalOpen}
         showHeader={false}
       >
-        123
         {/*<PostImageItem images={postsAssociativeArray[postId as string]} />*/}
-        {/*<PostsItem*/}
-        {/*  images={postsAssociativeArray[postId as string]}*/}
-        {/*  imgHeight={563}*/}
-        {/*  imgWidth={490}*/}
-        {/*  postId={Number(postId)}*/}
-        {/*  rootCN={s.postsItem}*/}
-        {/*/>*/}
-        {/*<PostComments />*/}
+        <PostsItem
+          images={postsAssociativeArray[postId as string]}
+          imgHeight={562}
+          imgWidth={490}
+          postId={Number(postId)}
+          rootCN={s.postsItem}
+        />
+        <PostComments rootCN={s.postComments} />
       </Modal>
     </>
   )

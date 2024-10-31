@@ -1,12 +1,18 @@
 .root.root {
-  height: 563px;
+  height: 564px;
 
-  &:focus-visible,
-  &:active {
+  display: flex;
+  flex-flow: row nowrap;
+
+  &:focus-visible {
     border: none;
   }
 }
 
 .postsItem {
   width: 490px;
+}
+
+.postComments {
+  width: 100%;
 }
