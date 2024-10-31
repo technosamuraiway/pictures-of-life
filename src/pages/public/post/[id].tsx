@@ -109,6 +109,7 @@ const PublicPostPage = () => {
           </div>
         )}
 
+
         
         {post && (
           <PostModal isOpen={isModalOpen} onRequestClose={handleModalClose} post={post} />
