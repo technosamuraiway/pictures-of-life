@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import { IGetUserPublicPostsArgs, IPostPublicResponse } from '@/services'
@@ -30,11 +30,12 @@ export const usePostsScrollObserver = (
       setUserIdStore(userId)
       getPostsTrigger(getPostsArgs)
     } else {
-      // запрос для своего профиля, так как при переходи на любую другую страницу измениться userId
+      // запрос для своего профиля, так как при переходе на любую другую страницу измениться userId
       if (!postsData) {
         getPostsTrigger(getPostsArgs)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, postsData])
 
   function loadMorePosts() {
@@ -56,6 +57,7 @@ export const usePostsScrollObserver = (
     if (inView && !isPostsLoading && isAuthorized) {
       loadMorePosts()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView, isPostsLoading])
 
   return {
