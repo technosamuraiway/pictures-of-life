@@ -29,5 +29,9 @@ export const PostsItem = memo(({ images, imgHeight, imgWidth, postId, rootCN }: 
     />
   )
 
-  return <div className={rootCN}>{isWithImages ? imagesWithSlider : noImage}</div>
+  return (
+    <div className={rootCN} style={{ height: imgHeight, width: imgWidth }}>
+      {isWithImages ? imagesWithSlider : noImage}
+    </div>
+  )
 })

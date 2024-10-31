@@ -14,17 +14,11 @@ interface IProps {
 }
 
 export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
-  // const { push, query } = useRouter()
-
   const { close, query } = useCloseProfilePostModalWithRouter()
 
   const { postId } = query
 
   const isModalOpen = useMemo(() => !!postId, [postId])
-
-  // function onOpenChange() {
-  //   push({ pathname: `${PATH.PROFILE.BASEPROFILE}/${userId}` })
-  // }
 
   if (!postId) {
     return null
@@ -39,7 +33,6 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
         open={isModalOpen}
         showHeader={false}
       >
-        {/*<PostImageItem images={postsAssociativeArray[postId as string]} />*/}
         <PostsItem
           images={postsAssociativeArray[postId as string]}
           imgHeight={562}
