@@ -1,13 +1,29 @@
-import { useMemo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 
-import PostModal from '@/entities/modals/publicPostModal/PostModal'
+import { PostModal } from '@/entities/modals/publicPostModal/PostModal'
 import { useGetUserPublicPostsQuery } from '@/services/flow/post.service'
-import { MetaHead } from '@/shared'
+import { MetaHead, RequestLineLoader } from '@/shared'
 import { getBaseLayout } from '@/widgets'
+import { ImageNotFound } from '@public/ImageNotFound'
 import { Typography } from '@technosamurai/techno-ui-kit'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { v4 as uuid } from 'uuid'
 
 import s from './[id].module.scss'
+
+interface iSlideItem {
+  alt: string
+  src: string
+}
+
+const SlideItem = memo(({ alt, src }: iSlideItem) => {
+  return (
+    <div className={s.postImage}> 
+      <Image alt={alt} height={100} layout={"responsive"} src={src} width={230} />
+    </div>
+  )
+})
 
 const PublicPostPage = () => {
   const router = useRouter()
@@ -34,12 +50,11 @@ const PublicPostPage = () => {
     setIsModalOpen(false)
   }
 
-  if (isLoadingPosts ) {
-    return <div>Loading...</div>
-  }
+ 
 
   return (
     <div>
+      {isLoadingPosts && <RequestLineLoader />}
       <MetaHead title={'Public User Page'} />
       <div className={s.container}>
         
@@ -48,7 +63,7 @@ const PublicPostPage = () => {
             <div className={s.avaDescr}>
             <div className={s.avatarImgDiv}>
             {post.avatarOwner ? (
-                    <img alt={'Avatar'} className={s.avatarImg} src={post.avatarOwner} />
+                    <Image alt={'Avatar'} className={s.avatarImg} height={240} src={post.avatarOwner} width={240} />
                   ) : (
                     <div className={s.avatarPlaceholderPost}>
                       {post.userName.charAt(0).toUpperCase()}
@@ -77,19 +92,23 @@ const PublicPostPage = () => {
          </div>
          </div>
             <div className={s.imageContainer}>
-              {post.images.map((image, index) => (
-                <img
-                  alt={`post-image-${index}`}
-                  className={s.postImage}
-                  key={index}
-                  src={image.url}
-                />
-              ))}
+            {post.images && post.images.length > 0 ? (
+                post.images.map((image, index) => (
+                  <SlideItem
+                    alt={`post-image-${index}`}
+                    key={uuid()}
+                    src={image.url}
+                  />
+                ))
+              ) : (
+                <ImageNotFound className={s.imgNF} />
+              )}
             </div>
 
            
           </div>
         )}
+
 
         
         {post && (
