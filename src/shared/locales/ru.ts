@@ -174,6 +174,7 @@ export const ru = {
         copyLink: 'Скопировать ссылку',
       },
       addComment: 'Опубликовать',
+      commentPlaceholder: 'Добавить Комментарий',
     },
   },
   profilePage: {

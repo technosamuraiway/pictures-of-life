@@ -1,5 +1,4 @@
 import { LocaleType } from './ru'
-import { PostModalHeaderDropdownDotsMenu } from '@/widgets/profile/profilePostModal/postComments/postCommentsHeader/postModalHeaderDropdownDotsMenu/PostModalHeaderDropdownDotsMenu'
 
 export const en: LocaleType = {
   avatarChange: {
@@ -176,6 +175,7 @@ export const en: LocaleType = {
         copyLink: 'Copy link',
       },
       addComment: 'Publish',
+      commentPlaceholder: 'Add a Comment',
     },
   },
   profilePage: {

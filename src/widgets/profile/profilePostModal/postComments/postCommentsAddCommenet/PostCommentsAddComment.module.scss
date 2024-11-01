@@ -9,6 +9,19 @@
   border-top: 1px solid var(--Dark-100);
 }
 
+.input.input {
+  border: none;
+
+  &:active {
+    background-color: inherit;
+  }
+}
+
 .button {
   color: var(--Primary-500);
+
+  &Disabled {
+    color: var(--Primary-900);
+    cursor: auto;
+  }
 }

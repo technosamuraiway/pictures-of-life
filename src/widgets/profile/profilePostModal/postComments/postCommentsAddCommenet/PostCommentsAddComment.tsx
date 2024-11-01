@@ -1,35 +1,72 @@
-import React, { memo } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { ControlledTextField } from '@/entities'
 import { useRouterLocaleDefinition } from '@/shared'
-import { Typography } from '@technosamurai/techno-ui-kit'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { TextField, Typography } from '@technosamurai/techno-ui-kit'
+import clsx from 'clsx'
 
 import s from './PostCommentsAddComment.module.scss'
 
-export type Form = {
-  text: string
-}
+import {
+  PostCommentFormZodSchema,
+  postCommentFormZodSchema,
+} from '../../../lib/zod/postCommentsFormZodSchema'
 
 interface IProps {
-  onFormSubmit: (data: Form) => Promise<void>
+  onCommentChange: (hasComment: boolean) => void
+  onFormSubmit: (data: PostCommentFormZodSchema) => Promise<void>
 }
 
-export const PostCommentsAddComment = memo(({ onFormSubmit }: IProps) => {
+export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps) => {
   const t = useRouterLocaleDefinition()
 
-  const { control, handleSubmit } = useForm<Form>({
+  const {
+    formState: { isDirty, isSubmitting },
+    handleSubmit,
+    register,
+    reset,
+    watch,
+  } = useForm<PostCommentFormZodSchema>({
     defaultValues: {
-      text: '',
+      comment: '',
     },
+    resolver: zodResolver(postCommentFormZodSchema),
   })
 
+  async function onFormSubmitHandler(data: PostCommentFormZodSchema) {
+    onFormSubmit(data).then(() => reset())
+  }
+
+  const comment = watch('comment')
+
+  useEffect(() => {
+    onCommentChange(comment.trim().length > 0)
+  }, [comment, onCommentChange])
+
+  const isBtnDisabled = isSubmitting || !isDirty
+
   return (
-    <form className={s.root} noValidate onSubmit={handleSubmit(onFormSubmit)}>
-      <ControlledTextField control={control} />
-      <Typography as={'button'} className={s.button} typeof={'submit'} variant={'bold-text-16'}>
+    <form
+      autoComplete={'off'}
+      className={s.root}
+      noValidate
+      onSubmit={handleSubmit(onFormSubmitHandler)}
+    >
+      <TextField
+        placeholder={`${t.profile.modal.commentPlaceholder}...`}
+        {...register('comment')}
+        inputClassName={s.input}
+      />
+      <Typography
+        as={'button'}
+        className={clsx(s.button, isBtnDisabled && s.buttonDisabled)}
+        disabled={isBtnDisabled}
+        type={'submit'}
+        variant={'bold-text-16'}
+      >
         {t.profile.modal.addComment}
       </Typography>
     </form>
   )
-})
+}

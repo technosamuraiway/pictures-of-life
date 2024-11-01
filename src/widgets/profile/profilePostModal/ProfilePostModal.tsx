@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 
 import { PostsAssociativeArray } from '@/widgets'
 import { PostsItem } from '@/widgets/profile/components/postsItem/PostsItem'
@@ -7,19 +7,23 @@ import { Modal } from '@technosamurai/techno-ui-kit'
 
 import s from './ProfilePostModal.module.scss'
 
-import { useCloseProfilePostModalWithRouter } from '../lib/hooks/useCloseProfilePostModalWithRouter'
+import { useProfilePostModal } from '../lib/hooks/useProfilePostModal'
 import { PostComments } from './postComments/PostComments'
+import { PostModalCloseWithConfirmation } from './postModalCloseWithConfirmation/PostModalCloseWithConfirmation'
 
 interface IProps {
   postsAssociativeArray: PostsAssociativeArray
 }
 
 export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
-  const { close, query } = useCloseProfilePostModalWithRouter()
-
-  const { postId } = query
-
-  const isModalOpen = useMemo(() => !!postId, [postId])
+  const {
+    close,
+    confirmationModal,
+    isModalOpen,
+    postId,
+    setCloseWithNotifyNotify,
+    setConfirmationModal,
+  } = useProfilePostModal()
 
   if (!postId) {
     return null
@@ -41,8 +45,12 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
           postId={Number(postId)}
           rootCN={s.postsItem}
         />
-        <PostComments rootCN={s.postComments} />
+        <PostComments className={s.postComments} onCommentChange={setCloseWithNotifyNotify} />
         <CloseIcon className={s.closeIcon} onClick={close} />
+        <PostModalCloseWithConfirmation
+          onOpenChange={setConfirmationModal}
+          open={confirmationModal}
+        />
       </Modal>
     </>
   )
