@@ -1,4 +1,5 @@
 import { inctagramApi } from '@/services/api/inctagram.api'
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL
 
 interface CreateSubscriptionResponse {
   id: string
@@ -13,7 +14,7 @@ const paymentService = inctagramApi.injectEndpoints({
       query: (typeSubscription: string) => ({
         body: JSON.stringify({
           amount: 1,
-          baseUrl: 'https://pictures-of-life.online/profile/settings?tab=account+management&',
+          baseUrl: `${baseURL}/profile/settings?tab=account+management&`,
           paymentType: 'STRIPE',
           typeSubscription,
         }),
