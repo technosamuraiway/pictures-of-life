@@ -1,4 +1,5 @@
 import { LocaleType } from './ru'
+import { PostModalHeaderDropdownDotsMenu } from '@/widgets/profile/profilePostModal/postComments/postCommentsHeader/postModalHeaderDropdownDotsMenu/PostModalHeaderDropdownDotsMenu'
 
 export const en: LocaleType = {
   avatarChange: {
@@ -168,6 +169,13 @@ export const en: LocaleType = {
     },
     postsShower: {
       noPostsTitle: 'No posts',
+    },
+    modal: {
+      headerDropdownDotsMenu: {
+        unfollow: 'Unfollow',
+        copyLink: 'Copy link',
+      },
+      addComment: 'Publish',
     },
   },
   profilePage: {

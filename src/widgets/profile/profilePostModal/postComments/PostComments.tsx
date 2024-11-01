@@ -6,6 +6,7 @@ import clsx from 'clsx'
 
 import s from './PostComments.module.scss'
 
+import { PostCommentsAddComment } from './postCommentsAddCommenet/PostCommentsAddComment'
 import { PostCommentsHeader } from './postCommentsHeader/PostCommentsHeader'
 
 interface iProps {
@@ -28,6 +29,8 @@ export const PostComments = memo(({ rootCN }: iProps) => {
         isOwnProfile={isOwnProfile}
         userName={profileData?.userName || 'no info'}
       />
+
+      {isAuthorized && <PostCommentsAddComment />}
     </div>
   )
 })

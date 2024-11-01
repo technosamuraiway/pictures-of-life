@@ -168,6 +168,13 @@ export const ru = {
     postsShower: {
       noPostsTitle: 'Нет постов',
     },
+    modal: {
+      headerDropdownDotsMenu: {
+        unfollow: 'Отписаться',
+        copyLink: 'Скопировать ссылку',
+      },
+      addComment: 'Опубликовать',
+    },
   },
   profilePage: {
     settingButton: 'Настройки Профиля',
