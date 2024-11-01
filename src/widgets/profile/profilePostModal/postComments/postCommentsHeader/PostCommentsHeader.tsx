@@ -6,21 +6,23 @@ import clsx from 'clsx'
 
 import s from './PostsCommentsHeader.module.scss'
 
-import { useCloseProfilePostModalWithRouter } from '../../../lib/hooks/useCloseProfilePostModalWithRouter'
+import { PostModalHeaderDropdownDotsMenu } from './postModalHeaderDropdownDotsMenu/PostModalHeaderDropdownDotsMenu'
 
 interface IProps {
   avatar: string
+  isOwnProfile: boolean
   rootCN?: string
   userName: string
 }
 
-export const PostCommentsHeader = memo(({ avatar, rootCN, userName }: IProps) => {
-  const { close, query } = useCloseProfilePostModalWithRouter()
-
+export const PostCommentsHeader = memo(({ avatar, isOwnProfile, rootCN, userName }: IProps) => {
   return (
     <div className={clsx(rootCN, s.root)}>
       <CircleAvatar rootCN={s.circleAvatar} src={avatar} />
-      <Typography variant={'bold-text-16'}>{userName}</Typography>
+      <Typography className={s.userName} variant={'bold-text-16'}>
+        {userName}
+      </Typography>
+      {isOwnProfile && <PostModalHeaderDropdownDotsMenu />}
     </div>
   )
 })

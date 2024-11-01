@@ -2,6 +2,7 @@ import { memo, useMemo } from 'react'
 
 import { PostsAssociativeArray } from '@/widgets'
 import { PostsItem } from '@/widgets/profile/components/postsItem/PostsItem'
+import { CloseIcon } from '@public/CloseIcon'
 import { Modal } from '@technosamurai/techno-ui-kit'
 
 import s from './ProfilePostModal.module.scss'
@@ -41,6 +42,7 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
           rootCN={s.postsItem}
         />
         <PostComments rootCN={s.postComments} />
+        <CloseIcon className={s.closeIcon} onClick={close} />
       </Modal>
     </>
   )

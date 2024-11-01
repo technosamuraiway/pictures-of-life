@@ -1,9 +1,8 @@
 import { memo } from 'react'
 
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
-import { InitLoader } from '@/shared'
+import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 
 import s from './PostComments.module.scss'
 
@@ -14,9 +13,11 @@ interface iProps {
 }
 
 export const PostComments = memo(({ rootCN }: iProps) => {
-  const {
-    query: { userId },
-  } = useRouter()
+  const { isOwnProfile, meData, router } = useMeWithRouter()
+
+  const { userId } = router.query
+
+  const isAuthorized = !!meData
 
   const { data: profileData } = useGetPublicUserProfileByIdQuery(userId as string)
 
@@ -24,6 +25,7 @@ export const PostComments = memo(({ rootCN }: iProps) => {
     <div className={clsx(s.root, rootCN)}>
       <PostCommentsHeader
         avatar={profileData?.avatars[0].url || ''}
+        isOwnProfile={isOwnProfile}
         userName={profileData?.userName || 'no info'}
       />
     </div>
