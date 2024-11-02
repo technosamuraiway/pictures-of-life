@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useRouterLocaleDefinition } from '@/shared'
+import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TextField, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
@@ -15,7 +15,7 @@ import {
 
 interface IProps {
   onCommentChange: (hasComment: boolean) => void
-  onFormSubmit: (data: PostCommentFormZodSchema) => Promise<void>
+  onFormSubmit: (data: PostCommentFormZodSchema) => Promise<unknown>
 }
 
 export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps) => {
@@ -35,7 +35,8 @@ export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps
   })
 
   async function onFormSubmitHandler(data: PostCommentFormZodSchema) {
-    onFormSubmit(data).then(() => reset())
+    await onFormSubmit(data)
+    reset()
   }
 
   const comment = watch('comment')
@@ -47,26 +48,30 @@ export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps
   const isBtnDisabled = isSubmitting || !isDirty
 
   return (
-    <form
-      autoComplete={'off'}
-      className={s.root}
-      noValidate
-      onSubmit={handleSubmit(onFormSubmitHandler)}
-    >
-      <TextField
-        placeholder={`${t.profile.modal.commentPlaceholder}...`}
-        {...register('comment')}
-        inputClassName={s.input}
-      />
-      <Typography
-        as={'button'}
-        className={clsx(s.button, isBtnDisabled && s.buttonDisabled)}
-        disabled={isBtnDisabled}
-        type={'submit'}
-        variant={'bold-text-16'}
+    <>
+      {isSubmitting && <RequestLineLoader />}
+      <form
+        autoComplete={'off'}
+        className={s.root}
+        noValidate
+        onSubmit={handleSubmit(onFormSubmitHandler)}
       >
-        {t.profile.modal.addComment}
-      </Typography>
-    </form>
+        <TextField
+          disabled={isSubmitting}
+          placeholder={`${t.profile.modal.commentPlaceholder}...`}
+          {...register('comment')}
+          inputClassName={s.input}
+        />
+        <Typography
+          as={'button'}
+          className={clsx(s.button, isBtnDisabled && s.buttonDisabled)}
+          disabled={isBtnDisabled}
+          type={'submit'}
+          variant={'bold-text-16'}
+        >
+          {t.profile.modal.addComment}
+        </Typography>
+      </form>
+    </>
   )
 }

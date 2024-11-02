@@ -176,6 +176,12 @@ export const en: LocaleType = {
       },
       addComment: 'Publish',
       commentPlaceholder: 'Add a Comment',
+      confirmation: {
+        modalHeaderTitle: 'Close Post',
+        message: 'Do you really want to close the post? If you close - the comment won’t be saved',
+        buttonNo: 'No',
+        buttonYes: 'Yes',
+      },
     },
   },
   profilePage: {

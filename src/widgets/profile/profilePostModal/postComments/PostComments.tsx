@@ -25,9 +25,9 @@ export const PostComments = memo(({ className, onCommentChange }: iProps) => {
   const { data: profileData } = useGetPublicUserProfileByIdQuery(userId as string)
 
   async function addCommitFormSubmit(data: PostCommentFormZodSchema) {
-    setTimeout(() => {
-      return Promise.resolve()
-    }, 5000)
+    return new Promise(res => {
+      setTimeout(() => res(100), 5000)
+    })
   }
 
   return (

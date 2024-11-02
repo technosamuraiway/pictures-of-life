@@ -1,0 +1,15 @@
+.message {
+  padding: 1.875rem 1.5rem;
+}
+
+.buttonsWrapper {
+  padding: 0 1.5rem 2rem;
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 1.5rem;
+  justify-content: flex-end;
+
+  & button {
+    padding: 0.375rem 2.125rem;
+  }
+}

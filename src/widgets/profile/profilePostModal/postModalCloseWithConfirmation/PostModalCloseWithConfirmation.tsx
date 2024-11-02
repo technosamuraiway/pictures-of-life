@@ -1,4 +1,4 @@
-import { PATH } from '@/shared'
+import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { Button, Modal, Typography } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
@@ -10,6 +10,7 @@ interface IProps {
 }
 
 export const PostModalCloseWithConfirmation = ({ onOpenChange, open }: IProps) => {
+  const t = useRouterLocaleDefinition()
   const { push, query } = useRouter()
 
   function close() {
@@ -19,21 +20,22 @@ export const PostModalCloseWithConfirmation = ({ onOpenChange, open }: IProps) =
 
   return (
     <Modal
-      contentClassName={s.root}
-      headerTitle={'LOL'}
-      modalSize={'L'}
+      headerTitle={t.profile.modal.confirmation.modalHeaderTitle}
+      modalSize={'M'}
       onOpenChange={onOpenChange}
       open={open}
       showHeader
     >
-      <Typography variant={'bold-text-16'}>
-        Are you really want to log out of your account “Epam@epam.com”?
-      </Typography>
+      <div className={s.message}>
+        <Typography variant={'bold-text-16'}>{t.profile.modal.confirmation.message}</Typography>
+      </div>
 
-      <Button onClick={close} variant={'outline'}>
-        Yes
-      </Button>
-      <Button onClick={() => onOpenChange(false)}>No</Button>
+      <div className={s.buttonsWrapper}>
+        <Button onClick={close} variant={'outline'}>
+          {t.profile.modal.confirmation.buttonYes}
+        </Button>
+        <Button onClick={() => onOpenChange(false)}>{t.profile.modal.confirmation.buttonNo}</Button>
+      </div>
     </Modal>
   )
 }

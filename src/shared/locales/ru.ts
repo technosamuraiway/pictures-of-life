@@ -175,6 +175,13 @@ export const ru = {
       },
       addComment: 'Опубликовать',
       commentPlaceholder: 'Добавить Комментарий',
+      confirmation: {
+        modalHeaderTitle: 'Закрыть Публикацию',
+        message:
+          'Вы действительно хотите закрыть публикацию? Если закрыть - комментарий не сохраниться. ',
+        buttonNo: 'Нет',
+        buttonYes: 'Да',
+      },
     },
   },
   profilePage: {
