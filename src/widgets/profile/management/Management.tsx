@@ -19,7 +19,6 @@ export const Management = ({ value }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [createSubscription, { data, isLoading }] = useCreateSubscriptionMutation()
 
-  // State for managing selected radio button values
   const [selectedAccountType, setSelectedAccountType] = useState<string>('personal')
   const [selectedSubscriptionType, setSelectedSubscriptionType] = useState<string>('DAY')
   const [successPaymentModal, setSuccessPaymentModal] = useState<boolean>(false)
