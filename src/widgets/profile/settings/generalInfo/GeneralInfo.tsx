@@ -1,32 +1,32 @@
-import { toast } from 'react-toastify';
-import { ProfileForm } from '@/entities';
-import { useGetProfileQuery, useUpdateProfileMutation } from '@/services';
-import { InitLoader, RequestLineLoader, useRouterLocaleDefinition } from '@/shared';
-import { Tabs } from '@technosamurai/techno-ui-kit';
+import { toast } from 'react-toastify'
+import { ProfileForm } from '@/entities'
+import { useGetProfileQuery, useUpdateProfileMutation } from '@/services'
+import { InitLoader, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { Tabs } from '@technosamurai/techno-ui-kit'
 
-import s from './GeneralInfo.module.scss';
-import { ChangeAvatar } from './changeAvatar/ChangeAvatar';
-import { ProfileFormValues } from '@/entities'; // Import the correct type
+import s from './GeneralInfo.module.scss'
+import { ChangeAvatar } from './changeAvatar/ChangeAvatar'
+import { ProfileFormValues } from '@/entities' // Import the correct type
 
 interface IProps {
-  value: string;
+  value: string
 }
 
 export const GeneralInfo = ({ value }: IProps) => {
-  const t = useRouterLocaleDefinition();
+  const t = useRouterLocaleDefinition()
 
-  const [updateProfile, { isLoading: updateProfileIsLoading }] = useUpdateProfileMutation();
-  const { isLoading: isProfileLoading } = useGetProfileQuery();
+  const [updateProfile, { isLoading: updateProfileIsLoading }] = useUpdateProfileMutation()
+  const { isLoading: isProfileLoading } = useGetProfileQuery()
 
   const onSubmitProfileFormHandler = async (data: ProfileFormValues) => {
     const formattedData = {
       ...data,
       dateOfBirth: data.dateOfBirth ? data.dateOfBirth.toISOString() : undefined,
-    };
+    }
 
-    await updateProfile(formattedData).unwrap();
-    toast.success(t.settingsPage.updateProfileSuccess);
-  };
+    await updateProfile(formattedData).unwrap()
+    toast.success(t.settingsPage.updateProfileSuccess)
+  }
 
   return (
     <>
@@ -46,5 +46,5 @@ export const GeneralInfo = ({ value }: IProps) => {
         )}
       </Tabs.Content>
     </>
-  );
-};
+  )
+}

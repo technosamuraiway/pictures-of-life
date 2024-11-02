@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 
+import { InformativeModal } from '@/entities'
 import { useCreateSubscriptionMutation } from '@/services/flow/payment.service'
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { RadioButton } from './RadioButton'
 import { PayPalIcon } from '@public/managment/PayPalIcon'
 import { StripeIcon } from '@public/managment/StripeIcon'
-import { Card, Tabs, Typography } from '@technosamurai/techno-ui-kit'
+import { Card, RadioGroup, Tabs, Typography } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './Management.module.scss'
-import { InformativeModal } from '@/entities'
 
 interface IProps {
   value: string
@@ -27,16 +26,21 @@ export const Management = ({ value }: IProps) => {
   const [failurePaymentModal, setFailurePaymentModal] = useState<boolean>(false)
 
   const accountType = [
-    { name: t.settingsPage.management.personalType, value: 'personal' },
-    { name: t.settingsPage.management.businessType, value: 'business' },
+    { label: t.settingsPage.management.personalType, value: 'personal' },
+    { label: t.settingsPage.management.businessType, value: 'business' },
   ]
 
+  const subscriptionCost = {
+    DAY: '10$',
+    MONTHLY: '100$',
+    WEEKLY: '50$',
+  }
+
   const subscriptionType = [
-    { cost: '10$', name: t.settingsPage.management.priceDay, value: 'DAY' },
-    { cost: '50$', name: t.settingsPage.management.price7Day, value: 'WEEKLY' },
+    { label: `${subscriptionCost.DAY} ${t.settingsPage.management.priceDay}`, value: 'DAY' },
+    { label: `${subscriptionCost.WEEKLY} ${t.settingsPage.management.price7Day}`, value: 'WEEKLY' },
     {
-      cost: '100$',
-      name: t.settingsPage.management.priceMonth,
+      label: `${subscriptionCost.MONTHLY} ${t.settingsPage.management.priceMonth}`,
       value: 'MONTHLY',
     },
   ]
@@ -100,17 +104,12 @@ export const Management = ({ value }: IProps) => {
             {t.settingsPage.management.accountType}
           </Typography>
           <Card className={s.cardACType}>
-            {accountType.map(type => (
-              <RadioButton
-                groupName={'accountType'}
-                id={type.value}
-                isChecked={selectedAccountType === type.value}
-                key={type.value}
-                name={type.name}
-                onChange={setSelectedAccountType}
-                value={type.value}
-              />
-            ))}
+            <RadioGroup
+              itemClassName={s.radioButton}
+              value={selectedAccountType}
+              options={accountType}
+              onValueChange={setSelectedAccountType}
+            />
           </Card>
         </div>
         {selectedAccountType === 'business' && (
@@ -120,17 +119,12 @@ export const Management = ({ value }: IProps) => {
                 {t.settingsPage.management.subscriptionCost}
               </Typography>
               <Card className={s.cardCosts}>
-                {subscriptionType.map(type => (
-                  <RadioButton
-                    groupName={'subscriptionType'}
-                    id={type.value}
-                    isChecked={selectedSubscriptionType === type.value}
-                    key={type.value}
-                    name={`${type.cost} ${type.name}`}
-                    onChange={setSelectedSubscriptionType}
-                    value={type.value}
-                  />
-                ))}
+                <RadioGroup
+                  itemClassName={s.radioButton}
+                  value={selectedSubscriptionType}
+                  options={subscriptionType}
+                  onValueChange={setSelectedSubscriptionType}
+                />
               </Card>
             </div>
             <div className={s.payContainer}>

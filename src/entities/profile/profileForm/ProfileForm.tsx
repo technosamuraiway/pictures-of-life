@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, TextArea } from '@technosamurai/techno-ui-kit';
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, TextArea } from '@technosamurai/techno-ui-kit'
 
 import {
   ControlledSingleCalendar,
@@ -9,22 +9,22 @@ import {
   IProfile,
   ProfileFormValues,
   profileValidationScheme,
-} from '@/entities';
-import { useGetProfileQuery } from '@/services';
-import { CountryCitySelect, useRouterLocaleDefinition } from '@/shared';
+} from '@/entities'
+import { useGetProfileQuery } from '@/services'
+import { CountryCitySelect, useRouterLocaleDefinition } from '@/shared'
 
-import s from './ProfileForm.module.scss';
+import s from './ProfileForm.module.scss'
 
 interface IProps {
-  buttonDisabled: boolean;
-  onSubmitProfileForm: (data: ProfileFormValues) => Promise<void>;
+  buttonDisabled: boolean
+  onSubmitProfileForm: (data: ProfileFormValues) => Promise<void>
 }
 
 export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => {
-  const t = useRouterLocaleDefinition();
+  const t = useRouterLocaleDefinition()
 
-  const { data: profileData } = useGetProfileQuery();
-  const [errorMessage, setErrorMessage] = useState('');
+  const { data: profileData } = useGetProfileQuery()
+  const [errorMessage, setErrorMessage] = useState('')
 
   const profileTranslate: IProfile = {
     aboutMe: {
@@ -47,7 +47,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       minimumNumber: t.validationSchemes.minimumNumber,
       username: t.validationSchemes.username,
     },
-  };
+  }
 
   const { control, handleSubmit, register, reset, setValue, watch } = useForm<ProfileFormValues>({
     defaultValues: {
@@ -61,7 +61,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       userName: '',
     },
     resolver: zodResolver(profileValidationScheme(profileTranslate)),
-  });
+  })
 
   useEffect(() => {
     if (profileData) {
@@ -74,18 +74,18 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         lastName: profileData.lastName || '',
         region: profileData.region || '',
         userName: profileData.userName || '',
-      });
+      })
     }
-  }, [profileData, reset]);
+  }, [profileData, reset])
 
   const onSubmitFormHandler = async (data: ProfileFormValues) => {
-    await onSubmitProfileForm(data);
-  };
+    await onSubmitProfileForm(data)
+  }
 
-  const userName = watch('userName');
-  const firstName = watch('firstName');
-  const lastName = watch('lastName');
-  const isButtonDisabled = !userName || !firstName || !lastName || !!errorMessage;
+  const userName = watch('userName')
+  const firstName = watch('firstName')
+  const lastName = watch('lastName')
+  const isButtonDisabled = !userName || !firstName || !lastName || !!errorMessage
 
   return (
     <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitFormHandler)}>
@@ -143,5 +143,5 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         {t.settingsPage.infoForm.saveBtn}
       </Button>
     </form>
-  );
-};
+  )
+}
