@@ -1,50 +1,25 @@
-import { useMemo } from 'react'
-
-import {
-  IPostImage,
-  useAppSelector,
-  useGetProfileQuery,
-  useGetUserPublicPostsQuery,
-} from '@/services'
-import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
-import { meSelectorData } from '@/services/selectors/auth.selectors'
 import { InitLoader, MetaHead } from '@/shared'
-import { InfoPanel, PostsShower, getLayoutWithNav } from '@/widgets'
-import { useRouter } from 'next/router'
+import {
+  InfoPanel,
+  PostsShower,
+  ProfilePostModal,
+  getLayoutWithNav,
+  useProfilePage,
+} from '@/widgets'
 
 function Profile() {
   const {
-    query: { userId },
-  } = useRouter()
-  const meRequestData = useAppSelector(meSelectorData)
+    isOwnProfile,
+    isProfileLoading,
+    isUserDataLoading,
+    postsArray,
+    postsAssociativeArray,
+    profileData,
+    ref,
+    userData,
+  } = useProfilePage()
 
-  const { data: profileData, isLoading: isProfileLoading } = useGetProfileQuery(undefined, {
-    skip: !meRequestData,
-  })
-
-  const { data: userData, isLoading: isUserDataLoading } = useGetUserByUserNameQuery(
-    profileData?.userName ?? '',
-    { skip: !profileData }
-  )
-
-  const { data: postsData, isLoading: isPostsLoading } = useGetUserPublicPostsQuery(
-    { userId: Number(userId) },
-    { skip: !profileData }
-  )
-
-  // кешированный массив постов
-  const postsImagesArray = useMemo(() => {
-    return postsData?.items.reduce(
-      (acc, post) => {
-        acc.push(post.images)
-
-        return acc
-      },
-      [] as Array<IPostImage[]>
-    )
-  }, [postsData])
-
-  if (isProfileLoading || isPostsLoading || isUserDataLoading) {
+  if (isProfileLoading || isUserDataLoading) {
     return <InitLoader />
   }
 
@@ -55,13 +30,18 @@ function Profile() {
       <InfoPanel
         about={profileData?.aboutMe || 'no info'}
         avatar={profileData?.avatars[0].url || ''}
-        userFollowers={userData?.followersCount || 0}
-        userFollowing={userData?.followingCount || 0}
+        isWithSettingsBtn={isOwnProfile}
+        userFollowers={userData?.followersCount || 999}
+        userFollowing={userData?.followingCount || 999}
         userName={profileData?.userName || 'no info'}
-        userPublications={userData?.publicationsCount || 0}
+        userPublications={userData?.publicationsCount || 999}
       />
 
-      <PostsShower posts={postsImagesArray} />
+      <PostsShower posts={postsArray} />
+
+      <div ref={ref} style={{ height: '20px', width: '100%' }} />
+
+      <ProfilePostModal postsAssociativeArray={postsAssociativeArray} />
     </>
   )
 }
