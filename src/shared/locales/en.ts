@@ -192,6 +192,15 @@ export const en: LocaleType = {
       terminateButton: 'Terminate all other sessions',
       tittle: 'Devices',
     },
+    payments: {
+      myPayments: 'My payments',
+      emptyList: 'There are no subscriptions',
+      dateOfPayment: 'Date Of Payment',
+      endDateOfSubscription: 'End Date Of Subscription',
+      price: 'Price',
+      subscriptionType: 'Subscription Type',
+      paymentType: 'Payment Type',
+    },
     general: 'General information',
     infoForm: {
       city: 'Select your city',
@@ -213,7 +222,6 @@ export const en: LocaleType = {
       userName: 'Username',
     },
     management: 'Account Management',
-    payments: 'My payments',
     title: 'Settings',
     updateProfileSuccess: 'Your data has been successfully updated!',
   },

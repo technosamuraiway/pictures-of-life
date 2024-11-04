@@ -25,6 +25,9 @@ export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'
 // ============================== [ profile ] ======================================
 export { ProfileForm } from './profile/profileForm/ProfileForm'
 
+// ============================== [ tables ] ======================================
+export { PaymentsTable } from './tables/paymentsTable/PaymentsTable'
+
 // ============================== [ zod ] =======================================
 export type {
   ICreateNewPassword,

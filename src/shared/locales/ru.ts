@@ -191,6 +191,15 @@ export const ru = {
       terminateButton: 'Завершить все остальные сеансы',
       tittle: 'Устройства',
     },
+    payments: {
+      myPayments: 'Мои платежи',
+      emptyList: 'Подписки отсутствуют',
+      dateOfPayment: 'Дата платежа',
+      endDateOfSubscription: 'Дата окончания подписки',
+      price: 'Цена',
+      subscriptionType: 'Тип подписки',
+      paymentType: 'Тип оплаты',
+    },
     general: 'Общая информация',
     infoForm: {
       city: 'Выберите свой город',
@@ -212,7 +221,6 @@ export const ru = {
       userName: 'Имя пользователя',
     },
     management: 'Управление аккаунтом',
-    payments: 'Мои платежи',
     title: 'Настройки',
     updateProfileSuccess: 'Ваши данные были успешно обновлены!',
   },
