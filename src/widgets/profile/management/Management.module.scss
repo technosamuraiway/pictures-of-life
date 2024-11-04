@@ -1,0 +1,46 @@
+.cardACType {
+  height: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space around the radio buttons */
+  align-items: flex-start; /* Align radio buttons to the left */
+  padding: 0.8rem 1rem; /* Compact padding */
+  background-color: #1c1c1c; /* Background color */
+  border-radius: 0.375rem; /* Slight border-radius */
+  margin-top: 0.375rem;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+}
+.cardCosts {
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space around the radio buttons */
+  align-items: flex-start; /* Align radio buttons to the left */
+  padding: 0.8rem 1rem; /* Compact padding */
+  background-color: #1c1c1c; /* Background color */
+  border-radius: 0.375rem; /* Slight border-radius */
+  margin-top: 0.375rem;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+}
+/* Adjust spacing between the text label and card */
+.text {
+  margin-bottom: 0.5rem; /* Add some space below the label */
+}
+
+.payContainer {
+  display: flex;
+  justify-content: end;
+}
+.pay {
+  width: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.radioButton {
+  padding: 0.45rem;
+}

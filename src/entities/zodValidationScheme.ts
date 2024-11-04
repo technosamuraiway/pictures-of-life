@@ -1,14 +1,13 @@
 import { z } from 'zod'
 
+// Regular expressions
 const passwordRegex =
   /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}])[0-9a-zA-Z!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}]{6,}$/
-
 const usernameRegex = /^[a-zA-Z0-9_-]*$/g
 const firstLastNameRegex = /^[a-zA-Zа-яА-Я]*$/g
 const aboutMeRegex = /^[a-zA-Zа-яА-Я0-9!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|} ]*$/g
 
-// ----------- Схемы валидаций полей ---------------
-
+// Validation interfaces
 interface IEmail {
   emailRequired: string
   emailScheme: string
@@ -35,6 +34,7 @@ interface IAboutMe extends INumberRange {
   aboutMe: string
 }
 
+// Validation functions
 const email = (email: IEmail) => {
   return z.string().trim().min(1, email.emailRequired).email({ message: email.emailScheme })
 }
@@ -86,8 +86,7 @@ const aboutMe = (aboutMe: IAboutMe | undefined) => {
 const confirmPassword = z.string().trim()
 const isBoolean = z.boolean().refine(value => value)
 
-// ============= Схемы валидаций форм ==================
-
+// Form validation schemas
 export interface ISignUp {
   confirmPassword: string
   email: IEmail
@@ -167,7 +166,15 @@ export const profileValidationScheme = (profile: IProfile) => {
     aboutMe: aboutMe(profile.aboutMe),
     city: z.string().optional(),
     country: z.string().optional(),
-    dateOfBirth: z.date().optional(),
+    dateOfBirth: z.preprocess(arg => {
+      if (typeof arg === 'string' || arg instanceof Date) {
+        const date = new Date(arg)
+        if (!isNaN(date.getTime())) {
+          return date
+        }
+      }
+      return undefined
+    }, z.date().optional()),
     firstName: firstLastName(profile.firstName),
     lastName: firstLastName(profile.lastName),
     region: z.string().optional(),
@@ -175,7 +182,7 @@ export const profileValidationScheme = (profile: IProfile) => {
   })
 }
 
-// ============= Типы валидаций форм ==================
+// Form values types
 export type SignUpFormValues = z.infer<ReturnType<typeof signUpScheme>>
 export type ForgotPasswordFormValues = z.infer<ReturnType<typeof forgotPasswordScheme>>
 export type CreateNewPasswordFormValues = z.infer<ReturnType<typeof createNewPasswordScheme>>
