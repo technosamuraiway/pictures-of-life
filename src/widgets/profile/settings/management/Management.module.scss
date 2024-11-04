@@ -1,0 +1,24 @@
+.cardACType {
+  height: 7rem;
+}
+.cardCosts {
+  height: 10rem;
+}
+/* Adjust spacing between the text label and card */
+.text {
+  margin-bottom: 0.5rem; /* Add some space below the label */
+}
+
+.payContainer {
+  display: flex;
+  justify-content: end;
+}
+.pay {
+  width: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.radioButton {
+  padding: 0.45rem;
+}

@@ -1,12 +1,13 @@
 import { toast } from 'react-toastify'
-import { ProfileForm } from '@/entities'
+
+import { ProfileForm, ProfileFormValues } from '@/entities'
 import { useGetProfileQuery, useUpdateProfileMutation } from '@/services'
 import { InitLoader, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { Tabs } from '@technosamurai/techno-ui-kit'
 
 import s from './GeneralInfo.module.scss'
-import { ChangeAvatar } from './changeAvatar/ChangeAvatar'
-import { ProfileFormValues } from '@/entities' // Import the correct type
+
+import { ChangeAvatar } from './changeAvatar/ChangeAvatar' // Import the correct type
 
 interface IProps {
   value: string
