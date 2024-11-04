@@ -4,15 +4,16 @@
 .cardCosts {
   height: 10rem;
 }
-/* Adjust spacing between the text label and card */
+
 .text {
-  margin-bottom: 0.5rem; /* Add some space below the label */
+  margin-bottom: 0.5rem;
 }
 
 .payContainer {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
+
 .pay {
   width: 20rem;
   display: flex;
