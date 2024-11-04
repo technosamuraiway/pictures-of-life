@@ -1,3 +1,9 @@
+.head {
+  &:hover {
+    background-color: var(--Dark-500);
+  }
+}
+
 .emptyText.emptyText {
   text-align: center;
 }

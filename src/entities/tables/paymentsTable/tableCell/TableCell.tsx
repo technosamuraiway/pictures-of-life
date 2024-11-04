@@ -1,5 +1,4 @@
-import { ProductDropDown } from '@/shared'
-import { Typography } from '@technosamurai/techno-ui-kit'
+import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './TableCell.module.scss'
 

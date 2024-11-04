@@ -1,4 +1,4 @@
-import { Typography } from '@technosamurai/techno-ui-kit'
+import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './HeadCell.module.scss'
 

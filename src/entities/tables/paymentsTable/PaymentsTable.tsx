@@ -1,5 +1,5 @@
 import { convertDate, useRouterLocaleDefinition } from '@/shared'
-import { Typography } from '@technosamurai/techno-ui-kit'
+import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './PaymentsTable.module.scss'
 
@@ -51,7 +51,7 @@ export const PaymentsTable = () => {
   return (
     <Tables.Table>
       <Tables.TableHead>
-        <Tables.TableRow>
+        <Tables.TableRow className={s.head}>
           <HeadCell title={t.settingsPage.payments.dateOfPayment} />
           <HeadCell title={t.settingsPage.payments.endDateOfSubscription} />
           <HeadCell title={t.settingsPage.payments.price} />

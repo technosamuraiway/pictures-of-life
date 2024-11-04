@@ -1,6 +1,6 @@
 import { PaymentsTable } from '@/entities'
 import { useRouterLocaleDefinition, useSuperPagination } from '@/shared'
-import { Tabs } from '@technosamurai/techno-ui-kit'
+import { Pagination, Tabs } from '@technosamurai/techno-ui-kit'
 
 import s from './Payments.module.scss'
 
