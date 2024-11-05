@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, TextArea } from '@technosamurai/techno-ui-kit'
 
 import {
   ControlledSingleCalendar,
@@ -12,6 +10,8 @@ import {
 } from '@/entities'
 import { useGetProfileQuery } from '@/services'
 import { CountryCitySelect, useRouterLocaleDefinition } from '@/shared'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, TextArea } from '@technosamurai/techno-ui-kit'
 
 import s from './ProfileForm.module.scss'
 

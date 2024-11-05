@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { InformativeModal } from '@/entities'
 import { useCreateSubscriptionMutation } from '@/services/flow/payment.service'
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { RadioCard } from '@/widgets/profile/components/radioCard/RadioCard'
 import { PayPalIcon } from '@public/managment/PayPalIcon'
 import { StripeIcon } from '@public/managment/StripeIcon'
 import { Card, RadioGroup, Tabs, Typography } from '@technosamurai/techno-ui-kit'
@@ -95,37 +96,51 @@ export const Management = ({ value }: IProps) => {
     }
   }, [router])
 
+  const informativeModal = () => {
+    if (successPaymentModal) {
+      return (
+        <InformativeModal
+          headerTitle={t.settingsPage.modal.success}
+          isOpenModal={successPaymentModal}
+          modalTextChildren={t.settingsPage.modal.successMessage}
+          onClickPositiveButton={onCloseHandler}
+          positiveButtonChildren={t.settingsPage.modal.successStep}
+          setIsOpenModal={onCloseHandler}
+        />
+      )
+    } else if (failurePaymentModal) {
+      return (
+        <InformativeModal
+          headerTitle={t.settingsPage.modal.error}
+          isOpenModal={failurePaymentModal}
+          modalTextChildren={t.settingsPage.modal.errorMessage}
+          onClickPositiveButton={onCloseHandler}
+          positiveButtonChildren={t.settingsPage.modal.errorStep}
+          setIsOpenModal={onCloseHandler}
+        />
+      )
+    }
+  }
+
   return (
     <>
       <Tabs.Content className={s.management} value={value}>
-        <div>
-          <Typography className={s.text} variant={'h3'}>
-            {t.settingsPage.management.accountType}
-          </Typography>
-          <Card className={s.cardACType}>
-            <RadioGroup
-              itemClassName={s.radioButton}
-              value={selectedAccountType}
-              options={accountType}
-              onValueChange={setSelectedAccountType}
-            />
-          </Card>
-        </div>
+        <RadioCard
+          className={s.cardACType}
+          name={t.settingsPage.management.accountType}
+          onChange={setSelectedAccountType}
+          options={accountType}
+          value={selectedAccountType}
+        />
         {selectedAccountType === 'business' && (
           <>
-            <div>
-              <Typography className={s.text} variant={'h3'}>
-                {t.settingsPage.management.subscriptionCost}
-              </Typography>
-              <Card className={s.cardCosts}>
-                <RadioGroup
-                  itemClassName={s.radioButton}
-                  value={selectedSubscriptionType}
-                  options={subscriptionType}
-                  onValueChange={setSelectedSubscriptionType}
-                />
-              </Card>
-            </div>
+            <RadioCard
+              className={s.cardCosts}
+              name={t.settingsPage.management.subscriptionCost}
+              onChange={setSelectedSubscriptionType}
+              options={subscriptionType}
+              value={selectedSubscriptionType}
+            />
             <div className={s.payContainer}>
               <div className={s.pay}>
                 <button disabled={isLoading} onClick={() => onPayHandler('PAYPAL')} type={'button'}>
@@ -143,22 +158,7 @@ export const Management = ({ value }: IProps) => {
         )}
         {isLoading && <RequestLineLoader />}
       </Tabs.Content>
-      <InformativeModal
-        headerTitle={t.settingsPage.modal.success}
-        isOpenModal={successPaymentModal}
-        modalTextChildren={t.settingsPage.modal.successMessage}
-        onClickPositiveButton={onCloseHandler}
-        positiveButtonChildren={t.settingsPage.modal.successStep}
-        setIsOpenModal={onCloseHandler}
-      />
-      <InformativeModal
-        headerTitle={t.settingsPage.modal.error}
-        isOpenModal={failurePaymentModal}
-        modalTextChildren={t.settingsPage.modal.errorMessage}
-        onClickPositiveButton={onCloseHandler}
-        positiveButtonChildren={t.settingsPage.modal.errorStep}
-        setIsOpenModal={onCloseHandler}
-      />
+      {informativeModal()}
     </>
   )
 }

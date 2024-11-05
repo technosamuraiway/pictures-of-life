@@ -169,10 +169,12 @@ export const profileValidationScheme = (profile: IProfile) => {
     dateOfBirth: z.preprocess(arg => {
       if (typeof arg === 'string' || arg instanceof Date) {
         const date = new Date(arg)
+
         if (!isNaN(date.getTime())) {
           return date
         }
       }
+
       return undefined
     }, z.date().optional()),
     firstName: firstLastName(profile.firstName),
