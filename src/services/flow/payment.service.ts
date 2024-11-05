@@ -1,11 +1,6 @@
+import { CreateSubscriptionResponse, IMyPaymentsResponse } from '@/services'
 import { inctagramApi } from '@/services/api/inctagram.api'
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL
-
-interface CreateSubscriptionResponse {
-  id: string
-  status: string
-  url: string
-}
 
 const paymentService = inctagramApi.injectEndpoints({
   endpoints: builder => ({
@@ -25,7 +20,14 @@ const paymentService = inctagramApi.injectEndpoints({
         url: `v1/subscriptions`,
       }),
     }),
+    getSubscription: builder.query<IMyPaymentsResponse[], void>({
+      providesTags: ['Payment'],
+      query: () => ({
+        method: 'GET',
+        url: 'v1/subscriptions/my-payments',
+      }),
+    }),
   }),
 })
 
-export const { useCreateSubscriptionMutation } = paymentService
+export const { useCreateSubscriptionMutation, useGetSubscriptionQuery } = paymentService

@@ -231,7 +231,6 @@ export const ru = {
       textAreaPlace: 'Расскажите нам что-нибудь о себе...',
       userName: 'Имя пользователя',
     },
-    management: 'Управление аккаунтом',
     title: 'Настройки',
     updateProfileSuccess: 'Ваши данные были успешно обновлены!',
     modal: {

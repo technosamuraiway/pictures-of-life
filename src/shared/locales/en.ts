@@ -232,7 +232,6 @@ export const en: LocaleType = {
       textAreaPlace: 'Tell us something about yourself...',
       userName: 'Username',
     },
-    management: 'Account Management',
     title: 'Settings',
     updateProfileSuccess: 'Your data has been successfully updated!',
     modal: {
