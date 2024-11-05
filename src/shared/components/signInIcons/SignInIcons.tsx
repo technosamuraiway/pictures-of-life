@@ -24,7 +24,8 @@ const registerWithGoogle = (): void => {
 }
 
 const registerGitHubLogin = () => {
-  window.location.assign(PATH.AUTH.URLGITHUBLOGIN)
+  const GITHUB_AUTH_URL = process.env.NEXT_PUBLIC_PATH_AUTH_GITHUB
+  window.location.assign(GITHUB_AUTH_URL as string)
 }
 
 export const SignInIcons = ({
