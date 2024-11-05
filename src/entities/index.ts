@@ -22,6 +22,8 @@ export { DeletePostModal } from './modals/deletePostModal/DeletePostModal'
 
 export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'
 
+export { InformativeModal } from './modals/informativeModal/InformativeModal'
+
 // ============================== [ profile ] ======================================
 export { ProfileForm } from './profile/profileForm/ProfileForm'
 
