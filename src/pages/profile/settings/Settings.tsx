@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { Devices, GeneralInfo, Management, getLayoutWithNav } from '@/widgets'
-import { TabType, Tabs, Typography } from '@technosamurai/techno-ui-kit'
+import { Devices, GeneralInfo, Management, Payments, getLayoutWithNav } from '@/widgets'
+import { TabType, Tabs } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './Settings.module.scss'
@@ -17,7 +17,7 @@ const Settings = () => {
       { title: t.settingsPage.general, value: 'general info' },
       { title: t.settingsPage.devices.title, value: 'devices' },
       { title: t.settingsPage.management.title, value: 'account management' },
-      { title: t.settingsPage.payments, value: 'payments' },
+      { title: t.settingsPage.payments.myPayments, value: 'payments' },
     ],
     [
       t.settingsPage.general,
@@ -66,9 +66,7 @@ const Settings = () => {
           <GeneralInfo value={tabsData[0].value} />
           <Devices value={tabsData[1].value} />
           <Management value={tabsData[2].value} />
-          <Tabs.Content className={s.payments} value={tabsData[3].value}>
-            <Typography variant={'h1'}>Payments</Typography>
-          </Tabs.Content>
+          <Payments value={tabsData[3].value} />
         </Tabs.Root>
       )}
     </>
