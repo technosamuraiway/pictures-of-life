@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { Devices, GeneralInfo, getLayoutWithNav } from '@/widgets'
+import { Devices, GeneralInfo, Management, getLayoutWithNav } from '@/widgets'
 import { TabType, Tabs, Typography } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
@@ -15,13 +15,13 @@ const Settings = () => {
   const tabsData = useMemo<TabType[]>(
     () => [
       { title: t.settingsPage.general, value: 'general info' },
-      { title: t.settingsPage.devices.tittle, value: 'devices' },
-      { title: t.settingsPage.management, value: 'account management' },
+      { title: t.settingsPage.devices.title, value: 'devices' },
+      { title: t.settingsPage.management.title, value: 'account management' },
       { title: t.settingsPage.payments, value: 'payments' },
     ],
     [
       t.settingsPage.general,
-      t.settingsPage.devices.tittle,
+      t.settingsPage.devices.title,
       t.settingsPage.management,
       t.settingsPage.payments,
     ]
@@ -31,7 +31,9 @@ const Settings = () => {
     if (router.isReady) {
       const tabFromUrl = router.query.tab as string
       const defaultTab = tabsData[0].value
-      const newActiveTab = tabsData.some(tab => tab.value === tabFromUrl) ? tabFromUrl : defaultTab
+      const newActiveTab = tabsData.some(tab => tab.value.includes(tabFromUrl))
+        ? tabFromUrl
+        : defaultTab
 
       setActiveTab(newActiveTab)
     }
@@ -63,9 +65,7 @@ const Settings = () => {
         >
           <GeneralInfo value={tabsData[0].value} />
           <Devices value={tabsData[1].value} />
-          <Tabs.Content className={s.management} value={tabsData[2].value}>
-            <Typography variant={'h1'}>Management</Typography>
-          </Tabs.Content>
+          <Management value={tabsData[2].value} />
           <Tabs.Content className={s.payments} value={tabsData[3].value}>
             <Typography variant={'h1'}>Payments</Typography>
           </Tabs.Content>
