@@ -9,11 +9,12 @@ function GithubPage() {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
 
-  const { accessToken, email } = router.query
+  const { accessToken } = router.query
 
   useEffect(() => {
-    if (accessToken && email) {
+    if (accessToken) {
       localStorage.setItem('accessToken', accessToken as string)
+
       toast.success(t.signInPage.successLogIn)
 
       router.replace(PATH.HOME)

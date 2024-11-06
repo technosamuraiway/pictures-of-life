@@ -8,10 +8,11 @@ import { useRouter } from 'next/router'
 export const useGoogleAuth = () => {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
-  const { code } = router.query
+  const { accessToken, code } = router.query
   const [googleSignUp, { isLoading: isGoogleSignLoading }] = useGoogleSignUpMutation()
   const [me] = useLazyMeCurInfoQuery()
 
+  console.log('Hook')
   useEffect(() => {
     if (code) {
       googleSignUp({ code })
@@ -23,6 +24,10 @@ export const useGoogleAuth = () => {
           router.replace(PATH.HOME)
         })
     }
+    if (accessToken) {
+      localStorage.setItem('accessToken', String(accessToken))
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code])
 
