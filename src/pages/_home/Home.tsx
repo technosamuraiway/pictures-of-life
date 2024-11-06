@@ -1,4 +1,4 @@
-import { MetaHead, PATH, useGoogleAuth } from '@/shared'
+import { MetaHead, PATH, useGoogleGitAuth } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -6,9 +6,9 @@ import { useRouter } from 'next/router'
 import s from './Home.module.scss'
 
 function Home() {
-  const { isGoogleSignLoading } = useGoogleAuth()
-
+  const { isGoogleSignLoading } = useGoogleGitAuth()
   const { push } = useRouter()
+  console.log('in HOME page')
 
   return (
     <>

@@ -18,6 +18,7 @@ export const PATH = {
   PUBLIC: '/public',
   PUBLICPOST: '/public/post',
   PUBLICUSER: '/public-user/[userId]',
+  GITHUB: '/github'
 } as const
 
 export const PUBLIC_ROUTES_SET = new Set<string>([
@@ -38,4 +39,5 @@ export const PUBLIC_ROUTES_SET_WITH_BTN = new Set<string>([
   PATH.PUBLICPOST + '/[id]',
   PATH.PUBLICUSER,
   PATH.PROFILE.BASEPROFILEWITHQUERY,
+  PATH.GITHUB
 ])
