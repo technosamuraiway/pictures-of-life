@@ -203,6 +203,15 @@ export const en: LocaleType = {
       priceMonth: 'per month',
       or: 'Or',
     },
+    payments: {
+      myPayments: 'My payments',
+      emptyList: 'There are no subscriptions',
+      dateOfPayment: 'Date Of Payment',
+      endDateOfSubscription: 'End Date Of Subscription',
+      price: 'Price',
+      subscriptionType: 'Subscription Type',
+      paymentType: 'Payment Type',
+    },
     general: 'General information',
     infoForm: {
       city: 'Select your city',
@@ -223,7 +232,6 @@ export const en: LocaleType = {
       textAreaPlace: 'Tell us something about yourself...',
       userName: 'Username',
     },
-    payments: 'My payments',
     title: 'Settings',
     updateProfileSuccess: 'Your data has been successfully updated!',
     modal: {

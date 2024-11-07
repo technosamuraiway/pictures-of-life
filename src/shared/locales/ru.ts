@@ -202,6 +202,15 @@ export const ru = {
       priceMonth: 'в месяц',
       or: 'Или',
     },
+    payments: {
+      myPayments: 'Мои платежи',
+      emptyList: 'Подписки отсутствуют',
+      dateOfPayment: 'Дата платежа',
+      endDateOfSubscription: 'Дата окончания подписки',
+      price: 'Цена',
+      subscriptionType: 'Тип подписки',
+      paymentType: 'Тип оплаты',
+    },
     general: 'Общая информация',
     infoForm: {
       city: 'Выберите свой город',
@@ -222,7 +231,6 @@ export const ru = {
       textAreaPlace: 'Расскажите нам что-нибудь о себе...',
       userName: 'Имя пользователя',
     },
-    payments: 'Мои платежи',
     title: 'Настройки',
     updateProfileSuccess: 'Ваши данные были успешно обновлены!',
     modal: {

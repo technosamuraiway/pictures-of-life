@@ -27,6 +27,9 @@ export { InformativeModal } from './modals/informativeModal/InformativeModal'
 // ============================== [ profile ] ======================================
 export { ProfileForm } from './profile/profileForm/ProfileForm'
 
+// ============================== [ tables ] ======================================
+export { PaymentsTable } from './tables/paymentsTable/PaymentsTable'
+
 // ============================== [ zod ] =======================================
 export type {
   ICreateNewPassword,
