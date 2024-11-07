@@ -12,7 +12,6 @@ export const useGoogleAuth = () => {
   const [googleSignUp, { isLoading: isGoogleSignLoading }] = useGoogleSignUpMutation()
   const [me] = useLazyMeCurInfoQuery()
 
-  console.log('Hook')
   useEffect(() => {
     if (code) {
       googleSignUp({ code })

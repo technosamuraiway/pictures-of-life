@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react'
 
 import { useMeCurInfoQuery } from '@/services'
 import { InitLoader, PATH, PUBLIC_ROUTES_SET } from '@/shared'
+import { combineSlices } from '@reduxjs/toolkit'
 import { useRouter } from 'next/router'
 
 export const AuthGuard = ({ children }: PropsWithChildren) => {
