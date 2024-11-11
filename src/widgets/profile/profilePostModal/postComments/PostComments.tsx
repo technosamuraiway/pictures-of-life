@@ -2,13 +2,14 @@ import { memo } from 'react'
 
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
-import { PostCommentFormZodSchema } from '@/widgets/profile/lib/zod/postCommentsFormZodSchema'
 import clsx from 'clsx'
 
 import s from './PostComments.module.scss'
 
+import { PostCommentFormZodSchema } from '../../lib/zod/postCommentsFormZodSchema'
 import { PostCommentsAddComment } from './postCommentsAddCommenet/PostCommentsAddComment'
 import { PostCommentsHeader } from './postCommentsHeader/PostCommentsHeader'
+import { PostsLikes } from './postLikes/PostsLikes'
 
 interface iProps {
   className?: string
@@ -34,9 +35,13 @@ export const PostComments = memo(({ className, onCommentChange }: iProps) => {
     <div className={clsx(s.root, className)}>
       <PostCommentsHeader
         avatar={profileData?.avatars[0]?.url || ''}
+        isAuthorized={isAuthorized}
         isOwnProfile={isOwnProfile}
+        name={profileData?.userName || ''}
         userName={profileData?.userName || 'no info'}
       />
+
+      <PostsLikes />
 
       {isAuthorized && (
         <PostCommentsAddComment

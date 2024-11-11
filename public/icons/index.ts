@@ -1,3 +1,5 @@
 export * from './CloseIcon'
 export * from './CopyLinkIcon'
+export * from './DeleteIcon'
+export * from './Editicon'
 export * from './UnfollowIcon'

@@ -175,6 +175,10 @@ export const ru = {
         unfollow: 'Отписаться',
         copyLink: 'Скопировать ссылку',
       },
+      headerDropdownOwnDotsMenu: {
+        edit: 'Редактировать Публикацию',
+        delete: 'Удалить Публикацию',
+      },
       addComment: 'Опубликовать',
       commentPlaceholder: 'Добавить Комментарий',
       confirmation: {

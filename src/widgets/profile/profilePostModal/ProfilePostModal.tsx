@@ -2,7 +2,7 @@ import { memo } from 'react'
 
 import { PostsAssociativeArray } from '@/widgets'
 import { PostsItem } from '@/widgets/profile/components/postsItem/PostsItem'
-import { CloseIcon } from '@public/icons/CloseIcon'
+import { CloseIcon } from '@public/icons'
 import { Modal } from '@technosamurai/techno-ui-kit'
 
 import s from './ProfilePostModal.module.scss'

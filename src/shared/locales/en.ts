@@ -176,6 +176,10 @@ export const en: LocaleType = {
         unfollow: 'Unfollow',
         copyLink: 'Copy link',
       },
+      headerDropdownOwnDotsMenu: {
+        edit: 'Edit Post',
+        delete: 'Delete Post',
+      },
       addComment: 'Publish',
       commentPlaceholder: 'Add a Comment',
       confirmation: {

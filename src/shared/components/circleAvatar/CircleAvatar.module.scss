@@ -1,3 +1,10 @@
 .root {
   border-radius: 50%;
 }
+
+.circleWithoutAvatar {
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
