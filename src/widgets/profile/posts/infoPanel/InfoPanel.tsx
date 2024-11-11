@@ -39,7 +39,7 @@ export const InfoPanel = memo(
 
     return (
       <div className={s.profileInfo}>
-        <CircleAvatar height={204} name={userName} rootCN={s.avatar} src={avatar} width={204} />
+        <CircleAvatar height={204} rootCN={s.avatar} src={avatar} width={204} />
         <div className={s.info}>
           <div className={s.infoTop}>
             <Typography as={'h1'} variant={'h1'}>

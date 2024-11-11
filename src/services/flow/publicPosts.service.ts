@@ -1,11 +1,14 @@
-import { inctagramApi } from '@/services'
+import { ICommentResponse, inctagramApi } from '@/services'
 
-import { GetPublicUserPostByIdResponse } from '../types/publicPosts.types'
+import {
+  GetPublicPostCommentsByIdRequest,
+  GetPublicUserPostByIdResponse,
+} from '../types/publicPosts.types'
 
 const publicPostsService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
-      getPublicUserPostById: builder.query<GetPublicUserPostByIdResponse, string>({
+      getPublicPostById: builder.query<GetPublicUserPostByIdResponse, string>({
         query: postId => {
           return {
             method: 'GET',
@@ -13,8 +16,19 @@ const publicPostsService = inctagramApi.injectEndpoints({
           }
         },
       }),
+      getPublicPostCommentsById: builder.query<ICommentResponse, GetPublicPostCommentsByIdRequest>({
+        query: params => {
+          const { postId, sortDirection, ...rest } = params
+
+          return {
+            method: 'GET',
+            params: { sortDirection: sortDirection ?? 'desc', ...rest },
+            url: `/v1/public-posts/${postId}/comments`,
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useGetPublicUserPostByIdQuery } = publicPostsService
+export const { useGetPublicPostByIdQuery, useGetPublicPostCommentsByIdQuery } = publicPostsService
