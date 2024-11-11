@@ -47,11 +47,12 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
         />
         <PostComments className={s.postComments} onCommentChange={setCloseWithNotifyNotify} />
         <CloseIcon className={s.closeIcon} onClick={close} />
-        <PostModalCloseWithConfirmation
-          onOpenChange={setConfirmationModal}
-          open={confirmationModal}
-        />
       </Modal>
+      <PostModalCloseWithConfirmation
+        onOpenChange={setConfirmationModal}
+        open={confirmationModal}
+        overlayClassName={s.confirmationModalOverlay}
+      />
     </>
   )
 })

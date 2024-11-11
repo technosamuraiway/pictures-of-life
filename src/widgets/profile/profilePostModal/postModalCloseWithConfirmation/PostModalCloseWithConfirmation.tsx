@@ -7,9 +7,14 @@ import s from './PostModalCloseWithConfirmation.module.scss'
 interface IProps {
   onOpenChange: (open: boolean) => void
   open: boolean
+  overlayClassName?: string
 }
 
-export const PostModalCloseWithConfirmation = ({ onOpenChange, open }: IProps) => {
+export const PostModalCloseWithConfirmation = ({
+  onOpenChange,
+  open,
+  overlayClassName,
+}: IProps) => {
   const t = useRouterLocaleDefinition()
   const { push, query } = useRouter()
 
@@ -24,6 +29,7 @@ export const PostModalCloseWithConfirmation = ({ onOpenChange, open }: IProps) =
       modalSize={'M'}
       onOpenChange={onOpenChange}
       open={open}
+      overlayClassName={overlayClassName}
       showHeader
     >
       <div className={s.message}>
