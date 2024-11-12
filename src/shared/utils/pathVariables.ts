@@ -6,10 +6,10 @@ export const PATH = {
     SIGNIN: '/auth/signin',
     SIGNUP: '/auth/signup',
     TERMSOFSRVICE: '/auth/termsofservice',
-    URLGITHUBLOGIN: 'https://inctagram.work/api/v1/auth/github/login',
     URLGOOGLELOGIN: 'https://inctagram.work/api/v1/auth/google/login',
   },
   CREATEPOST: '/createpost',
+  GITHUB: '/github',
   HOME: '/',
   PROFILE: {
     BASEPROFILE: '/profile',
@@ -28,11 +28,11 @@ export const PUBLIC_ROUTES_SET = new Set<string>([
   PATH.AUTH.SIGNIN,
   PATH.AUTH.SIGNUP,
   PATH.AUTH.TERMSOFSRVICE,
-  PATH.AUTH.URLGITHUBLOGIN,
   PATH.AUTH.URLGOOGLELOGIN,
   PATH.PUBLIC,
   PATH.PUBLICPOST + '/[id]',
   PATH.PUBLICUSER,
+  PATH.GITHUB,
 ])
 
 export const PUBLIC_ROUTES_SET_WITH_BTN = new Set<string>([

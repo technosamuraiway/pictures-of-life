@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react'
 
 import { useMeCurInfoQuery } from '@/services'
 import { InitLoader, PATH, PUBLIC_ROUTES_SET } from '@/shared'
+import { combineSlices } from '@reduxjs/toolkit'
 import { useRouter } from 'next/router'
 
 export const AuthGuard = ({ children }: PropsWithChildren) => {
@@ -16,7 +17,7 @@ export const AuthGuard = ({ children }: PropsWithChildren) => {
     return <InitLoader />
   }
 
-  // если страничка и публичная, и приватная - одновременно
+  //если страничка и публичная, и приватная - одновременно
   if (pathname === PATH.PROFILE.BASEPROFILEWITHQUERY || isGoogleAuthCallback) {
     return <>{children}</>
   }
@@ -25,7 +26,7 @@ export const AuthGuard = ({ children }: PropsWithChildren) => {
     replace(data ? PATH.HOME : PATH.PUBLIC)
 
     /* Если ничего не возвращать в этом блоке => то будут возвращаться children
-     * даже переход на публичную страницу без авторизации - будет кратковременно отрисовыываться приватная страница */
+     * даже переход на публичную страницу без авторизации - будет кратковременно отрисовываться приватная страница */
     return null
   }
 
