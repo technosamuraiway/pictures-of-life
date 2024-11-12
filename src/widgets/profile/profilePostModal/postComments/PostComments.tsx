@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import s from './PostComments.module.scss'
 
 import { PostCommentFormZodSchema } from '../../lib/zod/postCommentsFormZodSchema'
+import { Comments } from './comments/Comments'
 import { PostCommentsAddComment } from './postCommentsAddCommenet/PostCommentsAddComment'
 import { PostCommentsHeader } from './postCommentsHeader/PostCommentsHeader'
 import { PostsLikes } from './postLikes/PostsLikes'
@@ -39,6 +40,8 @@ export const PostComments = memo(({ className, onCommentChange }: iProps) => {
         isOwnProfile={isOwnProfile}
         userName={profileData?.userName || 'no info'}
       />
+
+      <Comments />
 
       <PostsLikes />
 

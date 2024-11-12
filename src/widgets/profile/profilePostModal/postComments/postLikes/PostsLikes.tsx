@@ -19,16 +19,11 @@ export const PostsLikes = () => {
 
   const { postId } = query
 
-  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(
-    (postId as string) || '',
-    { skip: !postId }
-  )
-  const { data: comments, isLoading: isCommentsLoading } = useGetPublicPostCommentsByIdQuery(
-    { postId: Number(postId) ?? null },
-    { skip: !postId }
-  )
+  const { data: post, isLoading } = useGetPublicPostByIdQuery((postId as string) || '', {
+    skip: !postId,
+  })
 
-  const isLoading = isPostLoading || isCommentsLoading
+  console.log(post)
 
   const avatarsWhoLikes = useMemo(() => {
     return post?.avatarWhoLikes.slice(0, 3)
