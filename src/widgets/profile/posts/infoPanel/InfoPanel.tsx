@@ -40,7 +40,7 @@ export const InfoPanel = memo(
 
     return (
       <div className={s.profileInfo}>
-        {avatar ? 
+        {avatar ? (
           <Image
             alt={'profile-round-avatar'}
             className={s.avatar}
@@ -48,7 +48,9 @@ export const InfoPanel = memo(
             src={avatar}
             width={204}
           />
-         : <Image src="/profileAvatar/no-avatar.png" alt="No Avatar" width={204} height={204} />}
+        ) : (
+          <Image alt={'No Avatar'} height={204} src={'/profileAvatar/no-avatar.png'} width={204} />
+        )}
         <div className={s.info}>
           <div className={s.infoTop}>
             <Typography as={'h1'} variant={'h1'}>
