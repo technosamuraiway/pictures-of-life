@@ -50,7 +50,7 @@ function SignIn() {
         <OAuth title={t.signInPage.title} />
 
         <SignInForm
-          buttonDisabled={SignInIsLoading}
+          // buttonDisabled={SignInIsLoading}
           onSubmitSignInForm={onSubmitSignInForm}
           textFieldError={textFieldError}
         />

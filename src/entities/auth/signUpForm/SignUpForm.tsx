@@ -37,7 +37,7 @@ export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => 
     },
   }
 
-  const { control, handleSubmit, reset } = useForm<SignUpFormValues>({
+  const { control, handleSubmit, reset, setError } = useForm<SignUpFormValues>({
     defaultValues: {
       confirmPassword: '',
       email: '',
@@ -67,6 +67,7 @@ export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => 
         control={control}
         label={t.signUpPage.email}
         name={'email'}
+        setError={setError}
         type={'email'}
       />
       <ControlledTextField
