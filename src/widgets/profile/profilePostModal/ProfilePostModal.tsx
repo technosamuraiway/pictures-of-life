@@ -1,6 +1,8 @@
 import { memo } from 'react'
 
+import { useRouterLocaleDefinition } from '@/shared'
 import { PostsAssociativeArray } from '@/widgets'
+import { ConfirmationModal } from '@/widgets/profile/components/confirmationModal/confirmationModal'
 import { PostsItem } from '@/widgets/profile/components/postsItem/PostsItem'
 import { CloseIcon } from '@public/icons'
 import { Modal } from '@technosamurai/techno-ui-kit'
@@ -9,13 +11,14 @@ import s from './ProfilePostModal.module.scss'
 
 import { useProfilePostModal } from '../lib/hooks/useProfilePostModal'
 import { PostComments } from './postComments/PostComments'
-import { PostModalCloseWithConfirmation } from './postModalCloseWithConfirmation/PostModalCloseWithConfirmation'
 
 interface IProps {
   postsAssociativeArray: PostsAssociativeArray
 }
 
 export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
+  const t = useRouterLocaleDefinition()
+
   const {
     close,
     confirmationModal,
@@ -48,7 +51,11 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
         <PostComments className={s.postComments} onCommentChange={setCloseWithNotifyNotify} />
         <CloseIcon className={s.closeIcon} onClick={close} />
       </Modal>
-      <PostModalCloseWithConfirmation
+
+      {/* close confirmation */}
+      <ConfirmationModal
+        confirmMessage={t.profile.modal.confirmation.message}
+        headerTitle={t.profile.modal.confirmation.modalHeaderTitle}
         onOpenChange={setConfirmationModal}
         open={confirmationModal}
         overlayClassName={s.confirmationModalOverlay}
