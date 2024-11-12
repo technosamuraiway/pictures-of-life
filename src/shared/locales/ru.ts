@@ -328,7 +328,12 @@ export const ru = {
     minimumNumber: 'Минимальное число символов',
     password: 'Пароль должен состоять из',
     username: 'Имя пользователя должно состоять из',
+    noStartingSpace: 'Поле не может начинаться с пробела',
   },
+  postText: {
+    show: 'Показать',
+    hide: 'Скрыть',
+  }
 }
 
 export type LocaleType = typeof ru

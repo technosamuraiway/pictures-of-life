@@ -2,7 +2,7 @@ import { memo, useMemo, useState } from 'react'
 
 import { PostModal } from '@/entities/modals/publicPostModal/PostModal'
 import { useGetUserPublicPostsQuery } from '@/services/flow/post.service'
-import { MetaHead, RequestLineLoader } from '@/shared'
+import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { getBaseLayout } from '@/widgets'
 import { ImageNotFound } from '@public/ImageNotFound'
 import { Typography } from '@technosamurai/techno-ui-kit'
@@ -14,12 +14,13 @@ import s from './[id].module.scss'
 
 interface iSlideItem {
   alt: string
+  onClick: () => void
   src: string
 }
 
-const SlideItem = memo(({ alt, src }: iSlideItem) => {
+const SlideItem = memo(({ alt, onClick, src }: iSlideItem) => {
   return (
-    <div className={s.postImage}> 
+    <div className={s.postImage}  onClick={onClick}> 
       <Image alt={alt} height={100} layout={"responsive"} src={src} width={230} />
     </div>
   )
@@ -50,7 +51,7 @@ const PublicPostPage = () => {
     setIsModalOpen(false)
   }
 
- 
+  const t = useRouterLocaleDefinition()
 
   return (
     <div>
@@ -75,16 +76,16 @@ const PublicPostPage = () => {
             <div className={s.follPublic}>
             <div>
               <Typography variant={'bold-text-14'}>500</Typography>
-              <Typography variant={'regular-text-14'}>Following</Typography>
+              <Typography variant={'regular-text-14'}>{t.profile.info.stats.following}</Typography>
             </div>
             <div>
               <Typography variant={'bold-text-14'}>700</Typography>
-              <Typography variant={'regular-text-14'}>Followers</Typography>
+              <Typography variant={'regular-text-14'}>{t.profile.info.stats.followers}</Typography>
             </div>
             {totalCount !== undefined && (
           <div>
             <Typography variant={'bold-text-14'}> {totalCount}</Typography>
-            <Typography variant={'regular-text-14'}>Publications</Typography>
+            <Typography variant={'regular-text-14'}>{t.profile.info.stats.publications}</Typography>
           </div>
         )} 
         </div>
@@ -97,11 +98,12 @@ const PublicPostPage = () => {
                   <SlideItem
                     alt={`post-image-${index}`}
                     key={uuid()}
+                    onClick={() => setIsModalOpen(true)}
                     src={image.url}
                   />
                 ))
               ) : (
-                <ImageNotFound className={s.imgNF} />
+                <ImageNotFound className={s.imgNF} onClick={() => setIsModalOpen(true)} />
               )}
             </div>
 

@@ -125,7 +125,7 @@ export const PostModal = ({ isOpen, onRequestClose, post }: PostModalProps) => {
                 ) : (
                   <div className={s.avatarPlaceholder}>{post.userName.charAt(0).toUpperCase()}</div>
                 )}
-                <Scrollbar className={s.scrollbar} maxHeight={80}>
+                <Scrollbar className={s.scrollbar} maxHeight={78}>
                   <Typography className={s.textDescr} variant={'regular-text-14'}>
                     <strong>{post.userName} </strong> {post.description}
                   </Typography>
