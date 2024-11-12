@@ -163,7 +163,7 @@ export default function Posts(props: Props) {
                         onClick={() => toggleText(post.id)}
                         variant={'small-text'}
                       >
-                        {expandedPosts[post.id] ? 'Hide' : 'Show more'}
+                        {expandedPosts[post.id] ? t.postText.hide : t.postText.show}
                       </Typography>
                     )}
                   </div>

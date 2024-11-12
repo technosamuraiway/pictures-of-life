@@ -302,5 +302,10 @@ export const en: LocaleType = {
     minimumNumber: 'Minimum number of characters',
     password: 'Password must contain',
     username: 'Username must contain',
+    noStartingSpace: 'Field cannot start with a space',
   },
+  postText: {
+    show: 'Show more',
+    hide: 'Hide',
+  }
 }
