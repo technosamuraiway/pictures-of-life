@@ -113,6 +113,10 @@ export const en: LocaleType = {
     september: 'September',
   },
   navBar: {
+    admin:'Admin',
+    usersList:'Users list',
+    paymentsList:'Payments list',
+    postsList:'Posts list',
     create: 'Create',
     favorites: 'Favorites',
     home: 'Home',
@@ -214,6 +218,9 @@ export const en: LocaleType = {
     payments: 'My payments',
     title: 'Settings',
     updateProfileSuccess: 'Your data has been successfully updated!',
+  },
+  signInAdminPage: {
+    errorLogIn: 'Unfortunately, you did not pass the administrator authorization. Please check the entered data and try again.',
   },
   signInPage: {
     accountQuestion: 'Don’t have an account?',

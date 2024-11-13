@@ -29,7 +29,7 @@ function Profile() {
 
       <InfoPanel
         about={profileData?.aboutMe || 'no info'}
-        avatar={profileData?.avatars[0].url || ''}
+        avatar={profileData?.avatars[0]?.url || ''}
         isWithSettingsBtn={isOwnProfile}
         userFollowers={userData?.followersCount || 999}
         userFollowing={userData?.followingCount || 999}
