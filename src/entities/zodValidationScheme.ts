@@ -42,11 +42,13 @@ const email = (email: IEmail) => {
 const password = (password: IPassword) => {
   return z
     .string()
-    .trim()
     .min(6, `${password.minimumNumber} 6`)
     .max(20, `${password.maximumNumber} 20`)
     .regex(passwordRegex, {
       message: `${password.password} 0-9, a-z, A-Z, ! # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^_\` { | } ~`,
+    })
+    .refine(value => !value.startsWith(' '), {
+      message: 'Не должно начинаться',
     })
 }
 

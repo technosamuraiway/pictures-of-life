@@ -11,7 +11,7 @@ import s from './SignInForm.module.scss'
 import { ControlledTextField } from '../../controlled/controlledTextField/ControlledTextField'
 
 interface IProps {
-  buttonDisabled: boolean
+  buttonDisabled?: boolean
   onSubmitSignInForm: (data: SignInFormValues) => void
   textFieldError?: string
 }
@@ -31,7 +31,12 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError 
     },
   }
 
-  const { control, handleSubmit } = useForm<SignInFormValues>({
+  const {
+    control,
+    formState: { isDirty, isValid },
+    handleSubmit,
+    setError,
+  } = useForm<SignInFormValues>({
     defaultValues: {
       email: '',
       password: '',
@@ -48,6 +53,7 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError 
         error={textFieldError}
         label={t.signInPage.email}
         name={'email'}
+        setError={setError}
         type={'email'}
       />
       <ControlledTextField
@@ -68,7 +74,11 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError 
         {t.signInPage.forgotPassword}
       </Typography>
 
-      <Button className={s.submitButton} disabled={buttonDisabled} type={'submit'}>
+      <Button
+        className={s.submitButton}
+        disabled={buttonDisabled || !isValid || !isDirty}
+        type={'submit'}
+      >
         {t.signInPage.signInButton}
       </Button>
     </form>
