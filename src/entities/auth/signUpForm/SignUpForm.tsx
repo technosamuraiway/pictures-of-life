@@ -37,7 +37,13 @@ export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => 
     },
   }
 
-  const { control, handleSubmit, reset } = useForm<SignUpFormValues>({
+  const {
+    control,
+    formState: { isDirty, isValid },
+    handleSubmit,
+    reset,
+    setError,
+  } = useForm<SignUpFormValues>({
     defaultValues: {
       confirmPassword: '',
       email: '',
@@ -60,6 +66,7 @@ export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => 
         label={t.signUpPage.username}
         maxLength={31}
         name={'username'}
+        setError={setError}
         type={'text'}
       />
       <ControlledTextField
@@ -67,6 +74,7 @@ export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => 
         control={control}
         label={t.signUpPage.email}
         name={'email'}
+        setError={setError}
         type={'email'}
       />
       <ControlledTextField
@@ -104,7 +112,11 @@ export const SignUpForm = ({ isButtonDisabled, onSubmitSignUpForm }: IProps) => 
           />
         </Typography>
       </div>
-      <Button className={s.submitButton} disabled={isButtonDisabled} type={'submit'}>
+      <Button
+        className={s.submitButton}
+        disabled={isButtonDisabled || !isDirty || !isValid}
+        type={'submit'}
+      >
         {t.signUpPage.title}
       </Button>
     </form>

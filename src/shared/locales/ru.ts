@@ -333,7 +333,7 @@ export const ru = {
   postText: {
     show: 'Показать',
     hide: 'Скрыть',
-  }
+  },
 }
 
 export type LocaleType = typeof ru
