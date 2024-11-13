@@ -23,8 +23,6 @@ export const PostsLikes = () => {
     skip: !postId,
   })
 
-  console.log(post)
-
   const avatarsWhoLikes = useMemo(() => {
     return post?.avatarWhoLikes.slice(0, 3)
   }, [post])

@@ -22,7 +22,7 @@ export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps
   const t = useRouterLocaleDefinition()
 
   const {
-    formState: { isDirty, isSubmitting },
+    formState: { isDirty, isSubmitting, isValid },
     handleSubmit,
     register,
     reset,
@@ -45,7 +45,7 @@ export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps
     onCommentChange(comment.trim().length > 0)
   }, [comment, onCommentChange])
 
-  const isBtnDisabled = isSubmitting || !isDirty
+  const isBtnDisabled = isSubmitting || !isDirty || !isValid
 
   return (
     <>
