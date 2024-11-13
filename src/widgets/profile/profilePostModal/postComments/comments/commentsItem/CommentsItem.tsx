@@ -2,7 +2,13 @@ import { memo } from 'react'
 
 import { IComment } from '@/services'
 import { useUpdateLikeStatusOfCommentMutation } from '@/services/flow/commentsAnswers.service'
-import { CircleAvatar, Skeleton, TimeAgo, useRouterLocaleDefinition } from '@/shared'
+import {
+  CircleAvatar,
+  RequestLineLoader,
+  Skeleton,
+  TimeAgo,
+  useRouterLocaleDefinition,
+} from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { formatDate } from '@/shared/utils/dateFormatter'
 import { FilledLikeIcon, LikeIcon } from '@public/icons'
@@ -23,6 +29,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   const { avatars, id, username } = from
 
   const isOwnComment = meData?.userId === id
+  const isShow = !isOwnComment && !!meData
 
   const [updateLike, { isLoading: isLoadingLike }] = useUpdateLikeStatusOfCommentMutation()
 
@@ -31,9 +38,10 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   }
 
   function unLikeHandler() {
-    // updateLike({ commentId, likeStatus: 'NONE', postId })
-    console.log('noLike')
+    updateLike({ commentId, likeStatus: 'NONE', postId })
   }
+
+  console.log(comment)
 
   if (!comment) {
     return (
@@ -61,8 +69,9 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
       </div>
       <div className={s.info}>
         <Typography variant={'small-text'}>{TimeAgo(createdAt, t)}</Typography>
-        <Typography variant={'small-text'}>Likes: {likeCount}</Typography>
-        {!isOwnComment && (
+        {!!meData && <Typography variant={'small-text'}>Likes: {likeCount}</Typography>}
+
+        {isShow && (
           <Typography as={'button'} type={'button'} variant={'small-text'}>
             Answer
           </Typography>
@@ -72,10 +81,13 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   )
 
   return (
-    <li className={clsx(className, s.root)}>
-      <CircleAvatar src={avatars[0].url} />
-      {contentItem}
-      {!isOwnComment && icon}
-    </li>
+    <>
+      {isLoadingLike && <RequestLineLoader />}
+      <li className={clsx(className, s.root)}>
+        <CircleAvatar src={avatars[0].url} />
+        {contentItem}
+        {isShow && icon}
+      </li>
+    </>
   )
 })

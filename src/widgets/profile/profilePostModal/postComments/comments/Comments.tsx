@@ -1,5 +1,5 @@
 import { useGetPublicPostCommentsByIdQuery } from '@/services/flow/publicPosts.service'
-import { Skeleton } from '@/shared'
+import { RequestLineLoader, Skeleton } from '@/shared'
 import { Scrollbar } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
@@ -18,11 +18,15 @@ export const Comments = () => {
   )
 
   return (
-    <Scrollbar className={s.root}>
-      <ul className={s.list}>
-        {!isLoading && comments?.items?.map(item => <CommentsItem comment={item} key={item.id} />)}
-        {isLoading && [1, 2, 3].map(skeleton => <Skeleton height={50} key={skeleton} />)}
-      </ul>
-    </Scrollbar>
+    <>
+      {isLoading && <RequestLineLoader />}
+      <Scrollbar className={s.root}>
+        <ul className={s.list}>
+          {!isLoading &&
+            comments?.items?.map(item => <CommentsItem comment={item} key={item.id} />)}
+          {isLoading && [1, 2, 3].map(skeleton => <Skeleton height={50} key={skeleton} />)}
+        </ul>
+      </Scrollbar>
+    </>
   )
 }
