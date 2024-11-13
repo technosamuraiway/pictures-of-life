@@ -333,5 +333,5 @@ export const en: LocaleType = {
   postText: {
     show: 'Show more',
     hide: 'Hide',
-  }
+  },
 }

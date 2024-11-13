@@ -32,8 +32,7 @@ function SignIn() {
       // чтобы пройти AuthGuard
       await me()
 
-      // replace не подадопиться, так как переадрессация будет  в AuthGuard
-
+      // replace не понадобится, так как переадресация будет в AuthGuard
       toast.success(t.signInPage.successLogIn)
     } catch (err: any) {
       if (err.data) {
@@ -50,7 +49,7 @@ function SignIn() {
         <OAuth title={t.signInPage.title} />
 
         <SignInForm
-          // buttonDisabled={SignInIsLoading}
+          buttonDisabled={SignInIsLoading}
           onSubmitSignInForm={onSubmitSignInForm}
           textFieldError={textFieldError}
         />

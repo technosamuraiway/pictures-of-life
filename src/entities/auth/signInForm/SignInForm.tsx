@@ -1,4 +1,3 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ISignIn, SignInFormValues, signInScheme } from '@/entities'
@@ -75,7 +74,11 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError 
         {t.signInPage.forgotPassword}
       </Typography>
 
-      <Button className={s.submitButton} disabled={!isValid || !isDirty} type={'submit'}>
+      <Button
+        className={s.submitButton}
+        disabled={buttonDisabled || !isValid || !isDirty}
+        type={'submit'}
+      >
         {t.signInPage.signInButton}
       </Button>
     </form>
