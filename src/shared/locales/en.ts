@@ -188,6 +188,12 @@ export const en: LocaleType = {
         buttonNo: 'No',
         buttonYes: 'Yes',
       },
+      serverResponses: {
+        createComment: {
+          success: 'Comment successfully created.',
+          error: 'Create comment failed',
+        },
+      },
     },
   },
   profilePage: {

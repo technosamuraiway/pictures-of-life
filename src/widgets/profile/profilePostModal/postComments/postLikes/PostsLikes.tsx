@@ -5,6 +5,7 @@ import {
   useGetPublicPostCommentsByIdQuery,
 } from '@/services/flow/publicPosts.service'
 import { Skeleton, useRouterLocaleDefinition } from '@/shared'
+import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { formatDate } from '@/shared/utils/dateFormatter'
 import { BookmarkIcon, LikeIcon, MessageIcon } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
@@ -15,15 +16,14 @@ import s from './PostsLikes.module.scss'
 
 export const PostsLikes = () => {
   const t = useRouterLocaleDefinition()
-  const { query } = useRouter()
+  const { meData, router } = useMeWithRouter()
+  const { query } = router
 
   const { postId } = query
 
   const { data: post, isLoading } = useGetPublicPostByIdQuery((postId as string) || '', {
     skip: !postId,
   })
-
-  console.log(post)
 
   const avatarsWhoLikes = useMemo(() => {
     return post?.avatarWhoLikes.slice(0, 3)
@@ -72,7 +72,7 @@ export const PostsLikes = () => {
 
   return (
     <div className={s.root}>
-      {iconsBox}
+      {!!meData && iconsBox}
       {contentBox}
     </div>
   )

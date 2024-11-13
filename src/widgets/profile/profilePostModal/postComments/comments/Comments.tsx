@@ -1,5 +1,6 @@
 import { useGetPublicPostCommentsByIdQuery } from '@/services/flow/publicPosts.service'
-import { useRouterLocaleDefinition } from '@/shared'
+import { Skeleton } from '@/shared'
+import { Scrollbar } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './Comments.module.scss'
@@ -7,7 +8,6 @@ import s from './Comments.module.scss'
 import { CommentsItem } from './commentsItem/CommentsItem'
 
 export const Comments = () => {
-  const t = useRouterLocaleDefinition()
   const { query } = useRouter()
 
   const { postId } = query
@@ -18,8 +18,11 @@ export const Comments = () => {
   )
 
   return (
-    <ul className={s.root}>
-      {comments?.items?.map(item => <CommentsItem comment={item} key={item.id} />)}
-    </ul>
+    <Scrollbar className={s.root}>
+      <ul className={s.list}>
+        {!isLoading && comments?.items?.map(item => <CommentsItem comment={item} key={item.id} />)}
+        {isLoading && [1, 2, 3].map(skeleton => <Skeleton height={50} key={skeleton} />)}
+      </ul>
+    </Scrollbar>
   )
 }

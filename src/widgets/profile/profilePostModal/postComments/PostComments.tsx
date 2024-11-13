@@ -1,6 +1,9 @@
 import { memo } from 'react'
+import { toast } from 'react-toastify'
 
+import { useCreateNewCommentMutation } from '@/services/flow/commentsAnswers.service'
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
+import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import clsx from 'clsx'
 
@@ -18,22 +21,28 @@ interface iProps {
 }
 
 export const PostComments = memo(({ className, onCommentChange }: iProps) => {
+  const t = useRouterLocaleDefinition()
   const { isOwnProfile, meData, router } = useMeWithRouter()
 
-  const { userId } = router.query
+  const { postId, userId } = router.query
 
   const isAuthorized = !!meData
 
   const { data: profileData } = useGetPublicUserProfileByIdQuery(userId as string)
+  const [createComment, { isLoading: isCreatingComment }] = useCreateNewCommentMutation()
 
   async function addCommitFormSubmit(data: PostCommentFormZodSchema) {
-    return new Promise(res => {
-      setTimeout(() => res(100), 5000)
-    })
+    try {
+      await createComment({ content: data.comment, postId: Number(postId) }).unwrap()
+      toast.success(t.profile.modal.serverResponses.createComment.success)
+    } catch (e) {
+      toast.error(t.profile.modal.serverResponses.createComment.error)
+    }
   }
 
   return (
     <div className={clsx(s.root, className)}>
+      {isCreatingComment && <RequestLineLoader />}
       <PostCommentsHeader
         avatar={profileData?.avatars[0]?.url || ''}
         isAuthorized={isAuthorized}

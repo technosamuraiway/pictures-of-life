@@ -188,6 +188,12 @@ export const ru = {
         buttonNo: 'Нет',
         buttonYes: 'Да',
       },
+      serverResponses: {
+        createComment: {
+          success: 'Комментарий успешно создан',
+          error: 'Произошла ошибка при создании комментария',
+        },
+      },
     },
   },
   profilePage: {

@@ -1,5 +1,5 @@
 .root {
-  background-color: orange;
+  background-color: #654f2a;
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
@@ -17,4 +17,15 @@
 .username,
 .content {
   display: inline-block;
+}
+
+.text {
+  margin-bottom: 0.32rem;
+}
+
+.info {
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 0.75rem;
+  color: var(--Light-900);
 }
