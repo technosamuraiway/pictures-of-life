@@ -17,7 +17,7 @@ import s from './ProfileForm.module.scss'
 
 interface IProps {
   buttonDisabled: boolean
-  onSubmitProfileForm: (data: ProfileFormValues) => void
+  onSubmitProfileForm: (data: ProfileFormValues) => Promise<void>
 }
 
 export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => {
@@ -25,6 +25,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
 
   const { data: profileData } = useGetProfileQuery()
   const [errorMessage, setErrorMessage] = useState('')
+
   const profileTranslate: IProfile = {
     aboutMe: {
       aboutMe: t.validationSchemes.aboutMe,
@@ -48,19 +49,20 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
     },
   }
 
-  const { control, handleSubmit, register, reset, setValue, watch } = useForm<ProfileFormValues>({
-    defaultValues: {
-      aboutMe: '',
-      city: '',
-      country: '',
-      dateOfBirth: undefined,
-      firstName: '',
-      lastName: '',
-      region: '',
-      userName: '',
-    },
-    resolver: zodResolver(profileValidationScheme(profileTranslate)),
-  })
+  const { control, handleSubmit, register, reset, setError, setValue, watch } =
+    useForm<ProfileFormValues>({
+      defaultValues: {
+        aboutMe: '',
+        city: '',
+        country: '',
+        dateOfBirth: undefined,
+        firstName: '',
+        lastName: '',
+        region: '',
+        userName: '',
+      },
+      resolver: zodResolver(profileValidationScheme(profileTranslate)),
+    })
 
   useEffect(() => {
     if (profileData) {
@@ -77,25 +79,13 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
     }
   }, [profileData, reset])
 
-  const onSubmitFormHandler = (data: ProfileFormValues) => {
-    const formattedData = {
-      ...data,
-      aboutMe: data.aboutMe || '',
-      city: data.city || '',
-      country: data.country || '',
-      dateOfBirth: data.dateOfBirth || undefined,
-      region: data.region || '',
-    }
-
-    onSubmitProfileForm(formattedData)
+  const onSubmitFormHandler = async (data: ProfileFormValues) => {
+    await onSubmitProfileForm(data)
   }
 
   const userName = watch('userName')
   const firstName = watch('firstName')
   const lastName = watch('lastName')
-  const country = watch('country')
-  const region = watch('region')
-  const city = watch('city')
   const isButtonDisabled = !userName || !firstName || !lastName || !!errorMessage
 
   return (
@@ -105,6 +95,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         control={control}
         label={t.settingsPage.infoForm.userName}
         name={'userName'}
+        setError={setError}
         type={'text'}
         withStar
       />
@@ -113,6 +104,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         control={control}
         label={t.settingsPage.infoForm.firstName}
         name={'firstName'}
+        setError={setError}
         type={'text'}
         withStar
       />
@@ -121,6 +113,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         control={control}
         label={t.settingsPage.infoForm.lastName}
         name={'lastName'}
+        setError={setError}
         type={'text'}
         withStar
       />
@@ -134,9 +127,9 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
       />
 
       <CountryCitySelect
-        defaultCityValue={city}
-        defaultCountryValue={country}
-        defaultStateValue={region}
+        defaultCityValue={watch('city')}
+        defaultCountryValue={watch('country')}
+        defaultStateValue={watch('region')}
         onCityChange={cityName => setValue('city', cityName)}
         onCountryChange={countryName => setValue('country', countryName)}
         onStateChange={stateName => setValue('region', stateName)}

@@ -144,6 +144,8 @@ export const ru = {
     qustionAboutDelete: 'Вы действительно хотите удалить этот пост?',
     regUsers: 'Зарегистрированные пользователи:',
     successfulDeletePost: 'Вы успешно удалили этот пост',
+    successfulErrorMesseng: 'Не удалось загрузить комментарии',
+    successfulPostLoading: 'Что-то пошло не так...',
   },
   privacyPolicy: {
     backToProfile: 'Вернуться к заполнению профиля',
@@ -191,7 +193,27 @@ export const ru = {
       noOtherSessionsText: 'Вы еще не вошли в систему с других устройств',
       tabHeader: 'Текущие устройство',
       terminateButton: 'Завершить все остальные сеансы',
-      tittle: 'Устройства',
+      title: 'Устройства',
+    },
+    management: {
+      title: 'Управление аккаунтом',
+      accountType: 'Тип аккаунта',
+      personalType: 'Персональный',
+      businessType: 'Бизнес',
+      subscriptionCost: 'Ваши расходы по подписке',
+      priceDay: 'за 1 день',
+      price7Day: 'за 7 дней',
+      priceMonth: 'в месяц',
+      or: 'Или',
+    },
+    payments: {
+      myPayments: 'Мои платежи',
+      emptyList: 'Подписки отсутствуют',
+      dateOfPayment: 'Дата платежа',
+      endDateOfSubscription: 'Дата окончания подписки',
+      price: 'Цена',
+      subscriptionType: 'Тип подписки',
+      paymentType: 'Тип оплаты',
     },
     general: 'Общая информация',
     infoForm: {
@@ -213,10 +235,16 @@ export const ru = {
       textAreaPlace: 'Расскажите нам что-нибудь о себе...',
       userName: 'Имя пользователя',
     },
-    management: 'Управление аккаунтом',
-    payments: 'Мои платежи',
     title: 'Настройки',
     updateProfileSuccess: 'Ваши данные были успешно обновлены!',
+    modal: {
+      success: 'Успех',
+      successMessage: 'Платеж был успешно осуществлен!',
+      successStep: 'OK',
+      error: 'Ошибка',
+      errorMessage: 'Операция не удалась. Пожалуйста, напишите в поддержку',
+      errorStep: 'Назад к оплате',
+    },
   },
   signInAdminPage: {
     errorLogIn:
@@ -308,6 +336,11 @@ export const ru = {
     minimumNumber: 'Минимальное число символов',
     password: 'Пароль должен состоять из',
     username: 'Имя пользователя должно состоять из',
+    noStartingSpace: 'Поле не может начинаться с пробела',
+  },
+  postText: {
+    show: 'Показать',
+    hide: 'Скрыть',
   },
 }
 

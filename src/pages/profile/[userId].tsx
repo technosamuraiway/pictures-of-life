@@ -6,6 +6,7 @@ import {
   getLayoutWithNav,
   useProfilePage,
 } from '@/widgets'
+import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
 
 function Profile() {
   const {
