@@ -10,6 +10,7 @@ import {
   IPostsByNameResponse,
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
+  UpdatePostLikeStatusArgs,
 } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
@@ -102,6 +103,18 @@ export const postService = inctagramApi.injectEndpoints({
           return `${endpointName}-${queryArgs.userId}`
         },
       }),
+      updatePostLikeStatus: builder.mutation<void, UpdatePostLikeStatusArgs>({
+        invalidatesTags: ['Posts'],
+        query: args => {
+          const { likeStatus, postId } = args
+
+          return {
+            body: { likeStatus },
+            method: 'PUT',
+            url: `/v1/posts/${postId}/like-status`,
+          }
+        },
+      }),
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
         query: ({ files }) => {
           const formData = new FormData()
@@ -129,6 +142,7 @@ export const {
   useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
   useLazyGetUserPublicPostsQuery,
+  useUpdatePostLikeStatusMutation,
   useUploadImagesForPostMutation,
   // useGetUserProfileByUserNameQuery,
 } = postService

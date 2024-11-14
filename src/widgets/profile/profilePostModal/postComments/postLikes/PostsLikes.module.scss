@@ -49,3 +49,11 @@
 .date {
   color: var(--Light-900);
 }
+
+.likeIcon {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--Warning-700);
+  }
+}

@@ -41,10 +41,10 @@ export const PostModalHeaderDropdownDotsMenu = ({ userName }: IProps) => {
     }
 
     try {
-      await unfollow({ userId: Number(userId) })
-      toast.success('Unfollowed')
+      await unfollow({ userId: Number(userId) }).unwrap()
+      toast.success(t.profile.modal.headerDropdownDotsMenu.unfollowSuccess)
     } catch (error) {
-      toast.error('wrong')
+      toast.error(t.profile.modal.headerDropdownDotsMenu.unfollowError)
     }
   }
 

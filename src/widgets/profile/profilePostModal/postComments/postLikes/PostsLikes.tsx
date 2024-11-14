@@ -1,16 +1,13 @@
 import { useMemo } from 'react'
 
-import {
-  useGetPublicPostByIdQuery,
-  useGetPublicPostCommentsByIdQuery,
-} from '@/services/flow/publicPosts.service'
-import { Skeleton, useRouterLocaleDefinition } from '@/shared'
+import { useUpdatePostLikeStatusMutation } from '@/services'
+import { useGetPublicPostByIdQuery } from '@/services/flow/publicPosts.service'
+import { RequestLineLoader, Skeleton, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { formatDate } from '@/shared/utils/dateFormatter'
 import { BookmarkIcon, LikeIcon, MessageIcon } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 import s from './PostsLikes.module.scss'
 
@@ -21,9 +18,21 @@ export const PostsLikes = () => {
 
   const { postId } = query
 
-  const { data: post, isLoading } = useGetPublicPostByIdQuery((postId as string) || '', {
-    skip: !postId,
-  })
+  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(
+    (postId as string) || '',
+    {
+      skip: !postId,
+    }
+  )
+  const [putLike, { isLoading: isPutLikeLoading }] = useUpdatePostLikeStatusMutation()
+
+  function likeHandler() {
+    if (!postId) {
+      return
+    }
+
+    putLike({ likeStatus: 'LIKE', postId: Number(postId) })
+  }
 
   const avatarsWhoLikes = useMemo(() => {
     return post?.avatarWhoLikes.slice(0, 3)
@@ -39,7 +48,7 @@ export const PostsLikes = () => {
 
   const iconsBox = (
     <div className={s.iconsBox}>
-      <LikeIcon />
+      <LikeIcon className={s.likeIcon} onClick={likeHandler} />
       <MessageIcon />
       <BookmarkIcon />
     </div>
@@ -48,9 +57,9 @@ export const PostsLikes = () => {
   const contentBox = (
     <div className={s.contentBox}>
       <div className={s.likes}>
-        {isLoading ? <Skeleton height={20} width={60} /> : avatars}
+        {isPostLoading ? <Skeleton height={20} width={60} /> : avatars}
 
-        {isLoading ? (
+        {isPostLoading ? (
           <Skeleton height={20} width={60} />
         ) : (
           <span>
@@ -60,7 +69,7 @@ export const PostsLikes = () => {
         )}
       </div>
 
-      {isLoading ? (
+      {isPostLoading ? (
         <Skeleton height={10} width={60} />
       ) : (
         <Typography className={s.date} variant={'small-text'}>
@@ -71,9 +80,12 @@ export const PostsLikes = () => {
   )
 
   return (
-    <div className={s.root}>
-      {!!meData && iconsBox}
-      {contentBox}
-    </div>
+    <>
+      {isPutLikeLoading && <RequestLineLoader />}
+      <div className={s.root}>
+        {!!meData && iconsBox}
+        {contentBox}
+      </div>
+    </>
   )
 }

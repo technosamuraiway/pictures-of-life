@@ -34,10 +34,17 @@ export function useProfilePage() {
   )
 
   // кешированный массив постов
-  const postsArray = useMemo(
-    () => postsData?.items.map(item => ({ id: item.id, images: item.images })) || [],
-    [postsData]
-  )
+  const postsArray = useMemo(() => {
+    const posts = postsData?.items.map(item => ({ id: item.id, images: item.images })) || []
+
+    /* при удалении нужно будет валидировать посты, но мы запрашиваем их по событию,
+     * поэтому нужно будет делать повторный запрос, а для этого нужно знать сколько постов подтягивать
+     * => invalidateTags не работает в этом случае
+     * */
+    sessionStorage.setItem('postsNumber', JSON.stringify(posts.length))
+
+    return posts
+  }, [postsData])
 
   // кешированный ассоциативный массив
   const postsAssociativeArray = useMemo(() => {

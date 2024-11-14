@@ -92,3 +92,8 @@ export interface IAvatar {
   url: string
   width: number
 }
+
+export type UpdatePostLikeStatusArgs = {
+  likeStatus: 'DISLIKE' | 'LIKE' | 'NONE'
+  postId: number
+}
