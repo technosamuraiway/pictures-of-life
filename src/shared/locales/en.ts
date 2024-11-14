@@ -175,6 +175,9 @@ export const en: LocaleType = {
       headerDropdownDotsMenu: {
         unfollow: 'Unfollow',
         copyLink: 'Copy link',
+        successLinkCopied: 'Link copied',
+        unfollowConfirmation: 'Do you really want to Unfollow from this user',
+        unfollowModalTitle: 'Unfollow',
       },
       headerDropdownOwnDotsMenu: {
         edit: 'Edit Post',

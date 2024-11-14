@@ -28,7 +28,7 @@ export const PostCommentsHeader = memo(
           {userName}
         </Typography>
         {isOwnProfile && <PostModalHeaderOwnDropdownDotsMenu />}
-        {isFriendPost && <PostModalHeaderDropdownDotsMenu />}
+        {isFriendPost && <PostModalHeaderDropdownDotsMenu userName={userName} />}
       </div>
     )
   }

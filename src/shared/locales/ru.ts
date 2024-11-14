@@ -174,6 +174,9 @@ export const ru = {
       headerDropdownDotsMenu: {
         unfollow: 'Отписаться',
         copyLink: 'Скопировать ссылку',
+        successLinkCopied: 'Ссылка скопирована',
+        unfollowConfirmation: 'Вы действительно хотите отписаться от пользователя',
+        unfollowModalTitle: 'Отписаться от пользователя',
       },
       headerDropdownOwnDotsMenu: {
         edit: 'Редактировать Публикацию',
