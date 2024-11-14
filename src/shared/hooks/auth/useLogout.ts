@@ -21,6 +21,7 @@ export function useLogout() {
 
   const logoutPurification = () => {
     localStorage.removeItem('accessToken')
+    sessionStorage.removeItem('verificationAdmin')
     dispatch(inctagramApi.util.resetApiState())
     // router.replace(PATH.AUTH.SIGNIN)
     toast.info(t.logOut.logOutSuccess)

@@ -61,7 +61,7 @@ function SignInAdmin() {
       if (response?.data.loginAdmin?.logged) {
         toast.success(t.signInPage.successLogIn)
         reset()
-        localStorage.setItem('verificationAdmin', response?.data.loginAdmin?.logged)
+        sessionStorage.setItem('verificationAdmin', response?.data.loginAdmin?.logged)
         router.push('/admin')
       } else {
         reset()
