@@ -187,6 +187,9 @@ export const ru = {
         deleteError: 'Удалить пост не получилось, попробуйте еще раз',
         deleteConfirmation: 'Вы действительно хотите удалить пост',
         deleteModalTitle: 'Удаление поста',
+        editDescription: {
+          headerTitle: 'Редактирование публикации',
+        },
       },
       addComment: 'Опубликовать',
       commentPlaceholder: 'Добавить Комментарий',

@@ -10,7 +10,6 @@ import {
   useRouterLocaleDefinition,
 } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
-import { formatDate } from '@/shared/utils/dateFormatter'
 import { FilledLikeIcon, LikeIcon } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
@@ -40,8 +39,6 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   function unLikeHandler() {
     updateLike({ commentId, likeStatus: 'NONE', postId })
   }
-
-  console.log(comment)
 
   if (!comment) {
     return (

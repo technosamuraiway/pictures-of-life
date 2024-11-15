@@ -47,7 +47,7 @@ export const PostComments = memo(({ className, onCommentChange }: iProps) => {
         avatar={profileData?.avatars[0]?.url || ''}
         isAuthorized={isAuthorized}
         isOwnProfile={isOwnProfile}
-        userName={profileData?.userName || 'no info'}
+        userName={profileData?.userName || ''}
       />
 
       <Comments />

@@ -1,41 +1,24 @@
-import { useState } from 'react'
-import { toast } from 'react-toastify'
-
-import { useDeletePostMutation, useLazyGetUserPublicPostsQuery } from '@/services'
-import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { RequestLineLoader } from '@/shared'
 import { ConfirmationModal } from '@/widgets/profile/components/confirmationModal/confirmationModal'
 import { DropdownDotsIcon } from '@public/DropdownDotsIcon'
 import { DeleteIcon, EditIcon } from '@public/icons'
 import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
 
 import s from '../postModalHeaderDropdownDotsMenu/PostModalHeaderDropdownDotsMenu.module.scss'
 
+import { useHeaderOwnDropdownDotsMenu } from './useHeaderOwnDropdownDotsMenu'
+
 export const PostModalHeaderOwnDropdownDotsMenu = () => {
-  const t = useRouterLocaleDefinition()
-  const { query } = useRouter()
-  const { postId, userId } = query
-  const [isOpen, setIsOPen] = useState(false)
-  const [deletePost, { isLoading }] = useDeletePostMutation()
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false)
-
-  const [getPostsTrigger] = useLazyGetUserPublicPostsQuery()
-
-  async function deletePostRequestHandler() {
-    const allPostsLength = sessionStorage.getItem('postsNumber')
-
-    try {
-      await deletePost(Number(postId))
-
-      if (allPostsLength) {
-        await getPostsTrigger({ pageSize: Number(allPostsLength), userId: Number(userId) })
-      }
-
-      toast.success(t.profile.modal.headerDropdownOwnDotsMenu.deleteSuccess)
-    } catch (error) {
-      toast.error(t.profile.modal.headerDropdownOwnDotsMenu.deleteError)
-    }
-  }
+  const {
+    deletePostRequestHandler,
+    isConfirmationModalOpen,
+    isLoading,
+    isOpen,
+    openEditModal,
+    setIsConfirmationModalOpen,
+    setIsOPen,
+    t,
+  } = useHeaderOwnDropdownDotsMenu()
 
   return (
     <>
@@ -47,7 +30,7 @@ export const PostModalHeaderOwnDropdownDotsMenu = () => {
         trigger={<DropdownDotsIcon />}
         withArrow={false}
       >
-        <Dropdown.Item className={s.item}>
+        <Dropdown.Item className={s.item} onClick={openEditModal}>
           <EditIcon />
           <Typography variant={'regular-text-14'}>
             {t.profile.modal.headerDropdownOwnDotsMenu.edit}

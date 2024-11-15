@@ -53,6 +53,10 @@
 .likeIcon {
   cursor: pointer;
 
+  &Filled {
+    color: red;
+  }
+
   &:hover {
     color: var(--Warning-700);
   }

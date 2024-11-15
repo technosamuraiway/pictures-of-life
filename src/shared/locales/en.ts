@@ -188,6 +188,9 @@ export const en: LocaleType = {
         deleteError: 'Post deletion failed, try again',
         deleteConfirmation: 'Do you really want to delete this post?',
         deleteModalTitle: 'Post deletion',
+        editDescription: {
+          headerTitle: 'EditPost',
+        },
       },
       addComment: 'Publish',
       commentPlaceholder: 'Add a Comment',

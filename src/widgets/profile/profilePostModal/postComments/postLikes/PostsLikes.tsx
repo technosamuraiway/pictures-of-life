@@ -5,7 +5,7 @@ import { useGetPublicPostByIdQuery } from '@/services/flow/publicPosts.service'
 import { RequestLineLoader, Skeleton, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { formatDate } from '@/shared/utils/dateFormatter'
-import { BookmarkIcon, LikeIcon, MessageIcon } from '@public/icons'
+import { BookmarkIcon, FilledLikeIcon, LikeIcon, MessageIcon } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
 
@@ -30,13 +30,21 @@ export const PostsLikes = () => {
     if (!postId) {
       return
     }
-
     putLike({ likeStatus: 'LIKE', postId: Number(postId) })
+  }
+
+  function unLikeHandler() {
+    if (!postId) {
+      return
+    }
+    putLike({ likeStatus: 'NONE', postId: Number(postId) })
   }
 
   const avatarsWhoLikes = useMemo(() => {
     return post?.avatarWhoLikes.slice(0, 3)
   }, [post])
+
+  console.log(post)
 
   const avatars = !!avatarsWhoLikes?.length && (
     <div className={s.avatarsBox}>
@@ -48,7 +56,17 @@ export const PostsLikes = () => {
 
   const iconsBox = (
     <div className={s.iconsBox}>
-      <LikeIcon className={s.likeIcon} onClick={likeHandler} />
+      {post?.isLiked ? (
+        <FilledLikeIcon
+          className={(s.likeIcon, s.likeIconFilled)}
+          height={24}
+          onClick={unLikeHandler}
+          width={24}
+        />
+      ) : (
+        <LikeIcon className={s.likeIcon} onClick={likeHandler} />
+      )}
+
       <MessageIcon />
       <BookmarkIcon />
     </div>

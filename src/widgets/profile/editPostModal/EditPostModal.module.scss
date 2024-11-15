@@ -1,0 +1,10 @@
+.root.root {
+  height: 35.25rem;
+
+  display: flex;
+  flex-flow: row nowrap;
+
+  &:focus-visible {
+    outline: none;
+  }
+}

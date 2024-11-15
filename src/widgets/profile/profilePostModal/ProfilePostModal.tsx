@@ -48,7 +48,9 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
           postId={Number(postId)}
           rootCN={s.postsItem}
         />
+
         <PostComments className={s.postComments} onCommentChange={setCloseWithNotifyNotify} />
+
         <CloseIcon className={s.closeIcon} onClick={close} />
       </Modal>
 

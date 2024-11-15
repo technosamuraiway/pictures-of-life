@@ -9,7 +9,7 @@ const publicPostsService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
       getPublicPostById: builder.query<GetPublicUserPostByIdResponse, string>({
-        providesTags: ['Comments'],
+        providesTags: ['Posts'],
         query: postId => {
           return {
             method: 'GET',
