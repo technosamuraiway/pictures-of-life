@@ -97,3 +97,8 @@ export type UpdatePostLikeStatusArgs = {
   likeStatus: 'DISLIKE' | 'LIKE' | 'NONE'
   postId: number
 }
+
+export type ChangePostDescriptionArgs = {
+  description: string
+  postId: number
+}

@@ -7,7 +7,9 @@ import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { formatDate } from '@/shared/utils/dateFormatter'
 import { BookmarkIcon, FilledLikeIcon, LikeIcon, MessageIcon } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
+import clsx from 'clsx'
 import Image from 'next/image'
+import mockAvatar from 'public/mockAvatar.png'
 
 import s from './PostsLikes.module.scss'
 
@@ -40,15 +42,16 @@ export const PostsLikes = () => {
     putLike({ likeStatus: 'NONE', postId: Number(postId) })
   }
 
+  const mockImages = [mockAvatar, mockAvatar, mockAvatar]
+
+  // не работает пока
   const avatarsWhoLikes = useMemo(() => {
     return post?.avatarWhoLikes.slice(0, 3)
   }, [post])
 
-  console.log(post)
-
-  const avatars = !!avatarsWhoLikes?.length && (
+  const avatars = !!mockImages?.length && (
     <div className={s.avatarsBox}>
-      {avatarsWhoLikes?.map((avatar, index) => (
+      {mockImages?.map((avatar, index) => (
         <Image alt={`User avatar ${index + 1}`} className={s.avatar} key={index} src={avatar} />
       ))}
     </div>
@@ -58,7 +61,7 @@ export const PostsLikes = () => {
     <div className={s.iconsBox}>
       {post?.isLiked ? (
         <FilledLikeIcon
-          className={(s.likeIcon, s.likeIconFilled)}
+          className={clsx(s.likeIcon, s.likeIconFilled)}
           height={24}
           onClick={unLikeHandler}
           width={24}

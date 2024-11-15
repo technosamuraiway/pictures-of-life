@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { useDeletePostMutation, useLazyGetUserPublicPostsQuery } from '@/services'
-import { PATH, useRouterLocaleDefinition } from '@/shared'
+import { useRouterLocaleDefinition } from '@/shared'
 import { useRouter } from 'next/router'
 
 export function useHeaderOwnDropdownDotsMenu() {
@@ -31,19 +31,11 @@ export function useHeaderOwnDropdownDotsMenu() {
     }
   }
 
-  function openEditModal() {
-    push({
-      pathname: `${PATH.PROFILE.BASEPROFILE}/${query.userId}`,
-      query: { editPost: true, postId },
-    })
-  }
-
   return {
     deletePostRequestHandler,
     isConfirmationModalOpen,
     isLoading,
     isOpen,
-    openEditModal,
     setIsConfirmationModalOpen,
     setIsOPen,
     t,

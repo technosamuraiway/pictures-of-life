@@ -55,7 +55,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   )
 
   const contentItem = (
-    <div className={s.content}>
+    <div className={clsx(s.content, !isShow && s.contentWithoutLike)}>
       <div className={s.text}>
         <Typography className={s.username} variant={'bold-text-14'}>
           {username}

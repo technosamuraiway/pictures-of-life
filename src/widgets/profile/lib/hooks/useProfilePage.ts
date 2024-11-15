@@ -47,7 +47,7 @@ export function useProfilePage() {
   }, [postsData])
 
   // кешированный ассоциативный массив
-  const postsAssociativeArray = useMemo(() => {
+  const postsImagesAssociativeArray = useMemo(() => {
     return (
       postsData?.items.reduce((acc, post) => {
         acc[post.id] = post.images
@@ -65,7 +65,7 @@ export function useProfilePage() {
     isProfileLoading,
     isUserDataLoading,
     postsArray,
-    postsAssociativeArray,
+    postsImagesAssociativeArray,
     profileData,
     ref,
     userData,

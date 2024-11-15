@@ -1,5 +1,6 @@
 import { RequestLineLoader } from '@/shared'
 import { ConfirmationModal } from '@/widgets/profile/components/confirmationModal/confirmationModal'
+import { useEditProfileModalStore } from '@/widgets/profile/profilePostModal/editProfileModal/useEditProfileModalStore'
 import { DropdownDotsIcon } from '@public/DropdownDotsIcon'
 import { DeleteIcon, EditIcon } from '@public/icons'
 import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
@@ -14,11 +15,12 @@ export const PostModalHeaderOwnDropdownDotsMenu = () => {
     isConfirmationModalOpen,
     isLoading,
     isOpen,
-    openEditModal,
     setIsConfirmationModalOpen,
     setIsOPen,
     t,
   } = useHeaderOwnDropdownDotsMenu()
+
+  const { onChange } = useEditProfileModalStore()
 
   return (
     <>
@@ -30,7 +32,7 @@ export const PostModalHeaderOwnDropdownDotsMenu = () => {
         trigger={<DropdownDotsIcon />}
         withArrow={false}
       >
-        <Dropdown.Item className={s.item} onClick={openEditModal}>
+        <Dropdown.Item className={s.item} onClick={() => onChange(true)}>
           <EditIcon />
           <Typography variant={'regular-text-14'}>
             {t.profile.modal.headerDropdownOwnDotsMenu.edit}

@@ -6,7 +6,6 @@ import {
   getLayoutWithNav,
   useProfilePage,
 } from '@/widgets'
-import { EditPostModal } from '@/widgets/profile/editPostModal/EditPostModal'
 
 function Profile() {
   const {
@@ -17,7 +16,7 @@ function Profile() {
     isProfileLoading,
     isUserDataLoading,
     postsArray,
-    postsAssociativeArray,
+    postsImagesAssociativeArray,
     profileData,
     ref,
     userData,
@@ -48,9 +47,7 @@ function Profile() {
 
       <div ref={ref} style={{ height: '20px', width: '100%' }} />
 
-      <ProfilePostModal postsAssociativeArray={postsAssociativeArray} />
-
-      <EditPostModal />
+      <ProfilePostModal postsImagesAssociativeArray={postsImagesAssociativeArray} />
     </>
   )
 }

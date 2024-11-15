@@ -9,13 +9,22 @@ interface IProps {
   cbOnConfirm?: () => Promise<void>
   confirmMessage: string
   headerTitle: string
+  isCloseToPrevious?: boolean
   onOpenChange: (open: boolean) => void
   open: boolean
   overlayClassName?: string
 }
 
 export const ConfirmationModal = memo(
-  ({ cbOnConfirm, confirmMessage, headerTitle, onOpenChange, open, overlayClassName }: IProps) => {
+  ({
+    cbOnConfirm,
+    confirmMessage,
+    headerTitle,
+    isCloseToPrevious,
+    onOpenChange,
+    open,
+    overlayClassName,
+  }: IProps) => {
     const t = useRouterLocaleDefinition()
     const { push, query } = useRouter()
 
@@ -24,6 +33,11 @@ export const ConfirmationModal = memo(
         await cbOnConfirm()
       }
       onOpenChange(false)
+
+      if (isCloseToPrevious) {
+        return
+      }
+
       push({ pathname: `${PATH.PROFILE.BASEPROFILE}/${query.userId}` })
     }
 

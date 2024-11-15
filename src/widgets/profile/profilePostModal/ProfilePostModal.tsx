@@ -4,20 +4,24 @@ import { useRouterLocaleDefinition } from '@/shared'
 import { PostsAssociativeArray } from '@/widgets'
 import { ConfirmationModal } from '@/widgets/profile/components/confirmationModal/confirmationModal'
 import { PostsItem } from '@/widgets/profile/components/postsItem/PostsItem'
+import { EditProfileModal } from '@/widgets/profile/profilePostModal/editProfileModal/EditProfileModal'
 import { CloseIcon } from '@public/icons'
 import { Modal } from '@technosamurai/techno-ui-kit'
 
 import s from './ProfilePostModal.module.scss'
 
 import { useProfilePostModal } from '../lib/hooks/useProfilePostModal'
+import { useEditProfileModalStore } from './editProfileModal/useEditProfileModalStore'
 import { PostComments } from './postComments/PostComments'
 
 interface IProps {
-  postsAssociativeArray: PostsAssociativeArray
+  postsImagesAssociativeArray: PostsAssociativeArray
 }
 
-export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
+export const ProfilePostModal = memo(({ postsImagesAssociativeArray }: IProps) => {
   const t = useRouterLocaleDefinition()
+
+  const { isOpen } = useEditProfileModalStore()
 
   const {
     close,
@@ -42,7 +46,7 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
         showHeader={false}
       >
         <PostsItem
-          images={postsAssociativeArray[postId as string]}
+          images={postsImagesAssociativeArray[postId as string]}
           imgHeight={562}
           imgWidth={490}
           postId={Number(postId)}
@@ -51,7 +55,7 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
 
         <PostComments className={s.postComments} onCommentChange={setCloseWithNotifyNotify} />
 
-        <CloseIcon className={s.closeIcon} onClick={close} />
+        {!isOpen && <CloseIcon className={s.closeIcon} onClick={close} />}
       </Modal>
 
       {/* close confirmation */}
@@ -61,6 +65,12 @@ export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
         onOpenChange={setConfirmationModal}
         open={confirmationModal}
         overlayClassName={s.confirmationModalOverlay}
+      />
+
+      {/* open editPost modal */}
+      <EditProfileModal
+        images={postsImagesAssociativeArray[postId as string]}
+        postId={postId as string}
       />
     </>
   )
