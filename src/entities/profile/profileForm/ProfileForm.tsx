@@ -49,19 +49,20 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
     },
   }
 
-  const { control, handleSubmit, register, reset, setValue, watch } = useForm<ProfileFormValues>({
-    defaultValues: {
-      aboutMe: '',
-      city: '',
-      country: '',
-      dateOfBirth: undefined,
-      firstName: '',
-      lastName: '',
-      region: '',
-      userName: '',
-    },
-    resolver: zodResolver(profileValidationScheme(profileTranslate)),
-  })
+  const { control, handleSubmit, register, reset, setError, setValue, watch } =
+    useForm<ProfileFormValues>({
+      defaultValues: {
+        aboutMe: '',
+        city: '',
+        country: '',
+        dateOfBirth: undefined,
+        firstName: '',
+        lastName: '',
+        region: '',
+        userName: '',
+      },
+      resolver: zodResolver(profileValidationScheme(profileTranslate)),
+    })
 
   useEffect(() => {
     if (profileData) {
@@ -94,6 +95,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         control={control}
         label={t.settingsPage.infoForm.userName}
         name={'userName'}
+        setError={setError}
         type={'text'}
         withStar
       />
@@ -102,6 +104,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         control={control}
         label={t.settingsPage.infoForm.firstName}
         name={'firstName'}
+        setError={setError}
         type={'text'}
         withStar
       />
@@ -110,6 +113,7 @@ export const ProfileForm = ({ buttonDisabled, onSubmitProfileForm }: IProps) => 
         control={control}
         label={t.settingsPage.infoForm.lastName}
         name={'lastName'}
+        setError={setError}
         type={'text'}
         withStar
       />

@@ -21,7 +21,9 @@ interface INumberRange {
 interface IPassword extends INumberRange {
   password: string
 }
-
+interface IPasswordAdmin extends INumberRange {
+  password: string
+}
 interface IUserName extends INumberRange {
   username: string
 }
@@ -38,15 +40,19 @@ interface IAboutMe extends INumberRange {
 const email = (email: IEmail) => {
   return z.string().trim().min(1, email.emailRequired).email({ message: email.emailScheme })
 }
-
+const passwordAdmin = (password: IPassword) => {
+  return z.string().trim()
+}
 const password = (password: IPassword) => {
   return z
     .string()
-    .trim()
     .min(6, `${password.minimumNumber} 6`)
     .max(20, `${password.maximumNumber} 20`)
     .regex(passwordRegex, {
       message: `${password.password} 0-9, a-z, A-Z, ! # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^_\` { | } ~`,
+    })
+    .refine(value => !value.startsWith(' '), {
+      message: 'Не должно начинаться',
     })
 }
 
@@ -98,7 +104,10 @@ export interface ISignIn {
   email: IEmail
   password: IPassword
 }
-
+export interface ISignInAdmin {
+  email: IEmail
+  password: IPasswordAdmin
+}
 export interface IForgotPassword {
   email: IEmail
   recaptcha?: string
@@ -160,7 +169,12 @@ export const signInScheme = (signIn: ISignIn) => {
     password: password(signIn.password),
   })
 }
-
+export const signInAdminScheme = (signInAdmin: ISignInAdmin) => {
+  return z.object({
+    email: email(signInAdmin.email),
+    password: passwordAdmin(signInAdmin.password),
+  })
+}
 export const profileValidationScheme = (profile: IProfile) => {
   return z.object({
     aboutMe: aboutMe(profile.aboutMe),
