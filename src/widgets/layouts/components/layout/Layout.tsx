@@ -45,6 +45,8 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Header
+        additionalLogoText={router.pathname.includes('/admin') ? 'Super' : ''}
+        additionalLogoTextBold={router.pathname.includes('/admin') ? 'Admin' : ''}
         changeLanguageBtn={changeLanguageBtnHandler}
         changeLanguageBtnCurrentValue={langValue}
         changeLanguageBtnOptions={languageSelectOptions}
@@ -56,7 +58,6 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         signUpBtnChildren={t.publicButtons.signUp}
         withAuthButtons={isWithButtons}
       />
-
       <div className={s.scrollContainer}>
         <div className={s.container}>{children}</div>
       </div>

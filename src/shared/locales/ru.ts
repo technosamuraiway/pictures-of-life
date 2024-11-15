@@ -112,6 +112,10 @@ export const ru = {
     september: 'Сентябрь',
   },
   navBar: {
+    admin: 'Админ',
+    usersList: 'Список пользователей',
+    paymentsList: 'Cписок платежей',
+    postsList: 'Список постов',
     create: 'Создать',
     favorites: 'Любимое',
     home: 'Домой',
@@ -241,6 +245,10 @@ export const ru = {
       errorMessage: 'Операция не удалась. Пожалуйста, напишите в поддержку',
       errorStep: 'Назад к оплате',
     },
+  },
+  signInAdminPage: {
+    errorLogIn:
+      'К сожалению, вы не прошли авторизацию как администратор. Пожалуйста, проверьте введенные данные и попробуйте снова.',
   },
   signInPage: {
     accountQuestion: 'У вас нет аккаунта?',

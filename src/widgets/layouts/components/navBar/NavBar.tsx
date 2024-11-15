@@ -100,8 +100,54 @@ export function NavBar() {
       isDisabled: false,
       text: t.navBar.favorites,
     },
+    {
+      activeIconComponent: <ActiveFavoritesIcon />,
+      altText: `${t.navBar.admin} Icon`,
+      defaultIconComponent: <DefaultFavoritesIcon />,
+      hrefLink: '/auth/signIn-admin',
+      id: 259,
+      isDisabled: false,
+      text: t.navBar.admin,
+    },
   ]
-
+  const adminNavbarItems: NavItem[] = [
+    {
+      activeIconComponent: <ActiveProfileIcon />,
+      altText: `${t.navBar.usersList} Icon`,
+      defaultIconComponent: <DefaultStatisticsIcon />,
+      hrefLink: '',
+      id: 1,
+      isDisabled: false,
+      text: t.navBar.usersList,
+    },
+    {
+      activeIconComponent: <ActiveFavoritesIcon />,
+      altText: `${t.navBar.statistics} Icon`,
+      defaultIconComponent: <DefaultFavoritesIcon />,
+      hrefLink: '',
+      id: 2,
+      isDisabled: false,
+      text: t.navBar.statistics,
+    },
+    {
+      activeIconComponent: <ActiveFavoritesIcon />,
+      altText: `${t.navBar.paymentsList} Icon`,
+      defaultIconComponent: <DefaultFavoritesIcon />,
+      hrefLink: '',
+      id: 3,
+      isDisabled: false,
+      text: t.navBar.paymentsList,
+    },
+    {
+      activeIconComponent: <ActiveFavoritesIcon />,
+      altText: `${t.navBar.postsList} Icon`,
+      defaultIconComponent: <DefaultFavoritesIcon />,
+      hrefLink: '',
+      id: 4,
+      isDisabled: false,
+      text: t.navBar.postsList,
+    },
+  ]
   // ------ Работа с навигацией -------
   const activeConditionFunctionHandler = (itemPath: string) => {
     if (itemPath === PATH.HOME) {
@@ -128,22 +174,43 @@ export function NavBar() {
     setOpenModal(false)
   }
 
+  const handleRedirectSignInAdmin = (el: NavItem) => {
+    if (el.text === t.navBar.admin) {
+      router.push('/admin')
+    }
+  }
+
   return (
-    <nav className={s.wrapper}>
-      <NavBarItems activeConditionFunction={activeConditionFunctionHandler} items={firstItems} />
-      <NavBarItems
-        activeConditionFunction={activeConditionFunctionHandler}
-        items={secondItems}
-        wrapperClassName={s.secondArrayWrapper}
-      />
-      <LogOutItem
-        email={meData?.email}
-        isDisableButtons={isLoadingLogout}
-        isOpenModal={openModal}
-        onClickLogOutBtn={onClickLogOutHandler}
-        onClickModalPositiveButton={onClickModalPositiveButtonHandler}
-        setOpenModal={setOpenModal}
-      />
-    </nav>
+    <>
+      <nav className={s.wrapper}>
+        {router.pathname.includes('/admin') ? (
+          <NavBarItems
+            activeConditionFunction={activeConditionFunctionHandler}
+            items={adminNavbarItems}
+          />
+        ) : (
+          <>
+            <NavBarItems
+              activeConditionFunction={activeConditionFunctionHandler}
+              items={firstItems}
+            />
+            <NavBarItems
+              activeConditionFunction={activeConditionFunctionHandler}
+              items={secondItems}
+              onItemClick={handleRedirectSignInAdmin}
+              wrapperClassName={s.secondArrayWrapper}
+            />
+            <LogOutItem
+              email={meData?.email}
+              isDisableButtons={isLoadingLogout}
+              isOpenModal={openModal}
+              onClickLogOutBtn={onClickLogOutHandler}
+              onClickModalPositiveButton={onClickModalPositiveButtonHandler}
+              setOpenModal={setOpenModal}
+            />
+          </>
+        )}
+      </nav>
+    </>
   )
 }

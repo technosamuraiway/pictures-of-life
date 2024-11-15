@@ -5,8 +5,9 @@ import { Provider } from 'react-redux'
 import { Slide, ToastContainer } from 'react-toastify'
 
 import { AuthGuard } from '@/services'
+import { client } from '@/services/graphql/apollo-client'
 import { wrapper } from '@/services/store'
-import { InitLoader } from '@/shared'
+import { ApolloProvider } from '@apollo/client'
 import { NextPage } from 'next'
 import NextTopLoader from 'nextjs-toploader'
 
@@ -31,29 +32,31 @@ export default function App({ Component, ...rest }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   return (
-    <Provider store={store}>
-      <AuthGuard>
-        {getLayout(
-          <>
-            <NextTopLoader color={'#73a5ff'} showSpinner={false} />
-            <Component {...props.pageProps} />
-          </>
-        )}
-      </AuthGuard>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <AuthGuard>
+          {getLayout(
+            <>
+              <NextTopLoader color={'#73a5ff'} showSpinner={false} />
+              <Component {...props.pageProps} />
+            </>
+          )}
+        </AuthGuard>
 
-      <ToastContainer
-        autoClose={5000}
-        closeOnClick
-        draggable={false}
-        hideProgressBar={false}
-        newestOnTop={false}
-        pauseOnFocusLoss={false}
-        pauseOnHover
-        position={'bottom-left'}
-        rtl={false}
-        theme={'dark'}
-        transition={Slide}
-      />
-    </Provider>
+        <ToastContainer
+          autoClose={5000}
+          closeOnClick
+          draggable={false}
+          hideProgressBar={false}
+          newestOnTop={false}
+          pauseOnFocusLoss={false}
+          pauseOnHover
+          position={'bottom-left'}
+          rtl={false}
+          theme={'dark'}
+          transition={Slide}
+        />
+      </Provider>
+    </ApolloProvider>
   )
 }
