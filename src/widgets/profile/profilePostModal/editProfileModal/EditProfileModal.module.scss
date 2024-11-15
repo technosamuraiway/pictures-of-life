@@ -1,0 +1,66 @@
+.root.root {
+  height: 35.25rem;
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.confirmationModalOverlay {
+  opacity: 0;
+  animation: 0;
+}
+
+.content {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: stretch;
+}
+
+.postsItem {
+  width: 30.625rem;
+}
+
+.editPostForm {
+  width: 100%;
+  padding: 1.5rem;
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.user {
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 0.75rem;
+  align-items: center;
+
+  margin-bottom: 1.5rem;
+}
+
+.username {
+  display: inline-block;
+}
+
+.description {
+  flex-grow: 1;
+
+  textarea {
+    height: 7.5rem;
+    background-color: var(--Dark-900);
+    margin-bottom: 0.25rem;
+  }
+
+  .symbolsNumber {
+    color: var(--Light-900);
+    text-align: right;
+
+    &Error {
+      color: var(--Danger-500);
+    }
+  }
+}
+
+.submitBtn {
+  align-self: flex-start;
+  margin-left: auto;
+}

@@ -1,0 +1,63 @@
+.root {
+  height: 6.875rem;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+
+  border-top: 1px solid var(--Dark-100);
+}
+
+.iconsBox {
+  column-gap: 1.5rem;
+  display: flex;
+  flex-flow: row nowrap;
+
+  margin-bottom: 1.1875rem;
+
+  & :last-child {
+    margin-left: auto;
+  }
+}
+
+.contentBox {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.likes {
+  display: flex;
+  column-gap: 0.75rem;
+}
+
+.avatarsBox {
+  display: flex;
+  margin-right: 0.5rem;
+}
+
+.avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+
+  margin-right: -0.6rem;
+
+  &:not(:first-child) {
+    margin-left: 0;
+  }
+}
+
+.date {
+  color: var(--Light-900);
+}
+
+.likeIcon {
+  cursor: pointer;
+
+  &Filled {
+    color: red;
+  }
+
+  &:hover {
+    color: var(--Warning-700);
+  }
+}

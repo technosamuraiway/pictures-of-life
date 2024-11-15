@@ -1,0 +1,18 @@
+.root {
+  height: 3.75rem;
+  padding: 0.75rem 1.5rem;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  border-bottom: 1px solid var(--Dark-100);
+}
+
+.userName {
+  flex-grow: 1;
+}
+
+.circleAvatar {
+  margin-right: 0.75rem;
+}
