@@ -7,10 +7,16 @@ import s from './NavBarItems.module.scss'
 interface IProps {
   activeConditionFunction: (itemPath: string) => boolean
   items: NavItem[]
+  onItemClick?: (item: NavItem) => void
   wrapperClassName?: string
 }
 
-export const NavBarItems = ({ activeConditionFunction, items, wrapperClassName }: IProps) => {
+export const NavBarItems = ({
+  activeConditionFunction,
+  items,
+  onItemClick,
+  wrapperClassName,
+}: IProps) => {
   return (
     <div className={clsx(s.arrayWrapper, wrapperClassName)}>
       {items.map(el => {
@@ -21,6 +27,7 @@ export const NavBarItems = ({ activeConditionFunction, items, wrapperClassName }
             href={el.hrefLink}
             item={el}
             key={el.id}
+            onClick={() => onItemClick && onItemClick(el)}
           />
         )
       })}

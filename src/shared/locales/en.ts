@@ -113,6 +113,10 @@ export const en: LocaleType = {
     september: 'September',
   },
   navBar: {
+    admin: 'Admin',
+    usersList: 'Users list',
+    paymentsList: 'Payments list',
+    postsList: 'Posts list',
     create: 'Create',
     favorites: 'Favorites',
     home: 'Home',
@@ -285,6 +289,10 @@ export const en: LocaleType = {
       errorStep: 'Back to payment',
     },
   },
+  signInAdminPage: {
+    errorLogIn:
+      'Unfortunately, you did not pass the administrator authorization. Please check the entered data and try again.',
+  },
   signInPage: {
     accountQuestion: 'Don’t have an account?',
     email: 'Email',
@@ -370,5 +378,10 @@ export const en: LocaleType = {
     minimumNumber: 'Minimum number of characters',
     password: 'Password must contain',
     username: 'Username must contain',
+    noStartingSpace: 'Field cannot start with a space',
+  },
+  postText: {
+    show: 'Show more',
+    hide: 'Hide',
   },
 }

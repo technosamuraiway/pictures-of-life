@@ -21,7 +21,6 @@ function Home() {
           <Link href={PATH.AUTH.FORGOTPASSWORD}>Forgot Password</Link>
           <Link href={PATH.PROFILE.SETTINGS}>Settings</Link>
           <Link href={PATH.PUBLIC}>Public Posts</Link>
-          <Link href={'/posts'}>Mock all POSTS</Link>
         </div>
 
         <button

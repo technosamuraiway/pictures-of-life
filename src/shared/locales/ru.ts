@@ -112,6 +112,10 @@ export const ru = {
     september: 'Сентябрь',
   },
   navBar: {
+    admin: 'Админ',
+    usersList: 'Список пользователей',
+    paymentsList: 'Cписок платежей',
+    postsList: 'Список постов',
     create: 'Создать',
     favorites: 'Любимое',
     home: 'Домой',
@@ -285,6 +289,10 @@ export const ru = {
       errorStep: 'Назад к оплате',
     },
   },
+  signInAdminPage: {
+    errorLogIn:
+      'К сожалению, вы не прошли авторизацию как администратор. Пожалуйста, проверьте введенные данные и попробуйте снова.',
+  },
   signInPage: {
     accountQuestion: 'У вас нет аккаунта?',
     email: 'Электронная почта',
@@ -371,6 +379,11 @@ export const ru = {
     minimumNumber: 'Минимальное число символов',
     password: 'Пароль должен состоять из',
     username: 'Имя пользователя должно состоять из',
+    noStartingSpace: 'Поле не может начинаться с пробела',
+  },
+  postText: {
+    show: 'Показать',
+    hide: 'Скрыть',
   },
 }
 
