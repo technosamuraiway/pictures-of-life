@@ -1,4 +1,4 @@
-import { InitLoader, MetaHead } from '@/shared'
+import { InitLoader, MetaHead, RequestLineLoader } from '@/shared'
 import {
   InfoPanel,
   PostsShower,
@@ -11,22 +11,28 @@ import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
 function Profile() {
   const {
     isOwnProfile,
+    isPostsLoading,
+    isPostsLoadingInitial,
+    isPostsLoadingWithScroll,
     isProfileLoading,
     isUserDataLoading,
     postsArray,
-    postsAssociativeArray,
+    postsImagesAssociativeArray,
     profileData,
     ref,
     userData,
   } = useProfilePage()
 
-  if (isProfileLoading || isUserDataLoading) {
+  // !при scroll-posts-fetching => isPostsLoading все ровно false
+  if (isProfileLoading || isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
     return <InitLoader />
   }
 
   return (
     <>
       <MetaHead title={'Profile info'} />
+
+      {isPostsLoadingWithScroll && <RequestLineLoader />}
 
       <InfoPanel
         about={profileData?.aboutMe || 'no info'}
@@ -42,7 +48,7 @@ function Profile() {
 
       <div ref={ref} style={{ height: '20px', width: '100%' }} />
 
-      <ProfilePostModal postsAssociativeArray={postsAssociativeArray} />
+      <ProfilePostModal postsImagesAssociativeArray={postsImagesAssociativeArray} />
     </>
   )
 }

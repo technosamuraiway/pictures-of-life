@@ -1,0 +1,29 @@
+.body {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.div {
+  max-width: 200px;
+  margin-top: 30px;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 1rem;
+}
+
+.errorWrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 2rem;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 12.5rem;
+}

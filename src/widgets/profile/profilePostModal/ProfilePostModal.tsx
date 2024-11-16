@@ -1,39 +1,77 @@
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 
-import { PATH } from '@/shared'
+import { useRouterLocaleDefinition } from '@/shared'
 import { PostsAssociativeArray } from '@/widgets'
+import { ConfirmationModal } from '@/widgets/profile/components/confirmationModal/confirmationModal'
+import { PostsItem } from '@/widgets/profile/components/postsItem/PostsItem'
+import { EditProfileModal } from '@/widgets/profile/profilePostModal/editProfileModal/EditProfileModal'
+import { CloseIcon } from '@public/icons'
 import { Modal } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
 
+import s from './ProfilePostModal.module.scss'
+
+import { useProfilePostModal } from '../lib/hooks/useProfilePostModal'
+import { useEditProfileModalStore } from './editProfileModal/useEditProfileModalStore'
 import { PostComments } from './postComments/PostComments'
-import { PostImageItem } from './postImageItem/PostImageItem'
 
 interface IProps {
-  postsAssociativeArray: PostsAssociativeArray
+  postsImagesAssociativeArray: PostsAssociativeArray
 }
 
-export const ProfilePostModal = memo(({ postsAssociativeArray }: IProps) => {
-  const { push, query } = useRouter()
+export const ProfilePostModal = memo(({ postsImagesAssociativeArray }: IProps) => {
+  const t = useRouterLocaleDefinition()
 
-  const { postId, userId } = query
+  const { isOpen } = useEditProfileModalStore()
 
-  const isModalOpen = useMemo(() => !!postId, [postId])
+  const {
+    close,
+    confirmationModal,
+    isModalOpen,
+    postId,
+    setCloseWithNotifyNotify,
+    setConfirmationModal,
+  } = useProfilePostModal()
 
-  function onOpenChange() {
-    push({ pathname: `${PATH.PROFILE.BASEPROFILE}/${userId}` })
+  if (!postId) {
+    return null
   }
-
-  // const { data, isLoading } = useGetPublicUserPostByIdQuery(postId as string, {
-  //   skip: !isModalOpen,
-  // })
 
   return (
     <>
-      {/*{isLoading && <RequestLineLoader />}*/}
-      <Modal modalSize={'XL'} onOpenChange={onOpenChange} open={isModalOpen} showHeader={false}>
-        <PostImageItem images={postsAssociativeArray[postId as string]} />
-        <PostComments />
+      <Modal
+        contentClassName={s.root}
+        modalSize={'XL'}
+        onOpenChange={close}
+        open={isModalOpen}
+        showHeader={false}
+      >
+        <PostsItem
+          images={postsImagesAssociativeArray[postId as string]}
+          imgHeight={562}
+          imgWidth={490}
+          postId={Number(postId)}
+          rootCN={s.postsItem}
+        />
+
+        <PostComments className={s.postComments} onCommentChange={setCloseWithNotifyNotify} />
+
+        {!isOpen && <CloseIcon className={s.closeIcon} onClick={close} />}
       </Modal>
+
+      {/* close confirmation */}
+      <ConfirmationModal
+        confirmMessage={t.profile.modal.confirmation.message}
+        headerTitle={t.profile.modal.confirmation.modalHeaderTitle}
+        onOpenChange={setConfirmationModal}
+        open={confirmationModal}
+        overlayClassName={s.confirmationModalOverlay}
+      />
+
+      {/* open editPost modal */}
+      <EditProfileModal
+        images={postsImagesAssociativeArray[postId as string]}
+        postId={postId as string}
+      />
     </>
   )
 })

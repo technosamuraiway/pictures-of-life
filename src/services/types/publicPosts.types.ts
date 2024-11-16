@@ -7,6 +7,7 @@ type Owner = {
 
 export type GetPublicUserPostByIdResponse = {
   avatarOwner: string
+  avatarWhoLikes: string[]
   createdAt: string
   description: string
   id: number
@@ -18,4 +19,14 @@ export type GetPublicUserPostByIdResponse = {
   ownerId: number
   updatedAt: string
   userName: string
+}
+
+type SortDirections = 'asc' | 'desc'
+
+export type GetPublicPostCommentsByIdRequest = {
+  PageNumber?: number
+  pageSize?: number
+  postId: number
+  sortBy?: string
+  sortDirection?: SortDirections
 }

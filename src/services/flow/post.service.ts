@@ -1,5 +1,6 @@
 import { inctagramApi } from '../api/inctagram.api'
 import {
+  ChangePostDescriptionArgs,
   ICommentResponse,
   ICreatePostArgs,
   IGetUserPublicPostsArgs,
@@ -10,11 +11,24 @@ import {
   IPostsByNameResponse,
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
+  UpdatePostLikeStatusArgs,
 } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
+      changePostDescription: builder.mutation<void, ChangePostDescriptionArgs>({
+        invalidatesTags: ['Posts'],
+        query: args => {
+          const { description, postId } = args
+
+          return {
+            body: { description },
+            method: 'PUT',
+            url: `/v1/posts/${postId}`,
+          }
+        },
+      }),
       createPost: builder.mutation<IPostUser, ICreatePostArgs>({
         invalidatesTags: ['Posts'],
 
@@ -102,6 +116,19 @@ export const postService = inctagramApi.injectEndpoints({
           return `${endpointName}-${queryArgs.userId}`
         },
       }),
+      updatePostLikeStatus: builder.mutation<void, UpdatePostLikeStatusArgs>({
+        invalidatesTags: ['Posts'],
+        query: args => {
+          const { likeStatus, postId } = args
+
+          return {
+            body: { likeStatus },
+            method: 'PUT',
+            url: `/v1/posts/${postId}/like-status`,
+          }
+        },
+      }),
+
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
         query: ({ files }) => {
           const formData = new FormData()
@@ -122,6 +149,7 @@ export const postService = inctagramApi.injectEndpoints({
 })
 
 export const {
+  useChangePostDescriptionMutation,
   useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
@@ -129,6 +157,7 @@ export const {
   useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
   useLazyGetUserPublicPostsQuery,
+  useUpdatePostLikeStatusMutation,
   useUploadImagesForPostMutation,
   // useGetUserProfileByUserNameQuery,
 } = postService

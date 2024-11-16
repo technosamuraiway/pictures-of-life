@@ -1,0 +1,15 @@
+.cardContainer {
+  width: 23.6rem;
+  padding: 1.5rem;
+}
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.125rem;
+  padding: 1.5rem;
+  & > p {
+    text-align: center;
+  }
+}

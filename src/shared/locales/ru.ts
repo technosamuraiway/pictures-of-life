@@ -112,6 +112,10 @@ export const ru = {
     september: 'Сентябрь',
   },
   navBar: {
+    admin: 'Админ',
+    usersList: 'Список пользователей',
+    paymentsList: 'Cписок платежей',
+    postsList: 'Список постов',
     create: 'Создать',
     favorites: 'Любимое',
     home: 'Домой',
@@ -169,6 +173,49 @@ export const ru = {
     },
     postsShower: {
       noPostsTitle: 'Нет постов',
+    },
+    modal: {
+      headerDropdownDotsMenu: {
+        unfollow: 'Отписаться',
+        copyLink: 'Скопировать ссылку',
+        successLinkCopied: 'Ссылка скопирована',
+        unfollowConfirmation: 'Вы действительно хотите отписаться от пользователя',
+        unfollowModalTitle: 'Отписаться от пользователя',
+        unfollowSuccess: 'Вы успешно отписались от пользователя',
+        unfollowError: 'Отписаться от пользователя не получилось, попробуйте еще раз',
+      },
+      headerDropdownOwnDotsMenu: {
+        edit: 'Редактировать Публикацию',
+        delete: 'Удалить Публикацию',
+        deleteSuccess: 'Пост удален',
+        deleteError: 'Удалить пост не получилось, попробуйте еще раз',
+        deleteConfirmation: 'Вы действительно хотите удалить пост',
+        deleteModalTitle: 'Удаление поста',
+        editDescription: {
+          headerTitle: 'Редактирование публикации',
+          descriptionTitle: 'Добавить описание публикации',
+          confirm:
+            'Вы уверены что хотите закрыть редактирование публикации? Если закрыть - изменения не сохраниться.',
+          saveChanges: 'Сохранить изменения',
+          successChange: 'Описание публикации измененно',
+          errorChange: 'Ошибка при изменении описания публикации, попробуйте еще раз',
+        },
+      },
+      addComment: 'Опубликовать',
+      commentPlaceholder: 'Добавить Комментарий',
+      confirmation: {
+        modalHeaderTitle: 'Закрыть Публикацию',
+        message:
+          'Вы действительно хотите закрыть публикацию? Если закрыть - комментарий не сохраниться. ',
+        buttonNo: 'Нет',
+        buttonYes: 'Да',
+      },
+      serverResponses: {
+        createComment: {
+          success: 'Комментарий успешно создан',
+          error: 'Произошла ошибка при создании комментария',
+        },
+      },
     },
   },
   profilePage: {
@@ -241,6 +288,10 @@ export const ru = {
       errorMessage: 'Операция не удалась. Пожалуйста, напишите в поддержку',
       errorStep: 'Назад к оплате',
     },
+  },
+  signInAdminPage: {
+    errorLogIn:
+      'К сожалению, вы не прошли авторизацию как администратор. Пожалуйста, проверьте введенные данные и попробуйте снова.',
   },
   signInPage: {
     accountQuestion: 'У вас нет аккаунта?',
