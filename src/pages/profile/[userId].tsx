@@ -1,4 +1,4 @@
-import { GetPublicUserProfileByIdResponse, IPostPublicResponse } from '@/services'
+import { GetPublicUserProfileByIdResponse, IPostPublicResponse, IPostUser } from '@/services'
 import { InitLoader, MetaHead, RequestLineLoader } from '@/shared'
 import {
   InfoPanel,
@@ -10,7 +10,7 @@ import {
 import { GetServerSideProps } from 'next'
 
 interface IProps {
-  // post: IPostUser
+  post: IPostUser
   posts: IPostPublicResponse
   user: GetPublicUserProfileByIdResponse
 }
@@ -20,21 +20,16 @@ export const getServerSideProps: GetServerSideProps<IProps> = async ({ query }) 
 
   const userResponse = await fetch(`https://inctagram.work/api/v1/public-user/profile/${userId}`)
   const postsResponse = await fetch(`https://inctagram.work/api/v1/public-posts/user/${userId}`)
+  const postResponse = await fetch(`https://inctagram.work/api/v1/public-posts/${postId}`)
 
-  // const [userResponse, postsResponse, postResponse] = await Promise.all<Response>([
-  //   fetch(`https://inctagram.work/api/v1/public-user/profile/${userId}`),
-  //   fetch(`https://inctagram.work/api/v1/public-posts/user/${userId}`),
-  //   fetch(`https://inctagram.work/api/v1/public-posts/${postId}`),
-  // ])
-
-  // const post: IPostUser = await postResponse.json()
+  const post: IPostUser = await postResponse.json()
   const posts: IPostPublicResponse = await postsResponse.json()
   const user: GetPublicUserProfileByIdResponse = await userResponse.json()
 
-  return { props: { posts, user } }
+  return { props: { post, posts, user } }
 }
 
-function Profile({ user }: IProps) {
+function Profile({ post, posts, user }: IProps) {
   const {
     isOwnProfile,
     isPostsLoading,
@@ -45,7 +40,7 @@ function Profile({ user }: IProps) {
     postsImagesAssociativeArray,
     ref,
     userData,
-  } = useProfilePage(user)
+  } = useProfilePage(user, posts)
 
   // !при scroll-posts-fetching => isPostsLoading все ровно false
   if (isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
@@ -72,7 +67,7 @@ function Profile({ user }: IProps) {
 
       <div ref={ref} style={{ height: '20px', width: '100%' }} />
 
-      <ProfilePostModal postsImagesAssociativeArray={postsImagesAssociativeArray} />
+      <ProfilePostModal post={post} postsImagesAssociativeArray={postsImagesAssociativeArray} />
     </>
   )
 }
