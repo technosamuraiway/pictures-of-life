@@ -240,6 +240,8 @@ export const en: LocaleType = {
     },
     management: {
       title: 'Account Management',
+      expireAt: 'Expire at',
+      nextPayment: 'Next Payment',
       accountType: 'Account type',
       personalType: 'Personal',
       businessType: 'Business',
@@ -248,6 +250,10 @@ export const en: LocaleType = {
       price7Day: 'per 7 Day',
       priceMonth: 'per month',
       or: 'Or',
+      currentSubscription: 'Current Subscription',
+      autoRenewal: 'Auto - Renewal',
+      noSubscriptions: 'You have no renewal subscriptions!',
+      stopAutoRenewal: 'You are successfully stop auto renewal',
     },
     payments: {
       myPayments: 'My payments',

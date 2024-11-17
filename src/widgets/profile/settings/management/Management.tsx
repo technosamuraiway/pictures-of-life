@@ -6,10 +6,12 @@ import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { RadioCard } from '@/widgets/profile/components/radioCard/RadioCard'
 import { PayPalIcon } from '@public/managment/PayPalIcon'
 import { StripeIcon } from '@public/managment/StripeIcon'
-import { Card, RadioGroup, Tabs, Typography } from '@technosamurai/techno-ui-kit'
+import { Tabs, Typography } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './Management.module.scss'
+
+import { SubscriptionsControl } from './subscriptionsControl/SubscriptionsControl'
 
 interface IProps {
   value: string
@@ -125,6 +127,7 @@ export const Management = ({ value }: IProps) => {
   return (
     <>
       <Tabs.Content className={s.management} value={value}>
+        <SubscriptionsControl />
         <RadioCard
           className={s.cardACType}
           name={t.settingsPage.management.accountType}

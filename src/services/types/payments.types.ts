@@ -13,3 +13,14 @@ export interface IMyPaymentsResponse {
   subscriptionType: string
   userId: number
 }
+
+export interface IMyCurrentSubscriptionsResponse {
+  data: CurrentSubscriptions[]
+
+  hasAutoRenewal: boolean
+}
+
+type CurrentSubscriptions = { autoRenewal: boolean } & Omit<
+  IMyPaymentsResponse,
+  'paymentType' | 'price' | 'subscriptionType'
+>
