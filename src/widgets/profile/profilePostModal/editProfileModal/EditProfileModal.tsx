@@ -57,6 +57,7 @@ export const EditProfileModal = ({ images, postId }: IProps) => {
     if (post) {
       setValue('description', post?.description)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post])
 
   async function onFormSubmitHandler(data: EditProfileModalValidation) {
