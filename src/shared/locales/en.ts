@@ -175,6 +175,48 @@ export const en: LocaleType = {
     postsShower: {
       noPostsTitle: 'No posts',
     },
+    modal: {
+      headerDropdownDotsMenu: {
+        unfollow: 'Unfollow',
+        copyLink: 'Copy link',
+        successLinkCopied: 'Link copied',
+        unfollowConfirmation: 'Do you really want to Unfollow from this user',
+        unfollowModalTitle: 'Unfollow',
+        unfollowSuccess: 'You have successfully unfollowed',
+        unfollowError: 'Unfollow failed',
+      },
+      headerDropdownOwnDotsMenu: {
+        edit: 'Edit Post',
+        delete: 'Delete Post',
+        deleteSuccess: 'Post successfully deleted',
+        deleteError: 'Post deletion failed, try again',
+        deleteConfirmation: 'Do you really want to delete this post?',
+        deleteModalTitle: 'Post deletion',
+        editDescription: {
+          headerTitle: 'Edit Post',
+          descriptionTitle: 'Add publication descriptions',
+          confirm:
+            'Are you sure you want to close post edit? If you close - the description won’t be saved',
+          saveChanges: 'Save changes',
+          successChange: 'Post description successfully changed',
+          errorChange: 'Post description change failed, try again',
+        },
+      },
+      addComment: 'Publish',
+      commentPlaceholder: 'Add a Comment',
+      confirmation: {
+        modalHeaderTitle: 'Close Post',
+        message: 'Do you really want to close the post? If you close - the comment won’t be saved',
+        buttonNo: 'No',
+        buttonYes: 'Yes',
+      },
+      serverResponses: {
+        createComment: {
+          success: 'Comment successfully created.',
+          error: 'Create comment failed',
+        },
+      },
+    },
   },
   profilePage: {
     settingButton: 'Profile Settings',
@@ -198,6 +240,8 @@ export const en: LocaleType = {
     },
     management: {
       title: 'Account Management',
+      expireAt: 'Expire at',
+      nextPayment: 'Next Payment',
       accountType: 'Account type',
       personalType: 'Personal',
       businessType: 'Business',
@@ -206,6 +250,10 @@ export const en: LocaleType = {
       price7Day: 'per 7 Day',
       priceMonth: 'per month',
       or: 'Or',
+      currentSubscription: 'Current Subscription',
+      autoRenewal: 'Auto - Renewal',
+      noSubscriptions: 'You have no renewal subscriptions!',
+      stopAutoRenewal: 'You are successfully stop auto renewal',
     },
     payments: {
       myPayments: 'My payments',

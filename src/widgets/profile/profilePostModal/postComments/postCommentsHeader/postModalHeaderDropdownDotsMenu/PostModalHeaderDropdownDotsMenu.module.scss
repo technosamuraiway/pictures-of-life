@@ -1,0 +1,12 @@
+.item:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+
+.item:hover {
+  color: var(--Warning-700);
+}
+
+.confirmationModalOverlay {
+  opacity: 0;
+  animation: 0;
+}

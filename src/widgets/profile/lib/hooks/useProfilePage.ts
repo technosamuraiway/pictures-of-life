@@ -1,12 +1,13 @@
 import { useMemo } from 'react'
 
+import { GetPublicUserProfileByIdResponse, IPostPublicResponse } from '@/services'
 import { PostsAssociativeArray } from '@/widgets'
 import { useRouter } from 'next/router'
 
 import { useGetProfilePageData } from './useGetProfilePageData/useGetProfilePageData'
 import { usePostsScrollObserver } from './usePostsScrollObserver/usePostsScrollObserver'
 
-export function useProfilePage() {
+export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IPostPublicResponse) {
   const { query } = useRouter()
 
   const userId = query.userId as string
@@ -16,12 +17,12 @@ export function useProfilePage() {
     isAuthorized,
     isOwnProfile,
     isPostsLoading,
-    isProfileLoading,
+    isPostsLoadingInitial,
+    isPostsLoadingWithScroll,
     isUserDataLoading,
     postsData,
-    profileData,
     userData,
-  } = useGetProfilePageData(userId)
+  } = useGetProfilePageData(user, posts)
 
   const { ref } = usePostsScrollObserver(
     userId,
@@ -32,13 +33,20 @@ export function useProfilePage() {
   )
 
   // кешированный массив постов
-  const postsArray = useMemo(
-    () => postsData?.items.map(item => ({ id: item.id, images: item.images })) || [],
-    [postsData]
-  )
+  const postsArray = useMemo(() => {
+    const posts = postsData?.items.map(item => ({ id: item.id, images: item.images })) || []
+
+    /* при удалении нужно будет валидировать посты, но мы запрашиваем их по событию,
+     * поэтому нужно будет делать повторный запрос, а для этого нужно знать сколько постов подтягивать
+     * => invalidateTags не работает в этом случае
+     * */
+    sessionStorage.setItem('postsNumber', JSON.stringify(posts.length))
+
+    return posts
+  }, [postsData])
 
   // кешированный ассоциативный массив
-  const postsAssociativeArray = useMemo(() => {
+  const postsImagesAssociativeArray = useMemo(() => {
     return (
       postsData?.items.reduce((acc, post) => {
         acc[post.id] = post.images
@@ -51,11 +59,11 @@ export function useProfilePage() {
   return {
     isOwnProfile,
     isPostsLoading,
-    isProfileLoading,
+    isPostsLoadingInitial,
+    isPostsLoadingWithScroll,
     isUserDataLoading,
     postsArray,
-    postsAssociativeArray,
-    profileData,
+    postsImagesAssociativeArray,
     ref,
     userData,
   }

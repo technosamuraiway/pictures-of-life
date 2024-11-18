@@ -1,8 +1,7 @@
 import { memo } from 'react'
 
-import { PATH, useRouterLocaleDefinition } from '@/shared'
+import { CircleAvatar, PATH, useRouterLocaleDefinition } from '@/shared'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import s from './InfoPanel.module.scss'
@@ -40,17 +39,7 @@ export const InfoPanel = memo(
 
     return (
       <div className={s.profileInfo}>
-        {avatar ? (
-          <Image
-            alt={'profile-round-avatar'}
-            className={s.avatar}
-            height={204}
-            src={avatar}
-            width={204}
-          />
-        ) : (
-          <Image alt={'No Avatar'} height={204} src={'/profileAvatar/no-avatar.png'} width={204} />
-        )}
+        <CircleAvatar height={204} rootCN={s.avatar} src={avatar} width={204} />
         <div className={s.info}>
           <div className={s.infoTop}>
             <Typography as={'h1'} variant={'h1'}>

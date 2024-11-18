@@ -3,7 +3,11 @@ import { useInView } from 'react-intersection-observer'
 
 import { IGetUserPublicPostsArgs, IPostPublicResponse } from '@/services'
 import { Undefinedable } from '@/shared'
-import { useUserIdStore } from '@/widgets/profile/lib/store/useUserIdStore'
+
+import { useUserIdStore } from '../../store/useUserIdStore'
+
+const initialPostsCountInRequest = 12
+const witchScrollPostsCountInRequest = 8
 
 export const usePostsScrollObserver = (
   userId: string,
@@ -21,7 +25,7 @@ export const usePostsScrollObserver = (
 
   useEffect(() => {
     const getPostsArgs: IGetUserPublicPostsArgs = {
-      pageSize: isAuthorized ? 12 : 8,
+      pageSize: isAuthorized ? initialPostsCountInRequest : witchScrollPostsCountInRequest,
       userId: Number(userId),
     }
 
@@ -39,7 +43,20 @@ export const usePostsScrollObserver = (
   }, [userId, postsData])
 
   function loadMorePosts() {
-    if (postsData && postsData.items.length > 0) {
+    const fetchedPostsLength = postsData?.items.length ?? 0
+
+    if (postsData && fetchedPostsLength > 0) {
+      /* условие - что если пользователь получил изначальных постов меньше 12,
+         значит у него нет больше постов на свервере, и не нужно больше тригерить заспросы  */
+      if (fetchedPostsLength < initialPostsCountInRequest) {
+        return
+      }
+
+      /* условие - если получили уже все посты */
+      if (postsData.totalCount === fetchedPostsLength) {
+        return
+      }
+
       const lastPostId = postsData.items[postsData.items.length - 1].id
 
       // для избежания запросов, если уже получили все посты с сервера

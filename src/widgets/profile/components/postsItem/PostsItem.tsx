@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const PostsItem = memo(({ images, imgHeight, imgWidth, postId, rootCN }: IProps) => {
-  const isWithImages = images.length > 0
+  const isWithImages = images?.length > 0
 
   const imagesWithSlider = (
     <PostsItemSlider images={images} imgHeight={imgHeight} imgWidth={imgWidth} postId={postId} />
@@ -29,5 +29,9 @@ export const PostsItem = memo(({ images, imgHeight, imgWidth, postId, rootCN }: 
     />
   )
 
-  return <div className={rootCN}>{isWithImages ? imagesWithSlider : noImage}</div>
+  return (
+    <div className={rootCN} style={{ height: imgHeight, width: imgWidth }}>
+      {isWithImages ? imagesWithSlider : noImage}
+    </div>
+  )
 })
