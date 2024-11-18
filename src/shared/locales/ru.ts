@@ -385,6 +385,17 @@ export const ru = {
     show: 'Показать',
     hide: 'Скрыть',
   },
+  admin: {
+    statistics: {
+      title: 'Статистика',
+      users: 'Пользователи',
+      photos: 'Фотографии',
+      newUsers: 'Новые пользователи',
+      lastMonth: 'Последний месяц',
+      currentMonth: 'Текущий месяц',
+      date: 'Диапазон дат',
+    }
+  },
 }
 
 export type LocaleType = typeof ru

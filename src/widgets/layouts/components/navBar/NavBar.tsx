@@ -7,6 +7,8 @@ import {
   ActiveFavoritesIcon,
   ActiveHomeIcon,
   ActiveMessengerIcon,
+  ActivePaymentsList,
+  ActivePostsList,
   ActiveProfileIcon,
   ActiveSearchIcon,
   ActiveStatisticsIcon,
@@ -14,6 +16,8 @@ import {
   DefaultFavoritesIcon,
   DefaultHomeIcon,
   DefaultMessengerIcon,
+  DefaultPaymentsList,
+  DefaultPostsList,
   DefaultProfileIcon,
   DefaultSearchIcon,
   DefaultStatisticsIcon,
@@ -114,34 +118,34 @@ export function NavBar() {
     {
       activeIconComponent: <ActiveProfileIcon />,
       altText: `${t.navBar.usersList} Icon`,
-      defaultIconComponent: <DefaultStatisticsIcon />,
+      defaultIconComponent: <DefaultProfileIcon />,
       hrefLink: '',
       id: 1,
       isDisabled: false,
       text: t.navBar.usersList,
     },
     {
-      activeIconComponent: <ActiveFavoritesIcon />,
+      activeIconComponent: <ActiveStatisticsIcon />,
       altText: `${t.navBar.statistics} Icon`,
-      defaultIconComponent: <DefaultFavoritesIcon />,
-      hrefLink: '',
+      defaultIconComponent: <DefaultStatisticsIcon />,
+      hrefLink: '/admin/statistics',
       id: 2,
       isDisabled: false,
       text: t.navBar.statistics,
     },
     {
-      activeIconComponent: <ActiveFavoritesIcon />,
+      activeIconComponent: <ActivePaymentsList />,
       altText: `${t.navBar.paymentsList} Icon`,
-      defaultIconComponent: <DefaultFavoritesIcon />,
+      defaultIconComponent: <DefaultPaymentsList />,
       hrefLink: '',
       id: 3,
       isDisabled: false,
       text: t.navBar.paymentsList,
     },
     {
-      activeIconComponent: <ActiveFavoritesIcon />,
+      activeIconComponent: <ActivePostsList />,
       altText: `${t.navBar.postsList} Icon`,
-      defaultIconComponent: <DefaultFavoritesIcon />,
+      defaultIconComponent: <DefaultPostsList />,
       hrefLink: '',
       id: 4,
       isDisabled: false,
@@ -152,16 +156,19 @@ export function NavBar() {
   const activeConditionFunctionHandler = (itemPath: string) => {
     if (itemPath === PATH.HOME) {
       return router.pathname === PATH.HOME
-    } else {
-      const trimmedPath = '/' + itemPath.split('/').slice(1, 2)
-
-      // условие для не active icon in nav когда чужой профиль
-      if (!isOwnProfile && itemPath === `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`) {
-        return false
-      }
-
-      return router.pathname.startsWith(trimmedPath) && router.pathname !== PATH.HOME
     }
+
+    if (!isOwnProfile && itemPath === `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`) {
+      return false
+    }
+
+    // Allow partial matches for specific base paths like "/admin"
+    if (itemPath === '/admin') {
+      return router.pathname.startsWith('/admin')
+    }
+
+    // Default to exact match
+    return router.pathname === itemPath
   }
 
   // ------ Работа с модальным окном -------
