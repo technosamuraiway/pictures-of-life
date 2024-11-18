@@ -13,8 +13,8 @@
 }
 
 .divTextContent {
-display: flex;
-gap: 30px;
+  display: flex;
+  gap: 30px;
 }
 
 .divText {
@@ -26,15 +26,14 @@ gap: 30px;
 
 .firstCircle {
   width: 12px;
-height: 12px;
-background: var(--Primary-900);
-border-radius: 50%;
-} 
+  height: 12px;
+  background: var(--Primary-900);
+  border-radius: 50%;
+}
 
 .secondCircle {
   width: 12px;
-height: 12px;
-background: var(--Primary-100);
-border-radius: 50%;
-
+  height: 12px;
+  background: var(--Primary-100);
+  border-radius: 50%;
 }
