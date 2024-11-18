@@ -1,5 +1,6 @@
 import { memo } from 'react'
 
+import { IPostUser } from '@/services'
 import { useRouterLocaleDefinition } from '@/shared'
 import { PostsAssociativeArray } from '@/widgets'
 import { ConfirmationModal } from '@/widgets/profile/components/confirmationModal/confirmationModal'
@@ -15,10 +16,11 @@ import { useEditProfileModalStore } from './editProfileModal/useEditProfileModal
 import { PostComments } from './postComments/PostComments'
 
 interface IProps {
+  post: IPostUser
   postsImagesAssociativeArray: PostsAssociativeArray
 }
 
-export const ProfilePostModal = memo(({ postsImagesAssociativeArray }: IProps) => {
+export const ProfilePostModal = memo(({ post, postsImagesAssociativeArray }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const { isOpen } = useEditProfileModalStore()
@@ -70,6 +72,7 @@ export const ProfilePostModal = memo(({ postsImagesAssociativeArray }: IProps) =
       {/* open editPost modal */}
       <EditProfileModal
         images={postsImagesAssociativeArray[postId as string]}
+        post={post}
         postId={postId as string}
       />
     </>

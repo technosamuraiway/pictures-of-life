@@ -1,3 +1,4 @@
+import { GetPublicUserProfileByIdResponse, IPostPublicResponse, IPostUser } from '@/services'
 import { InitLoader, MetaHead, RequestLineLoader } from '@/shared'
 import {
   InfoPanel,
@@ -6,25 +7,43 @@ import {
   getLayoutWithNav,
   useProfilePage,
 } from '@/widgets'
-import { EmptyAvatar } from '@public/profileAvatar/EmptyAvatar'
+import { GetServerSideProps } from 'next'
 
-function Profile() {
+interface IProps {
+  post: IPostUser
+  posts: IPostPublicResponse
+  user: GetPublicUserProfileByIdResponse
+}
+
+export const getServerSideProps: GetServerSideProps<IProps> = async ({ query }) => {
+  const { postId, userId } = query
+
+  const userResponse = await fetch(`https://inctagram.work/api/v1/public-user/profile/${userId}`)
+  const postsResponse = await fetch(`https://inctagram.work/api/v1/public-posts/user/${userId}`)
+  const postResponse = await fetch(`https://inctagram.work/api/v1/public-posts/${postId}`)
+
+  const post: IPostUser = await postResponse.json()
+  const posts: IPostPublicResponse = await postsResponse.json()
+  const user: GetPublicUserProfileByIdResponse = await userResponse.json()
+
+  return { props: { post, posts, user } }
+}
+
+function Profile({ post, posts, user }: IProps) {
   const {
     isOwnProfile,
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
-    isProfileLoading,
     isUserDataLoading,
     postsArray,
     postsImagesAssociativeArray,
-    profileData,
     ref,
     userData,
-  } = useProfilePage()
+  } = useProfilePage(user, posts)
 
   // !при scroll-posts-fetching => isPostsLoading все ровно false
-  if (isProfileLoading || isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
+  if (isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
     return <InitLoader />
   }
 
@@ -35,12 +54,12 @@ function Profile() {
       {isPostsLoadingWithScroll && <RequestLineLoader />}
 
       <InfoPanel
-        about={profileData?.aboutMe || 'no info'}
-        avatar={profileData?.avatars[0]?.url || ''}
+        about={user?.aboutMe || 'no info'}
+        avatar={user?.avatars[0]?.url || ''}
         isWithSettingsBtn={isOwnProfile}
         userFollowers={userData?.followersCount || 999}
         userFollowing={userData?.followingCount || 999}
-        userName={profileData?.userName || 'no info'}
+        userName={user?.userName || 'no info'}
         userPublications={userData?.publicationsCount || 999}
       />
 
@@ -48,7 +67,7 @@ function Profile() {
 
       <div ref={ref} style={{ height: '20px', width: '100%' }} />
 
-      <ProfilePostModal postsImagesAssociativeArray={postsImagesAssociativeArray} />
+      <ProfilePostModal post={post} postsImagesAssociativeArray={postsImagesAssociativeArray} />
     </>
   )
 }
