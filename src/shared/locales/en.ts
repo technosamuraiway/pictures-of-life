@@ -390,4 +390,15 @@ export const en: LocaleType = {
     show: 'Show more',
     hide: 'Hide',
   },
+  admin: {
+    statistics: {
+      title: 'Statistics',
+      users: 'Users',
+      photos: 'Photos',
+      newUsers: 'New users',
+      lastMonth: 'Last month',
+      currentMonth: 'Current month',
+      date: 'Date range',
+    },
+  },
 }

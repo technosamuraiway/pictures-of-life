@@ -1,25 +1,28 @@
-import { useLazyGetUserPublicPostsQuery } from '@/services'
-import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
+import {
+  GetPublicUserProfileByIdResponse,
+  IPostPublicResponse,
+  useLazyGetUserPublicPostsQuery,
+} from '@/services'
 import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 
-export const useGetProfilePageData = (userId: string) => {
+export const useGetProfilePageData = (
+  user: GetPublicUserProfileByIdResponse,
+  posts: IPostPublicResponse
+) => {
   const { isOwnProfile, meData: meRequestData } = useMeWithRouter()
-
-  const { data: profileData, isLoading: isProfileLoading } =
-    useGetPublicUserProfileByIdQuery(userId)
 
   const isAuthorized = !!meRequestData
 
   const { data: userData, isLoading: isUserDataLoading } = useGetUserByUserNameQuery(
-    profileData?.userName ?? '',
-    { skip: !profileData || !isAuthorized }
+    user?.userName ?? '',
+    { skip: !user || !isAuthorized }
   )
 
   const [
     getPostsTrigger,
     {
-      data: postsData,
+      data: postsGetData,
       isLoading: isPostsLoading,
       originalArgs: originalArgsGetPostsTrigger,
       status: postsFetchingStatus,
@@ -34,6 +37,10 @@ export const useGetProfilePageData = (userId: string) => {
     !isPostsLoading &&
     !!originalArgsGetPostsTrigger?.endCursorPostId
 
+  const postsData = postsGetData || posts
+
+  debugger
+
   return {
     getPostsTrigger,
     isAuthorized,
@@ -41,10 +48,8 @@ export const useGetProfilePageData = (userId: string) => {
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
-    isProfileLoading,
     isUserDataLoading,
     postsData,
-    profileData,
     userData,
   }
 }
