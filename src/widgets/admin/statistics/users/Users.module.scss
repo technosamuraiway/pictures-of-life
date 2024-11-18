@@ -1,0 +1,39 @@
+.usersDiv {
+  position: absolute;
+  top: 60px;
+  width: 1030px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.textContent {
+  display: flex;
+  gap: 75px;
+  align-items: center;
+}
+
+.divTextContent {
+  display: flex;
+  gap: 30px;
+}
+
+.divText {
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  align-items: center;
+}
+
+.firstCircle {
+  width: 12px;
+  height: 12px;
+  background: var(--Primary-900);
+  border-radius: 50%;
+}
+
+.secondCircle {
+  width: 12px;
+  height: 12px;
+  background: var(--Primary-100);
+  border-radius: 50%;
+}
