@@ -115,7 +115,7 @@ export function NavBar() {
       activeIconComponent: <ActiveProfileIcon />,
       altText: `${t.navBar.usersList} Icon`,
       defaultIconComponent: <DefaultStatisticsIcon />,
-      hrefLink: '',
+      hrefLink: '/admin/users-list',
       id: 1,
       isDisabled: false,
       text: t.navBar.usersList,
@@ -159,8 +159,9 @@ export function NavBar() {
       if (!isOwnProfile && itemPath === `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`) {
         return false
       }
+      const rt = router.pathname.startsWith(trimmedPath) && router.pathname !== PATH.HOME
 
-      return router.pathname.startsWith(trimmedPath) && router.pathname !== PATH.HOME
+      return rt
     }
   }
 
