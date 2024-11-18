@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import { IPostImage, useChangePostDescriptionMutation } from '@/services'
-import { useGetPublicPostByIdQuery } from '@/services/flow/publicPosts.service'
+import { IPostImage, IPostUser, useChangePostDescriptionMutation } from '@/services'
 import { CircleAvatar, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { ConfirmationModal } from '@/widgets/profile/components/confirmationModal/confirmationModal'
 import { PostsItem } from '@/widgets/profile/components/postsItem/PostsItem'
@@ -21,13 +20,13 @@ import { useEditProfileModalStore } from './useEditProfileModalStore'
 
 interface IProps {
   images: IPostImage[]
+  post: IPostUser
   postId: string
 }
 
-export const EditProfileModal = ({ images, postId }: IProps) => {
+export const EditProfileModal = ({ images, post, postId }: IProps) => {
   const t = useRouterLocaleDefinition()
   const { isOpen, onChange } = useEditProfileModalStore()
-  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(postId)
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
   const [changeDescription, { isLoading: isChangeDescriptionLoading }] =
     useChangePostDescriptionMutation()
@@ -51,12 +50,13 @@ export const EditProfileModal = ({ images, postId }: IProps) => {
   const descriptionLength = description.length
 
   const isDisabled = isSubmitting || !isValid
-  const isLoading = isPostLoading || isChangeDescriptionLoading
+  const isLoading = isChangeDescriptionLoading
 
   useEffect(() => {
     if (post) {
       setValue('description', post?.description)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post])
 
   async function onFormSubmitHandler(data: EditProfileModalValidation) {

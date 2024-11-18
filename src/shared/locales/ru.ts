@@ -248,6 +248,12 @@ export const ru = {
       price7Day: 'за 7 дней',
       priceMonth: 'в месяц',
       or: 'Или',
+      currentSubscription: 'Текущая подписка',
+      autoRenewal: 'Авто - Обновление',
+      expireAt: 'Дата окончания',
+      nextPayment: 'Следующий платеж',
+      noSubscriptions: 'У вас нет продленных подписок!',
+      stopAutoRenewal: 'Вы успешно отменили продление подписок',
     },
     payments: {
       myPayments: 'Мои платежи',

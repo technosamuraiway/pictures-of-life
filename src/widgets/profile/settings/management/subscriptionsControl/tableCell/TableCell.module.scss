@@ -1,0 +1,9 @@
+.cells {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.greyText {
+  color: var(--Light-900);
+}
