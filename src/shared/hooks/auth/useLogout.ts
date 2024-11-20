@@ -2,6 +2,7 @@ import { toast } from 'react-toastify'
 
 import { inctagramApi, useLogOutMutation } from '@/services'
 import { useAppDispatch } from '@/services/store'
+import { useSignInAdminStore } from '@/services/store/signInAdminStore'
 import { useRouter } from 'next/router'
 
 import { useRouterLocaleDefinition } from '../useRouterLocaleDefinition'
@@ -14,6 +15,7 @@ export function useLogout() {
   const t = useRouterLocaleDefinition()
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const { setLogged } = useSignInAdminStore()
   const [
     logOut,
     { isError: isErrorLogout, isLoading: isLoadingLogout, isSuccess: isSuccessLogout },
@@ -21,7 +23,7 @@ export function useLogout() {
 
   const logoutPurification = () => {
     localStorage.removeItem('accessToken')
-    sessionStorage.removeItem('verificationAdmin')
+    setLogged(false)
     dispatch(inctagramApi.util.resetApiState())
     // router.replace(PATH.AUTH.SIGNIN)
     toast.info(t.logOut.logOutSuccess)

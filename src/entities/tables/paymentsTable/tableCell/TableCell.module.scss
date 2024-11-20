@@ -2,3 +2,11 @@
   color: var(--Light-100);
   text-align: left;
 }
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.text {
+  padding-left: 1rem;
+}

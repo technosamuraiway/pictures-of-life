@@ -114,9 +114,6 @@ export const en: LocaleType = {
   },
   navBar: {
     admin: 'Admin',
-    usersList: 'Users list',
-    paymentsList: 'Payments list',
-    postsList: 'Posts list',
     create: 'Create',
     favorites: 'Favorites',
     home: 'Home',
@@ -399,6 +396,15 @@ export const en: LocaleType = {
       lastMonth: 'Last month',
       currentMonth: 'Current month',
       date: 'Date range',
+    },
+    usersList: {
+      title: 'Users List',
+    },
+    paymentsList: {
+      title: 'Payments List',
+    },
+    postsList: {
+      title: 'Posts List',
     },
   },
 }

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { ControlledTextField, ISignIn, SignInFormValues } from '@/entities'
 import { signInAdminScheme } from '@/entities/zodValidationScheme'
 import { LOGIN_ADMIN } from '@/services/graphql/mutations/user'
+import { useSignInAdminStore } from '@/services/store/signInAdminStore'
 import { useRouterLocaleDefinition } from '@/shared'
 import { getBaseLayout } from '@/widgets'
 import { useMutation } from '@apollo/client'
@@ -20,6 +21,8 @@ function SignInAdmin() {
   const router = useRouter()
 
   const t = useRouterLocaleDefinition()
+
+  const { setLogged } = useSignInAdminStore()
 
   const [loginAdmin] = useMutation(LOGIN_ADMIN)
 
@@ -58,11 +61,11 @@ function SignInAdmin() {
         },
       })
 
-      if (response?.data.loginAdmin?.logged) {
+      if (response?.data?.loginAdmin?.logged) {
         toast.success(t.signInPage.successLogIn)
         reset()
-        sessionStorage.setItem('verificationAdmin', response?.data.loginAdmin?.logged)
-        router.push('/admin')
+        setLogged(response?.data?.loginAdmin?.logged)
+        router.replace('/admin/users-list')
       } else {
         reset()
         toast.error(t.signInAdminPage.errorLogIn)

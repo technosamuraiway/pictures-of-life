@@ -113,9 +113,6 @@ export const ru = {
   },
   navBar: {
     admin: 'Админ',
-    usersList: 'Список пользователей',
-    paymentsList: 'Cписок платежей',
-    postsList: 'Список постов',
     create: 'Создать',
     favorites: 'Любимое',
     home: 'Домой',
@@ -400,6 +397,13 @@ export const ru = {
       lastMonth: 'Последний месяц',
       currentMonth: 'Текущий месяц',
       date: 'Диапазон дат',
+    },
+    usersList: { title: 'Срисок пользователей' },
+    paymentsList: {
+      title: 'Список платежей',
+    },
+    postsList: {
+      title: 'Список постов',
     },
   },
 }

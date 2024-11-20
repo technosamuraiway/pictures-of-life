@@ -117,39 +117,39 @@ export function NavBar() {
   const adminNavbarItems: NavItem[] = [
     {
       activeIconComponent: <ActiveProfileIcon />,
-      altText: `${t.navBar.usersList} Icon`,
-      defaultIconComponent: <DefaultStatisticsIcon />,
+      altText: `${t.admin.usersList} Icon`,
+      defaultIconComponent: <DefaultProfileIcon />,
       hrefLink: '/admin/users-list',
       id: 1,
       isDisabled: false,
-      text: t.navBar.usersList,
+      text: t.admin.usersList.title,
     },
     {
       activeIconComponent: <ActiveStatisticsIcon />,
-      altText: `${t.navBar.statistics} Icon`,
+      altText: `${t.admin.statistics} Icon`,
       defaultIconComponent: <DefaultStatisticsIcon />,
       hrefLink: '/admin/statistics',
       id: 2,
       isDisabled: false,
-      text: t.navBar.statistics,
+      text: t.admin.statistics.title,
     },
     {
       activeIconComponent: <ActivePaymentsList />,
-      altText: `${t.navBar.paymentsList} Icon`,
+      altText: `${t.admin.paymentsList} Icon`,
       defaultIconComponent: <DefaultPaymentsList />,
       hrefLink: '',
       id: 3,
       isDisabled: false,
-      text: t.navBar.paymentsList,
+      text: t.admin.paymentsList.title,
     },
     {
       activeIconComponent: <ActivePostsList />,
-      altText: `${t.navBar.postsList} Icon`,
+      altText: `${t.admin.postsList} Icon`,
       defaultIconComponent: <DefaultPostsList />,
       hrefLink: '',
       id: 4,
       isDisabled: false,
-      text: t.navBar.postsList,
+      text: t.admin.postsList.title,
     },
   ]
   // ------ Работа с навигацией -------
@@ -164,7 +164,7 @@ export function NavBar() {
 
     // Allow partial matches for specific base paths like "/admin"
     if (itemPath === '/admin') {
-      return router.pathname.startsWith('/admin')
+      return router.pathname.startsWith('/admin/users-list')
     }
 
     // Default to exact match
@@ -179,12 +179,6 @@ export function NavBar() {
   const onClickModalPositiveButtonHandler = async () => {
     await handleLogout()
     setOpenModal(false)
-  }
-
-  const handleRedirectSignInAdmin = (el: NavItem) => {
-    if (el.text === t.navBar.admin) {
-      router.push('/admin')
-    }
   }
 
   return (
@@ -204,7 +198,6 @@ export function NavBar() {
             <NavBarItems
               activeConditionFunction={activeConditionFunctionHandler}
               items={secondItems}
-              onItemClick={handleRedirectSignInAdmin}
               wrapperClassName={s.secondArrayWrapper}
             />
             <LogOutItem
