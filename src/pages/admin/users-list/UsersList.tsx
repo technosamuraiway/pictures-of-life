@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
+import { UsersListTable } from '@/entities/tables/users-list-table/UsersListTable'
 import { UserBlockStatus } from '@/services/graphql/codegen/graphql'
 import { useSignInAdminStore } from '@/services/store/signInAdminStore'
 import { PATH } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
-import { UsersListTable } from '@/widgets/admin/users-list/users-list-table/UsersListTable'
 import { Select, TextField } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 

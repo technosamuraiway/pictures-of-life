@@ -5,7 +5,7 @@ export const PATH = {
     FORGOTPASSWORD: '/auth/forgotpassword',
     PRIVACYPOLICY: '/auth/privacypolicy',
     SIGNIN: '/auth/signin',
-    SIGNINADMIN: 'auth/signIn-admin',
+    SIGNINADMIN: '/auth/signIn-admin',
     SIGNUP: '/auth/signup',
     TERMSOFSRVICE: '/auth/termsofservice',
     URLGOOGLELOGIN: 'https://inctagram.work/api/v1/auth/google/login',

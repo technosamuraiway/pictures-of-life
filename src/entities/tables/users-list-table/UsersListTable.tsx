@@ -1,7 +1,9 @@
 import { HeadCell } from '@/entities/tables/paymentsTable/headCell/HeadCell'
 import { TableCell } from '@/entities/tables/paymentsTable/tableCell/TableCell'
+import { TableCellUsersList } from '@/entities/tables/users-list-table/tableCellUsersList/TableCellUsersList'
 import { useRouterLocaleDefinition } from '@/shared'
 import { DeleteIcon } from '@public/icons'
+import { BlockedIcon } from '@public/icons/BlockedIcon'
 import { Tables } from '@technosamurai/techno-ui-kit'
 
 import s from './UsersListTable.module.scss'
@@ -24,13 +26,19 @@ export const UsersListTable = () => {
 
         <Tables.TableBody>
           <Tables.TableRow>
-            <TableCell icon={<DeleteIcon />} value={'1212'} />
+            <TableCellUsersList icon={<BlockedIcon />} value={'1212'} />
             <TableCell value={'Petr'} />
             <TableCell value={`qwqwqwe@gmail.com`} />
             <TableCell value={'01.01.2017'} />
           </Tables.TableRow>
           <Tables.TableRow>
-            <TableCell value={'1212'} />
+            <TableCellUsersList value={'1212'} />
+            <TableCell value={'Petr'} />
+            <TableCell value={`qwqwqwe@gmail.com`} />
+            <TableCell value={'01.01.2017'} />
+          </Tables.TableRow>
+          <Tables.TableRow>
+            <TableCellUsersList icon={<BlockedIcon />} value={'1212'} />
             <TableCell value={'Petr'} />
             <TableCell value={`qwqwqwe@gmail.com`} />
             <TableCell value={'01.01.2017'} />
