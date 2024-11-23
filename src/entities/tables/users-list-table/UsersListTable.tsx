@@ -1,50 +1,52 @@
 import { HeadCell } from '@/entities/tables/paymentsTable/headCell/HeadCell'
 import { TableCell } from '@/entities/tables/paymentsTable/tableCell/TableCell'
+import { TableCellMoreHorizontalIcon } from '@/entities/tables/users-list-table/tableCellMoreHorizontallIcon/TableCellMoreHorizontalIcon'
 import { TableCellUsersList } from '@/entities/tables/users-list-table/tableCellUsersList/TableCellUsersList'
-import { useRouterLocaleDefinition } from '@/shared'
-import { DeleteIcon } from '@public/icons'
+import { User } from '@/services/graphql/codegen/graphql'
+import { convertDate, useRouterLocaleDefinition } from '@/shared'
 import { BlockedIcon } from '@public/icons/BlockedIcon'
-import { Tables } from '@technosamurai/techno-ui-kit'
+import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './UsersListTable.module.scss'
 
-export const UsersListTable = () => {
+interface IProps {
+  users: User[]
+}
+
+export const UsersListTable = ({ users }: IProps) => {
   const t = useRouterLocaleDefinition()
 
-  return (
-    <>
-      <Tables.Table>
-        <Tables.TableHead>
-          <Tables.TableRow className={s.head}>
-            <HeadCell title={'User ID'} />
-            <HeadCell title={'Username'} />
-            <HeadCell title={'Profile link'} />
-            <HeadCell title={'Date added'} />
-            <HeadCell title={''} />
-          </Tables.TableRow>
-        </Tables.TableHead>
+  if (users?.length === 0) {
+    return (
+      <Typography as={'h1'} className={s.emptyText} variant={'h1'}>
+        {'Список пуст'}
+      </Typography>
+    )
+  }
 
-        <Tables.TableBody>
-          <Tables.TableRow>
-            <TableCellUsersList icon={<BlockedIcon />} value={'1212'} />
-            <TableCell value={'Petr'} />
-            <TableCell value={`qwqwqwe@gmail.com`} />
-            <TableCell value={'01.01.2017'} />
+  return (
+    <Tables.Table>
+      <Tables.TableHead>
+        <Tables.TableRow className={s.head}>
+          <HeadCell title={'User ID'} />
+          <HeadCell title={'Username'} />
+          <HeadCell title={'Profile link'} />
+          <HeadCell title={'Date added'} />
+          <HeadCell title={''} />
+        </Tables.TableRow>
+      </Tables.TableHead>
+
+      <Tables.TableBody>
+        {users?.map(user => (
+          <Tables.TableRow key={user.id}>
+            <TableCellUsersList icon={user.userBan && <BlockedIcon />} value={user.id} />
+            <TableCell value={user.userName} />
+            <TableCell value={user.email} />
+            <TableCell value={convertDate(user.createdAt)} />
+            <TableCellMoreHorizontalIcon />
           </Tables.TableRow>
-          <Tables.TableRow>
-            <TableCellUsersList value={'1212'} />
-            <TableCell value={'Petr'} />
-            <TableCell value={`qwqwqwe@gmail.com`} />
-            <TableCell value={'01.01.2017'} />
-          </Tables.TableRow>
-          <Tables.TableRow>
-            <TableCellUsersList icon={<BlockedIcon />} value={'1212'} />
-            <TableCell value={'Petr'} />
-            <TableCell value={`qwqwqwe@gmail.com`} />
-            <TableCell value={'01.01.2017'} />
-          </Tables.TableRow>
-        </Tables.TableBody>
-      </Tables.Table>
-    </>
+        ))}
+      </Tables.TableBody>
+    </Tables.Table>
   )
 }

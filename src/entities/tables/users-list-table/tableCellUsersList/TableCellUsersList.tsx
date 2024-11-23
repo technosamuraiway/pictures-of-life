@@ -6,7 +6,7 @@ import s from './TableCellUsersList.module.scss'
 
 interface IProps {
   icon?: ReactNode
-  value: string
+  value: number
 }
 
 export const TableCellUsersList = ({ icon, value }: IProps) => {
