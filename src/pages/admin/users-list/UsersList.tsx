@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { UsersListTable } from '@/entities/tables/users-list-table/UsersListTable'
 import { SortDirection, UserBlockStatus } from '@/services/graphql/codegen/graphql'
 import { GET_USERS } from '@/services/graphql/queries/user'
 import { useSignInAdminStore } from '@/services/store/signInAdminStore'
-import { InitLoader, PATH } from '@/shared'
+import { InitLoader, PATH, useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import { useQuery } from '@apollo/client'
 import { Pagination, Select, TextField } from '@technosamurai/techno-ui-kit'
@@ -13,11 +13,14 @@ import { useRouter } from 'next/router'
 import s from './UsersList.module.scss'
 
 function UsersList() {
+  const t = useRouterLocaleDefinition()
   const router = useRouter()
   const { logged } = useSignInAdminStore()
   const [filterByUserStatus, setFilterByUserStatus] = useState<UserBlockStatus>(UserBlockStatus.All)
-  const [searchTerm, setSearchTerm] = useState<UserBlockStatus>(UserBlockStatus.All)
+  const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  // eslint-disable-next-line no-undef
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     // Проверка верификации администратора
@@ -43,31 +46,51 @@ function UsersList() {
     refetch()
   }
 
+  // Дебаунс для поиска
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
+
+    setSearchTerm(value)
+
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current)
+    }
+
+    debounceTimeout.current = setTimeout(() => {
+      refetch() // Выполнить запрос после дебаунса
+    }, 1000) // Задержка в 300 мс
+  }
+
   return (
     <div className={s.container}>
       <div className={s.inputSelectBlock}>
-        <TextField placeholder={'Search'} type={'search'} />
+        <TextField
+          onChange={handleSearchChange} // Обработчик изменения поля ввода
+          placeholder={t.admin.usersList.search}
+          type={'search'}
+        />
         <Select
           currentValue={filterByUserStatus}
           defaultValue={UserBlockStatus.All}
           onValueChange={el => {
             setFilterByUserStatus(el as UserBlockStatus)
+            refetch()
           }}
           options={[
             {
-              label: 'Not selected',
+              label: t.admin.usersList.notSelected,
               value: UserBlockStatus.All,
             },
             {
-              label: 'Blocked',
+              label: t.admin.usersList.blocked,
               value: UserBlockStatus.Blocked,
             },
             {
-              label: 'Not Blocked',
+              label: t.admin.usersList.notBlocked,
               value: UserBlockStatus.Unblocked,
             },
           ]}
-          selectWidth={'234px'}
+          selectWidth={'250px'}
         />
       </div>
       <div>{loading ? <InitLoader /> : <UsersListTable users={data?.getUsers?.users ?? []} />}</div>
@@ -75,7 +98,7 @@ function UsersList() {
       <Pagination
         count={data?.getUsers?.pagination?.pagesCount ?? 0}
         onChange={handlePageChange}
-        onPageTitle={'asddv'}
+        onPageTitle={''}
         page={currentPage}
         showTitle={'Show'}
       />

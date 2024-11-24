@@ -1,5 +1,9 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
+import { User } from '@/services/graphql/codegen/graphql'
+import { REMOVE_USER } from '@/services/graphql/mutations/user'
+import { useRouterLocaleDefinition } from '@/shared'
+import { useMutation } from '@apollo/client'
 import { BlockedIcon } from '@public/icons/BlockedIcon'
 import { MoreHorizontalIcon } from '@public/icons/MoreHorizontalOutlineIcon'
 import { PersonRemoveOutlineIcon } from '@public/icons/PersonRemoveOutlineIcon'
@@ -8,23 +12,44 @@ import clsx from 'clsx'
 import { v4 as uuid } from 'uuid'
 
 import s from './TableCellMoreHorizontalIcon.module.scss'
-const actionsPopover = [
-  {
-    icon: <PersonRemoveOutlineIcon />,
-    text: 'Delete User',
-  },
-  {
-    icon: <BlockedIcon />,
-    text: 'Ban in the system',
-  },
-  {
-    icon: <MoreHorizontalIcon />,
-    text: 'More Information',
-  },
-]
+interface IProps {
+  user: User
+}
+export const TableCellMoreHorizontalIcon = ({ user }: IProps) => {
+  const t = useRouterLocaleDefinition()
 
-export const TableCellMoreHorizontalIcon = () => {
   const [openPopover, setOpenPopover] = useState(false)
+
+  const [removeUser] = useMutation(REMOVE_USER)
+
+  const handleRemoveUser = async (userId: number) => {
+    try {
+      const response = await removeUser({
+        variables: {
+          userId,
+        },
+      })
+    } catch (err: any) {
+      if (err.data) {
+        // console.log(err.data)
+      }
+    }
+  }
+  const actionsPopover = [
+    {
+      action: (userId: number) => handleRemoveUser(userId),
+      icon: <PersonRemoveOutlineIcon />,
+      text: t.admin.usersList.deleteUser,
+    },
+    {
+      icon: <BlockedIcon />,
+      text: t.admin.usersList.banInTheSystem,
+    },
+    {
+      icon: <MoreHorizontalIcon />,
+      text: t.admin.usersList.moreInformation,
+    },
+  ]
 
   return (
     <Tables.TableBodyCell className={s.wrapper}>
@@ -43,18 +68,14 @@ export const TableCellMoreHorizontalIcon = () => {
           />
         }
         triggerCN={s.triggerBtn}
-        // triggerTitle={t.createNewPost.editPhotoModal.ratioChange}
         withArrow={false}
       >
-        {/*<Dropdown.Item className={s.itemDropdown}>*/}
-        {/*  <BlockedIcon />*/}
-        {/*  Delete User*/}
-        {/*</Dropdown.Item>*/}
-        {/*<Dropdown.Item>Ban in the system</Dropdown.Item>*/}
-        {/*<Dropdown.Item>More Information</Dropdown.Item>*/}
-
         {actionsPopover.map(item => (
-          <Dropdown.Item className={s.itemDropdown} key={uuid()}>
+          <Dropdown.Item
+            className={s.itemDropdown}
+            key={uuid()}
+            onClick={() => item.action && item.action(user.id)}
+          >
             {item.icon}
             <Typography variant={'regular-text-16'}>{item.text}</Typography>
           </Dropdown.Item>

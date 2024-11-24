@@ -7,3 +7,8 @@ export const LOGIN_ADMIN = graphql(`
     }
   }
 `)
+export const REMOVE_USER = graphql(`
+  mutation RemoveUser($userId: Int!) {
+    removeUser(userId: $userId)
+  }
+`)

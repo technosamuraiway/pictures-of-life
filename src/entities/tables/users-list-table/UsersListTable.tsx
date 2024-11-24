@@ -19,7 +19,7 @@ export const UsersListTable = ({ users }: IProps) => {
   if (users?.length === 0) {
     return (
       <Typography as={'h1'} className={s.emptyText} variant={'h1'}>
-        {'Список пуст'}
+        {t.admin.usersList.listIsEmpty}
       </Typography>
     )
   }
@@ -28,10 +28,10 @@ export const UsersListTable = ({ users }: IProps) => {
     <Tables.Table>
       <Tables.TableHead>
         <Tables.TableRow className={s.head}>
-          <HeadCell title={'User ID'} />
-          <HeadCell title={'Username'} />
-          <HeadCell title={'Profile link'} />
-          <HeadCell title={'Date added'} />
+          <HeadCell title={t.admin.usersList.userID} />
+          <HeadCell title={t.admin.usersList.username} />
+          <HeadCell title={t.admin.usersList.profileLink} />
+          <HeadCell title={t.admin.usersList.dateAdded} />
           <HeadCell title={''} />
         </Tables.TableRow>
       </Tables.TableHead>
@@ -43,7 +43,7 @@ export const UsersListTable = ({ users }: IProps) => {
             <TableCell value={user.userName} />
             <TableCell value={user.email} />
             <TableCell value={convertDate(user.createdAt)} />
-            <TableCellMoreHorizontalIcon />
+            <TableCellMoreHorizontalIcon user={user} />
           </Tables.TableRow>
         ))}
       </Tables.TableBody>

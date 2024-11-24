@@ -399,6 +399,18 @@ export const en: LocaleType = {
     },
     usersList: {
       title: 'Users List',
+      notSelected: 'Not selected',
+      blocked: 'Blocked',
+      notBlocked: 'Not Blocked',
+      search: 'Search',
+      listIsEmpty: 'The list is empty',
+      userID: 'User ID',
+      username: 'Username',
+      profileLink: 'Profile link',
+      dateAdded: 'Date added',
+      deleteUser: 'Delete User',
+      banInTheSystem: 'Ban in the system',
+      moreInformation: 'More Information',
     },
     paymentsList: {
       title: 'Payments List',
