@@ -10,10 +10,11 @@ import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 import s from './UsersListTable.module.scss'
 
 interface IProps {
+  refetch: Function
   users: User[]
 }
 
-export const UsersListTable = ({ users }: IProps) => {
+export const UsersListTable = ({ refetch, users }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   if (users?.length === 0) {
@@ -43,7 +44,7 @@ export const UsersListTable = ({ users }: IProps) => {
             <TableCell value={user.userName} />
             <TableCell value={user.email} />
             <TableCell value={convertDate(user.createdAt)} />
-            <TableCellMoreHorizontalIcon user={user} />
+            <TableCellMoreHorizontalIcon refetch={refetch} user={user} />
           </Tables.TableRow>
         ))}
       </Tables.TableBody>

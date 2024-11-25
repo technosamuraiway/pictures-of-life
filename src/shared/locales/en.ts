@@ -411,6 +411,7 @@ export const en: LocaleType = {
       deleteUser: 'Delete User',
       banInTheSystem: 'Ban in the system',
       moreInformation: 'More Information',
+      errorRemoveUser: 'Error when deleting a user',
     },
     paymentsList: {
       title: 'Payments List',

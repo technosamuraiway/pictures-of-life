@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { User } from '@/services/graphql/codegen/graphql'
 import { REMOVE_USER } from '@/services/graphql/mutations/user'
@@ -12,10 +13,12 @@ import clsx from 'clsx'
 import { v4 as uuid } from 'uuid'
 
 import s from './TableCellMoreHorizontalIcon.module.scss'
+
 interface IProps {
+  refetch: Function
   user: User
 }
-export const TableCellMoreHorizontalIcon = ({ user }: IProps) => {
+export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const [openPopover, setOpenPopover] = useState(false)
@@ -24,15 +27,15 @@ export const TableCellMoreHorizontalIcon = ({ user }: IProps) => {
 
   const handleRemoveUser = async (userId: number) => {
     try {
-      const response = await removeUser({
+      await removeUser({
         variables: {
           userId,
         },
       })
+
+      refetch()
     } catch (err: any) {
-      if (err.data) {
-        // console.log(err.data)
-      }
+      toast.error(t.admin.usersList.errorRemoveUser)
     }
   }
   const actionsPopover = [

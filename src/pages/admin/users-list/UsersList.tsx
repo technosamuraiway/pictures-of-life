@@ -93,7 +93,13 @@ function UsersList() {
           selectWidth={'250px'}
         />
       </div>
-      <div>{loading ? <InitLoader /> : <UsersListTable users={data?.getUsers?.users ?? []} />}</div>
+      <div>
+        {loading ? (
+          <InitLoader />
+        ) : (
+          <UsersListTable refetch={refetch} users={data?.getUsers?.users ?? []} />
+        )}
+      </div>
 
       <Pagination
         count={data?.getUsers?.pagination?.pagesCount ?? 0}

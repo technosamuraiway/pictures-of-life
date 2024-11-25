@@ -412,6 +412,7 @@ export const ru = {
       deleteUser: 'Удалить пользователя',
       banInTheSystem: 'Запрет в системе',
       moreInformation: 'Дополнительная информация',
+      errorRemoveUser: 'Ошибка при удалении пользователя',
     },
     paymentsList: {
       title: 'Список платежей',
