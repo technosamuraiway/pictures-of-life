@@ -37,4 +37,3 @@ next-env.d.ts
 
 # IDE webstorm-idea ignore
 .idea
-/src/services/graphql/codegen
