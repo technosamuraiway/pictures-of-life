@@ -39,8 +39,6 @@ export const useGetProfilePageData = (
 
   const postsData = postsGetData || posts
 
-  debugger
-
   return {
     getPostsTrigger,
     isAuthorized,
