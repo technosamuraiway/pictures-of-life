@@ -114,9 +114,6 @@ export const en: LocaleType = {
   },
   navBar: {
     admin: 'Admin',
-    usersList: 'Users list',
-    paymentsList: 'Payments list',
-    postsList: 'Posts list',
     create: 'Create',
     favorites: 'Favorites',
     home: 'Home',
@@ -399,6 +396,28 @@ export const en: LocaleType = {
       lastMonth: 'Last month',
       currentMonth: 'Current month',
       date: 'Date range',
+    },
+    usersList: {
+      title: 'Users List',
+      notSelected: 'Not selected',
+      blocked: 'Blocked',
+      notBlocked: 'Not Blocked',
+      search: 'Search',
+      listIsEmpty: 'The list is empty',
+      userID: 'User ID',
+      username: 'Username',
+      profileLink: 'Profile link',
+      dateAdded: 'Date added',
+      deleteUser: 'Delete User',
+      banInTheSystem: 'Ban in the system',
+      moreInformation: 'More Information',
+      errorRemoveUser: 'Error when deleting a user',
+    },
+    paymentsList: {
+      title: 'Payments List',
+    },
+    postsList: {
+      title: 'Posts List',
     },
   },
 }

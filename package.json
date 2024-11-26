@@ -8,10 +8,12 @@
     "build:production": "env-cmd -f .env.production npm run build",
     "start": "next start",
     "format": "prettier --write src",
-    "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input"
+    "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
+    "codegen": "graphql-codegen --config src/services/graphql/codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.11.9",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@hookform/resolvers": "^3.9.0",
     "@internationalized/date": "3.5.6",
     "@reduxjs/toolkit": "^2.2.7",
@@ -43,6 +45,8 @@
     "zustand": "5.0.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "5.0.3",
+    "@graphql-codegen/client-preset": "4.5.0",
     "@it-incubator/eslint-config": "^1.0.3",
     "@it-incubator/prettier-config": "^0.1.2",
     "@it-incubator/stylelint-config": "^2.0.0",
@@ -57,6 +61,6 @@
     "eslint-config-next": "14.2.5",
     "sass": "^1.77.8",
     "stylelint": "^16.8.2",
-    "typescript": "^5.4.2"
+    "typescript": "^5.6.3"
   }
 }

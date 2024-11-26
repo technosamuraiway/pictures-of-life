@@ -113,9 +113,6 @@ export const ru = {
   },
   navBar: {
     admin: 'Админ',
-    usersList: 'Список пользователей',
-    paymentsList: 'Cписок платежей',
-    postsList: 'Список постов',
     create: 'Создать',
     favorites: 'Любимое',
     home: 'Домой',
@@ -400,6 +397,28 @@ export const ru = {
       lastMonth: 'Последний месяц',
       currentMonth: 'Текущий месяц',
       date: 'Диапазон дат',
+    },
+    usersList: {
+      title: 'Срисок пользователей',
+      notSelected: 'Не выбрано',
+      blocked: 'Заблокировано',
+      notBlocked: 'Не заблокировано',
+      search: 'Поиск',
+      listIsEmpty: 'Список пуст',
+      userID: 'ID пользователя',
+      username: 'Имя пользователя',
+      profileLink: 'Ссылка на профиль',
+      dateAdded: 'Дата добавления',
+      deleteUser: 'Удалить пользователя',
+      banInTheSystem: 'Запрет в системе',
+      moreInformation: 'Дополнительная информация',
+      errorRemoveUser: 'Ошибка при удалении пользователя',
+    },
+    paymentsList: {
+      title: 'Список платежей',
+    },
+    postsList: {
+      title: 'Список постов',
     },
   },
 }
