@@ -196,7 +196,7 @@ export const en: LocaleType = {
           headerTitle: 'Edit Post',
           descriptionTitle: 'Add publication descriptions',
           confirm:
-            'Are you sure you want to close post edit? If you close - the description won’t be saved',
+            'Do you really want to finish editing? If you close the changes you have made will not be saved',
           saveChanges: 'Save changes',
           successChange: 'Post description successfully changed',
           errorChange: 'Post description change failed, try again',
