@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { useSignInAdminStore } from '@/services/store/signInAdminStore'
+import { MetaHead, PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import { Photos } from '@/widgets/admin/statistics/photos/Photos'
 import { Users } from '@/widgets/admin/statistics/users/Users'
@@ -11,6 +12,16 @@ import s from './Statistics.module.scss'
 const Statistics = () => {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
+  const { logged } = useSignInAdminStore()
+
+  useEffect(() => {
+    // Проверка верификации администратора
+    if (!logged) {
+      // Перенаправление на страницу входа для администраторов
+      router.replace(PATH.AUTH.SIGNINADMIN)
+    }
+  }, [router, logged])
+
   const [activeTab, setActiveTab] = useState<null | string>(null)
 
   const tabsData = useMemo<TabType[]>(
