@@ -399,6 +399,8 @@ export const en: LocaleType = {
       lastMonth: 'Last month',
       currentMonth: 'Current month',
       date: 'Date range',
+      paidAccounts: 'Paid accounts',
+      uploadedPhotos: 'Uploaded photos',
     },
   },
 }

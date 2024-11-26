@@ -36,4 +36,45 @@
   height: 12px;
   background: var(--Primary-100);
   border-radius: 50%;
+}  
+
+.usersChart {
+  position: absolute;
+  top: 150px;
+   width: 1020px;
+   height: 300px;
+  
+} 
+
+.paidsDiv {
+  position: absolute;
+  top: 480px;
+  width: 1020px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   
+} 
+
+.paidChart {
+  position: absolute;
+  top: 610px;
+  width: 1020px;
+  height: 360px;
+  padding-bottom: 60px;
+} 
+
+.firstCirclePaid {
+  width: 12px;
+  height: 12px;
+  background:  var(--Warning-900);
+  border-radius: 50%;
 }
+
+.secondCirclePaid {
+  width: 12px;
+  height: 12px;
+  background: var(--Warning-100);
+  border-radius: 50%;
+}  
+
