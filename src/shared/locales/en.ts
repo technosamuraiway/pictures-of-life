@@ -422,13 +422,19 @@ export const en: LocaleType = {
     userList: {
       title: 'User Page',
       backToUsersList: 'Back to Users List',
-      userID: 'UserID',
+      userID: 'User ID',
       profileCreationDate: 'Profile Creation Date',
       tabs: {
         files: 'Uploaded Files',
         payments: 'Payments',
         followers: 'Followers',
-        following: 'Following',
+        following: {
+          title: 'Following',
+          userIdHead: 'User ID',
+          userNameHead: 'User Name',
+          profileLinkHead: 'Profile Link',
+          subscriptionDate: 'Subscription Date',
+        },
       },
     },
   },

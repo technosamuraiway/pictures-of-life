@@ -14,20 +14,17 @@ export { ControlledTextField } from './controlled/controlledTextField/Controlled
 
 // ============================== [ modals ] ======================================
 export { ActionConfirmationModal } from './modals/actionConfirmationModal/ActionConfirmationModal'
-
 export { AddProfilePhotoModal } from './modals/addProfilePhotoModal/AddProfilePhotoModal'
 export { CreateNewPostModal } from './modals/createNewPostModal/CreateNewPostModal'
-
 export { DeletePostModal } from './modals/deletePostModal/DeletePostModal'
-
 export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'
-
 export { InformativeModal } from './modals/informativeModal/InformativeModal'
 
 // ============================== [ profile ] ======================================
 export { ProfileForm } from './profile/profileForm/ProfileForm'
 
 // ============================== [ tables ] ======================================
+export { FollowingTable } from './tables/followingTable/FollowingTable'
 export { PaymentsTable } from './tables/paymentsTable/PaymentsTable'
 
 // ============================== [ zod ] =======================================

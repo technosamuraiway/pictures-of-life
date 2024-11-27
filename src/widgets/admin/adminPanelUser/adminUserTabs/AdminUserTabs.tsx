@@ -5,6 +5,8 @@ import { TabType, Tabs } from '@technosamurai/techno-ui-kit'
 
 import s from './AdminUserTabs.module.scss'
 
+import { Following } from './following/Following'
+
 export const AdminUserTabs = () => {
   const t = useRouterLocaleDefinition()
 
@@ -13,13 +15,13 @@ export const AdminUserTabs = () => {
       { title: t.admin.userList.tabs.files, value: 'uploaded-files' },
       { title: t.admin.userList.tabs.payments, value: 'payments' },
       { title: t.admin.userList.tabs.followers, value: 'followers' },
-      { title: t.admin.userList.tabs.following, value: 'following' },
+      { title: t.admin.userList.tabs.following.title, value: 'following' },
     ],
     [
       t.admin.userList.tabs.files,
       t.admin.userList.tabs.payments,
       t.admin.userList.tabs.followers,
-      t.admin.userList.tabs.following,
+      t.admin.userList.tabs.following.title,
     ]
   )
 
@@ -38,7 +40,7 @@ export const AdminUserTabs = () => {
       <Tabs.Content value={tabsData[0].value}>1</Tabs.Content>
       <Tabs.Content value={tabsData[1].value}>2</Tabs.Content>
       <Tabs.Content value={tabsData[2].value}>3</Tabs.Content>
-      <Tabs.Content value={tabsData[3].value}>4</Tabs.Content>
+      <Following value={tabsData[3].value} />
     </Tabs.Root>
   )
 }
