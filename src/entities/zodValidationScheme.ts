@@ -5,7 +5,7 @@ const passwordRegex =
   /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}])[0-9a-zA-Z!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}]{6,}$/
 const usernameRegex = /^[a-zA-Z0-9_-]*$/g
 const firstLastNameRegex = /^[a-zA-Zа-яА-Я]*$/g
-const aboutMeRegex = /^[a-zA-Zа-яА-Я0-9!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|} ]*$/g
+const aboutMeRegex = /^[a-zA-Zа-яА-ЯёЁ0-9!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|} ]*$/g
 
 // Validation interfaces
 interface IEmail {
