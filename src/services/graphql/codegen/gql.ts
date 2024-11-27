@@ -18,6 +18,10 @@ const documents = {
     types.LoginAdminDocument,
   '\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n':
     types.RemoveUserDocument,
+  '\n  mutation BanUser($userId: Int!, $banReason: String!) {\n    banUser(userId: $userId, banReason: $banReason)\n  }\n':
+    types.BanUserDocument,
+  '\n  mutation UnbanUser($userId: Int!) {\n    unbanUser(userId: $userId)\n  }\n':
+    types.UnbanUserDocument,
   '\n  query GetUsers(\n    $pageSize: Int\n    $pageNumber: Int\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $searchTerm: String\n    $statusFilter: UserBlockStatus = ALL\n  ) {\n    getUsers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n      statusFilter: $statusFilter\n    ) {\n      users {\n        id\n        userName\n        email\n        createdAt\n        profile {\n          id\n          userName\n          firstName\n          lastName\n          city\n          country\n          region\n          dateOfBirth\n          aboutMe\n          createdAt\n          avatars {\n            url\n            width\n            height\n            fileSize\n          }\n        }\n        userBan {\n          reason\n          createdAt\n        }\n      }\n      pagination {\n        pagesCount\n        page\n        pageSize\n        totalCount\n      }\n    }\n  }\n':
     types.GetUsersDocument,
 }
@@ -48,6 +52,18 @@ export function graphql(
 export function graphql(
   source: '\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n'
 ): (typeof documents)['\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation BanUser($userId: Int!, $banReason: String!) {\n    banUser(userId: $userId, banReason: $banReason)\n  }\n'
+): (typeof documents)['\n  mutation BanUser($userId: Int!, $banReason: String!) {\n    banUser(userId: $userId, banReason: $banReason)\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UnbanUser($userId: Int!) {\n    unbanUser(userId: $userId)\n  }\n'
+): (typeof documents)['\n  mutation UnbanUser($userId: Int!) {\n    unbanUser(userId: $userId)\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
