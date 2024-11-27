@@ -50,7 +50,8 @@ export default function LineChart({ color1, color2, data1, data2, labels }: Line
       },
       y: {
         beginAtZero: true,
-        min: 0, // Минимальное значение оси Y
+        // max: 3000,
+        min: 0,
         ticks: {
           color: '#ffffff',
           padding: 1, // Расстояние между метками

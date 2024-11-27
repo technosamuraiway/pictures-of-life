@@ -78,3 +78,16 @@
   border-radius: 50%;
 }  
 
+.calendarDiv {
+position: relative;
+width: 247px;
+} 
+
+.error {
+  position: absolute;
+ right: -3px;
+ top: 75px;
+ width: 247px;
+  color:  var(--Danger-500);
+}
+
