@@ -420,6 +420,18 @@ export const ru = {
     postsList: {
       title: 'Список постов',
     },
+    userList: {
+      title: 'Страница пользователя',
+      backToUsersList: 'Вернуться к списку пользователей',
+      userID: 'ID пользователя',
+      profileCreationDate: 'Дата создания профиля',
+      tabs: {
+        files: 'Загруженные файлы',
+        payments: 'Платежи',
+        followers: 'Подписчики',
+        following: 'Подписки',
+      },
+    },
   },
 }
 

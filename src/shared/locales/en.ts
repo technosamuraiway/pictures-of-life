@@ -419,5 +419,17 @@ export const en: LocaleType = {
     postsList: {
       title: 'Posts List',
     },
+    userList: {
+      title: 'User Page',
+      backToUsersList: 'Back to Users List',
+      userID: 'UserID',
+      profileCreationDate: 'Profile Creation Date',
+      tabs: {
+        files: 'Uploaded Files',
+        payments: 'Payments',
+        followers: 'Followers',
+        following: 'Following',
+      },
+    },
   },
 }

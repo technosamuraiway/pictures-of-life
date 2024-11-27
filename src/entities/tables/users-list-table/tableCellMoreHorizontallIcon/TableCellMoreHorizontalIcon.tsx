@@ -3,13 +3,14 @@ import { toast } from 'react-toastify'
 
 import { User } from '@/services/graphql/codegen/graphql'
 import { REMOVE_USER } from '@/services/graphql/mutations/user'
-import { useRouterLocaleDefinition } from '@/shared'
+import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { useMutation } from '@apollo/client'
 import { BlockedIcon } from '@public/icons/BlockedIcon'
 import { MoreHorizontalIcon } from '@public/icons/MoreHorizontalOutlineIcon'
 import { PersonRemoveOutlineIcon } from '@public/icons/PersonRemoveOutlineIcon'
 import { Dropdown, Tables, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import { v4 as uuid } from 'uuid'
 
 import s from './TableCellMoreHorizontalIcon.module.scss'
@@ -20,7 +21,7 @@ interface IProps {
 }
 export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
   const t = useRouterLocaleDefinition()
-
+  const { push } = useRouter()
   const [openPopover, setOpenPopover] = useState(false)
 
   const [removeUser] = useMutation(REMOVE_USER)
@@ -49,6 +50,7 @@ export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
       text: t.admin.usersList.banInTheSystem,
     },
     {
+      action: (userId: number) => push(`${PATH.ADMIN.USERLIST}/${userId}`),
       icon: <MoreHorizontalIcon />,
       text: t.admin.usersList.moreInformation,
     },

@@ -1,16 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
-import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { MetaHead, RequestLineLoader, useRouterLocaleDefinition, useTabsSwitcher } from '@/shared'
 import { Devices, GeneralInfo, Management, Payments, getLayoutWithNav } from '@/widgets'
 import { TabType, Tabs } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
 
 import s from './Settings.module.scss'
 
 const Settings = () => {
   const t = useRouterLocaleDefinition()
-  const router = useRouter()
-  const [activeTab, setActiveTab] = useState<null | string>(null)
 
   const tabsData = useMemo<TabType[]>(
     () => [
@@ -27,28 +24,7 @@ const Settings = () => {
     ]
   )
 
-  useEffect(() => {
-    if (router.isReady) {
-      const tabFromUrl = router.query.tab as string
-      const defaultTab = tabsData[0].value
-      const newActiveTab = tabsData.some(tab => tab.value.includes(tabFromUrl))
-        ? tabFromUrl
-        : defaultTab
-
-      setActiveTab(newActiveTab)
-    }
-  }, [router.isReady, router.query.tab, tabsData])
-
-  const tabChangeHandler = (newValue: string) => {
-    router.push(
-      {
-        pathname: router.pathname,
-        query: { ...router.query, tab: newValue },
-      },
-      undefined,
-      { shallow: true }
-    )
-  }
+  const { activeTab, tabChangeHandler } = useTabsSwitcher(tabsData)
 
   return (
     <>
