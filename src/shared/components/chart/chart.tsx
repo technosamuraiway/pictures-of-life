@@ -1,4 +1,4 @@
-import { Chart as ReactChart } from 'react-chartjs-2'
+'use client'
 
 import {
   CategoryScale,
@@ -10,9 +10,13 @@ import {
   Title,
   Tooltip,
 } from 'chart.js'
+import dynamic from 'next/dynamic'
 
 // Регистрация модулей Chart.js
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
+
+// Динамическая загрузка Chart.js
+const DynamicChart = dynamic(() => import('react-chartjs-2').then(mod => mod.Chart), { ssr: false })
 
 interface ChartProps {
   data: any
@@ -21,5 +25,5 @@ interface ChartProps {
 }
 
 export function Chart({ data, options, type }: ChartProps) {
-  return <ReactChart data={data} options={options} type={type} />
+  return <DynamicChart data={data} options={options} type={type} />
 }
