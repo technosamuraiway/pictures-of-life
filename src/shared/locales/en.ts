@@ -114,9 +114,6 @@ export const en: LocaleType = {
   },
   navBar: {
     admin: 'Admin',
-    usersList: 'Users list',
-    paymentsList: 'Payments list',
-    postsList: 'Posts list',
     create: 'Create',
     favorites: 'Favorites',
     home: 'Home',
@@ -196,7 +193,7 @@ export const en: LocaleType = {
           headerTitle: 'Edit Post',
           descriptionTitle: 'Add publication descriptions',
           confirm:
-            'Are you sure you want to close post edit? If you close - the description won’t be saved',
+            'Do you really want to finish editing? If you close the changes you have made will not be saved',
           saveChanges: 'Save changes',
           successChange: 'Post description successfully changed',
           errorChange: 'Post description change failed, try again',
@@ -389,5 +386,41 @@ export const en: LocaleType = {
   postText: {
     show: 'Show more',
     hide: 'Hide',
+  },
+  admin: {
+    statistics: {
+      title: 'Statistics',
+      users: 'Users',
+      photos: 'Photos',
+      newUsers: 'New users',
+      lastMonth: 'Last month',
+      currentMonth: 'Current month',
+      date: 'Date range',
+      paidAccounts: 'Paid accounts',
+      uploadedPhotos: 'Uploaded photos',
+      invalidDateRange: 'Error, select current month or last month.',
+    },
+    usersList: {
+      title: 'Users List',
+      notSelected: 'Not selected',
+      blocked: 'Blocked',
+      notBlocked: 'Not Blocked',
+      search: 'Search',
+      listIsEmpty: 'The list is empty',
+      userID: 'User ID',
+      username: 'Username',
+      profileLink: 'Profile link',
+      dateAdded: 'Date added',
+      deleteUser: 'Delete User',
+      banInTheSystem: 'Ban in the system',
+      moreInformation: 'More Information',
+      errorRemoveUser: 'Error when deleting a user',
+    },
+    paymentsList: {
+      title: 'Payments List',
+    },
+    postsList: {
+      title: 'Posts List',
+    },
   },
 }
