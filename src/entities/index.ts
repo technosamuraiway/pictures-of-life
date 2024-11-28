@@ -24,7 +24,7 @@ export { InformativeModal } from './modals/informativeModal/InformativeModal'
 export { ProfileForm } from './profile/profileForm/ProfileForm'
 
 // ============================== [ tables ] ======================================
-export { FollowingTable } from './tables/followingTable/FollowingTable'
+export { FollowTable } from './tables/followTable/FollowTable'
 export { PaymentsTable } from './tables/paymentsTable/PaymentsTable'
 
 // ============================== [ zod ] =======================================

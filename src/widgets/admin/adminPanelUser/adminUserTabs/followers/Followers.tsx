@@ -8,7 +8,7 @@ interface IProps {
   value: string
 }
 
-const TOTAL_PAGES_COUNT = 7
+const TOTAL_PAGES_COUNT = 4
 const PER_PAGE = [5, 10, 250]
 const data: FollowUser[] = [
   { createdAt: '2024-11-28T00:00:00Z', id: 576, userId: 1487, userName: 'Stiфыch' },
@@ -18,7 +18,7 @@ const data: FollowUser[] = [
   { createdAt: '2024-11-28T00:00:00Z', id: 546, userId: 1812, userName: 'Stiфывch' },
 ]
 
-export const Following = ({ value }: IProps) => {
+export const Followers = ({ value }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [currentPage, setCurrentPage] = useState(1)
   const [currentPerPage, setCurrentPerPage] = useState(PER_PAGE[0])
@@ -26,8 +26,8 @@ export const Following = ({ value }: IProps) => {
   return (
     <Tabs.Content value={value}>
       <FollowTable
-        emptyTableText={t.admin.userList.tabs.following.emptyTable}
-        sortDirection={'desc'}
+        emptyTableText={t.admin.userList.tabs.followers.emptyTable}
+        sortDirection={'asc'}
         tableData={data}
       />
       {data.length > 4 && (

@@ -426,15 +426,19 @@ export const ru = {
       userID: 'ID пользователя',
       profileCreationDate: 'Дата создания профиля',
       tabs: {
-        files: 'Загруженные файлы',
-        payments: 'Платежи',
-        followers: 'Подписчики',
+        files: { title: 'Загруженные файлы' },
+        payments: { title: 'Платежи', emptyTable: 'У пользователя нет истории платежей' },
+        followers: {
+          title: 'Подписчики',
+          emptyTable: 'У пользователя нет подписчиков',
+        },
         following: {
           title: 'Подписки',
           userIdHead: 'ID пользователя',
           userNameHead: 'Имя пользователя',
           profileLinkHead: 'Ссылка на пользователя',
           subscriptionDate: 'Дата подписки',
+          emptyTable: 'У пользователя нет подписок',
         },
       },
     },

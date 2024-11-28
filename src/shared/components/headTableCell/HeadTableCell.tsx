@@ -33,9 +33,9 @@ export const HeadTableCell = ({
     )
 
   return (
-    <Tables.TableHeadCell>
+    <Tables.TableHeadCell className={s.cell}>
       <div className={clsx(s.wrapper, isWithArrow && s.hover, className)}>
-        <Typography className={textCN} variant={'regular-text-14'}>
+        <Typography className={clsx(s.text, textCN)} variant={'regular-text-14'}>
           {title}
         </Typography>
         {isWithArrow && arrowDecider}

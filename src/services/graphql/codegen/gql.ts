@@ -1,6 +1,6 @@
 /* eslint-disable */
-import * as types from './graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import * as types from './graphql'
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core'
 
 /**
  * Map of all GraphQL operations in the project.
@@ -14,10 +14,13 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
-    "\n  mutation LoginAdmin($email: String!, $password: String!) {\n    loginAdmin(email: $email, password: $password) {\n      logged\n    }\n  }\n": types.LoginAdminDocument,
-    "\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n": types.RemoveUserDocument,
-    "\n  query GetUsers(\n    $pageSize: Int\n    $pageNumber: Int\n    $sortBy: String = \"createdAt\"\n    $sortDirection: SortDirection = desc\n    $searchTerm: String\n    $statusFilter: UserBlockStatus = ALL\n  ) {\n    getUsers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n      statusFilter: $statusFilter\n    ) {\n      users {\n        id\n        userName\n        email\n        createdAt\n        profile {\n          id\n          userName\n          firstName\n          lastName\n          city\n          country\n          region\n          dateOfBirth\n          aboutMe\n          createdAt\n          avatars {\n            url\n            width\n            height\n            fileSize\n          }\n        }\n        userBan {\n          reason\n          createdAt\n        }\n      }\n      pagination {\n        pagesCount\n        page\n        pageSize\n        totalCount\n      }\n    }\n  }\n": types.GetUsersDocument,
-};
+  '\n  mutation LoginAdmin($email: String!, $password: String!) {\n    loginAdmin(email: $email, password: $password) {\n      logged\n    }\n  }\n':
+    types.LoginAdminDocument,
+  '\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n':
+    types.RemoveUserDocument,
+  '\n  query GetUsers(\n    $pageSize: Int\n    $pageNumber: Int\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $searchTerm: String\n    $statusFilter: UserBlockStatus = ALL\n  ) {\n    getUsers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n      statusFilter: $statusFilter\n    ) {\n      users {\n        id\n        userName\n        email\n        createdAt\n        profile {\n          id\n          userName\n          firstName\n          lastName\n          city\n          country\n          region\n          dateOfBirth\n          aboutMe\n          createdAt\n          avatars {\n            url\n            width\n            height\n            fileSize\n          }\n        }\n        userBan {\n          reason\n          createdAt\n        }\n      }\n      pagination {\n        pagesCount\n        page\n        pageSize\n        totalCount\n      }\n    }\n  }\n':
+    types.GetUsersDocument,
+}
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -31,23 +34,30 @@ const documents = {
  * The query argument is unknown!
  * Please regenerate the types.
  */
-export function graphql(source: string): unknown;
+export function graphql(source: string): unknown
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation LoginAdmin($email: String!, $password: String!) {\n    loginAdmin(email: $email, password: $password) {\n      logged\n    }\n  }\n"): (typeof documents)["\n  mutation LoginAdmin($email: String!, $password: String!) {\n    loginAdmin(email: $email, password: $password) {\n      logged\n    }\n  }\n"];
+export function graphql(
+  source: '\n  mutation LoginAdmin($email: String!, $password: String!) {\n    loginAdmin(email: $email, password: $password) {\n      logged\n    }\n  }\n'
+): (typeof documents)['\n  mutation LoginAdmin($email: String!, $password: String!) {\n    loginAdmin(email: $email, password: $password) {\n      logged\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n"): (typeof documents)["\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n"];
+export function graphql(
+  source: '\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n'
+): (typeof documents)['\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetUsers(\n    $pageSize: Int\n    $pageNumber: Int\n    $sortBy: String = \"createdAt\"\n    $sortDirection: SortDirection = desc\n    $searchTerm: String\n    $statusFilter: UserBlockStatus = ALL\n  ) {\n    getUsers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n      statusFilter: $statusFilter\n    ) {\n      users {\n        id\n        userName\n        email\n        createdAt\n        profile {\n          id\n          userName\n          firstName\n          lastName\n          city\n          country\n          region\n          dateOfBirth\n          aboutMe\n          createdAt\n          avatars {\n            url\n            width\n            height\n            fileSize\n          }\n        }\n        userBan {\n          reason\n          createdAt\n        }\n      }\n      pagination {\n        pagesCount\n        page\n        pageSize\n        totalCount\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetUsers(\n    $pageSize: Int\n    $pageNumber: Int\n    $sortBy: String = \"createdAt\"\n    $sortDirection: SortDirection = desc\n    $searchTerm: String\n    $statusFilter: UserBlockStatus = ALL\n  ) {\n    getUsers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n      statusFilter: $statusFilter\n    ) {\n      users {\n        id\n        userName\n        email\n        createdAt\n        profile {\n          id\n          userName\n          firstName\n          lastName\n          city\n          country\n          region\n          dateOfBirth\n          aboutMe\n          createdAt\n          avatars {\n            url\n            width\n            height\n            fileSize\n          }\n        }\n        userBan {\n          reason\n          createdAt\n        }\n      }\n      pagination {\n        pagesCount\n        page\n        pageSize\n        totalCount\n      }\n    }\n  }\n"];
+export function graphql(
+  source: '\n  query GetUsers(\n    $pageSize: Int\n    $pageNumber: Int\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $searchTerm: String\n    $statusFilter: UserBlockStatus = ALL\n  ) {\n    getUsers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n      statusFilter: $statusFilter\n    ) {\n      users {\n        id\n        userName\n        email\n        createdAt\n        profile {\n          id\n          userName\n          firstName\n          lastName\n          city\n          country\n          region\n          dateOfBirth\n          aboutMe\n          createdAt\n          avatars {\n            url\n            width\n            height\n            fileSize\n          }\n        }\n        userBan {\n          reason\n          createdAt\n        }\n      }\n      pagination {\n        pagesCount\n        page\n        pageSize\n        totalCount\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query GetUsers(\n    $pageSize: Int\n    $pageNumber: Int\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $searchTerm: String\n    $statusFilter: UserBlockStatus = ALL\n  ) {\n    getUsers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n      statusFilter: $statusFilter\n    ) {\n      users {\n        id\n        userName\n        email\n        createdAt\n        profile {\n          id\n          userName\n          firstName\n          lastName\n          city\n          country\n          region\n          dateOfBirth\n          aboutMe\n          createdAt\n          avatars {\n            url\n            width\n            height\n            fileSize\n          }\n        }\n        userBan {\n          reason\n          createdAt\n        }\n      }\n      pagination {\n        pagesCount\n        page\n        pageSize\n        totalCount\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
-  return (documents as any)[source] ?? {};
+  return (documents as any)[source] ?? {}
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never
