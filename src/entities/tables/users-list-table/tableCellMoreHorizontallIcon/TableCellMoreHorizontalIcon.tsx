@@ -12,6 +12,7 @@ import { MoreHorizontalIcon } from '@public/icons/MoreHorizontalOutlineIcon'
 import { PersonRemoveOutlineIcon } from '@public/icons/PersonRemoveOutlineIcon'
 import { Dropdown, Tables, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
+import { BUN_REASON_TYPE } from 'src/shared/enums'
 import { v4 as uuid } from 'uuid'
 
 import s from './TableCellMoreHorizontalIcon.module.scss'
@@ -45,7 +46,7 @@ export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
       toast.error(t.admin.usersList.errorRemoveUser)
     }
   }
-  const handleBanUnbanUser = async (userId: number, banReason: string) => {
+  const handleBanUnbanUser = async (userId: number, banReason: BUN_REASON_TYPE) => {
     try {
       if (user?.userBan) {
         await unbanUser({
@@ -56,7 +57,7 @@ export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
       } else {
         await banUser({
           variables: {
-            banReason: 'Долбаеб',
+            banReason,
             userId,
           },
         })
@@ -83,6 +84,9 @@ export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
       text: t.admin.usersList.moreInformation,
     },
   ]
+  const onClickPositiveButton = (banReason: BUN_REASON_TYPE) => {
+    handleBanUnbanUser(user.id, banReason)
+  }
 
   return (
     <>
@@ -129,9 +133,7 @@ export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
         headerTitle={user?.userBan ? t.admin.usersList.unbanUser : t.admin.usersList.banUser}
         isOpenModal={openBanUnbanUserModal}
         onClickNegativeButton={() => setOpenBanUnbanUserModal(false)}
-        onClickPositiveButton={() => {
-          handleBanUnbanUser(user.id, 'sfsf')
-        }}
+        onClickPositiveButton={onClickPositiveButton}
         setIsOpenModal={setOpenBanUnbanUserModal}
         textContent={
           user?.userBan ? t.admin.usersList.confirmUnbanUser : t.admin.usersList.confirmBanUser

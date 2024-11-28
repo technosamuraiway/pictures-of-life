@@ -419,6 +419,9 @@ export const en: LocaleType = {
       confirmBanUser: 'Are you sure to ban this user',
       confirmUnbanUser: 'Are you sure to unban this user',
       errorBanUnbanUser: 'Error during user blocking/unblocking',
+      badBehavior: 'Bad behavior',
+      advertisingPlacement: 'Advertising placement',
+      anotherReason: 'Another reason',
     },
     paymentsList: {
       title: 'Payments List',

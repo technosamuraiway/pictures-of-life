@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { User, UserBlockStatus } from '@/services/graphql/codegen/graphql'
+import { User } from '@/services/graphql/codegen/graphql'
 import { useRouterLocaleDefinition } from '@/shared'
 import { Button, Modal, Select, Typography } from '@technosamurai/techno-ui-kit'
+import { BUN_REASON_TYPE } from 'src/shared/enums'
 
 import s from './BanUnbanUserModal.module.scss'
 
@@ -10,7 +11,7 @@ interface IProps {
   headerTitle: string
   isOpenModal: boolean
   onClickNegativeButton?: () => void
-  onClickPositiveButton: () => void
+  onClickPositiveButton: (banReason: BUN_REASON_TYPE) => void
   setIsOpenModal: (isOpenModal: boolean) => void
   textContent: string
   user: User
@@ -26,6 +27,7 @@ export function BanUnbanUserModal({
   user,
 }: IProps) {
   const t = useRouterLocaleDefinition()
+  const [banReason, setBanReason] = useState<BUN_REASON_TYPE>(BUN_REASON_TYPE.BAD_BEHAVIOR)
 
   return (
     <>
@@ -42,29 +44,24 @@ export function BanUnbanUserModal({
           </Typography>
           {!user.userBan && (
             <Select
-              containerStyle={{ zIndex: '299' }}
-              contentStyle={{ zIndex: '299' }}
-              currentValue={''}
-              defaultValue={'Reason for ban'}
-              onValueChange={
-                () => {}
-                // el => {
-                //   setFilterByUserStatus(el as UserBlockStatus)
-                //   refetch()
-                // }
-              }
+              contentStyle={s.contentStyle}
+              currentValue={banReason}
+              defaultValue={BUN_REASON_TYPE.BAD_BEHAVIOR}
+              onValueChange={el => {
+                setBanReason(el as BUN_REASON_TYPE)
+              }}
               options={[
                 {
-                  label: 'Bad behavior',
-                  value: 'Bad behavior',
+                  label: t.admin.usersList.badBehavior,
+                  value: BUN_REASON_TYPE.BAD_BEHAVIOR,
                 },
                 {
-                  label: 'Advertising placement',
-                  value: 'Advertising placement',
+                  label: t.admin.usersList.advertisingPlacement,
+                  value: BUN_REASON_TYPE.ADVERTISING_PLACEMENT,
                 },
                 {
-                  label: 'Another reason',
-                  value: 'Another reason',
+                  label: t.admin.usersList.anotherReason,
+                  value: BUN_REASON_TYPE.ANOTHER_REASON,
                 },
               ]}
               selectWidth={'250px'}
@@ -73,7 +70,7 @@ export function BanUnbanUserModal({
           <div className={s.buttonsWrapper}>
             <Button
               className={s.modalButton}
-              onClick={onClickPositiveButton}
+              onClick={() => onClickPositiveButton(banReason)}
               type={'button'}
               variant={'outline'}
             >

@@ -420,6 +420,9 @@ export const ru = {
       confirmDeleteUser: 'Вы уверены, что хотите удалить пользователя',
       confirmBanUser: 'Вы уверены, что хотите заблокировать пользователя',
       confirmUnbanUser: 'Вы уверены, что хотите разблокировать пользователя',
+      badBehavior: 'Плохое поведение',
+      advertisingPlacement: 'Размещение рекламы',
+      anotherReason: 'Другая причина',
     },
     paymentsList: {
       title: 'Список платежей',
