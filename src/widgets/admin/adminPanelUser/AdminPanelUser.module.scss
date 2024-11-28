@@ -1,3 +1,8 @@
+.wrapper {
+  padding-left: var(--navBar-width);
+  width: 100%;
+}
+
 .textWrapper {
   display: flex;
   flex-direction: row;

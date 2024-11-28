@@ -1,4 +1,4 @@
-import { BodyTableCell, HeadTableCell, useRouterLocaleDefinition } from '@/shared'
+import { BodyTableCell, HeadTableCell, convertDate, useRouterLocaleDefinition } from '@/shared'
 import { Tables } from '@technosamurai/techno-ui-kit'
 
 import s from './FollowingTable.module.scss'
@@ -30,13 +30,13 @@ export const FollowingTable = () => {
       </Tables.TableHead>
 
       <Tables.TableBody>
-        {['142323', 'sdfg', 'sdg', 'sdfg'].map(table => {
+        {['142323', 'sdfg', 'sdg', 'sdfg', '12343254'].map(table => {
           return (
             <Tables.TableRow key={'gsd'}>
               <BodyTableCell value={'1234'} />
               <BodyTableCell value={'1234'} />
               <LinkCell href={'gfsdfg'} value={'1234'} />
-              <BodyTableCell value={'1234'} />
+              <BodyTableCell value={convertDate('1354')} />
             </Tables.TableRow>
           )
         })}

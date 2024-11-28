@@ -13,7 +13,7 @@ export const AdminPanelUser = () => {
   const { query } = useRouter()
 
   return (
-    <>
+    <div className={s.wrapper}>
       <BackToUsersList />
       <AvatarInfo />
       <div className={s.textWrapper}>
@@ -21,6 +21,6 @@ export const AdminPanelUser = () => {
         <UserInfo header={t.admin.userList.profileCreationDate} info={'asd'} />
       </div>
       <AdminUserTabs />
-    </>
+    </div>
   )
 }
