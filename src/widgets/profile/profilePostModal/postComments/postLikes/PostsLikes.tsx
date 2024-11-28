@@ -9,7 +9,6 @@ import { BookmarkIcon, FilledLikeIcon, LikeIcon, MessageIcon } from '@public/ico
 import { Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import Image from 'next/image'
-import mockAvatar from 'public/mockAvatar.png'
 
 import s from './PostsLikes.module.scss'
 
@@ -42,17 +41,21 @@ export const PostsLikes = () => {
     putLike({ likeStatus: 'NONE', postId: Number(postId) })
   }
 
-  const mockImages = [mockAvatar, mockAvatar, mockAvatar]
-
-  // не работает пока
   const avatarsWhoLikes = useMemo(() => {
     return post?.avatarWhoLikes.slice(0, 3)
   }, [post])
 
-  const avatars = !!mockImages?.length && (
+  const avatars = !!avatarsWhoLikes?.length && (
     <div className={s.avatarsBox}>
-      {mockImages?.map((avatar, index) => (
-        <Image alt={`User avatar ${index + 1}`} className={s.avatar} key={index} src={avatar} />
+      {avatarsWhoLikes?.map((avatar, index) => (
+        <Image
+          alt={`User avatar ${index + 1}`}
+          className={s.avatar}
+          height={24}
+          key={index}
+          src={avatar}
+          width={24}
+        />
       ))}
     </div>
   )
