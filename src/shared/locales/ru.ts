@@ -132,6 +132,7 @@ export const ru = {
   pagination: {
     onPage: 'на странице',
     show: 'Показать',
+    status: 'Ожидайте',
   },
   passwordRecoveryPage: {
     title: 'Восстановления пароля',

@@ -133,6 +133,7 @@ export const en: LocaleType = {
   pagination: {
     onPage: 'on page',
     show: 'Show',
+    status: 'Pending',
   },
   passwordRecoveryPage: {
     title: 'Password recovery page',
