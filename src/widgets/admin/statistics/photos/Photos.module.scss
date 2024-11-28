@@ -1,0 +1,60 @@
+.photosDiv {
+  position: absolute;
+  top: 3.75rem; /* 60px */
+  width: 64.375rem; /* 1030px */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.textContent {
+  display: flex;
+  gap: 4.6875rem; /* 75px */
+  align-items: center;
+}
+
+.divTextContent {
+  display: flex;
+  gap: 1.875rem; /* 30px */
+}
+
+.divText {
+  display: flex;
+  gap: 0.4375rem; /* 7px */
+  justify-content: center;
+  align-items: center;
+}
+
+.firstCircle {
+  width: 0.75rem; /* 12px */
+  height: 0.75rem; /* 12px */
+  background: var(--Success-900);
+  border-radius: 50%;
+}
+
+.secondCircle {
+  width: 0.75rem; /* 12px */
+  height: 0.75rem; /* 12px */
+  background: var(--Success-100);
+  border-radius: 50%;
+}
+
+.usersChart {
+  position: absolute;
+  top: 9.375rem; /* 150px */
+  width: 63.75rem; /* 1020px */
+  height: 18.75rem; /* 300px */
+}
+
+.calendarDiv {
+  position: relative;
+  width: 15.4375rem; /* 247px */
+}
+
+.error {
+  position: absolute;
+  right: -0.1875rem; /* -3px */
+  top: 4.6875rem; /* 75px */
+  width: 15.4375rem; /* 247px */
+  color: var(--Danger-500);
+}
