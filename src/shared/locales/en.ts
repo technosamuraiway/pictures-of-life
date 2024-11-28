@@ -398,7 +398,7 @@ export const en: LocaleType = {
       date: 'Date range',
       paidAccounts: 'Paid accounts',
       uploadedPhotos: 'Uploaded photos',
-       invalidDateRange: 'Error, select current month or last month.'
+      invalidDateRange: 'Error, select current month or last month.',
     },
     usersList: {
       title: 'Users List',

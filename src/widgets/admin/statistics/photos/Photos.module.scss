@@ -4,8 +4,8 @@
   width: 64.375rem; /* 1030px */
   display: flex;
   justify-content: space-between;
-  align-items: center; 
-} 
+  align-items: center;
+}
 
 .textContent {
   display: flex;
@@ -23,7 +23,7 @@
   gap: 0.4375rem; /* 7px */
   justify-content: center;
   align-items: center;
-} 
+}
 
 .firstCircle {
   width: 0.75rem; /* 12px */
@@ -37,20 +37,20 @@
   height: 0.75rem; /* 12px */
   background: var(--Success-100);
   border-radius: 50%;
-}  
+}
 
 .usersChart {
   position: absolute;
   top: 9.375rem; /* 150px */
   width: 63.75rem; /* 1020px */
   height: 18.75rem; /* 300px */
-} 
+}
 
 .calendarDiv {
   position: relative;
   width: 15.4375rem; /* 247px */
-} 
-    
+}
+
 .error {
   position: absolute;
   right: -0.1875rem; /* -3px */

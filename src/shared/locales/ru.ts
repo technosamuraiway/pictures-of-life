@@ -399,7 +399,7 @@ export const ru = {
       date: 'Диапазон дат',
       paidAccounts: 'Платные аккаунты',
       uploadedPhotos: 'Загруженные фотографии',
-      invalidDateRange: 'Ошибка, выберите текущий месяц или прошлый месяц.'
+      invalidDateRange: 'Ошибка, выберите текущий месяц или прошлый месяц.',
     },
     usersList: {
       title: 'Срисок пользователей',
