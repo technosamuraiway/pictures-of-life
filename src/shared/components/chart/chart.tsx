@@ -1,12 +1,8 @@
-'use client'
-
 import { Chart as ReactChart } from 'react-chartjs-2'
 
 import {
   CategoryScale,
   Chart as ChartJS,
-  ChartType,
-  Filler,
   Legend,
   LineElement,
   LinearScale,
@@ -16,21 +12,12 @@ import {
 } from 'chart.js'
 
 // Регистрация модулей Chart.js
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-)
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 interface ChartProps {
   data: any
   options: any
-  type: ChartType
+  type: 'line'
 }
 
 export function Chart({ data, options, type }: ChartProps) {
