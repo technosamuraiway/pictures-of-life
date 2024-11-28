@@ -397,6 +397,9 @@ export const ru = {
       lastMonth: 'Последний месяц',
       currentMonth: 'Текущий месяц',
       date: 'Диапазон дат',
+      paidAccounts: 'Платные аккаунты',
+      uploadedPhotos: 'Загруженные фотографии',
+      invalidDateRange: 'Ошибка, выберите текущий месяц или прошлый месяц.',
     },
     usersList: {
       title: 'Срисок пользователей',
