@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useUpdatePostLikeStatusMutation } from '@/services'
+import { useGetPostByIdQuery, useUpdatePostLikeStatusMutation } from '@/services'
 import { useGetPublicPostByIdQuery } from '@/services/flow/publicPosts.service'
 import { RequestLineLoader, Skeleton, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
@@ -19,13 +19,23 @@ export const PostsLikes = () => {
 
   const { postId } = query
 
-  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(
+  const { data: post, isLoading: isPostPublicLoading } = useGetPublicPostByIdQuery(
     (postId as string) || '',
     {
       skip: !postId,
     }
   )
+
+  const { data: postAuth, isLoading: isPostAuthLoading } = useGetPostByIdQuery(
+    (postId as string) || '',
+    {
+      skip: !postId || !meData,
+    }
+  )
+
   const [putLike, { isLoading: isPutLikeLoading }] = useUpdatePostLikeStatusMutation()
+
+  const isPostLoading = isPostPublicLoading || isPostAuthLoading
 
   function likeHandler() {
     if (!postId) {
@@ -62,7 +72,7 @@ export const PostsLikes = () => {
 
   const iconsBox = (
     <div className={s.iconsBox}>
-      {post?.isLiked ? (
+      {postAuth?.isLiked ? (
         <FilledLikeIcon
           className={clsx(s.likeIcon, s.likeIconFilled)}
           height={24}
