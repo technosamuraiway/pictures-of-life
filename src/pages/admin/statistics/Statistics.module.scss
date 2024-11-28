@@ -1,13 +1,13 @@
 .root {
   width: 50%;
-  margin-right: 450px;
+  margin-right: 28.125rem; /* 450px */
 }
 
 .tabsDiv {
   position: absolute;
-  top: 73px;
-  left: 600px;
-  width: 650px;
-  height: 1px;
+  top: 4.5625rem; /* 73px */
+  left: 37.5rem; /* 600px */
+  width: 40.625rem; /* 650px */
+  height: 0.0625rem; /* 1px */
   background: var(--Dark-300);
 }

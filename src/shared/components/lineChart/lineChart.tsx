@@ -5,10 +5,18 @@ interface LineChartProps {
   color2: string
   data1: number[]
   data2: number[]
+  formatYAxis?: (value: number) => string
   labels: string[]
 }
 
-export default function LineChart({ color1, color2, data1, data2, labels }: LineChartProps) {
+export default function LineChart({
+  color1,
+  color2,
+  data1,
+  data2,
+  formatYAxis,
+  labels,
+}: LineChartProps) {
   const data = {
     datasets: [
       {
@@ -34,14 +42,22 @@ export default function LineChart({ color1, color2, data1, data2, labels }: Line
   }
 
   const options = {
-    maintainAspectRatio: false, // Игнорировать соотношение сторон
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false, // Убираем легенду из графика
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: (context: any) => {
+            const value = context.raw // Значение данных
+
+            return formatYAxis ? formatYAxis(value) : value // Используем форматирование, если оно передано
+          },
+        },
       },
     },
     responsive: true,
-
     scales: {
       x: {
         ticks: {
@@ -53,9 +69,10 @@ export default function LineChart({ color1, color2, data1, data2, labels }: Line
         // max: 3000,
         min: 0,
         ticks: {
+          callback: formatYAxis || ((value: number) => value), // Форматируем ось Y, если передано
           color: '#ffffff',
-          padding: 1, // Расстояние между метками
-          stepSize: 500, // Шаг между метками
+          padding: 1,
+          stepSize: 500,
         },
       },
     },

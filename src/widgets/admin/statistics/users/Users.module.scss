@@ -1,93 +1,91 @@
 .usersDiv {
   position: absolute;
-  top: 60px;
-  width: 1030px;
+  top: 3.75rem; /* 60px */
+  width: 64.375rem; /* 1030px */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .textContent {
   display: flex;
-  gap: 75px;
+  gap: 4.6875rem; /* 75px */
   align-items: center;
 }
 
 .divTextContent {
   display: flex;
-  gap: 30px;
+  gap: 1.875rem; /* 30px */
 }
 
 .divText {
   display: flex;
-  gap: 7px;
+  gap: 0.4375rem; /* 7px */
   justify-content: center;
   align-items: center;
 }
 
 .firstCircle {
-  width: 12px;
-  height: 12px;
+  width: 0.75rem; /* 12px */
+  height: 0.75rem; /* 12px */
   background: var(--Primary-900);
   border-radius: 50%;
 }
 
 .secondCircle {
-  width: 12px;
-  height: 12px;
+  width: 0.75rem; /* 12px */
+  height: 0.75rem; /* 12px */
   background: var(--Primary-100);
   border-radius: 50%;
-}  
+}
 
 .usersChart {
   position: absolute;
-  top: 150px;
-   width: 1020px;
-   height: 300px;
-  
-} 
+  top: 9.375rem; /* 150px */
+  width: 63.75rem; /* 1020px */
+  height: 18.75rem; /* 300px */
+}
 
 .paidsDiv {
   position: absolute;
-  top: 480px;
-  width: 1020px;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   
-} 
+  top: 30rem; /* 480px */
+  width: 63.75rem; /* 1020px */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .paidChart {
   position: absolute;
-  top: 610px;
-  width: 1020px;
-  height: 360px;
-  padding-bottom: 60px;
-} 
+  top: 38.125rem; /* 610px */
+  width: 63.75rem; /* 1020px */
+  height: 22.5rem; /* 360px */
+  padding-bottom: 3.75rem; /* 60px */
+}
 
 .firstCirclePaid {
-  width: 12px;
-  height: 12px;
-  background:  var(--Warning-900);
+  width: 0.75rem; /* 12px */
+  height: 0.75rem; /* 12px */
+  background: var(--Warning-900);
   border-radius: 50%;
 }
 
 .secondCirclePaid {
-  width: 12px;
-  height: 12px;
+  width: 0.75rem; /* 12px */
+  height: 0.75rem; /* 12px */
   background: var(--Warning-100);
   border-radius: 50%;
-}  
+}
 
 .calendarDiv {
-position: relative;
-width: 247px;
-} 
+  position: relative;
+  width: 15.4375rem; /* 247px */
+}
 
 .error {
   position: absolute;
- right: -3px;
- top: 75px;
- width: 247px;
-  color:  var(--Danger-500);
+  right: -0.1875rem; /* -3px */
+  top: 4.6875rem; /* 75px */
+  width: 15.4375rem; /* 247px */
+  color: var(--Danger-500);
 }
-
