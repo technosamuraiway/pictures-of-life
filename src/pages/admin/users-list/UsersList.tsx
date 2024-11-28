@@ -5,6 +5,7 @@ import { SortDirection, UserBlockStatus } from '@/services/graphql/codegen/graph
 import { GET_USERS } from '@/services/graphql/queries/user'
 import { useSignInAdminStore } from '@/services/store/signInAdminStore'
 import { InitLoader, PATH, useRouterLocaleDefinition } from '@/shared'
+import { SORT_BY_TYPE } from '@/shared/enums'
 import { getLayoutWithNav } from '@/widgets'
 import { useQuery } from '@apollo/client'
 import { Pagination, Select, TextField } from '@technosamurai/techno-ui-kit'
@@ -17,6 +18,8 @@ function UsersList() {
   const router = useRouter()
   const { logged } = useSignInAdminStore()
   const [filterByUserStatus, setFilterByUserStatus] = useState<UserBlockStatus>(UserBlockStatus.All)
+  const [sortBy, setSortBy] = useState<'' | SORT_BY_TYPE>('')
+  const [sortDirection, setSortDirection] = useState<SortDirection | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   // eslint-disable-next-line no-undef
@@ -35,12 +38,15 @@ function UsersList() {
       pageNumber: currentPage,
       pageSize: 10,
       searchTerm,
-      sortBy: 'createdAt',
-      sortDirection: SortDirection.Desc,
+      sortBy: sortBy,
+      sortDirection: sortDirection,
       statusFilter: filterByUserStatus,
     },
   })
-
+  const handleSortDirection = (sortDirection: SortDirection, sortBy: SORT_BY_TYPE) => {
+    setSortBy(sortBy)
+    setSortDirection(sortDirection)
+  }
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage)
     refetch()
@@ -97,7 +103,12 @@ function UsersList() {
         {loading ? (
           <InitLoader />
         ) : (
-          <UsersListTable refetch={refetch} users={data?.getUsers?.users ?? []} />
+          <UsersListTable
+            handleSortDirection={handleSortDirection}
+            refetch={refetch}
+            sortDirection={sortDirection}
+            users={data?.getUsers?.users ?? []}
+          />
         )}
       </div>
 
