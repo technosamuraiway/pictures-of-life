@@ -403,7 +403,7 @@ export const ru = {
       invalidDateRange: 'Ошибка, выберите текущий месяц или прошлый месяц.',
     },
     usersList: {
-      title: 'Срисок пользователей',
+      title: 'Список пользователей',
       notSelected: 'Не выбрано',
       blocked: 'Заблокировано',
       notBlocked: 'Не заблокировано',
@@ -440,7 +440,10 @@ export const ru = {
       userID: 'ID пользователя',
       profileCreationDate: 'Дата создания профиля',
       tabs: {
-        files: { title: 'Загруженные файлы' },
+        files: {
+          title: 'Загруженные файлы',
+          emptyTable: 'У пользователя нет загруженных картинок',
+        },
         payments: { title: 'Платежи', emptyTable: 'У пользователя нет истории платежей' },
         followers: {
           title: 'Подписчики',

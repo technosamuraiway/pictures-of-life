@@ -439,7 +439,7 @@ export const en: LocaleType = {
       userID: 'User ID',
       profileCreationDate: 'Profile Creation Date',
       tabs: {
-        files: { title: 'Uploaded Files' },
+        files: { title: 'Uploaded Files', emptyTable: 'User does not have downloaded images' },
         payments: { title: 'Payments', emptyTable: 'User does not have payments' },
         followers: { title: 'Followers', emptyTable: 'User does not have followers' },
         following: {

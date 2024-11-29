@@ -158,3 +158,20 @@ export const GET_USER_POSTS_IMAGES = graphql(`
     }
   }
 `)
+
+export const GET_USER = graphql(`
+  query GetUser($userId: Int!) {
+    getUser(userId: $userId) {
+      userName
+      id
+      createdAt
+      profile {
+        firstName
+        lastName
+        avatars {
+          url
+        }
+      }
+    }
+  }
+`)
