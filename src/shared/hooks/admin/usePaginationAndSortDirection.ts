@@ -10,6 +10,7 @@ export const usePaginationAndSortDirection = () => {
   const t = useRouterLocaleDefinition()
 
   const [currentPage, setCurrentPage] = useState(1)
+  const [sortBy, setSortBy] = useState('createdAt')
   const [currentPerPage, setCurrentPerPage] = useState(PER_PAGE[0])
   const [sortDirection, setSortDirection] = useState<SortDirection>(SortDirection.Desc)
 
@@ -22,7 +23,9 @@ export const usePaginationAndSortDirection = () => {
     currentPerPage,
     setCurrentPage,
     setCurrentPerPage,
+    setSortBy,
     setSortDirection,
+    sortBy,
     sortDirection,
     t,
     userId,

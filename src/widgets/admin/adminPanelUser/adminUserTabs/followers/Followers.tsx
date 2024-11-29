@@ -45,7 +45,7 @@ export const Followers = ({ value }: IProps) => {
       ) : (
         <Tabs.Content value={value}>
           <FollowTable
-            emptyTableText={t.admin.userList.tabs.following.emptyTable}
+            emptyTableText={t.admin.userList.tabs.followers.emptyTable}
             setSortDirection={setSortDirection}
             sortDirection={sortDirection}
             tableData={getFollowersData?.getFollowers?.items || []}

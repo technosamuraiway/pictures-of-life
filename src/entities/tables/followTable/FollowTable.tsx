@@ -14,13 +14,15 @@ import { LinkCell } from './linkCell/LinkCell'
 
 interface IProps {
   emptyTableText?: string
-  setSortDirection: Dispatch<SetStateAction<SortDirection>>
+  setSortBy?: Dispatch<SetStateAction<string>>
+  setSortDirection?: Dispatch<SetStateAction<SortDirection>>
   sortDirection?: SortDirection
   tableData: Follow[]
 }
 
 export const FollowTable = ({
   emptyTableText,
+  setSortBy,
   setSortDirection,
   sortDirection,
   tableData,
@@ -42,14 +44,18 @@ export const FollowTable = ({
           <HeadTableCell title={t.admin.userList.tabs.following.userIdHead} />
           <HeadTableCell
             isWithArrow
+            setSortBy={setSortBy}
             setSortDirection={setSortDirection}
+            sortBy={'userName'}
             sortDirection={sortDirection}
             title={t.admin.userList.tabs.following.userNameHead}
           />
           <HeadTableCell title={t.admin.userList.tabs.following.profileLinkHead} />
           <HeadTableCell
             isWithArrow
+            setSortBy={setSortBy}
             setSortDirection={setSortDirection}
+            sortBy={'createdAt'}
             sortDirection={sortDirection}
             title={t.admin.userList.tabs.following.subscriptionDate}
           />

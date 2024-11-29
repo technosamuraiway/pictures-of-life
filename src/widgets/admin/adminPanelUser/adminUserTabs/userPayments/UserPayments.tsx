@@ -1,85 +1,74 @@
-import { useState } from 'react'
-
 import { PaymentsTable } from '@/entities'
 import { IMyPaymentsResponse } from '@/services'
-import { useRouterLocaleDefinition } from '@/shared'
-import { Pagination, Tabs } from '@technosamurai/techno-ui-kit'
+import { GET_USER_PAYMENTS } from '@/services/graphql/queries/user'
+import { InitLoader, TablesPagination, usePaginationAndSortDirection } from '@/shared'
+import { useQuery } from '@apollo/client'
+import { Tabs } from '@technosamurai/techno-ui-kit'
 
 interface IProps {
   value: string
 }
 
-const TOTAL_PAGES_COUNT = 2
-const PER_PAGE = [5, 10, 250]
-
-const data: IMyPaymentsResponse[] = [
-  {
-    dateOfPayment: '2024-11-28T00:00:00Z',
-    endDateOfSubscription: '2024-11-28T00:00:00Z',
-    paymentType: 'STRIPE',
-    price: 25,
-    subscriptionId: 'Stiфыch',
-    subscriptionType: 'Test',
-    userId: 1487,
-  },
-  {
-    dateOfPayment: '2024-11-28T00:00:00Z',
-    endDateOfSubscription: '2024-11-28T00:00:00Z',
-    paymentType: 'STRIPE',
-    price: 25,
-    subscriptionId: 'Stiфыch',
-    subscriptionType: 'Test',
-    userId: 1487,
-  },
-  {
-    dateOfPayment: '2024-11-28T00:00:00Z',
-    endDateOfSubscription: '2024-11-28T00:00:00Z',
-    paymentType: 'STRIPE',
-    price: 25,
-    subscriptionId: 'Stiфыch',
-    subscriptionType: 'Test',
-    userId: 1487,
-  },
-  {
-    dateOfPayment: '2024-11-28T00:00:00Z',
-    endDateOfSubscription: '2024-11-28T00:00:00Z',
-    paymentType: 'STRIPE',
-    price: 25,
-    subscriptionId: 'Stiфыch',
-    subscriptionType: 'Test',
-    userId: 1487,
-  },
-  {
-    dateOfPayment: '2024-11-28T00:00:00Z',
-    endDateOfSubscription: '2024-11-28T00:00:00Z',
-    paymentType: 'STRIPE',
-    price: 25,
-    subscriptionId: 'Stiфыch',
-    subscriptionType: 'Test',
-    userId: 1487,
-  },
-]
-
 export const UserPayments = ({ value }: IProps) => {
-  const t = useRouterLocaleDefinition()
-  const [currentPage, setCurrentPage] = useState(1)
-  const [currentPerPage, setCurrentPerPage] = useState(PER_PAGE[0])
+  const {
+    PER_PAGE,
+    currentPage,
+    currentPerPage,
+    setCurrentPage,
+    setCurrentPerPage,
+    sortBy,
+    t,
+    userId,
+  } = usePaginationAndSortDirection()
+
+  const {
+    data: getPaymentsData,
+    loading: getPaymentsIsLoading,
+    refetch: getPaymentsRefetch,
+  } = useQuery(GET_USER_PAYMENTS, {
+    variables: {
+      pageNumber: currentPage,
+      pageSize: Number(currentPerPage),
+      sortBy,
+      userId: Number(userId),
+    },
+  })
+
+  const paymentData = (getPaymentsData?.getPaymentsByUser?.items?.map(el => ({
+    dateOfPayment: el.dateOfPayment,
+    endDateOfSubscription: el.endDate,
+    paymentType: el.paymentType,
+    price: el.price,
+    subscriptionId: el.id,
+    subscriptionType: el.type,
+    userId: el.businessAccountId,
+  })) ?? []) as IMyPaymentsResponse[]
+
+  const shouldShowPagination = getPaymentsData && getPaymentsData?.getPaymentsByUser?.totalCount > 4
+  const pageCountDecider = getPaymentsData?.getPaymentsByUser?.pagesCount || 5
 
   return (
-    <Tabs.Content value={value}>
-      <PaymentsTable emptyTableText={t.admin.userList.tabs.payments.emptyTable} tableData={data} />
-      {data.length > 4 && (
-        <Pagination
-          count={TOTAL_PAGES_COUNT}
-          onChange={setCurrentPage}
-          onPageTitle={t.pagination.onPage}
-          onPerPageChange={setCurrentPerPage}
-          page={currentPage}
-          perPage={currentPerPage}
-          perPageOptions={PER_PAGE}
-          showTitle={t.pagination.show}
-        />
+    <>
+      {getPaymentsIsLoading ? (
+        <InitLoader />
+      ) : (
+        <Tabs.Content value={value}>
+          <PaymentsTable
+            emptyTableText={t.admin.userList.tabs.payments.emptyTable}
+            tableData={paymentData}
+          />
+          <TablesPagination
+            currentPage={currentPage}
+            currentPerPage={currentPerPage}
+            isShowPagination={shouldShowPagination}
+            pageCount={pageCountDecider}
+            perPage={PER_PAGE}
+            refetch={getPaymentsRefetch}
+            setCurrentPage={setCurrentPage}
+            setCurrentPerPage={setCurrentPerPage}
+          />
+        </Tabs.Content>
       )}
-    </Tabs.Content>
+    </>
   )
 }

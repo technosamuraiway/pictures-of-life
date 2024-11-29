@@ -15,7 +15,9 @@ export const Following = ({ value }: IProps) => {
     currentPerPage,
     setCurrentPage,
     setCurrentPerPage,
+    setSortBy,
     setSortDirection,
+    sortBy,
     sortDirection,
     t,
     userId,
@@ -29,7 +31,7 @@ export const Following = ({ value }: IProps) => {
     variables: {
       pageNumber: currentPage,
       pageSize: Number(currentPerPage),
-      sortBy: 'createdAt',
+      sortBy,
       sortDirection,
       userId: Number(userId),
     },
@@ -46,6 +48,7 @@ export const Following = ({ value }: IProps) => {
         <Tabs.Content value={value}>
           <FollowTable
             emptyTableText={t.admin.userList.tabs.following.emptyTable}
+            setSortBy={setSortBy}
             setSortDirection={setSortDirection}
             sortDirection={sortDirection}
             tableData={getFollowingData?.getFollowing?.items || []}

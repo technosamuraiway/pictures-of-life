@@ -12,7 +12,9 @@ interface IProps {
   iconHeight?: number
   iconWidth?: number
   isWithArrow?: boolean
+  setSortBy?: Dispatch<SetStateAction<string>>
   setSortDirection?: Dispatch<SetStateAction<SortDirection>>
+  sortBy?: string
   sortDirection?: SortDirection
   textCN?: string
   title: string
@@ -24,7 +26,9 @@ export const HeadTableCell = ({
   iconHeight = 16,
   iconWidth = 16,
   isWithArrow = false,
+  setSortBy,
   setSortDirection,
+  sortBy,
   sortDirection,
   textCN,
   title,
@@ -38,9 +42,11 @@ export const HeadTableCell = ({
 
   const sortClickHandler = () => {
     if (setSortDirection) {
-      sortDirection === SortDirection.Asc
-        ? setSortDirection(SortDirection.Desc)
-        : setSortDirection(SortDirection.Asc)
+      setSortDirection(sortDirection === SortDirection.Asc ? SortDirection.Desc : SortDirection.Asc)
+
+      if (setSortBy && sortBy) {
+        setSortBy(sortBy)
+      }
     }
   }
 
