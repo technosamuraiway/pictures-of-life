@@ -30,6 +30,8 @@ const documents = {
     types.GetUsersDocument,
   '\n  query GetUserFollowing(\n    $pageSize: Int = 1\n    $pageNumber: Int = 1\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $userId: Int!\n  ) {\n    getFollowing(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      userId: $userId\n    ) {\n      pagesCount\n      page\n      pageSize\n      totalCount\n      items {\n        id\n        userId\n        userName\n        createdAt\n      }\n    }\n  }\n':
     types.GetUserFollowingDocument,
+  '\n  query GetUserFollowers(\n    $pageSize: Int = 1\n    $pageNumber: Int = 1\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $userId: Int!\n  ) {\n    getFollowers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      userId: $userId\n    ) {\n      pagesCount\n      page\n      pageSize\n      totalCount\n      items {\n        id\n        userId\n        userName\n        createdAt\n      }\n    }\n  }\n':
+    types.GetUserFollowersDocument,
 }
 
 /**
@@ -94,6 +96,12 @@ export function graphql(
 export function graphql(
   source: '\n  query GetUserFollowing(\n    $pageSize: Int = 1\n    $pageNumber: Int = 1\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $userId: Int!\n  ) {\n    getFollowing(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      userId: $userId\n    ) {\n      pagesCount\n      page\n      pageSize\n      totalCount\n      items {\n        id\n        userId\n        userName\n        createdAt\n      }\n    }\n  }\n'
 ): (typeof documents)['\n  query GetUserFollowing(\n    $pageSize: Int = 1\n    $pageNumber: Int = 1\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $userId: Int!\n  ) {\n    getFollowing(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      userId: $userId\n    ) {\n      pagesCount\n      page\n      pageSize\n      totalCount\n      items {\n        id\n        userId\n        userName\n        createdAt\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetUserFollowers(\n    $pageSize: Int = 1\n    $pageNumber: Int = 1\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $userId: Int!\n  ) {\n    getFollowers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      userId: $userId\n    ) {\n      pagesCount\n      page\n      pageSize\n      totalCount\n      items {\n        id\n        userId\n        userName\n        createdAt\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query GetUserFollowers(\n    $pageSize: Int = 1\n    $pageNumber: Int = 1\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $userId: Int!\n  ) {\n    getFollowers(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      userId: $userId\n    ) {\n      pagesCount\n      page\n      pageSize\n      totalCount\n      items {\n        id\n        userId\n        userName\n        createdAt\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

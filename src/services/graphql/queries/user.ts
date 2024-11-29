@@ -83,3 +83,32 @@ export const GET_USER_FOLLOWING = graphql(`
     }
   }
 `)
+
+export const GET_USER_FOLLOWERS = graphql(`
+  query GetUserFollowers(
+    $pageSize: Int = 1
+    $pageNumber: Int = 1
+    $sortBy: String = "createdAt"
+    $sortDirection: SortDirection = desc
+    $userId: Int!
+  ) {
+    getFollowers(
+      pageSize: $pageSize
+      pageNumber: $pageNumber
+      sortBy: $sortBy
+      sortDirection: $sortDirection
+      userId: $userId
+    ) {
+      pagesCount
+      page
+      pageSize
+      totalCount
+      items {
+        id
+        userId
+        userName
+        createdAt
+      }
+    }
+  }
+`)

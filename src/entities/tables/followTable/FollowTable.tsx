@@ -63,7 +63,7 @@ export const FollowTable = ({
               <BodyTableCell value={String(table.userId)} />
               <BodyTableCell value={table.userName || ''} />
               <LinkCell
-                href={`${PATH.PROFILE.BASEPROFILE}/${table.userId}`}
+                href={`${PATH.ADMIN.USERLIST}/${table.userId}`}
                 value={table.userName || ''}
               />
               <BodyTableCell value={convertDate(table.createdAt)} />

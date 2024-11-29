@@ -1,5 +1,4 @@
 import { useRouterLocaleDefinition } from '@/shared'
-import { useRouter } from 'next/router'
 
 import s from './AdminPanelUser.module.scss'
 
@@ -10,7 +9,6 @@ import { UserInfo } from './userInfo/UserInfo'
 
 export const AdminPanelUser = () => {
   const t = useRouterLocaleDefinition()
-  const { query } = useRouter()
 
   return (
     <div className={s.wrapper}>
