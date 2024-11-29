@@ -5,13 +5,14 @@ import { BanUnbanUserModal } from '@/entities/modals/banUnbanUserModal/BanUnbanU
 import { DeleteUserModal } from '@/entities/modals/deleteUserModal/DeleteUserModal'
 import { User } from '@/services/graphql/codegen/graphql'
 import { BAN_USER, REMOVE_USER, UNBAN_USER } from '@/services/graphql/mutations/user'
-import { useRouterLocaleDefinition } from '@/shared'
+import { PATH, useRouterLocaleDefinition } from '@/shared'
 import { useMutation } from '@apollo/client'
 import { BlockedIcon } from '@public/icons/BlockedIcon'
 import { MoreHorizontalIcon } from '@public/icons/MoreHorizontalOutlineIcon'
 import { PersonRemoveOutlineIcon } from '@public/icons/PersonRemoveOutlineIcon'
 import { Dropdown, Tables, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import { BUN_REASON_TYPE } from 'src/shared/enums'
 import { v4 as uuid } from 'uuid'
 
@@ -24,7 +25,7 @@ interface IProps {
 
 export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
   const t = useRouterLocaleDefinition()
-
+  const { push } = useRouter()
   const [openPopover, setOpenPopover] = useState(false)
   const [openDeleteUserModal, setOpenDeleteUserModal] = useState(false)
   const [openBanUnbanUserModal, setOpenBanUnbanUserModal] = useState(false)
@@ -80,6 +81,7 @@ export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
       text: user.userBan ? t.admin.usersList.unbanInTheSystem : t.admin.usersList.banInTheSystem,
     },
     {
+      action: () => push(`${PATH.ADMIN.USERLIST}/${user.id}`),
       icon: <MoreHorizontalIcon />,
       text: t.admin.usersList.moreInformation,
     },

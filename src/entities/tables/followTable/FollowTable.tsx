@@ -1,9 +1,10 @@
+import { Dispatch, SetStateAction } from 'react'
+
+import { Follow, SortDirection } from '@/services/graphql/codegen/graphql'
 import {
   BodyTableCell,
-  FollowUser,
   HeadTableCell,
   PATH,
-  SortDirection,
   convertDate,
   useRouterLocaleDefinition,
 } from '@/shared'
@@ -13,11 +14,17 @@ import { LinkCell } from './linkCell/LinkCell'
 
 interface IProps {
   emptyTableText?: string
+  setSortDirection: Dispatch<SetStateAction<SortDirection>>
   sortDirection?: SortDirection
-  tableData: FollowUser[]
+  tableData: Follow[]
 }
 
-export const FollowTable = ({ emptyTableText, sortDirection, tableData }: IProps) => {
+export const FollowTable = ({
+  emptyTableText,
+  setSortDirection,
+  sortDirection,
+  tableData,
+}: IProps) => {
   const t = useRouterLocaleDefinition()
 
   if (tableData?.length === 0) {
@@ -35,12 +42,14 @@ export const FollowTable = ({ emptyTableText, sortDirection, tableData }: IProps
           <HeadTableCell title={t.admin.userList.tabs.following.userIdHead} />
           <HeadTableCell
             isWithArrow
+            setSortDirection={setSortDirection}
             sortDirection={sortDirection}
             title={t.admin.userList.tabs.following.userNameHead}
           />
           <HeadTableCell title={t.admin.userList.tabs.following.profileLinkHead} />
           <HeadTableCell
             isWithArrow
+            setSortDirection={setSortDirection}
             sortDirection={sortDirection}
             title={t.admin.userList.tabs.following.subscriptionDate}
           />
@@ -52,10 +61,10 @@ export const FollowTable = ({ emptyTableText, sortDirection, tableData }: IProps
           return (
             <Tables.TableRow key={table.id}>
               <BodyTableCell value={String(table.userId)} />
-              <BodyTableCell value={table.userName} />
+              <BodyTableCell value={table.userName || ''} />
               <LinkCell
                 href={`${PATH.PROFILE.BASEPROFILE}/${table.userId}`}
-                value={table.userName}
+                value={table.userName || ''}
               />
               <BodyTableCell value={convertDate(table.createdAt)} />
             </Tables.TableRow>

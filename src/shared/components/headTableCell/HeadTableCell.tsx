@@ -1,4 +1,6 @@
-import { SortDirection } from '@/shared'
+import { Dispatch, SetStateAction } from 'react'
+
+import { SortDirection } from '@/services/graphql/codegen/graphql'
 import { DownIcon, Tables, Typography, UpIcon } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 
@@ -10,6 +12,7 @@ interface IProps {
   iconHeight?: number
   iconWidth?: number
   isWithArrow?: boolean
+  setSortDirection?: Dispatch<SetStateAction<SortDirection>>
   sortDirection?: SortDirection
   textCN?: string
   title: string
@@ -21,20 +24,32 @@ export const HeadTableCell = ({
   iconHeight = 16,
   iconWidth = 16,
   isWithArrow = false,
+  setSortDirection,
   sortDirection,
   textCN,
   title,
 }: IProps) => {
   const arrowDecider =
-    sortDirection === 'asc' ? (
+    sortDirection === SortDirection.Asc ? (
       <UpIcon className={iconCN} height={iconHeight} width={iconWidth} />
     ) : (
       <DownIcon className={iconCN} height={iconHeight} width={iconWidth} />
     )
 
+  const sortClickHandler = () => {
+    if (setSortDirection) {
+      sortDirection === SortDirection.Asc
+        ? setSortDirection(SortDirection.Desc)
+        : setSortDirection(SortDirection.Asc)
+    }
+  }
+
   return (
     <Tables.TableHeadCell className={s.cell}>
-      <div className={clsx(s.wrapper, isWithArrow && s.hover, className)}>
+      <div
+        className={clsx(s.wrapper, isWithArrow && s.hover, className)}
+        onClick={sortClickHandler}
+      >
         <Typography className={clsx(s.text, textCN)} variant={'regular-text-14'}>
           {title}
         </Typography>

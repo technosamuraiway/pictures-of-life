@@ -1,13 +1,11 @@
 import { Dispatch, SetStateAction } from 'react'
 
 import { useRouterLocaleDefinition } from '@/shared'
-import { Pagination, Typography } from '@technosamurai/techno-ui-kit'
+import { Pagination } from '@technosamurai/techno-ui-kit'
 
 interface IProps {
   currentPage: number
   currentPerPage: number
-  data: any
-  isLoading?: boolean
   isShowPagination?: boolean
   pageCount: number
   perPage: number[]
@@ -19,7 +17,6 @@ interface IProps {
 export const TablesPagination = ({
   currentPage,
   currentPerPage,
-  isLoading,
   isShowPagination,
   pageCount,
   perPage,
@@ -32,14 +29,6 @@ export const TablesPagination = ({
   const perPageChangeHandler = (newPage: number) => {
     setCurrentPerPage(newPage)
     refetch()
-  }
-
-  if (isLoading) {
-    return (
-      <Typography style={{ textAlign: 'center' }} variant={'h2'}>
-        {t.pagination.status} 😎
-      </Typography>
-    )
   }
 
   if (!isShowPagination) {

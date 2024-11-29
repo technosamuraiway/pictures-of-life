@@ -1,4 +1,4 @@
-export type SortDirection = 'asc' | 'desc'
+export type DirectionSort = 'asc' | 'desc'
 
 export type FollowUser = {
   createdAt: string
