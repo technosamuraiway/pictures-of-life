@@ -111,14 +111,15 @@ function UsersList() {
           />
         )}
       </div>
-
-      <Pagination
-        count={data?.getUsers?.pagination?.pagesCount ?? 0}
-        onChange={handlePageChange}
-        onPageTitle={''}
-        page={currentPage}
-        showTitle={'Show'}
-      />
+      {!loading && (
+        <Pagination
+          count={data?.getUsers?.pagination?.pagesCount ?? 0}
+          onChange={handlePageChange}
+          onPageTitle={''}
+          page={currentPage}
+          showTitle={'Show'}
+        />
+      )}
     </div>
   )
 }
