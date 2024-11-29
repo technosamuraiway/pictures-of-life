@@ -2,6 +2,7 @@ import { memo } from 'react'
 
 import clsx from 'clsx'
 import Image from 'next/image'
+import mockImage from 'public/mockAvatar.png'
 
 import s from './CircleAvatar.module.scss'
 
@@ -18,7 +19,7 @@ export const CircleAvatar = memo(({ height = 36, rootCN, src, width = 36 }: IPro
       alt={'circle-avatar'}
       className={clsx(rootCN, s.root)}
       height={height}
-      src={src}
+      src={src || mockImage}
       width={width}
     />
   )

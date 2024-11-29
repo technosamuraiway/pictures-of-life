@@ -12,3 +12,13 @@ export const REMOVE_USER = graphql(`
     removeUser(userId: $userId)
   }
 `)
+export const BAN_USER = graphql(`
+  mutation BanUser($userId: Int!, $banReason: String!) {
+    banUser(userId: $userId, banReason: $banReason)
+  }
+`)
+export const UNBAN_USER = graphql(`
+  mutation UnbanUser($userId: Int!) {
+    unbanUser(userId: $userId)
+  }
+`)

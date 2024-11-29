@@ -354,6 +354,19 @@ export type RemoveUserMutationVariables = Exact<{
 
 export type RemoveUserMutation = { __typename?: 'Mutation'; removeUser: boolean }
 
+export type BanUserMutationVariables = Exact<{
+  userId: Scalars['Int']['input']
+  banReason: Scalars['String']['input']
+}>
+
+export type BanUserMutation = { __typename?: 'Mutation'; banUser: boolean }
+
+export type UnbanUserMutationVariables = Exact<{
+  userId: Scalars['Int']['input']
+}>
+
+export type UnbanUserMutation = { __typename?: 'Mutation'; unbanUser: boolean }
+
 export type GetPaymentsQueryVariables = Exact<{
   pageSize?: InputMaybe<Scalars['Int']['input']>
   pageNumber?: InputMaybe<Scalars['Int']['input']>
@@ -564,6 +577,91 @@ export const RemoveUserDocument = {
     },
   ],
 } as unknown as DocumentNode<RemoveUserMutation, RemoveUserMutationVariables>
+export const BanUserDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'BanUser' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'banReason' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'banUser' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'userId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'banReason' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'banReason' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<BanUserMutation, BanUserMutationVariables>
+export const UnbanUserDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'UnbanUser' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'unbanUser' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'userId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UnbanUserMutation, UnbanUserMutationVariables>
 export const GetPaymentsDocument = {
   kind: 'Document',
   definitions: [

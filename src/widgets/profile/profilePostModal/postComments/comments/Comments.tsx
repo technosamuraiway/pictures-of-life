@@ -1,10 +1,11 @@
+import { useGetPostCommentsByIdQuery } from '@/services'
 import {
   useGetPublicPostByIdQuery,
   useGetPublicPostCommentsByIdQuery,
 } from '@/services/flow/publicPosts.service'
 import { RequestLineLoader, Skeleton } from '@/shared'
+import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { Scrollbar } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
 
 import s from './Comments.module.scss'
 
@@ -12,16 +13,29 @@ import { CommentsItem } from './commentsItem/CommentsItem'
 import { PostDescription } from './postDescription/PostDescription'
 
 export const Comments = () => {
-  const { query } = useRouter()
+  const { meData, router } = useMeWithRouter()
+  const { query } = router
 
   const { postId } = query
 
-  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(postId as string)
-  const { data: comments, isLoading: isCommentsLoading } = useGetPublicPostCommentsByIdQuery(
-    { postId: Number(postId) ?? null },
-    { skip: !postId }
+  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(postId as string, {
+    skip: !postId,
+  })
+
+  const { data: commentsPublic, isLoading: isCommentsPublicLoading } =
+    useGetPublicPostCommentsByIdQuery(
+      { postId: Number(postId) ?? null },
+      { skip: !postId || !!meData }
+    )
+
+  const { data: commentsAuth, isLoading: isCommentsAuthLoading } = useGetPostCommentsByIdQuery(
+    Number(postId) ?? null,
+    { skip: !postId || !meData }
   )
-  const isLoading = isPostLoading || isCommentsLoading
+
+  const comments = commentsAuth || commentsPublic
+
+  const isLoading = isPostLoading || isCommentsPublicLoading || isCommentsAuthLoading
 
   return (
     <>

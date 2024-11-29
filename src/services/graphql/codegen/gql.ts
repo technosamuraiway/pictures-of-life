@@ -18,6 +18,10 @@ const documents = {
     types.LoginAdminDocument,
   '\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n':
     types.RemoveUserDocument,
+  '\n  mutation BanUser($userId: Int!, $banReason: String!) {\n    banUser(userId: $userId, banReason: $banReason)\n  }\n':
+    types.BanUserDocument,
+  '\n  mutation UnbanUser($userId: Int!) {\n    unbanUser(userId: $userId)\n  }\n':
+    types.UnbanUserDocument,
   '\n  query GetPayments(\n    $pageSize: Int\n    $pageNumber: Int\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n    $searchTerm: String\n  ) {\n    getPayments(\n      pageSize: $pageSize\n      pageNumber: $pageNumber\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n    ) {\n      pagesCount\n      page\n      pageSize\n      totalCount\n      items {\n        id\n        userId\n        paymentMethod\n        amount\n        currency\n        createdAt\n        endDate\n        type\n        userName\n        avatars {\n          url\n          width\n          height\n          fileSize\n        }\n      }\n    }\n  }\n':
     types.GetPaymentsDocument,
   '\n  query GetPosts(\n    $endCursorPostId: Int\n    $searchTerm: String\n    $pageSize: Int = 10\n    $sortBy: String = "createdAt"\n    $sortDirection: SortDirection = desc\n  ) {\n    getPosts(\n      endCursorPostId: $endCursorPostId\n      searchTerm: $searchTerm\n      pageSize: $pageSize\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n    ) {\n      pagesCount\n      pageSize\n      totalCount\n      items {\n        id\n        createdAt\n        images {\n          id\n          createdAt\n          url\n          fileSize\n          width\n          height\n        }\n      }\n    }\n  }\n':
@@ -52,6 +56,18 @@ export function graphql(
 export function graphql(
   source: '\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n'
 ): (typeof documents)['\n  mutation RemoveUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation BanUser($userId: Int!, $banReason: String!) {\n    banUser(userId: $userId, banReason: $banReason)\n  }\n'
+): (typeof documents)['\n  mutation BanUser($userId: Int!, $banReason: String!) {\n    banUser(userId: $userId, banReason: $banReason)\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation UnbanUser($userId: Int!) {\n    unbanUser(userId: $userId)\n  }\n'
+): (typeof documents)['\n  mutation UnbanUser($userId: Int!) {\n    unbanUser(userId: $userId)\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
