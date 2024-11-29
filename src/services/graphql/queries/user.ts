@@ -144,3 +144,17 @@ export const GET_USER_PAYMENTS = graphql(`
     }
   }
 `)
+
+export const GET_USER_POSTS_IMAGES = graphql(`
+  query GetUserPostsImages($endCursorId: Int, $userId: Int!) {
+    getPostsByUser(endCursorId: $endCursorId, userId: $userId) {
+      pagesCount
+      pageSize
+      totalCount
+      items {
+        url
+        id
+      }
+    }
+  }
+`)

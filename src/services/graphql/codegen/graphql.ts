@@ -569,6 +569,22 @@ export type GetUserPaymentsQuery = {
   }
 }
 
+export type GetUserPostsImagesQueryVariables = Exact<{
+  endCursorId?: InputMaybe<Scalars['Int']['input']>
+  userId: Scalars['Int']['input']
+}>
+
+export type GetUserPostsImagesQuery = {
+  __typename?: 'Query'
+  getPostsByUser: {
+    __typename?: 'PostsByUserModel'
+    pagesCount: number
+    pageSize: number
+    totalCount: number
+    items?: Array<{ __typename?: 'ImagePost'; url?: string | null; id?: number | null }> | null
+  }
+}
+
 export const LoginAdminDocument = {
   kind: 'Document',
   definitions: [
@@ -1437,3 +1453,68 @@ export const GetUserPaymentsDocument = {
     },
   ],
 } as unknown as DocumentNode<GetUserPaymentsQuery, GetUserPaymentsQueryVariables>
+export const GetUserPostsImagesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetUserPostsImages' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'endCursorId' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getPostsByUser' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'endCursorId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'endCursorId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'userId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'pagesCount' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUserPostsImagesQuery, GetUserPostsImagesQueryVariables>
