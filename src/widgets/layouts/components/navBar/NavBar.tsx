@@ -146,7 +146,7 @@ export function NavBar() {
       activeIconComponent: <ActivePostsList />,
       altText: `${t.admin.postsList} Icon`,
       defaultIconComponent: <DefaultPostsList />,
-      hrefLink: '',
+      hrefLink: PATH.ADMIN.ADMINPOSTSLIST,
       id: 4,
       isDisabled: false,
       text: t.admin.postsList.title,

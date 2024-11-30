@@ -33,3 +33,60 @@ export const GET_POSTS = graphql(`
     }
   }
 `)
+
+export const GET_POSTS_LIST = graphql(`
+  query GetPostsList(
+    $endCursorPostId: Int
+    $searchTerm: String
+    $pageSize: Int = 10
+    $sortBy: String = "createdAt"
+    $sortDirection: SortDirection = desc
+  ) {
+    getPosts(
+      endCursorPostId: $endCursorPostId
+      searchTerm: $searchTerm
+      pageSize: $pageSize
+      sortBy: $sortBy
+      sortDirection: $sortDirection
+    ) {
+      items {
+        id
+        description
+        createdAt
+        postOwner {
+          userName
+          id
+          avatars {
+            url
+          }
+        }
+        images {
+          id
+          url
+        }
+      }
+    }
+  }
+`)
+
+// export const GET_POSTS_LIST_SUBSCRIPTIONS = graphql(`
+//   subscription GetPostsSubscription() {
+//     postAdded() {
+//     id
+//     ownerId
+//     description
+//     createdAt
+//       postOwner{
+//         id
+//         userName
+//         avatars{
+//           url
+//         }
+//       }
+//     images{
+//       id
+//       url
+//     }
+//   }
+// }
+// `)

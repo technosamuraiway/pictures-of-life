@@ -1,6 +1,7 @@
 export const PATH = {
   ADMIN: {
     ADMIN: '/admin',
+    ADMINPOSTSLIST: '/admin/admin-posts-list',
     USERLIST: '/admin/user-list',
     USERSLIST: '/admin/users-list',
   },
