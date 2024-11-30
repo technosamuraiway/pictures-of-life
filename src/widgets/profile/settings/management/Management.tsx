@@ -51,7 +51,26 @@ export const Management = ({ value }: IProps) => {
     if (payType === 'PAYPAL') {
       // Implement PayPal payment logic here
     } else if (payType === 'STRIPE') {
-      createSubscription(selectedSubscriptionType)
+      let amount
+
+      switch (selectedSubscriptionType) {
+        case 'DAY':
+          amount = 10
+          break
+        case 'WEEKLY':
+          amount = 50
+          break
+        case 'MONTHLY':
+          amount = 100
+          break
+        default:
+          amount = 0
+      }
+
+      createSubscription({
+        amount,
+        typeSubscription: selectedSubscriptionType,
+      })
     }
   }
 

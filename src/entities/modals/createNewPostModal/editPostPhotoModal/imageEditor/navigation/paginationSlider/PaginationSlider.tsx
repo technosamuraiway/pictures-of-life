@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { v4 as uuid } from 'uuid'
 
-import s from './Pagination.module.scss'
+import s from './PaginationSlider.module.scss'
 
 interface IProps {
   currentIndex: number
@@ -9,7 +9,7 @@ interface IProps {
   totalItems: number
 }
 
-export const Pagination = ({ currentIndex, onDotClick, totalItems }: IProps) => {
+export const PaginationSlider = ({ currentIndex, onDotClick, totalItems }: IProps) => {
   return (
     <div className={s.paginationWrapper}>
       {Array.from({ length: totalItems }).map((_, index) => (

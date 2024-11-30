@@ -1,5 +1,9 @@
 export const PATH = {
-  ADMIN: { ADMIN: '/admin', USERSLIST: '/admin/users-list' },
+  ADMIN: {
+    ADMIN: '/admin',
+    USERLIST: '/admin/user-list',
+    USERSLIST: '/admin/users-list',
+  },
   AUTH: {
     CREATENEWPASSWORD: '/auth/recovery',
     FORGOTPASSWORD: '/auth/forgotpassword',

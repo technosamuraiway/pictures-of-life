@@ -152,14 +152,15 @@ export function NavBar() {
       text: t.admin.postsList.title,
     },
   ]
+
   // ------ Работа с навигацией -------
   const activeConditionFunctionHandler = (itemPath: string) => {
     if (itemPath === PATH.HOME) {
       return router.pathname === PATH.HOME
     }
 
-    if (!isOwnProfile && itemPath === `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`) {
-      return false
+    if (isOwnProfile && itemPath === `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`) {
+      return true
     }
 
     // Allow partial matches for specific base paths like "/admin"

@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+  align-self: flex-start;
+  justify-content: flex-start;
+
+  margin-bottom: 1.25rem;
+}
+
+.avatarImg {
+  border-radius: 50%;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.email.email {
+  text-decoration: underline;
+}
