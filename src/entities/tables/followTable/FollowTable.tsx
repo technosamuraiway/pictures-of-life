@@ -5,6 +5,7 @@ import {
   BodyTableCell,
   HeadTableCell,
   PATH,
+  SORT_BY_TYPE,
   convertDate,
   useRouterLocaleDefinition,
 } from '@/shared'
@@ -46,7 +47,7 @@ export const FollowTable = ({
             isWithArrow
             setSortBy={setSortBy}
             setSortDirection={setSortDirection}
-            sortBy={'userName'}
+            sortBy={SORT_BY_TYPE.USERNAME}
             sortDirection={sortDirection}
             title={t.admin.userList.tabs.following.userNameHead}
           />
@@ -55,7 +56,7 @@ export const FollowTable = ({
             isWithArrow
             setSortBy={setSortBy}
             setSortDirection={setSortDirection}
-            sortBy={'createdAt'}
+            sortBy={SORT_BY_TYPE.CREATEDAT}
             sortDirection={sortDirection}
             title={t.admin.userList.tabs.following.subscriptionDate}
           />

@@ -15,6 +15,7 @@ export { ControlledTextField } from './controlled/controlledTextField/Controlled
 // ============================== [ modals ] ======================================
 export { ActionConfirmationModal } from './modals/actionConfirmationModal/ActionConfirmationModal'
 export { AddProfilePhotoModal } from './modals/addProfilePhotoModal/AddProfilePhotoModal'
+export { BanUnbanUserModal } from './modals/banUnbanUserModal/BanUnbanUserModal'
 export { CreateNewPostModal } from './modals/createNewPostModal/CreateNewPostModal'
 export { DeletePostModal } from './modals/deletePostModal/DeletePostModal'
 export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'

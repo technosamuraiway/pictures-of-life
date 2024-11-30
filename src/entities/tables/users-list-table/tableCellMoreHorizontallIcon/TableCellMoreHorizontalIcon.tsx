@@ -140,7 +140,8 @@ export const TableCellMoreHorizontalIcon = ({ refetch, user }: IProps) => {
         textContent={
           user?.userBan ? t.admin.usersList.confirmUnbanUser : t.admin.usersList.confirmBanUser
         }
-        user={user}
+        userBan={user.userBan}
+        userName={user.userName}
       />
     </>
   )

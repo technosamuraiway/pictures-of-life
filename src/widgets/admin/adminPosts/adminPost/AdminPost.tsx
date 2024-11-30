@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 
 import s from './AdminPost.module.scss'
 
+import { AdminDescriptionPost } from './adminDescriptionPost/AdminDescriptionPost'
+import { AdminOwnerPost } from './adminOwnerPost/AdminOwnerPost'
 import { SliderAdminPost } from './sliderAdminPost/SliderAdminPost'
 
 interface IProps {
@@ -16,6 +18,7 @@ export const AdminPost = ({ post }: IProps) => {
   const t = useRouterLocaleDefinition()
   const { push } = useRouter()
   const [isRedirectLoading, setIsRedirectLoading] = useState(false)
+  const [expandedPosts, setExpandedPosts] = useState<Record<string, boolean>>({})
 
   const redirectToPublicPost = async () => {
     setIsRedirectLoading(true)
@@ -23,7 +26,7 @@ export const AdminPost = ({ post }: IProps) => {
     try {
       await push({
         pathname: `${PATH.PROFILE.BASEPROFILEWITHQUERY}/`,
-        query: { postId: 3032, userId: 1480 },
+        query: { postId: post.id, userId: post.postOwner.id },
       })
     } catch (err) {
       toast.error(t.admin.postsList.noUserOrPost)
@@ -36,7 +39,20 @@ export const AdminPost = ({ post }: IProps) => {
     <>
       {isRedirectLoading && <RequestLineLoader />}
       <div className={s.wrapper}>
-        <SliderAdminPost images={post.images || []} onImageClick={redirectToPublicPost} />
+        <SliderAdminPost
+          expandedPosts={expandedPosts}
+          id={post.id}
+          images={post.images || []}
+          onImageClick={redirectToPublicPost}
+        />
+        <AdminOwnerPost postOwner={post.postOwner} />
+        <AdminDescriptionPost
+          createdAt={post.createdAt}
+          description={post.description}
+          expandedPosts={expandedPosts}
+          id={post.id}
+          setExpandedPosts={setExpandedPosts}
+        />
       </div>
     </>
   )

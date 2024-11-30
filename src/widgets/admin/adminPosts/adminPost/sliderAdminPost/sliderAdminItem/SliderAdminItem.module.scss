@@ -1,4 +1,5 @@
 .img {
   cursor: pointer;
   object-fit: cover;
+  transition: height 0.3s ease-in-out;
 }

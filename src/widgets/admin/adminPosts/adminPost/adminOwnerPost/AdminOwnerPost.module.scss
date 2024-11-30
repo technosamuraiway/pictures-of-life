@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.avatarImg {
+  border-radius: 50%;
+}
+
+.userName.userName {
+  flex-grow: 1;
+}
+
+.hover.hover {
+  &:hover {
+    cursor: pointer;
+    color: var(--Primary-500);
+  }
+}

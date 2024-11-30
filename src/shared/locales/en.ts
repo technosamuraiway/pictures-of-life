@@ -434,6 +434,7 @@ export const en: LocaleType = {
       title: 'Posts List',
       searchPlaceholder: 'Search by userName ...',
       noUserOrPost: 'Ups🙄Post does not exist!',
+      banUser: 'User was banned!',
     },
     userList: {
       title: 'User Page',
