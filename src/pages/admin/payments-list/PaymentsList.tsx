@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { UsersListTable } from '@/entities/tables/users-list-table/UsersListTable'
-import { SortDirection, UserBlockStatus } from '@/services/graphql/codegen/graphql'
-import { GET_USERS } from '@/services/graphql/queries/user'
+import { PaymentsListTable } from '@/entities/tables/payments-list-table/PaymentsListTable'
+import { SortDirection } from '@/services/graphql/codegen/graphql'
+import { GET_PAYMENTS } from '@/services/graphql/queries/paymets'
 import { useSignInAdminStore } from '@/services/store/signInAdminStore'
 import { InitLoader, PATH, useRouterLocaleDefinition } from '@/shared'
 import { SORT_BY_TYPE } from '@/shared/enums'
 import { getLayoutWithNav } from '@/widgets'
 import { useQuery } from '@apollo/client'
-import { Checkbox, Pagination, Select, TextField } from '@technosamurai/techno-ui-kit'
+import { Checkbox, Pagination, TextField } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './PaymentsList.module.scss'
@@ -17,7 +17,6 @@ function PaymentsList() {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
   const { logged } = useSignInAdminStore()
-  const [filterByUserStatus, setFilterByUserStatus] = useState<UserBlockStatus>(UserBlockStatus.All)
   const [sortBy, setSortBy] = useState<'' | SORT_BY_TYPE>('')
   const [sortDirection, setSortDirection] = useState<SortDirection | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
@@ -33,16 +32,16 @@ function PaymentsList() {
     }
   }, [router, logged])
 
-  const { data, loading, refetch } = useQuery(GET_USERS, {
+  const { data, loading, refetch } = useQuery(GET_PAYMENTS, {
     variables: {
       pageNumber: currentPage,
       pageSize: 10,
       searchTerm,
       sortBy: sortBy,
-      sortDirection: sortDirection,
-      statusFilter: filterByUserStatus,
+      sortDirection: SortDirection.Desc,
     },
   })
+
   const handleSortDirection = (sortDirection: SortDirection, sortBy: SORT_BY_TYPE) => {
     setSortBy(sortBy)
     setSortDirection(sortDirection)
@@ -83,17 +82,17 @@ function PaymentsList() {
         {loading ? (
           <InitLoader />
         ) : (
-          <UsersListTable
+          <PaymentsListTable
             handleSortDirection={handleSortDirection}
+            payments={data?.getPayments?.items ?? []}
             refetch={refetch}
             sortDirection={sortDirection}
-            users={data?.getUsers?.users ?? []}
           />
         )}
       </div>
       {!loading && (
         <Pagination
-          count={data?.getUsers?.pagination?.pagesCount ?? 0}
+          count={data?.getPayments?.pagesCount ?? 0}
           onChange={handlePageChange}
           onPageTitle={''}
           page={currentPage}

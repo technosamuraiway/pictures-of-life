@@ -429,6 +429,10 @@ export const en: LocaleType = {
     },
     paymentsList: {
       title: 'Payments List',
+      dateAdded: 'Date added',
+      amount: 'Amount,$',
+      subscription: 'Subscription',
+      paymentMethod: 'Payment Method',
     },
     postsList: {
       title: 'Posts List',
