@@ -16,7 +16,14 @@ export const SliderAdminPost = ({ expandedPosts, id, images, onImageClick }: IPr
   const heightImg = expandedPosts[id || 0] ? 100 : 240
 
   if (images.length === 0) {
-    return <SliderAdminItem height={heightImg} onClick={onImageClick} src={emptyImg.src} />
+    return (
+      <SliderAdminItem
+        className={s.margin}
+        height={heightImg}
+        onClick={onImageClick}
+        src={emptyImg.src}
+      />
+    )
   }
 
   const firstImage = images[0]

@@ -66,6 +66,7 @@ export const AdminOwnerPost = ({ postOwner }: IProps) => {
         >
           {postOwner?.userName}
         </Typography>
+
         <BlockedIcon
           className={s.hover}
           height={24}
