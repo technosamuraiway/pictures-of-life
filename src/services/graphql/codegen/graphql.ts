@@ -633,6 +633,26 @@ export type GetUserQuery = {
   }
 }
 
+export type GetPostsSubscriptionSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type GetPostsSubscriptionSubscription = {
+  __typename?: 'Subscription'
+  postAdded: {
+    __typename?: 'Post'
+    id: number
+    ownerId: number
+    description: string
+    createdAt: any
+    postOwner: {
+      __typename?: 'PostOwnerModel'
+      id: number
+      userName: string
+      avatars?: Array<{ __typename?: 'Avatar'; url?: string | null }> | null
+    }
+    images?: Array<{ __typename?: 'ImagePost'; id?: number | null; url?: string | null }> | null
+  }
+}
+
 export const LoginAdminDocument = {
   kind: 'Document',
   definitions: [
@@ -1754,3 +1774,64 @@ export const GetUserDocument = {
     },
   ],
 } as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>
+export const GetPostsSubscriptionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'subscription',
+      name: { kind: 'Name', value: 'GetPostsSubscription' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'postAdded' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ownerId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'postOwner' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'userName' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'avatars' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'images' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetPostsSubscriptionSubscription,
+  GetPostsSubscriptionSubscriptionVariables
+>

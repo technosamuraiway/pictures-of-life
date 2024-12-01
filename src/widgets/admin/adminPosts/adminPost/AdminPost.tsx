@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { IAdminPost, PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { useApolloClient } from '@apollo/client'
 import { useRouter } from 'next/router'
 
 import s from './AdminPost.module.scss'
@@ -19,6 +20,7 @@ export const AdminPost = ({ post }: IProps) => {
   const { push } = useRouter()
   const [isRedirectLoading, setIsRedirectLoading] = useState(false)
   const [expandedPosts, setExpandedPosts] = useState<Record<string, boolean>>({})
+  const client = useApolloClient()
 
   const redirectToPublicPost = async () => {
     setIsRedirectLoading(true)
@@ -28,6 +30,8 @@ export const AdminPost = ({ post }: IProps) => {
         pathname: `${PATH.PROFILE.BASEPROFILEWITHQUERY}/`,
         query: { postId: post.id, userId: post.postOwner.id },
       })
+
+      await client.resetStore()
     } catch (err) {
       toast.error(t.admin.postsList.noUserOrPost)
     } finally {

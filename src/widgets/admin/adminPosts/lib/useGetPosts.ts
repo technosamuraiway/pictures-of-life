@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import { GET_POSTS_LIST } from '@/services/graphql/queries/posts'
+import { GET_POSTS_LIST_SUBSCRIPTIONS } from '@/services/graphql/subscriptions/posts'
 import { IAdminPost } from '@/shared'
-import { useQuery } from '@apollo/client'
+import { useQuery, useSubscription } from '@apollo/client'
 
 export const useGetPosts = () => {
   const [endCursorPostId, setEndCursorPostId] = useState<null | number>(0)
@@ -22,6 +23,8 @@ export const useGetPosts = () => {
     },
   })
 
+  const { data: subscriptionData } = useSubscription(GET_POSTS_LIST_SUBSCRIPTIONS)
+
   useEffect(() => {
     if (getPostsListData && getPostsListData.getPosts) {
       setPostsData(prevData => [...prevData, ...getPostsListData.getPosts.items])
@@ -39,6 +42,21 @@ export const useGetPosts = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endCursorPostId, inView])
+
+  useEffect(() => {
+    if (subscriptionData && subscriptionData.postAdded) {
+      setPostsData(prevPosts => {
+        const newPost = subscriptionData.postAdded
+
+        if (prevPosts.some(post => post.id === newPost.id)) {
+          return prevPosts
+        }
+
+        return [newPost, ...prevPosts]
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subscriptionData])
 
   return { getPostsListDataISLoading, postsData, ref, refetch, searchTerm, setSearchTerm }
 }

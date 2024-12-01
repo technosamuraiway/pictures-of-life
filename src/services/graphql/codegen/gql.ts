@@ -40,6 +40,8 @@ const documents = {
     types.GetUserPostsImagesDocument,
   '\n  query GetUser($userId: Int!) {\n    getUser(userId: $userId) {\n      userName\n      id\n      createdAt\n      profile {\n        firstName\n        lastName\n        avatars {\n          url\n        }\n      }\n    }\n  }\n':
     types.GetUserDocument,
+  '\n  subscription GetPostsSubscription {\n    postAdded {\n      id\n      ownerId\n      description\n      createdAt\n      postOwner {\n        id\n        userName\n        avatars {\n          url\n        }\n      }\n      images {\n        id\n        url\n      }\n    }\n  }\n':
+    types.GetPostsSubscriptionDocument,
 }
 
 /**
@@ -134,6 +136,12 @@ export function graphql(
 export function graphql(
   source: '\n  query GetUser($userId: Int!) {\n    getUser(userId: $userId) {\n      userName\n      id\n      createdAt\n      profile {\n        firstName\n        lastName\n        avatars {\n          url\n        }\n      }\n    }\n  }\n'
 ): (typeof documents)['\n  query GetUser($userId: Int!) {\n    getUser(userId: $userId) {\n      userName\n      id\n      createdAt\n      profile {\n        firstName\n        lastName\n        avatars {\n          url\n        }\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  subscription GetPostsSubscription {\n    postAdded {\n      id\n      ownerId\n      description\n      createdAt\n      postOwner {\n        id\n        userName\n        avatars {\n          url\n        }\n      }\n      images {\n        id\n        url\n      }\n    }\n  }\n'
+): (typeof documents)['\n  subscription GetPostsSubscription {\n    postAdded {\n      id\n      ownerId\n      description\n      createdAt\n      postOwner {\n        id\n        userName\n        avatars {\n          url\n        }\n      }\n      images {\n        id\n        url\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}
