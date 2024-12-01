@@ -1,3 +1,5 @@
+export { AdminPanelUser } from './admin/adminPanelUser/AdminPanelUser'
+
 export { NewPassword } from './auth/newPassword/NewPassword'
 export { ResendLink } from './auth/resendLink/ResendLink'
 

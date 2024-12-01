@@ -132,6 +132,7 @@ export const ru = {
   pagination: {
     onPage: 'на странице',
     show: 'Показать',
+    status: 'Ожидайте',
   },
   passwordRecoveryPage: {
     title: 'Восстановления пароля',
@@ -402,7 +403,7 @@ export const ru = {
       invalidDateRange: 'Ошибка, выберите текущий месяц или прошлый месяц.',
     },
     usersList: {
-      title: 'Срисок пользователей',
+      title: 'Список пользователей',
       notSelected: 'Не выбрано',
       blocked: 'Заблокировано',
       notBlocked: 'Не заблокировано',
@@ -432,6 +433,31 @@ export const ru = {
     },
     postsList: {
       title: 'Список постов',
+    },
+    userList: {
+      title: 'Страница пользователя',
+      backToUsersList: 'Вернуться к списку пользователей',
+      userID: 'ID пользователя',
+      profileCreationDate: 'Дата создания профиля',
+      tabs: {
+        files: {
+          title: 'Загруженные файлы',
+          emptyTable: 'У пользователя нет загруженных картинок',
+        },
+        payments: { title: 'Платежи', emptyTable: 'У пользователя нет истории платежей' },
+        followers: {
+          title: 'Подписчики',
+          emptyTable: 'У пользователя нет подписчиков',
+        },
+        following: {
+          title: 'Подписки',
+          userIdHead: 'ID пользователя',
+          userNameHead: 'Имя пользователя',
+          profileLinkHead: 'Ссылка на пользователя',
+          subscriptionDate: 'Дата подписки',
+          emptyTable: 'У пользователя нет подписок',
+        },
+      },
     },
   },
 }

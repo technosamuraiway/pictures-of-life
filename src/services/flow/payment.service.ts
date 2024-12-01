@@ -1,5 +1,6 @@
 import {
-  CreateSubscriptionResponse,
+  ICreateSubscriptionArgs,
+  ICreateSubscriptionResponse,
   IMyCurrentSubscriptionsResponse,
   IMyPaymentsResponse,
 } from '@/services'
@@ -15,11 +16,11 @@ const paymentService = inctagramApi.injectEndpoints({
         url: `v1/subscriptions/canceled-auto-renewal`,
       }),
     }),
-    createSubscription: builder.mutation<CreateSubscriptionResponse, string>({
+    createSubscription: builder.mutation<ICreateSubscriptionResponse, ICreateSubscriptionArgs>({
       invalidatesTags: ['Payment'],
-      query: (typeSubscription: string) => ({
+      query: ({ amount, typeSubscription }) => ({
         body: JSON.stringify({
-          amount: 1,
+          amount,
           baseUrl: `${baseURL}/profile/settings?tab=account+management&`,
           paymentType: 'STRIPE',
           typeSubscription,

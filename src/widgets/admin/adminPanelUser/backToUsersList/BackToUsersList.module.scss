@@ -1,0 +1,14 @@
+.backTo {
+  align-self: flex-start;
+  padding: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.arrowBack {
+  width: 1.5rem;
+  height: 1.5rem;
+}

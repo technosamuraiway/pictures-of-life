@@ -133,6 +133,7 @@ export const en: LocaleType = {
   pagination: {
     onPage: 'on page',
     show: 'Show',
+    status: 'Pending',
   },
   passwordRecoveryPage: {
     title: 'Password recovery page',
@@ -431,6 +432,25 @@ export const en: LocaleType = {
     },
     postsList: {
       title: 'Posts List',
+    },
+    userList: {
+      title: 'User Page',
+      backToUsersList: 'Back to Users List',
+      userID: 'User ID',
+      profileCreationDate: 'Profile Creation Date',
+      tabs: {
+        files: { title: 'Uploaded Files', emptyTable: 'User does not have downloaded images' },
+        payments: { title: 'Payments', emptyTable: 'User does not have payments' },
+        followers: { title: 'Followers', emptyTable: 'User does not have followers' },
+        following: {
+          title: 'Following',
+          userIdHead: 'User ID',
+          userNameHead: 'User Name',
+          profileLinkHead: 'Profile Link',
+          subscriptionDate: 'Subscription Date',
+          emptyTable: 'User does not have followings',
+        },
+      },
     },
   },
 }
