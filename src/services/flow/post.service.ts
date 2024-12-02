@@ -1,6 +1,10 @@
 import { inctagramApi } from '../api/inctagram.api'
 import {
   ChangePostDescriptionArgs,
+  GetAnswersArgs,
+  GetAnswersLikesArgs,
+  GetAnswersLikesResponse,
+  GetAnswersResponse,
   ICommentResponse,
   ICreatePostArgs,
   IGetUserPublicPostsArgs,
@@ -62,6 +66,28 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+      getAnswers: builder.query<GetAnswersResponse, GetAnswersArgs>({
+        query: args => {
+          const { commentId, postId, ...rest } = args
+
+          return {
+            method: 'GET',
+            params: { rest },
+            url: `v1/posts/${postId}/comments/${commentId}/answers`,
+          }
+        },
+      }),
+      getAnswersLikes: builder.query<GetAnswersLikesResponse, GetAnswersLikesArgs>({
+        query: args => {
+          const { answerId, commentId, postId, ...rest } = args
+
+          return {
+            method: 'GET',
+            params: { rest },
+            url: `v1/posts/${postId}/comments/${commentId}/answers/${answerId}}/likes`,
+          }
+        },
+      }),
       getPostById: builder.query<IPostUser, string>({
         providesTags: ['Posts'],
         query: postId => {
@@ -97,6 +123,7 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+
       getUserPublicPosts: builder.query<IPostPublicResponse, IGetUserPublicPostsArgs>({
         merge: (currentCache, newItems, { arg }) => {
           if (arg.endCursorPostId === undefined) {
@@ -144,7 +171,6 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
-
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
         query: ({ files }) => {
           const formData = new FormData()

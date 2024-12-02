@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 
 import { IComment } from '@/services'
 import { useUpdateLikeStatusOfCommentMutation } from '@/services/flow/commentsAnswers.service'
@@ -10,6 +10,7 @@ import {
   useRouterLocaleDefinition,
 } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
+import { CommentsItemAnswers } from '@/widgets/profile/profilePostModal/postComments/comments/commentsItem/commentsItemAnswers/CommentsItemAnswers'
 import { FilledLikeIcon, LikeIcon } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
@@ -32,12 +33,10 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
 
   const [updateLike, { isLoading: isLoadingLike }] = useUpdateLikeStatusOfCommentMutation()
 
-  function likeHandler() {
-    updateLike({ commentId, likeStatus: 'LIKE', postId })
-  }
+  const [isShowAnswers, setIsShowAnswers] = useState(false)
 
-  function unLikeHandler() {
-    updateLike({ commentId, likeStatus: 'NONE', postId })
+  function likeHandler() {
+    updateLike({ commentId, likeStatus: isLiked ? 'NONE' : 'LIKE', postId })
   }
 
   if (!comment) {
@@ -48,10 +47,25 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     )
   }
 
+  const answerUi = (
+    <span className={s.answer} onClick={() => setIsShowAnswers(!isShowAnswers)}>
+      <Typography as={'button'} type={'button'} variant={'small-text'}>
+        {isShowAnswers ? 'Hide' : 'Show'} Answers ({2})
+      </Typography>
+      {isShowAnswers && <CommentsItemAnswers />}
+    </span>
+  )
+
   const icon = isLiked ? (
-    <FilledLikeIcon height={16} onClick={unLikeHandler} style={{ color: 'red' }} width={16} />
+    <FilledLikeIcon
+      className={s.like}
+      height={16}
+      onClick={likeHandler}
+      style={{ color: 'red' }}
+      width={16}
+    />
   ) : (
-    <LikeIcon height={16} onClick={likeHandler} width={16} />
+    <LikeIcon className={s.like} height={16} onClick={likeHandler} width={16} />
   )
 
   const contentItem = (
@@ -74,6 +88,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
           </Typography>
         )}
       </div>
+      {isShow && answerUi}
     </div>
   )
 
