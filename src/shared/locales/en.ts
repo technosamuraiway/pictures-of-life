@@ -169,6 +169,7 @@ export const en: LocaleType = {
           title: 'Followers',
           emptyList: 'You do not have active followers!',
           follow: 'Follow',
+          unFollow: 'Unfollow',
           delete: 'Delete',
         },
         following: { title: 'Following', emptyList: 'You do not have active following!' },

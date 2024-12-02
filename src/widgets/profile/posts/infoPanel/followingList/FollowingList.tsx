@@ -21,7 +21,7 @@ export const FollowingList = ({ openModal, setOpenModal, userFollowing }: IProps
       setOpenModal={setOpenModal}
     >
       {userFollowing ? (
-        <FollowingInfo />
+        <FollowingInfo setOpenModal={setOpenModal} />
       ) : (
         <AddNewFriends title={t.profile.info.stats.following.emptyList} />
       )}

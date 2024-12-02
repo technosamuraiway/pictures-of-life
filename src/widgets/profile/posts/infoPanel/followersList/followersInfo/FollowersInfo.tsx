@@ -1,9 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 
 import {
-  PATH,
   RequestLineLoader,
-  useGetUserIdFromParams,
   useRelocateToProfile,
   useRouterLocaleDefinition,
   useSearchBy,
@@ -18,10 +16,11 @@ interface IProps {
   setOpenModal: Dispatch<SetStateAction<boolean>>
 }
 
+const data = [{ id: '123' }, { id: '1236789' }]
+
 export const FollowersInfo = ({ setOpenModal }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [searchTerm, setSearchTerm] = useState('')
-
   const refetch = () => {}
 
   const { changeSearchHandler } = useSearchBy(refetch, setSearchTerm)
@@ -37,7 +36,10 @@ export const FollowersInfo = ({ setOpenModal }: IProps) => {
           type={'search'}
           value={searchTerm}
         />
-        <FollowerItem navigateToProfile={navigateToProfileHandler} />
+
+        {data.map(item => {
+          return <FollowerItem key={item.id} navigateToProfile={navigateToProfileHandler} />
+        })}
       </div>
     </>
   )

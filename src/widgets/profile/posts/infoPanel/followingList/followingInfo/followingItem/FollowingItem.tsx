@@ -1,8 +1,5 @@
-import React from 'react'
-
-import { CircleAvatar, useRouterLocaleDefinition } from '@/shared'
-import testImg from '@public/error404.png'
-import { Button, Typography } from '@technosamurai/techno-ui-kit'
+import { AvatarWithUserName, useRouterLocaleDefinition } from '@/shared'
+import { Button } from '@technosamurai/techno-ui-kit'
 
 import s from './FollowingItem.module.scss'
 
@@ -13,17 +10,24 @@ interface IProps {
 export const FollowingItem = ({ navigateToProfile }: IProps) => {
   const t = useRouterLocaleDefinition()
 
+  const navigateToProfileHandler = () => {
+    navigateToProfile('1478')
+  }
+  const result = true
+
+  const unfollowUserHandler = () => {}
+  const followUserHandler = () => {}
+
   return (
     <div className={s.infoWrapper}>
-      <div className={s.avaWrapper} onClick={() => navigateToProfile('1478')}>
-        <CircleAvatar rootCN={s.hover} src={testImg.src} />
-        <Typography className={s.hover} variant={'regular-text-16'}>
-          {'UserName'}
-        </Typography>
-      </div>
+      <AvatarWithUserName navigateToProfile={navigateToProfileHandler} />
       <div className={s.buttonsWrapper}>
-        <Button variant={'primary'}>{t.profile.info.stats.followers.follow}</Button>
-        <Button variant={'secondary'}>{t.profile.info.stats.followers.delete}</Button>
+        <Button
+          onClick={result ? unfollowUserHandler : followUserHandler}
+          variant={result ? 'outline' : 'primary'}
+        >
+          {result ? t.profile.info.stats.followers.unFollow : t.profile.info.stats.followers.follow}
+        </Button>
       </div>
     </div>
   )

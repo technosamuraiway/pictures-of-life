@@ -168,6 +168,7 @@ export const ru = {
           title: 'Подписчики',
           emptyList: 'У вас нет активных подписчиков!',
           follow: 'Подписаться',
+          unFollow: 'Отписаться',
           delete: 'Удалить',
         },
         following: { title: 'Подписок', emptyList: 'У вас нет активных подписок!' },
