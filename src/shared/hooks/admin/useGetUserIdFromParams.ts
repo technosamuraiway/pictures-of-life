@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 
 export const useGetUserIdFromParams = () => {
-  const { query } = useRouter()
+  const { push, query } = useRouter()
   const userId = query.userId
 
-  return { userId }
+  return { push, userId }
 }

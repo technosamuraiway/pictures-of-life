@@ -1,11 +1,10 @@
-import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { RequestLineLoader, useRouterLocaleDefinition, useSearchBy } from '@/shared'
 import { TextField } from '@technosamurai/techno-ui-kit'
 
 import s from './AdminPosts.module.scss'
 
 import { AdminPost } from './adminPost/AdminPost'
 import { useGetPosts } from './lib/useGetPosts'
-import { useSearchBy } from './lib/useSearchBy'
 
 export const AdminPosts = () => {
   const t = useRouterLocaleDefinition()

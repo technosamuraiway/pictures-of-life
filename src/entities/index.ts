@@ -19,6 +19,7 @@ export { BanUnbanUserModal } from './modals/banUnbanUserModal/BanUnbanUserModal'
 export { CreateNewPostModal } from './modals/createNewPostModal/CreateNewPostModal'
 export { DeletePostModal } from './modals/deletePostModal/DeletePostModal'
 export { EmailSentModal } from './modals/emailSentModal/EmailSentModal'
+export { FollowersFollowingModal } from './modals/followersFollowingModal/FollowersFollowingModal'
 export { InformativeModal } from './modals/informativeModal/InformativeModal'
 
 // ============================== [ profile ] ======================================

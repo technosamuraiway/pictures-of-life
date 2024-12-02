@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useRef } from 'react'
 
 export const useSearchBy = (
   refetch: () => void,

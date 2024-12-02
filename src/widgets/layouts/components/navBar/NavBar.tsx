@@ -79,7 +79,7 @@ export function NavBar() {
       activeIconComponent: <ActiveSearchIcon />,
       altText: `${t.navBar.search} Icon`,
       defaultIconComponent: <DefaultSearchIcon />,
-      hrefLink: '/Search',
+      hrefLink: PATH.SEARCH,
       id: 123,
       isDisabled: false,
       text: t.navBar.search,

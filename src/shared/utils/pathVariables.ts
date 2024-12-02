@@ -26,6 +26,7 @@ export const PATH = {
   PUBLIC: '/public',
   PUBLICPOST: '/public/post',
   PUBLICUSER: '/public-user/[userId]',
+  SEARCH: '/search',
 } as const
 
 export const PUBLIC_ROUTES_SET = new Set<string>([

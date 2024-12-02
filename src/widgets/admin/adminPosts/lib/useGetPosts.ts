@@ -27,7 +27,11 @@ export const useGetPosts = () => {
 
   useEffect(() => {
     if (getPostsListData && getPostsListData.getPosts) {
-      setPostsData(prevData => [...prevData, ...getPostsListData.getPosts.items])
+      if (endCursorPostId === 0) {
+        setPostsData(getPostsListData.getPosts.items)
+      } else {
+        setPostsData(prevData => [...prevData, ...getPostsListData.getPosts.items])
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getPostsListData, endCursorPostId])

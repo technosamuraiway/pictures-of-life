@@ -165,9 +165,16 @@ export const en: LocaleType = {
     info: {
       btn: 'Profile settings',
       stats: {
-        followers: 'Followers',
-        following: 'Following',
+        followers: {
+          title: 'Followers',
+          emptyList: 'You do not have active followers!',
+          follow: 'Follow',
+          delete: 'Delete',
+        },
+        following: { title: 'Following', emptyList: 'You do not have active following!' },
         publications: 'Publications',
+        findNew: 'Find new here🤝',
+        searchPlaceholder: 'Search',
       },
     },
     postsShower: {

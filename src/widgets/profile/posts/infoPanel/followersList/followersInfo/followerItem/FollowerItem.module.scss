@@ -1,0 +1,30 @@
+.infoWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avaWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.hover.hover {
+  &:hover {
+    color: var(--Primary-300);
+    cursor: pointer;
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 3.375rem;
+  justify-content: space-between;
+  align-items: center;
+}

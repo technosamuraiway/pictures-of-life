@@ -1,4 +1,5 @@
 export { AdaptiveTranslation } from './adaptiveTranslation/AdaptiveTranslation'
+export { AddNewFriends } from './addNewFriends/AddNewFriends'
 export { AvatarChoice } from './avatarChoice/AvatarChoice'
 export { BodyTableCell } from './bodyTableCell/BodyTableCell'
 export { ButtonLink } from './buttonLink/ButtonLink'
