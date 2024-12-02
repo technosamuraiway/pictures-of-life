@@ -38,7 +38,13 @@ export const FollowersInfo = ({ setOpenModal }: IProps) => {
         />
 
         {data.map(item => {
-          return <FollowerItem key={item.id} navigateToProfile={navigateToProfileHandler} />
+          return (
+            <FollowerItem
+              key={item.id}
+              navigateToProfile={navigateToProfileHandler}
+              userName={'Hello World'}
+            />
+          )
         })}
       </div>
     </>
