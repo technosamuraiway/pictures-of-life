@@ -16,7 +16,7 @@ export const Comments = () => {
   const { meData, router } = useMeWithRouter()
   const { query } = router
 
-  const { postId } = query
+  const { postId, userId } = query
 
   const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(postId as string, {
     skip: !postId,
