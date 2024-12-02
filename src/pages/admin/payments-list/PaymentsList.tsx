@@ -1,27 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { UsersListTable } from '@/entities/tables/users-list-table/UsersListTable'
-import { SortDirection, UserBlockStatus } from '@/services/graphql/codegen/graphql'
-import { GET_USERS } from '@/services/graphql/queries/user'
+import { PaymentsListTable } from '@/entities/tables/payments-list-table/PaymentsListTable'
+import { SortDirection } from '@/services/graphql/codegen/graphql'
+import { GET_PAYMENTS } from '@/services/graphql/queries/paymets'
 import { useSignInAdminStore } from '@/services/store/signInAdminStore'
 import { InitLoader, PATH, useRouterLocaleDefinition } from '@/shared'
 import { SORT_BY_TYPE } from '@/shared/enums'
 import { getLayoutWithNav } from '@/widgets'
 import { useQuery } from '@apollo/client'
-import { Pagination, Select, TextField } from '@technosamurai/techno-ui-kit'
+import { Checkbox, Pagination, TextField } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
-import s from './UsersList.module.scss'
+import s from './PaymentsList.module.scss'
 
-function UsersList() {
+function PaymentsList() {
   const t = useRouterLocaleDefinition()
   const router = useRouter()
   const { logged } = useSignInAdminStore()
-  const [filterByUserStatus, setFilterByUserStatus] = useState<UserBlockStatus>(UserBlockStatus.All)
   const [sortBy, setSortBy] = useState<'' | SORT_BY_TYPE>('')
   const [sortDirection, setSortDirection] = useState<SortDirection | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [autoUpdate, setAutoUpdate] = useState(false)
   // eslint-disable-next-line no-undef
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
 
@@ -33,16 +33,21 @@ function UsersList() {
     }
   }, [router, logged])
 
-  const { data, loading, refetch } = useQuery(GET_USERS, {
+  const { data, loading, refetch } = useQuery(GET_PAYMENTS, {
+    pollInterval: autoUpdate ? 5000 : 0,
     variables: {
       pageNumber: currentPage,
       pageSize: 10,
       searchTerm,
       sortBy,
       sortDirection,
-      statusFilter: filterByUserStatus,
     },
   })
+
+  const toggleAutoUpdate = () => {
+    setAutoUpdate(prev => !prev)
+  }
+
   const handleSortDirection = (newSortDirection: SortDirection, newSortBy: SORT_BY_TYPE) => {
     setSortBy(newSortBy)
     setSortDirection(newSortDirection)
@@ -70,52 +75,35 @@ function UsersList() {
 
   return (
     <div className={s.container}>
+      <div className={s.checkboxWrapper}>
+        <Checkbox
+          checked={autoUpdate}
+          label={t.admin.paymentsList.autoUpdate}
+          onCheckedChange={toggleAutoUpdate}
+        />
+      </div>
       <div className={s.inputSelectBlock}>
         <TextField
           onChange={handleSearchChange} // Обработчик изменения поля ввода
           placeholder={t.admin.usersList.search}
           type={'search'}
         />
-        <Select
-          currentValue={filterByUserStatus}
-          defaultValue={UserBlockStatus.All}
-          onValueChange={el => {
-            setFilterByUserStatus(el as UserBlockStatus)
-            refetch()
-          }}
-          options={[
-            {
-              label: t.admin.usersList.notSelected,
-              value: UserBlockStatus.All,
-            },
-            {
-              label: t.admin.usersList.blocked,
-              value: UserBlockStatus.Blocked,
-            },
-            {
-              label: t.admin.usersList.notBlocked,
-              value: UserBlockStatus.Unblocked,
-            },
-          ]}
-          selectWidth={'250px'}
-        />
       </div>
       <div>
         {loading ? (
           <InitLoader />
         ) : (
-          <UsersListTable
+          <PaymentsListTable
             handleSortDirection={handleSortDirection}
-            refetch={refetch}
+            payments={data?.getPayments?.items ?? []}
             sortBy={sortBy as SORT_BY_TYPE}
             sortDirection={sortDirection}
-            users={data?.getUsers?.users ?? []}
           />
         )}
       </div>
       {!loading && (
         <Pagination
-          count={data?.getUsers?.pagination?.pagesCount ?? 0}
+          count={data?.getPayments?.pagesCount ?? 0}
           onChange={handlePageChange}
           onPageTitle={''}
           page={currentPage}
@@ -126,5 +114,5 @@ function UsersList() {
   )
 }
 
-UsersList.getLayout = getLayoutWithNav
-export default UsersList
+PaymentsList.getLayout = getLayoutWithNav
+export default PaymentsList

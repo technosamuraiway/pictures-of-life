@@ -430,6 +430,11 @@ export const ru = {
     },
     paymentsList: {
       title: 'Список платежей',
+      dateAdded: 'Дата добавления',
+      amount: 'Сумма,$',
+      subscription: 'Подписка',
+      paymentMethod: 'Способ оплаты',
+      autoUpdate: 'Автообновление',
     },
     postsList: {
       title: 'Список постов',
