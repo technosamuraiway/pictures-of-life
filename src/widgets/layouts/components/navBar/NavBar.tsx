@@ -137,7 +137,7 @@ export function NavBar() {
       activeIconComponent: <ActivePaymentsList />,
       altText: `${t.admin.paymentsList} Icon`,
       defaultIconComponent: <DefaultPaymentsList />,
-      hrefLink: '',
+      hrefLink: '/admin/payments-list',
       id: 3,
       isDisabled: false,
       text: t.admin.paymentsList.title,
