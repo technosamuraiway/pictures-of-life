@@ -1,4 +1,6 @@
-import { useGetPostCommentsByIdQuery } from '@/services'
+import { useMemo } from 'react'
+
+import { ICommentResponse, useGetPostCommentsByIdQuery } from '@/services'
 import {
   useGetPublicPostByIdQuery,
   useGetPublicPostCommentsByIdQuery,
@@ -37,6 +39,29 @@ export const Comments = () => {
 
   const isLoading = isPostLoading || isCommentsPublicLoading || isCommentsAuthLoading
 
+  const sortedComments = useMemo<ICommentResponse | undefined>(() => {
+    if (!comments || !comments.items) {
+      return undefined
+    }
+
+    const currentUserId = Number(userId)
+
+    const sortedItems = [...comments.items].sort((a, b) => {
+      // Сначала сортируем по принадлежности текущему пользователю
+      if (a.from.id === currentUserId && b.from.id !== currentUserId) {
+        return -1
+      }
+      if (a.from.id !== currentUserId && b.from.id === currentUserId) {
+        return 1
+      }
+
+      // Затем сортируем по дате (от новых к старым)
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
+
+    return { ...comments, items: sortedItems }
+  }, [comments, userId])
+
   return (
     <>
       {isLoading && <RequestLineLoader />}
@@ -52,7 +77,7 @@ export const Comments = () => {
 
         <ul className={s.list}>
           {!isLoading &&
-            comments?.items?.map(item => <CommentsItem comment={item} key={item.id} />)}
+            sortedComments?.items?.map(item => <CommentsItem comment={item} key={item.id} />)}
           {isLoading && [1, 2, 3].map(skeleton => <Skeleton height={50} key={skeleton} />)}
         </ul>
       </Scrollbar>
