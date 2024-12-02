@@ -11,7 +11,7 @@ import s from './SwiperSlider.module.scss'
 
 type SlideData = {
   content: ReactNode
-  id?: number
+  id?: null | number
 }
 
 interface IProps {

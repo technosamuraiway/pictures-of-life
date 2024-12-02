@@ -1,0 +1,34 @@
+.createdAt.createdAt {
+  color: var(--Light-900);
+}
+
+.descText,
+.fullText {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+
+  width: 100%;
+
+  color: var(--Light-100);
+  text-overflow: ellipsis;
+  word-break: break-word;
+
+  &.fullText {
+    -webkit-line-clamp: 9;
+    line-clamp: 9;
+  }
+}
+
+.showMoreButton {
+  cursor: pointer;
+
+  float: initial;
+  display: inline;
+
+  font-size: 0.875rem;
+  color: var(--Primary-500);
+  text-decoration: underline;
+}

@@ -1,8 +1,26 @@
-export type DirectionSort = 'asc' | 'desc'
+export type PostImage = {
+  __typename?: 'ImagePost'
+  id?: null | number
+  url?: null | string
+}
 
-export type FollowUser = {
-  createdAt: string
-  id: number
-  userId: number
-  userName: string
+export type PostOwner = {
+  __typename?: 'PostOwnerModel'
+  avatars?: PostOwnerAvatar[] | null
+  id?: null | number
+  userName?: null | string
+}
+
+export type PostOwnerAvatar = {
+  __typename?: 'Avatar'
+  url?: null | string
+}
+
+export interface IAdminPost {
+  __typename?: 'Post'
+  createdAt: null | string
+  description: null | string
+  id: null | number
+  images?: PostImage[] | null
+  postOwner: PostOwner
 }

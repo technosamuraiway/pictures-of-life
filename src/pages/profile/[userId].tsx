@@ -57,10 +57,10 @@ function Profile({ post, posts, user }: IProps) {
         about={user?.aboutMe || 'no info'}
         avatar={user?.avatars[0]?.url || ''}
         isWithSettingsBtn={isOwnProfile}
-        userFollowers={userData?.followersCount || 999}
-        userFollowing={userData?.followingCount || 999}
+        userFollowers={userData?.followersCount || 0}
+        userFollowing={userData?.followingCount || 0}
         userName={user?.userName || 'no info'}
-        userPublications={userData?.publicationsCount || 999}
+        userPublications={userData?.publicationsCount || 0}
       />
 
       <PostsShower posts={postsArray} />

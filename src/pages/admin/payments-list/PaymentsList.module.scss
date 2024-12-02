@@ -4,12 +4,14 @@
   gap: 1rem;
   width: 100%;
 }
+
 .inputSelectBlock {
   display: flex;
   gap: 94px;
   justify-content: space-between;
 }
+
 .checkboxWrapper {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }

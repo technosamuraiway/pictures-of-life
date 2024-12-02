@@ -1,0 +1,15 @@
+.infoWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 3.375rem;
+  justify-content: space-between;
+  align-items: center;
+}
