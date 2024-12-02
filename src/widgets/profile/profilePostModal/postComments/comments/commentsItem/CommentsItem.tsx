@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
 
-import { IComment } from '@/services'
+import { IComment, useGetAnswersLikesQuery, useGetAnswersQuery } from '@/services'
 import { useUpdateLikeStatusOfCommentMutation } from '@/services/flow/commentsAnswers.service'
 import {
   CircleAvatar,
@@ -10,6 +10,7 @@ import {
   useRouterLocaleDefinition,
 } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
+import { PostAddAnswer } from '@/widgets/profile/profilePostModal/postComments/comments/commentsItem/PostAddAnswer/PostAddAnswer'
 import { CommentsItemAnswers } from '@/widgets/profile/profilePostModal/postComments/comments/commentsItem/commentsItemAnswers/CommentsItemAnswers'
 import { FilledLikeIcon, LikeIcon } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
@@ -28,12 +29,23 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   const { content, createdAt, from, id: commentId, isLiked, likeCount, postId } = comment
   const { avatars, id, username } = from
 
-  const isOwnComment = meData?.userId === id
-  const isShow = !isOwnComment && !!meData
+  const { data: answers, isLoading: isLoadingAnswers } = useGetAnswersQuery({ commentId, postId })
+  // const { data: answersLikes, isLoading: isLoadingAnswersLikes } = useGetAnswersLikesQuery(
+  //   {
+  //     answerId: answers?.items[0].id || NaN,
+  //     commentId,
+  //     postId,
+  //   },
+  //   { skip: !answers }
+  // )
 
   const [updateLike, { isLoading: isLoadingLike }] = useUpdateLikeStatusOfCommentMutation()
 
   const [isShowAnswers, setIsShowAnswers] = useState(false)
+  const [isShowAnswerInput, setIsShowAnswerInput] = useState(false)
+
+  const isOwnComment = meData?.userId === id
+  const isShow = !isOwnComment && !!meData
 
   function likeHandler() {
     updateLike({ commentId, likeStatus: isLiked ? 'NONE' : 'LIKE', postId })
@@ -46,6 +58,8 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
       </li>
     )
   }
+
+  const answerInput = <PostAddAnswer />
 
   const answerUi = (
     <span className={s.answer} onClick={() => setIsShowAnswers(!isShowAnswers)}>
@@ -73,7 +87,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
       <div className={s.text}>
         <Typography className={s.username} variant={'bold-text-14'}>
           {username}
-        </Typography>{' '}
+        </Typography>
         <Typography className={s.content} variant={'medium-text-14'}>
           {content}
         </Typography>
@@ -83,11 +97,17 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
         {!!meData && <Typography variant={'small-text'}>Likes: {likeCount}</Typography>}
 
         {isShow && (
-          <Typography as={'button'} type={'button'} variant={'small-text'}>
+          <Typography
+            as={'button'}
+            onClick={() => setIsShowAnswerInput(!isShowAnswerInput)}
+            type={'button'}
+            variant={'small-text'}
+          >
             Answer
           </Typography>
         )}
       </div>
+      {isShowAnswerInput && answerInput}
       {isShow && answerUi}
     </div>
   )

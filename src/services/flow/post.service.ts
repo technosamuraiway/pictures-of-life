@@ -195,6 +195,8 @@ export const {
   useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
+  useGetAnswersLikesQuery,
+  useGetAnswersQuery,
   // useGetUserProfileByUserNameQuery,
   useGetPostByIdQuery,
   useGetPostCommentsByIdQuery,
