@@ -21,6 +21,7 @@ function PaymentsList() {
   const [sortDirection, setSortDirection] = useState<SortDirection | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [autoUpdate, setAutoUpdate] = useState(false)
   // eslint-disable-next-line no-undef
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
 
@@ -33,18 +34,24 @@ function PaymentsList() {
   }, [router, logged])
 
   const { data, loading, refetch } = useQuery(GET_PAYMENTS, {
+    pollInterval: autoUpdate ? 5000 : 0,
     variables: {
       pageNumber: currentPage,
       pageSize: 10,
       searchTerm,
-      sortBy: sortBy,
-      sortDirection: SortDirection.Desc,
+      sortBy,
+      sortDirection,
     },
   })
 
-  const handleSortDirection = (sortDirection: SortDirection, sortBy: SORT_BY_TYPE) => {
-    setSortBy(sortBy)
-    setSortDirection(sortDirection)
+  const toggleAutoUpdate = () => {
+    setAutoUpdate(prev => !prev)
+  }
+
+  const handleSortDirection = (newSortDirection: SortDirection, newSortBy: SORT_BY_TYPE) => {
+    setSortBy(newSortBy)
+    setSortDirection(newSortDirection)
+    refetch()
   }
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage)
@@ -69,7 +76,11 @@ function PaymentsList() {
   return (
     <div className={s.container}>
       <div className={s.checkboxWrapper}>
-        <Checkbox checked label={'Autoupdate'} onCheckedChange={() => {}} />
+        <Checkbox
+          checked={autoUpdate}
+          label={t.admin.paymentsList.autoUpdate}
+          onCheckedChange={toggleAutoUpdate}
+        />
       </div>
       <div className={s.inputSelectBlock}>
         <TextField
@@ -85,7 +96,7 @@ function PaymentsList() {
           <PaymentsListTable
             handleSortDirection={handleSortDirection}
             payments={data?.getPayments?.items ?? []}
-            refetch={refetch}
+            sortBy={sortBy as SORT_BY_TYPE}
             sortDirection={sortDirection}
           />
         )}

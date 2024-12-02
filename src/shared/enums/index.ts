@@ -4,6 +4,8 @@ export enum BUN_REASON_TYPE {
   BAD_BEHAVIOR = 'Bad behavior',
 }
 export enum SORT_BY_TYPE {
+  AMOUNT = 'amount',
   CREATEDAT = 'createdAt',
+  PAYMENT_METHOD = 'paymentMethod',
   USERNAME = 'userName',
 }

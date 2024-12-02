@@ -434,6 +434,7 @@ export const ru = {
       amount: 'Сумма,$',
       subscription: 'Подписка',
       paymentMethod: 'Способ оплаты',
+      autoUpdate: 'Автообновление',
     },
     postsList: {
       title: 'Список постов',

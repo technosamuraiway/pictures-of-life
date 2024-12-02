@@ -433,6 +433,7 @@ export const en: LocaleType = {
       amount: 'Amount,$',
       subscription: 'Subscription',
       paymentMethod: 'Payment Method',
+      autoUpdate: 'Autoupdate',
     },
     postsList: {
       title: 'Posts List',

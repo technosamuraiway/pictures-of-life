@@ -15,7 +15,6 @@ interface IProps {
   handleSortDirection: (sortDirection: SortDirection, sortBy: SORT_BY_TYPE) => void
   sortBy: SORT_BY_TYPE
   sortDirection: SortDirection | null
-  sortTableOnClick?: () => void
   title: string
 }
 
@@ -25,15 +24,15 @@ export const HeadCellWithArrow = ({
   handleSortDirection,
   sortBy,
   sortDirection,
-  sortTableOnClick,
   title,
+
   ...rest
 }: IProps) => {
   const arrow = arrowDirection ? 'arrowDownOutline' : 'arrowUpOutline'
 
   return (
     <Tables.TableHeadCell>
-      <div className={clsx(s.wrapper, className)} onClick={sortTableOnClick} {...rest}>
+      <div className={clsx(s.wrapper, className)} {...rest}>
         <Typography variant={'medium-text-14'}>{title}</Typography>
         <div className={s.arrowWrapper}>
           <ArrowUp

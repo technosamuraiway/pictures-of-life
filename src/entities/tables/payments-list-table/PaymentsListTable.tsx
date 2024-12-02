@@ -5,6 +5,7 @@ import { TableCellUsersList } from '@/entities/tables/users-list-table/tableCell
 import { SortDirection, SubscriptionPaymentsModel } from '@/services/graphql/codegen/graphql'
 import { convertDate, useRouterLocaleDefinition } from '@/shared'
 import { SORT_BY_TYPE } from '@/shared/enums'
+import { getDaysFromPeriod } from '@/shared/utils/timeUtils'
 import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './PaymentsListTable.module.scss'
@@ -12,14 +13,14 @@ import s from './PaymentsListTable.module.scss'
 interface IProps {
   handleSortDirection: (sortDirection: SortDirection, sortBy: SORT_BY_TYPE) => void
   payments: SubscriptionPaymentsModel[]
-  refetch: Function
+  sortBy: SORT_BY_TYPE
   sortDirection: SortDirection | null
 }
 
 export const PaymentsListTable = ({
   handleSortDirection,
   payments,
-  refetch,
+  sortBy,
   sortDirection,
 }: IProps) => {
   const t = useRouterLocaleDefinition()
@@ -39,26 +40,26 @@ export const PaymentsListTable = ({
           <HeadCellWithArrow
             handleSortDirection={handleSortDirection}
             sortBy={SORT_BY_TYPE.USERNAME}
-            sortDirection={sortDirection}
+            sortDirection={sortBy === SORT_BY_TYPE.USERNAME ? sortDirection : null}
             title={t.admin.usersList.username}
           />
           <HeadCellWithArrow
             handleSortDirection={handleSortDirection}
             sortBy={SORT_BY_TYPE.CREATEDAT}
-            sortDirection={sortDirection}
+            sortDirection={sortBy === SORT_BY_TYPE.CREATEDAT ? sortDirection : null}
             title={t.admin.paymentsList.dateAdded}
           />
           <HeadCellWithArrow
             handleSortDirection={handleSortDirection}
-            sortBy={SORT_BY_TYPE.CREATEDAT}
-            sortDirection={sortDirection}
+            sortBy={SORT_BY_TYPE.AMOUNT}
+            sortDirection={sortBy === SORT_BY_TYPE.AMOUNT ? sortDirection : null}
             title={t.admin.paymentsList.amount}
           />
           <HeadCell title={t.admin.paymentsList.subscription} />
           <HeadCellWithArrow
             handleSortDirection={handleSortDirection}
-            sortBy={SORT_BY_TYPE.CREATEDAT}
-            sortDirection={sortDirection}
+            sortBy={SORT_BY_TYPE.PAYMENT_METHOD}
+            sortDirection={sortBy === SORT_BY_TYPE.PAYMENT_METHOD ? sortDirection : null}
             title={t.admin.paymentsList.paymentMethod}
           />
         </Tables.TableRow>
@@ -75,7 +76,7 @@ export const PaymentsListTable = ({
             />
             <TableCell value={convertDate(payment.createdAt)} />
             <TableCell value={payment.amount ?? 0} />
-            <TableCell value={convertDate(payment.endDate)} />
+            <TableCell value={getDaysFromPeriod(payment.type) ?? '0 days'} />
             <TableCell value={payment.paymentMethod} />
           </Tables.TableRow>
         ))}

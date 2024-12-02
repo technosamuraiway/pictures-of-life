@@ -38,14 +38,15 @@ function UsersList() {
       pageNumber: currentPage,
       pageSize: 10,
       searchTerm,
-      sortBy: sortBy,
-      sortDirection: sortDirection,
+      sortBy,
+      sortDirection,
       statusFilter: filterByUserStatus,
     },
   })
-  const handleSortDirection = (sortDirection: SortDirection, sortBy: SORT_BY_TYPE) => {
-    setSortBy(sortBy)
-    setSortDirection(sortDirection)
+  const handleSortDirection = (newSortDirection: SortDirection, newSortBy: SORT_BY_TYPE) => {
+    setSortBy(newSortBy)
+    setSortDirection(newSortDirection)
+    refetch()
   }
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage)
@@ -106,6 +107,7 @@ function UsersList() {
           <UsersListTable
             handleSortDirection={handleSortDirection}
             refetch={refetch}
+            sortBy={sortBy as SORT_BY_TYPE}
             sortDirection={sortDirection}
             users={data?.getUsers?.users ?? []}
           />
