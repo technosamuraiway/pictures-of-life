@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.img {
+  border-radius: 0.125rem;
+}

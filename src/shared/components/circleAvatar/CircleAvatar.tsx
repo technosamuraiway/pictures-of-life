@@ -19,6 +19,7 @@ export const CircleAvatar = memo(({ height = 36, rootCN, src, width = 36 }: IPro
       alt={'circle-avatar'}
       className={clsx(rootCN, s.root)}
       height={height}
+      priority
       src={src || mockImage}
       width={width}
     />

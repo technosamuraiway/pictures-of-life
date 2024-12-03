@@ -20,7 +20,7 @@ interface iSlideItem {
 
 const SlideItem = memo(({ alt, onClick, src }: iSlideItem) => {
   return (
-    <div className={s.postImage}  onClick={onClick}> 
+    <div className={s.postImage}  onClick={onClick}>
       <Image alt={alt} height={100} layout={"responsive"} src={src} width={230} />
     </div>
   )
@@ -31,14 +31,14 @@ const PublicPostPage = () => {
   const { id, userId } = router.query
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  
+
   const { data: userPosts, isLoading: isLoadingPosts } = useGetUserPublicPostsQuery({
     userId: Number(userId),
   })
 
   const totalCount = userPosts?.totalCount
 
-  
+
   const post = useMemo(() => {
     const isPost = userPosts?.items.find(p => p.id === Number(id))
 
@@ -58,7 +58,7 @@ const PublicPostPage = () => {
       {isLoadingPosts && <RequestLineLoader />}
       <MetaHead title={'Public User Page'} />
       <div className={s.container}>
-        
+
         {post && (
           <div className={s.postContent}>
             <div className={s.avaDescr}>
@@ -71,23 +71,23 @@ const PublicPostPage = () => {
                     </div>
                   )}
                   </div>
-                 <div> 
+                 <div>
             <Typography className={s.username} variant={'h1'}>{post.userName}</Typography>
             <div className={s.follPublic}>
             <div>
               <Typography variant={'bold-text-14'}>500</Typography>
-              <Typography variant={'regular-text-14'}>{t.profile.info.stats.following}</Typography>
+              <Typography variant={'regular-text-14'}>{t.profile.info.stats.following.title}</Typography>
             </div>
             <div>
               <Typography variant={'bold-text-14'}>700</Typography>
-              <Typography variant={'regular-text-14'}>{t.profile.info.stats.followers}</Typography>
+              <Typography variant={'regular-text-14'}>{t.profile.info.stats.followers.title}</Typography>
             </div>
             {totalCount !== undefined && (
           <div>
             <Typography variant={'bold-text-14'}> {totalCount}</Typography>
             <Typography variant={'regular-text-14'}>{t.profile.info.stats.publications}</Typography>
           </div>
-        )} 
+        )}
         </div>
          <Typography className={s.description} variant={'regular-text-14'}>{post.description}</Typography>
          </div>
@@ -107,12 +107,11 @@ const PublicPostPage = () => {
               )}
             </div>
 
-           
+
           </div>
         )}
 
 
-        
         {post && (
           <PostModal isOpen={isModalOpen} onRequestClose={handleModalClose} post={post} />
         )}

@@ -1,3 +1,6 @@
+export { AdminPanelUser } from './admin/adminPanelUser/AdminPanelUser'
+export { AdminPosts } from './admin/adminPosts/AdminPosts'
+
 export { NewPassword } from './auth/newPassword/NewPassword'
 export { ResendLink } from './auth/resendLink/ResendLink'
 

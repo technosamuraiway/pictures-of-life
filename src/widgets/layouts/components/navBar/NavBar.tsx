@@ -79,7 +79,7 @@ export function NavBar() {
       activeIconComponent: <ActiveSearchIcon />,
       altText: `${t.navBar.search} Icon`,
       defaultIconComponent: <DefaultSearchIcon />,
-      hrefLink: '/Search',
+      hrefLink: PATH.SEARCH,
       id: 123,
       isDisabled: false,
       text: t.navBar.search,
@@ -137,7 +137,7 @@ export function NavBar() {
       activeIconComponent: <ActivePaymentsList />,
       altText: `${t.admin.paymentsList} Icon`,
       defaultIconComponent: <DefaultPaymentsList />,
-      hrefLink: '',
+      hrefLink: '/admin/payments-list',
       id: 3,
       isDisabled: false,
       text: t.admin.paymentsList.title,
@@ -146,20 +146,21 @@ export function NavBar() {
       activeIconComponent: <ActivePostsList />,
       altText: `${t.admin.postsList} Icon`,
       defaultIconComponent: <DefaultPostsList />,
-      hrefLink: '',
+      hrefLink: PATH.ADMIN.ADMINPOSTSLIST,
       id: 4,
       isDisabled: false,
       text: t.admin.postsList.title,
     },
   ]
+
   // ------ Работа с навигацией -------
   const activeConditionFunctionHandler = (itemPath: string) => {
     if (itemPath === PATH.HOME) {
       return router.pathname === PATH.HOME
     }
 
-    if (!isOwnProfile && itemPath === `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`) {
-      return false
+    if (isOwnProfile && itemPath === `${PATH.PROFILE.BASEPROFILE}/${meData?.userId}`) {
+      return true
     }
 
     // Allow partial matches for specific base paths like "/admin"

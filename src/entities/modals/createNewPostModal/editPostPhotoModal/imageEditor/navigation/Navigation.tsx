@@ -6,7 +6,7 @@ import { RightIcon } from '@public/RightIcon'
 import s from './Navigation.module.scss'
 
 import { NavArrow } from './navArrow/NavArrow'
-import { Pagination } from './pagination/Pagination'
+import { PaginationSlider } from './paginationSlider/PaginationSlider'
 
 interface IProps {
   currentImageIndex: number
@@ -47,7 +47,7 @@ export const Navigation = ({
           <RightIcon className={s.arrow} />
         </NavArrow>
       )}
-      <Pagination
+      <PaginationSlider
         currentIndex={currentImageIndex}
         onDotClick={onPaginationClickHandler}
         totalItems={downloadedImageLength}

@@ -1,7 +1,12 @@
-export interface CreateSubscriptionResponse {
+export interface ICreateSubscriptionResponse {
   id: string
   status: string
   url: string
+}
+
+export interface ICreateSubscriptionArgs {
+  amount: number
+  typeSubscription: string
 }
 
 export interface IMyPaymentsResponse {
