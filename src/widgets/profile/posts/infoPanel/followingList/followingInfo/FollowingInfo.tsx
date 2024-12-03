@@ -1,12 +1,13 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 
+import { useGetUserFollowingQuery } from '@/services'
 import {
   RequestLineLoader,
   useRelocateToProfile,
   useRouterLocaleDefinition,
   useSearchBy,
 } from '@/shared'
-import { TextField } from '@technosamurai/techno-ui-kit'
+import { Scrollbar, TextField } from '@technosamurai/techno-ui-kit'
 
 import s from './FollowingInfo.module.scss'
 
@@ -14,21 +15,24 @@ import { FollowingItem } from './followingItem/FollowingItem'
 
 interface IProps {
   setOpenModal: Dispatch<SetStateAction<boolean>>
+  userName: string
 }
 
-const data = [{ id: '123' }, { id: '1236789' }]
-
-export const FollowingInfo = ({ setOpenModal }: IProps) => {
+export const FollowingInfo = ({ setOpenModal, userName }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [searchTerm, setSearchTerm] = useState('')
-  const refetch = () => {}
 
-  const { changeSearchHandler } = useSearchBy(refetch, setSearchTerm)
-  const { isLoadingRelocate, navigateToProfileHandler, userId } = useRelocateToProfile(setOpenModal)
+  const { data: getFollowingData, isLoading: isLoadingGetFollowing } = useGetUserFollowingQuery({
+    search: searchTerm,
+    userName,
+  })
+
+  const { changeSearchHandler } = useSearchBy(setSearchTerm)
+  const { isLoadingRelocate, navigateToProfileHandler } = useRelocateToProfile(setOpenModal)
 
   return (
     <>
-      {isLoadingRelocate && <RequestLineLoader />}
+      {(isLoadingRelocate || isLoadingGetFollowing) && <RequestLineLoader />}
       <div className={s.wrapper}>
         <TextField
           onChange={changeSearchHandler}
@@ -36,16 +40,19 @@ export const FollowingInfo = ({ setOpenModal }: IProps) => {
           type={'search'}
           value={searchTerm}
         />
-
-        {data.map(item => {
-          return (
-            <FollowingItem
-              key={item.id}
-              navigateToProfile={navigateToProfileHandler}
-              userName={'Hee'}
-            />
-          )
-        })}
+        <Scrollbar maxHeight={400}>
+          <div className={s.itemsWrapper}>
+            {getFollowingData?.items?.map(item => {
+              return (
+                <FollowingItem
+                  item={item}
+                  key={item.id}
+                  navigateToProfile={navigateToProfileHandler}
+                />
+              )
+            })}
+          </div>
+        </Scrollbar>
       </div>
     </>
   )

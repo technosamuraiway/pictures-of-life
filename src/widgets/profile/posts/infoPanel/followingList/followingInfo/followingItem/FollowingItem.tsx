@@ -1,41 +1,61 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { ActionConfirmationModal } from '@/entities'
-import { AvatarWithUserName, useRouterLocaleDefinition } from '@/shared'
+import {
+  UserFollowItems,
+  useCreateFollowingMutation,
+  useUnfollowByUserIdMutation,
+} from '@/services'
+import { AvatarWithUserName, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { Button } from '@technosamurai/techno-ui-kit'
 
 import s from './FollowingItem.module.scss'
 
 interface IProps {
+  item: UserFollowItems
   navigateToProfile: (id: string) => void
-  userName: string
 }
 
-export const FollowingItem = ({ navigateToProfile, userName }: IProps) => {
+export const FollowingItem = ({ item, navigateToProfile }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [openUnfollowModal, setOpenUnfollowModal] = useState(false)
 
+  const [unfollow, { isLoading: isLoadingUnfollow }] = useUnfollowByUserIdMutation()
+  const [createFollowing, { isLoading: isLoadingCreateFollowing }] = useCreateFollowingMutation()
+
   const navigateToProfileHandler = () => {
-    navigateToProfile('1478')
+    navigateToProfile(String(item.userId))
   }
 
-  const result = true
-
-  const unfollowUserHandler = () => {
+  const unfollowUserHandler = async () => {
+    await unfollow({ userId: Number(item.userId) })
     setOpenUnfollowModal(false)
+
+    toast.info(`${t.profile.info.stats.followers.successDelete} ${item.userName}`)
   }
-  const followUserHandler = () => {}
+
+  const followUserHandler = async () => {
+    await createFollowing({ selectedUserId: Number(item.userId) })
+
+    toast.success(`${t.profile.info.stats.followers.successFollowing} ${item.userName}`)
+  }
 
   return (
     <>
+      {(isLoadingUnfollow || isLoadingCreateFollowing) && <RequestLineLoader />}
       <div className={s.infoWrapper}>
-        <AvatarWithUserName navigateToProfile={navigateToProfileHandler} />
+        <AvatarWithUserName
+          avatar={item?.avatars[1]?.url}
+          navigateToProfile={navigateToProfileHandler}
+          userName={item.userName}
+        />
         <div className={s.buttonsWrapper}>
           <Button
-            onClick={result ? () => setOpenUnfollowModal(true) : followUserHandler}
-            variant={result ? 'outline' : 'primary'}
+            onClick={item.isFollowing ? () => setOpenUnfollowModal(true) : followUserHandler}
+            variant={item.isFollowing ? 'outline' : 'primary'}
           >
-            {result
+            {item.isFollowing
               ? t.profile.info.stats.following.unFollow
               : t.profile.info.stats.following.follow}
           </Button>
@@ -43,8 +63,9 @@ export const FollowingItem = ({ navigateToProfile, userName }: IProps) => {
       </div>
       <ActionConfirmationModal
         headerTitle={t.profile.info.stats.following.unFollow}
+        isDisableButtons={isLoadingUnfollow || isLoadingCreateFollowing}
         isOpenModal={openUnfollowModal}
-        modalTextChildren={`${t.profile.info.stats.following.modalText}${userName}`}
+        modalTextChildren={`${t.profile.info.stats.following.modalText}${item.userName}`}
         negativeButtonChildren={t.profile.info.stats.following.no}
         onClickPositiveButton={unfollowUserHandler}
         positiveButtonChildren={t.profile.info.stats.following.yes}

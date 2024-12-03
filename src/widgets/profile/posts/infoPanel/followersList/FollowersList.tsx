@@ -9,9 +9,10 @@ interface IProps {
   openModal: boolean
   setOpenModal: Dispatch<SetStateAction<boolean>>
   userFollowers: number
+  userName: string
 }
 
-export const FollowersList = ({ openModal, setOpenModal, userFollowers }: IProps) => {
+export const FollowersList = ({ openModal, setOpenModal, userFollowers, userName }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   return (
@@ -21,7 +22,7 @@ export const FollowersList = ({ openModal, setOpenModal, userFollowers }: IProps
       setOpenModal={setOpenModal}
     >
       {userFollowers ? (
-        <FollowersInfo setOpenModal={setOpenModal} />
+        <FollowersInfo setOpenModal={setOpenModal} userName={userName} />
       ) : (
         <AddNewFriends title={t.profile.info.stats.followers.emptyList} />
       )}

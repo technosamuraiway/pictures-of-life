@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 
+import { useGetUserFollowersQuery } from '@/services/flow/followers.service'
 import {
   RequestLineLoader,
   useRelocateToProfile,
@@ -14,21 +15,23 @@ import { FollowerItem } from './followerItem/FollowerItem'
 
 interface IProps {
   setOpenModal: Dispatch<SetStateAction<boolean>>
+  userName: string
 }
 
-const data = [{ id: '123' }, { id: '1236789' }]
-
-export const FollowersInfo = ({ setOpenModal }: IProps) => {
+export const FollowersInfo = ({ setOpenModal, userName }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [searchTerm, setSearchTerm] = useState('')
-  const refetch = () => {}
+  const { data: getFollowersData, isLoading: isLoadingGetFollowers } = useGetUserFollowersQuery({
+    search: searchTerm,
+    userName,
+  })
 
-  const { changeSearchHandler } = useSearchBy(refetch, setSearchTerm)
-  const { isLoadingRelocate, navigateToProfileHandler, userId } = useRelocateToProfile(setOpenModal)
+  const { changeSearchHandler } = useSearchBy(setSearchTerm)
+  const { isLoadingRelocate, navigateToProfileHandler } = useRelocateToProfile(setOpenModal)
 
   return (
     <>
-      {isLoadingRelocate && <RequestLineLoader />}
+      {(isLoadingRelocate || isLoadingGetFollowers) && <RequestLineLoader />}
       <div className={s.wrapper}>
         <TextField
           onChange={changeSearchHandler}
@@ -37,13 +40,9 @@ export const FollowersInfo = ({ setOpenModal }: IProps) => {
           value={searchTerm}
         />
 
-        {data.map(item => {
+        {getFollowersData?.items.map(item => {
           return (
-            <FollowerItem
-              key={item.id}
-              navigateToProfile={navigateToProfileHandler}
-              userName={'Hello World'}
-            />
+            <FollowerItem item={item} key={item.id} navigateToProfile={navigateToProfileHandler} />
           )
         })}
       </div>
