@@ -8,3 +8,5 @@ export { useLogout } from './auth/useLogout'
 export { useRelocateToProfile } from './useRelocateToProfile'
 export { useRouterLocaleDefinition } from './useRouterLocaleDefinition'
 export { useTabsSwitcher } from './useTabsSwitcher'
+
+export * from './zustand/useImagesStore'

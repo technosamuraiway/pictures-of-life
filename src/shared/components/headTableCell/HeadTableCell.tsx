@@ -1,7 +1,9 @@
 import { Dispatch, SetStateAction } from 'react'
 
 import { SortDirection } from '@/services/graphql/codegen/graphql'
-import { DownIcon, Tables, Typography, UpIcon } from '@technosamurai/techno-ui-kit'
+import { ArrowDown } from '@public/icons/ArrowDown'
+import { ArrowUp } from '@public/icons/ArrowUp'
+import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 
 import s from './HeadTableCell.module.scss'
@@ -23,8 +25,8 @@ interface IProps {
 export const HeadTableCell = ({
   className,
   iconCN,
-  iconHeight = 16,
-  iconWidth = 16,
+  iconHeight = 10,
+  iconWidth = 10,
   isWithArrow = false,
   setSortBy,
   setSortDirection,
@@ -33,12 +35,26 @@ export const HeadTableCell = ({
   textCN,
   title,
 }: IProps) => {
-  const arrowDecider =
-    sortDirection === SortDirection.Asc ? (
-      <UpIcon className={iconCN} height={iconHeight} width={iconWidth} />
-    ) : (
-      <DownIcon className={iconCN} height={iconHeight} width={iconWidth} />
-    )
+  const arrowDecider = (
+    <div className={s.arrows}>
+      <ArrowUp
+        className={clsx(
+          sortDirection === SortDirection.Asc ? s.activeTriggerIcon : s.defaultTriggerIcon,
+          iconCN
+        )}
+        height={iconHeight}
+        width={iconWidth}
+      />
+      <ArrowDown
+        className={clsx(
+          sortDirection === SortDirection.Desc ? s.activeTriggerIcon : s.defaultTriggerIcon,
+          iconCN
+        )}
+        height={iconHeight}
+        width={iconWidth}
+      />
+    </div>
+  )
 
   const sortClickHandler = () => {
     if (setSortDirection) {
