@@ -8,16 +8,19 @@ import {
   useUnfollowByUserIdMutation,
 } from '@/services'
 import { AvatarWithUserName, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
-import { Button } from '@technosamurai/techno-ui-kit'
 
-import s from './FollowingItem.module.scss'
+import s from './FollowItem.module.scss'
+
+import { FollowersButtons } from './followersButtons/FollowersButtons'
+import { FollowingButtons } from './followingButtons/FollowingButtons'
 
 interface IProps {
+  isFollowers: boolean
   item: UserFollowItems
   navigateToProfile: (id: string) => void
 }
 
-export const FollowingItem = ({ item, navigateToProfile }: IProps) => {
+export const FollowItem = ({ isFollowers, item, navigateToProfile }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [openUnfollowModal, setOpenUnfollowModal] = useState(false)
 
@@ -50,16 +53,21 @@ export const FollowingItem = ({ item, navigateToProfile }: IProps) => {
           navigateToProfile={navigateToProfileHandler}
           userName={item.userName}
         />
-        <div className={s.buttonsWrapper}>
-          <Button
-            onClick={item.isFollowing ? () => setOpenUnfollowModal(true) : followUserHandler}
-            variant={item.isFollowing ? 'outline' : 'primary'}
-          >
-            {item.isFollowing
-              ? t.profile.info.stats.following.unFollow
-              : t.profile.info.stats.following.follow}
-          </Button>
-        </div>
+        {isFollowers ? (
+          <FollowersButtons
+            followUser={followUserHandler}
+            isFollowing={item.isFollowing}
+            isLoading={isLoadingUnfollow || isLoadingCreateFollowing}
+            setOpenModal={setOpenUnfollowModal}
+          />
+        ) : (
+          <FollowingButtons
+            followUser={followUserHandler}
+            isFollowing={item.isFollowing}
+            isLoading={isLoadingUnfollow || isLoadingCreateFollowing}
+            setOpenModal={setOpenUnfollowModal}
+          />
+        )}
       </div>
       <ActionConfirmationModal
         headerTitle={t.profile.info.stats.following.unFollow}

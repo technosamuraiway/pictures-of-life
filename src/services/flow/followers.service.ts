@@ -3,8 +3,9 @@ import {
   IGetUserFollowersArgs,
   IGetUserFollowersResponse,
   IUnFollowByUserIdArgs,
-  inctagramApi,
 } from '@/services'
+
+import { inctagramApi } from '../api/inctagram.api'
 
 const followersService = inctagramApi.injectEndpoints({
   endpoints: builder => ({
