@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { RequestLineLoader } from '@/shared'
+import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import {
   PostCommentFormZodSchema,
   postCommentFormZodSchema,
@@ -10,13 +10,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { TextField, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 
-import s from '@/widgets/profile/profilePostModal/postComments/postCommentsAddCommenet/PostCommentsAddComment.module.scss'
+import s from './PostAddAnswer.module.scss'
 
 type Props = {
   onFormSubmit: (data: PostCommentFormZodSchema) => Promise<unknown>
 }
 
 export const PostAddAnswer = ({ onFormSubmit }: Props) => {
+  const t = useRouterLocaleDefinition()
+
   const {
     formState: { isDirty, isSubmitting, isValid },
     handleSubmit,
@@ -47,7 +49,7 @@ export const PostAddAnswer = ({ onFormSubmit }: Props) => {
       >
         <TextField
           disabled={isSubmitting}
-          // placeholder={`${t.profile.modal.commentPlaceholder}...`}
+          placeholder={`${t.profile.modal.answerPlaceholder}...`}
           {...register('comment')}
           inputClassName={s.input}
         />

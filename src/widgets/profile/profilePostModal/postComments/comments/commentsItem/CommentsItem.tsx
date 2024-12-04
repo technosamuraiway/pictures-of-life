@@ -30,6 +30,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   const { avatars, id, username } = from
 
   const { data: answers, isLoading: isLoadingAnswers } = useGetAnswersQuery({ commentId, postId })
+
   // const { data: answersLikes, isLoading: isLoadingAnswersLikes } = useGetAnswersLikesQuery(
   //   {
   //     answerId: answers?.items[0].id || NaN,
@@ -51,6 +52,10 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     updateLike({ commentId, likeStatus: isLiked ? 'NONE' : 'LIKE', postId })
   }
 
+  async function onAddAnswer() {
+    return Promise.resolve()
+  }
+
   if (!comment) {
     return (
       <li>
@@ -59,12 +64,12 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     )
   }
 
-  const answerInput = <PostAddAnswer />
+  const answerInput = <PostAddAnswer onFormSubmit={onAddAnswer} />
 
   const answerUi = (
     <span className={s.answer} onClick={() => setIsShowAnswers(!isShowAnswers)}>
       <Typography as={'button'} type={'button'} variant={'small-text'}>
-        {isShowAnswers ? 'Hide' : 'Show'} Answers ({2})
+        {isShowAnswers ? 'Hide' : 'Show'} Answers ({answers?.items.length || 0})
       </Typography>
       {isShowAnswers && <CommentsItemAnswers />}
     </span>
@@ -107,8 +112,8 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
           </Typography>
         )}
       </div>
-      {isShowAnswerInput && answerInput}
       {isShow && answerUi}
+      {isShowAnswerInput && answerInput}
     </div>
   )
 

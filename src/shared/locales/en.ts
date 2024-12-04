@@ -200,6 +200,7 @@ export const en: LocaleType = {
           errorChange: 'Post description change failed, try again',
         },
       },
+      answerPlaceholder: 'Add an Answer',
       addComment: 'Publish',
       commentPlaceholder: 'Add a Comment',
       confirmation: {
