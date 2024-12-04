@@ -6,6 +6,7 @@ export const usersService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
       getUserByUserName: builder.query<UserProfile, string>({
+        providesTags: ['Followers'],
         query: userName => {
           return {
             method: 'GET',

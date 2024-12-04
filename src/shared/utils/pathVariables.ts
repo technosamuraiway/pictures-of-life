@@ -18,6 +18,7 @@ export const PATH = {
   CREATEPOST: '/createpost',
   GITHUB: '/github',
   HOME: '/',
+  MESSENGER: '/messenger',
   PROFILE: {
     BASEPROFILE: '/profile',
     BASEPROFILEWITHQUERY: '/profile/[userId]',

@@ -1,7 +1,14 @@
 import { memo, useState } from 'react'
 
+import { ActionConfirmationModal } from '@/entities'
 import { useGetUserFollowersQuery, useGetUserFollowingQuery } from '@/services'
-import { CircleAvatar, PATH, useRouterLocaleDefinition } from '@/shared'
+import {
+  CircleAvatar,
+  PATH,
+  useFollowUnfollow,
+  useGetUserIdFromParams,
+  useRouterLocaleDefinition,
+} from '@/shared'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
 
@@ -9,6 +16,7 @@ import s from './InfoPanel.module.scss'
 
 import { FollowersList } from './followersList/FollowersList'
 import { FollowingList } from './followingList/FollowingList'
+import { FriendButtons } from './friendButtons/FriendButtons'
 import { StatsInfoItem } from './statsInfoItem/StatsInfoItem'
 
 interface IProps {
@@ -32,18 +40,35 @@ export const InfoPanel = memo(
     userPublications,
   }: IProps) => {
     const t = useRouterLocaleDefinition()
+    const { userId } = useGetUserIdFromParams()
 
     const [openFollowersModal, setOpenFollowersModal] = useState(false)
     const [openFollowingModal, setOpenFollowingModal] = useState(false)
+    const [openUnfollowModal, setOpenUnfollowModal] = useState(false)
 
-    const settingsButton = isWithSettingsBtn && (
+    const { data: getFollowersData } = useGetUserFollowersQuery({ userName })
+    const { data: getFollowingData } = useGetUserFollowingQuery({ userName })
+
+    const { followUserHandler, isLoadingFollowUnfollow, unfollowUserHandler } = useFollowUnfollow(
+      Number(userId),
+      userName,
+      setOpenUnfollowModal
+    )
+
+    const settingsButton = (
       <Button as={Link} href={PATH.PROFILE.SETTINGS} variant={'secondary'}>
         {t.profile.info.btn}
       </Button>
     )
 
-    const { data: getFollowersData } = useGetUserFollowersQuery({ userName })
-    const { data: getFollowingData } = useGetUserFollowingQuery({ userName })
+    const friendButtons = (
+      <FriendButtons
+        followUser={followUserHandler}
+        isLoading={isLoadingFollowUnfollow}
+        setOpenModal={setOpenUnfollowModal}
+        userName={userName}
+      />
+    )
 
     return (
       <>
@@ -54,7 +79,7 @@ export const InfoPanel = memo(
               <Typography as={'h1'} variant={'h1'}>
                 {userName}
               </Typography>
-              {settingsButton}
+              {isWithSettingsBtn ? settingsButton : friendButtons}
             </div>
             <div className={s.infoMiddle}>
               <StatsInfoItem
@@ -83,6 +108,16 @@ export const InfoPanel = memo(
           setOpenModal={setOpenFollowingModal}
           userFollowing={getFollowingData?.items.length || userFollowing}
           userName={userName}
+        />
+        <ActionConfirmationModal
+          headerTitle={t.profile.info.stats.following.unFollow}
+          isDisableButtons={isLoadingFollowUnfollow}
+          isOpenModal={openUnfollowModal}
+          modalTextChildren={`${t.profile.info.stats.following.modalText}${userName}`}
+          negativeButtonChildren={t.profile.info.stats.following.no}
+          onClickPositiveButton={unfollowUserHandler}
+          positiveButtonChildren={t.profile.info.stats.following.yes}
+          setIsOpenModal={setOpenUnfollowModal}
         />
       </>
     )

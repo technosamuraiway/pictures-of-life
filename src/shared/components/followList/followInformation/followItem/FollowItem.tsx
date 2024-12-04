@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { toast } from 'react-toastify'
 
 import { ActionConfirmationModal } from '@/entities'
+import { UserFollowItems } from '@/services'
 import {
-  UserFollowItems,
-  useCreateFollowingMutation,
-  useUnfollowByUserIdMutation,
-} from '@/services'
-import { AvatarWithUserName, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+  AvatarWithUserName,
+  RequestLineLoader,
+  useFollowUnfollow,
+  useRouterLocaleDefinition,
+} from '@/shared'
 
 import s from './FollowItem.module.scss'
 
@@ -24,29 +24,19 @@ export const FollowItem = ({ isFollowers, item, navigateToProfile }: IProps) => 
   const t = useRouterLocaleDefinition()
   const [openUnfollowModal, setOpenUnfollowModal] = useState(false)
 
-  const [unfollow, { isLoading: isLoadingUnfollow }] = useUnfollowByUserIdMutation()
-  const [createFollowing, { isLoading: isLoadingCreateFollowing }] = useCreateFollowingMutation()
+  const { followUserHandler, isLoadingFollowUnfollow, unfollowUserHandler } = useFollowUnfollow(
+    item.userId,
+    item.userName,
+    setOpenUnfollowModal
+  )
 
   const navigateToProfileHandler = () => {
     navigateToProfile(String(item.userId))
   }
 
-  const unfollowUserHandler = async () => {
-    await unfollow({ userId: Number(item.userId) })
-    setOpenUnfollowModal(false)
-
-    toast.info(`${t.profile.info.stats.followers.successDelete} ${item.userName}`)
-  }
-
-  const followUserHandler = async () => {
-    await createFollowing({ selectedUserId: Number(item.userId) })
-
-    toast.success(`${t.profile.info.stats.followers.successFollowing} ${item.userName}`)
-  }
-
   return (
     <>
-      {(isLoadingUnfollow || isLoadingCreateFollowing) && <RequestLineLoader />}
+      {isLoadingFollowUnfollow && <RequestLineLoader />}
       <div className={s.infoWrapper}>
         <AvatarWithUserName
           avatar={item?.avatars[1]?.url}
@@ -57,21 +47,21 @@ export const FollowItem = ({ isFollowers, item, navigateToProfile }: IProps) => 
           <FollowersButtons
             followUser={followUserHandler}
             isFollowing={item.isFollowing}
-            isLoading={isLoadingUnfollow || isLoadingCreateFollowing}
+            isLoading={isLoadingFollowUnfollow}
             setOpenModal={setOpenUnfollowModal}
           />
         ) : (
           <FollowingButtons
             followUser={followUserHandler}
             isFollowing={item.isFollowing}
-            isLoading={isLoadingUnfollow || isLoadingCreateFollowing}
+            isLoading={isLoadingFollowUnfollow}
             setOpenModal={setOpenUnfollowModal}
           />
         )}
       </div>
       <ActionConfirmationModal
         headerTitle={t.profile.info.stats.following.unFollow}
-        isDisableButtons={isLoadingUnfollow || isLoadingCreateFollowing}
+        isDisableButtons={isLoadingFollowUnfollow}
         isOpenModal={openUnfollowModal}
         modalTextChildren={`${t.profile.info.stats.following.modalText}${item.userName}`}
         negativeButtonChildren={t.profile.info.stats.following.no}

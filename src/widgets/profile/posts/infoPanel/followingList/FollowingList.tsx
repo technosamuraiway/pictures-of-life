@@ -29,7 +29,7 @@ export const FollowingList = ({ openModal, setOpenModal, userFollowing, userName
       {userFollowing ? (
         <FollowList
           data={getFollowingData?.items}
-          isFollowers
+          isFollowers={false}
           searchTerm={searchTerm}
           setOpenModal={setOpenModal}
           setSearchTerm={setSearchTerm}

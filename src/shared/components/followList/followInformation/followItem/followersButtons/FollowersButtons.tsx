@@ -7,7 +7,7 @@ import s from './FollowersButtons.module.scss'
 
 interface IProps {
   followUser: () => void
-  isFollowing: boolean
+  isFollowing?: boolean
   isLoading: boolean
   setOpenModal: Dispatch<SetStateAction<boolean>>
 }
