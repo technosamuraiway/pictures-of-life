@@ -174,6 +174,8 @@ export const en: LocaleType = {
           yes: 'Yes',
           no: 'No',
           modalText: 'Do you really want to delete a Following ',
+          successDelete: 'You are successfully delete following',
+          successFollowing: 'You are successfully following by',
         },
         following: {
           title: 'Following',

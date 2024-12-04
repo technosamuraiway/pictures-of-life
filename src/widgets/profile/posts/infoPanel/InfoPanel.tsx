@@ -1,5 +1,6 @@
 import { memo, useState } from 'react'
 
+import { useGetUserFollowersQuery, useGetUserFollowingQuery } from '@/services'
 import { CircleAvatar, PATH, useRouterLocaleDefinition } from '@/shared'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
@@ -41,6 +42,9 @@ export const InfoPanel = memo(
       </Button>
     )
 
+    const { data: getFollowersData } = useGetUserFollowersQuery({ userName })
+    const { data: getFollowingData } = useGetUserFollowingQuery({ userName })
+
     return (
       <>
         <div className={s.profileInfo}>
@@ -54,12 +58,12 @@ export const InfoPanel = memo(
             </div>
             <div className={s.infoMiddle}>
               <StatsInfoItem
-                num={userFollowing}
+                num={getFollowingData?.items.length || userFollowing}
                 onClick={() => setOpenFollowingModal(true)}
                 title={t.profile.info.stats.following.title}
               />
               <StatsInfoItem
-                num={userFollowers}
+                num={getFollowersData?.items.length || userFollowers}
                 onClick={() => setOpenFollowersModal(true)}
                 title={t.profile.info.stats.followers.title}
               />
@@ -71,12 +75,14 @@ export const InfoPanel = memo(
         <FollowersList
           openModal={openFollowersModal}
           setOpenModal={setOpenFollowersModal}
-          userFollowers={userFollowers}
+          userFollowers={getFollowersData?.items.length || userFollowers}
+          userName={userName}
         />
         <FollowingList
           openModal={openFollowingModal}
           setOpenModal={setOpenFollowingModal}
-          userFollowing={userFollowing}
+          userFollowing={getFollowingData?.items.length || userFollowing}
+          userName={userName}
         />
       </>
     )
