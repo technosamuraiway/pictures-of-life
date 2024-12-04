@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import { GET_USER_POSTS_IMAGES } from '@/services/graphql/queries/user'
+import { useImagesStore } from '@/shared'
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 
@@ -15,8 +16,7 @@ export const usePostsImages = () => {
   const userId = query.userId
 
   const [endCursorId, setEndCursorId] = useState<null | number>(null)
-  const [imagesData, setImagesData] = useState<IUserImages[]>([])
-
+  const { addImages, imagesData } = useImagesStore()
   const { inView, ref } = useInView()
 
   const { data: getPostsImagesData, loading: getPostsImagesIsLoading } = useQuery(
@@ -35,7 +35,7 @@ export const usePostsImages = () => {
     }) ?? []) as IUserImages[]
 
     if (getPostsImagesData && getPostsImagesData.getPostsByUser) {
-      setImagesData(prevData => [...prevData, ...newImages])
+      addImages(newImages)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getPostsImagesData, endCursorId])

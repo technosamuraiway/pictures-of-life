@@ -173,6 +173,8 @@ export const ru = {
           yes: 'Да',
           no: 'Нет',
           modalText: 'Вы действительно хотите отписаться от ',
+          successDelete: 'Вы успешно отписались от пользователя',
+          successFollowing: 'Вы успешно подписались на пользователя',
         },
         following: {
           title: 'Подписок',
@@ -487,6 +489,7 @@ export const ru = {
       },
     },
   },
+  messenger: { title: 'Чат', profileButton: 'Отправить сообщение' },
 }
 
 export type LocaleType = typeof ru

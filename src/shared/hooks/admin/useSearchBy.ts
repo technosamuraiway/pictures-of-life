@@ -1,24 +1,10 @@
-import { ChangeEvent, Dispatch, SetStateAction, useRef } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
-export const useSearchBy = (
-  refetch: () => void,
-  setSearchTerm: Dispatch<SetStateAction<string>>
-) => {
-  // eslint-disable-next-line no-undef
-  const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
-
+export const useSearchBy = (setSearchTerm: Dispatch<SetStateAction<string>>) => {
   const changeSearchHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
 
     setSearchTerm(value)
-
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current)
-    }
-
-    debounceTimeout.current = setTimeout(() => {
-      refetch()
-    }, 1000)
   }
 
   return { changeSearchHandler }
