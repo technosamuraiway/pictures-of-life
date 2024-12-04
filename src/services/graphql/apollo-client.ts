@@ -9,7 +9,7 @@ const httpLink = new HttpLink({
 })
 
 const wsLink = new WebSocketLink(
-  new SubscriptionClient(process.env.NEXT_ADMIN_WS_URL || 'ws://inctagram.work/api/v1/graphql', {
+  new SubscriptionClient(process.env.NEXT_ADMIN_WS_URL || 'wss://inctagram.work/api/v1/graphql', {
     connectionParams: {
       authorization: 'Basic [YWRtaW5AZ21haWwuY29tOmFkbWlu]',
     },
