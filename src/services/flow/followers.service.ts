@@ -15,7 +15,7 @@ const followersService = inctagramApi.injectEndpoints({
       query: ({ selectedUserId }) => ({
         body: { selectedUserId },
         method: 'POST',
-        url: `/v1/users/following`,
+        url: `v1/users/following`,
       }),
     }),
 
@@ -28,7 +28,7 @@ const followersService = inctagramApi.injectEndpoints({
         return {
           method: 'GET',
           params: params,
-          url: `/v1/users/${userName}/followers`,
+          url: `v1/users/${userName}/followers`,
         }
       },
     }),
@@ -42,7 +42,7 @@ const followersService = inctagramApi.injectEndpoints({
         return {
           method: 'GET',
           params: params,
-          url: `/v1/users/${userName}/following`,
+          url: `v1/users/${userName}/following`,
         }
       },
     }),
@@ -53,7 +53,7 @@ const followersService = inctagramApi.injectEndpoints({
       query: ({ userId }) => {
         return {
           method: 'DELETE',
-          url: `/v1/users/follower/${userId}`,
+          url: `v1/users/follower/${userId}`,
         }
       },
     }),
