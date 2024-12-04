@@ -1,9 +1,8 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 import { FollowersFollowingModal } from '@/entities'
-import { AddNewFriends, useRouterLocaleDefinition } from '@/shared'
-
-import { FollowersInfo } from './followersInfo/FollowersInfo'
+import { useGetUserFollowersQuery } from '@/services'
+import { AddNewFriends, FollowList, useRouterLocaleDefinition } from '@/shared'
 
 interface IProps {
   openModal: boolean
@@ -14,6 +13,11 @@ interface IProps {
 
 export const FollowersList = ({ openModal, setOpenModal, userFollowers, userName }: IProps) => {
   const t = useRouterLocaleDefinition()
+  const [searchTerm, setSearchTerm] = useState('')
+  const { data: getFollowersData } = useGetUserFollowersQuery({
+    search: searchTerm,
+    userName,
+  })
 
   return (
     <FollowersFollowingModal
@@ -22,7 +26,13 @@ export const FollowersList = ({ openModal, setOpenModal, userFollowers, userName
       setOpenModal={setOpenModal}
     >
       {userFollowers ? (
-        <FollowersInfo setOpenModal={setOpenModal} userName={userName} />
+        <FollowList
+          data={getFollowersData?.items}
+          isFollowers
+          searchTerm={searchTerm}
+          setOpenModal={setOpenModal}
+          setSearchTerm={setSearchTerm}
+        />
       ) : (
         <AddNewFriends title={t.profile.info.stats.followers.emptyList} />
       )}
