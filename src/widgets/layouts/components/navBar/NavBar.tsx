@@ -70,7 +70,7 @@ export function NavBar() {
       activeIconComponent: <ActiveMessengerIcon />,
       altText: `${t.navBar.messenger} Icon`,
       defaultIconComponent: <DefaultMessengerIcon />,
-      hrefLink: '/messenger',
+      hrefLink: PATH.MESSENGER,
       id: 789,
       isDisabled: false,
       text: t.navBar.messenger,

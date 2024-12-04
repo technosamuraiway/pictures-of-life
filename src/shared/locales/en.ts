@@ -482,4 +482,5 @@ export const en: LocaleType = {
       },
     },
   },
+  messenger: { title: 'Messenger', profileButton: 'Send Message' },
 }

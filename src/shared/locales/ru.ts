@@ -489,6 +489,7 @@ export const ru = {
       },
     },
   },
+  messenger: { title: 'Чат', profileButton: 'Отправить сообщение' },
 }
 
 export type LocaleType = typeof ru

@@ -7,17 +7,18 @@ import s from './FollowingButtons.module.scss'
 
 interface IProps {
   followUser: () => void
-  isFollowing: boolean
+  isFollowing?: boolean
   isLoading: boolean
   setOpenModal: Dispatch<SetStateAction<boolean>>
 }
 
-export const FollowingButtons = ({ followUser, isFollowing, setOpenModal }: IProps) => {
+export const FollowingButtons = ({ followUser, isFollowing, isLoading, setOpenModal }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   return (
     <div className={s.buttonsWrapper}>
       <Button
+        disabled={isLoading}
         onClick={isFollowing ? () => setOpenModal(true) : followUser}
         variant={isFollowing ? 'outline' : 'primary'}
       >
