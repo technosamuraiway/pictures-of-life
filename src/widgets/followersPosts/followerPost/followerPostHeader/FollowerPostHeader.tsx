@@ -8,11 +8,12 @@ import s from './FollowerPostHeader.module.scss'
 interface IProps {
   avatarSrc: string
   createdAt: string
+  postId: number
   userId: number
   userName: string
 }
 
-export const FollowerPostHeader = ({ avatarSrc, createdAt, userId, userName }: IProps) => {
+export const FollowerPostHeader = ({ avatarSrc, createdAt, postId, userId, userName }: IProps) => {
   const t = useRouterLocaleDefinition()
   const { push } = useRouter()
 
@@ -34,7 +35,10 @@ export const FollowerPostHeader = ({ avatarSrc, createdAt, userId, userName }: I
           {TimeAgo(createdAt || '', t)}
         </Typography>
       </div>
-      <PostModalHeaderDropdownDotsMenu userName={userName} />
+      <PostModalHeaderDropdownDotsMenu
+        copyUrl={`${process.env.NEXT_PUBLIC_BASE_URL}${PATH.PROFILE.BASEPROFILE}/${userId}?postId=${postId}`}
+        userName={userName}
+      />
     </div>
   )
 }

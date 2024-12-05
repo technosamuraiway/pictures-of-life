@@ -12,10 +12,11 @@ import { useRouter } from 'next/router'
 import s from './PostModalHeaderDropdownDotsMenu.module.scss'
 
 interface IProps {
+  copyUrl?: string
   userName: string
 }
 
-export const PostModalHeaderDropdownDotsMenu = ({ userName }: IProps) => {
+export const PostModalHeaderDropdownDotsMenu = ({ copyUrl, userName }: IProps) => {
   const t = useRouterLocaleDefinition()
   const { query } = useRouter()
   const { userId } = query
@@ -30,7 +31,7 @@ export const PostModalHeaderDropdownDotsMenu = ({ userName }: IProps) => {
   function copyLinkHandler() {
     const currentUrl = window.location.href
 
-    navigator.clipboard.writeText(currentUrl)
+    navigator.clipboard.writeText(copyUrl ? copyUrl : currentUrl)
 
     toast.success(t.profile.modal.headerDropdownDotsMenu.successLinkCopied)
   }

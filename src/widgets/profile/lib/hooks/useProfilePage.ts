@@ -34,7 +34,7 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
 
   // кешированный массив постов
   const postsArray = useMemo(() => {
-    const posts = postsData?.items.map(item => ({ id: item.id, images: item.images })) || []
+    const posts = postsData?.items?.map(item => ({ id: item.id, images: item.images })) || []
 
     /* при удалении нужно будет валидировать посты, но мы запрашиваем их по событию,
      * поэтому нужно будет делать повторный запрос, а для этого нужно знать сколько постов подтягивать
@@ -48,7 +48,7 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
   // кешированный ассоциативный массив
   const postsImagesAssociativeArray = useMemo(() => {
     return (
-      postsData?.items.reduce((acc, post) => {
+      postsData?.items?.reduce((acc, post) => {
         acc[post.id] = post.images
 
         return acc

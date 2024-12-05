@@ -144,6 +144,7 @@ export const ru = {
     successfulDeletePost: 'Вы успешно удалили этот пост',
     successfulErrorMesseng: 'Не удалось загрузить комментарии',
     successfulPostLoading: 'Что-то пошло не так...',
+    likes: 'Лайков',
   },
   privacyPolicy: {
     backToProfile: 'Вернуться к заполнению профиля',
@@ -221,6 +222,8 @@ export const ru = {
         },
       },
       addComment: 'Опубликовать',
+      showAllComments: 'Показать все комментарии',
+      hideAllComments: 'Скрыть все комментарии',
       commentPlaceholder: 'Добавить Комментарий',
       confirmation: {
         modalHeaderTitle: 'Закрыть Публикацию',

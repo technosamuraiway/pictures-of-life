@@ -145,6 +145,7 @@ export const en: LocaleType = {
     successfulDeletePost: 'You have successfully deleted this post',
     successfulErrorMesseng: 'Failed to load comments',
     successfulPostLoading: 'Something went wrong...',
+    likes: 'Likes',
   },
   privacyPolicy: {
     backToProfile: 'Back to Profile Settings',
@@ -222,6 +223,8 @@ export const en: LocaleType = {
         },
       },
       addComment: 'Publish',
+      showAllComments: 'View All Comments',
+      hideAllComments: 'Hide All Comments',
       commentPlaceholder: 'Add a Comment',
       confirmation: {
         modalHeaderTitle: 'Close Post',
