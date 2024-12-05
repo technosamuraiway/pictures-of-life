@@ -133,7 +133,7 @@ export const postService = inctagramApi.injectEndpoints({
       }),
 
       updatePostLikeStatus: builder.mutation<void, UpdatePostLikeStatusArgs>({
-        invalidatesTags: ['Posts'],
+        invalidatesTags: ['Posts', 'Followers'],
         query: args => {
           const { likeStatus, postId } = args
 
