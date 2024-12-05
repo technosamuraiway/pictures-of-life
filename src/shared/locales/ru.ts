@@ -222,6 +222,7 @@ export const ru = {
       },
       addComment: 'Опубликовать',
       commentPlaceholder: 'Добавить Комментарий',
+      answerPlaceholder: 'Добавить ответ',
       confirmation: {
         modalHeaderTitle: 'Закрыть Публикацию',
         message:
