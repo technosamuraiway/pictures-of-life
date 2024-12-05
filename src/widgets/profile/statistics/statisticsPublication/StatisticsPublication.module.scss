@@ -1,0 +1,28 @@
+.chartDiv {
+  width: 60.75rem;
+  height: 15rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 2px;
+  border: 1px solid var(--Dark-300);
+  background: var(--Dark-500);
+}
+
+.upDiv {
+  position: absolute;
+  z-index: 100;
+  bottom: 4.375rem;
+  left: 16.25rem;
+  height: 11.25rem;
+  width: 1px;
+  background: var(--Dark-300);
+}
+
+.downDiv {
+  position: absolute;
+  z-index: 102;
+  bottom: 4.375rem;
+  left: 16.25rem;
+  height: 1px;
+  width: 55.625rem;
+  background: var(--Dark-300);
+}

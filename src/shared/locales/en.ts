@@ -245,6 +245,16 @@ export const en: LocaleType = {
     logIn: 'Log in',
     signUp: 'Sign up',
   },
+  statisticsPage: {
+    title: 'Statistics',
+    like: 'Like',
+    publication: 'Publication views',
+    comments: 'Comments',
+    week: 'Week',
+    month: 'Month',
+    favorites: 'Favorites',
+    favoritesTitle: 'Favorites',
+  },
   settingsPage: {
     devices: {
       activeSessions: 'Active sessions',
