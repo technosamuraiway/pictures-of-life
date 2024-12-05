@@ -75,6 +75,7 @@ function UsersList() {
           onChange={handleSearchChange} // Обработчик изменения поля ввода
           placeholder={t.admin.usersList.search}
           type={'search'}
+          value={searchTerm}
         />
         <Select
           currentValue={filterByUserStatus}

@@ -81,7 +81,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     <>
       {isLoadingLike && <RequestLineLoader />}
       <li className={clsx(className, s.root)}>
-        <CircleAvatar src={avatars[0].url} />
+        <CircleAvatar src={avatars[0]?.url} />
         {contentItem}
         {isShow && icon}
       </li>

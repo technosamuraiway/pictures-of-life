@@ -105,9 +105,12 @@ function PaymentsList() {
         <Pagination
           count={data?.getPayments?.pagesCount ?? 0}
           onChange={handlePageChange}
-          onPageTitle={''}
+          onPageTitle={t.pagination.onPage}
+          onPerPageChange={() => {}}
           page={currentPage}
-          showTitle={'Show'}
+          perPage={5}
+          perPageOptions={[5, 10, 20]}
+          showTitle={t.pagination.show}
         />
       )}
     </div>

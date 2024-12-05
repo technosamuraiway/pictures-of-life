@@ -408,6 +408,7 @@ export const ru = {
     show: 'Показать',
     hide: 'Скрыть',
   },
+  searchPage: { search: 'Поиск' },
   admin: {
     statistics: {
       title: 'Статистика',
