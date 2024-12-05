@@ -102,3 +102,60 @@ export type ChangePostDescriptionArgs = {
   description: string
   postId: number
 }
+
+export type Answer = {
+  commentId: number
+  content: string
+  createdAt: string
+  from: {
+    avatars: IAvatar[]
+    id: number
+    username: string
+  }
+  id: number
+  isLiked: boolean
+  likeCount: number
+}
+
+export type GetAnswersResponse = {
+  items: Answer[]
+  notReadCount: number
+  pageSize: number
+  totalCount: number
+}
+
+export type GetAnswersArgs = {
+  commentId: number
+  pageNumber?: number
+  pageSize?: number
+  postId: number
+  sortBy?: string
+  sortDirection?: SortDirection
+}
+
+export type GetAnswersLikesResponse = {
+  items: [
+    {
+      avatars: IAvatar[]
+      createdAt: string
+      id: number
+      isFollowedBy: boolean
+      isFollowing: boolean
+      userId: number
+      userName: string
+    },
+  ]
+  notReadCount: number
+  pageSize: number
+  totalCount: number
+}
+
+export type GetAnswersLikesArgs = {
+  answerId: number
+  commentId: number
+  cursor?: string
+  pageNumber?: number
+  pageSize?: string
+  postId: number
+  search?: string
+}

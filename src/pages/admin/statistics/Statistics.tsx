@@ -48,6 +48,8 @@ const Statistics = () => {
         <Tabs.Root
           className={s.root}
           defaultValue={activeTab}
+          listClassName={s.customRoot}
+          notFullWidth
           onValueChange={tabChangeHandler}
           tabs={tabsData}
           value={activeTab}

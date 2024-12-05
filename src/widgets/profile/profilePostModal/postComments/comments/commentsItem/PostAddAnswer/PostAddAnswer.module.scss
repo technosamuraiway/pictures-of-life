@@ -1,0 +1,33 @@
+.root {
+  background-color: inherit;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  border: 1px solid var(--Dark-100);
+  padding: 0.125rem 0.5rem;
+
+  margin-top: 1rem;
+}
+
+.input.input {
+  border: none;
+
+  padding-left: 0;
+
+  &:active {
+    background-color: inherit;
+  }
+}
+
+.button {
+  white-space: nowrap;
+
+  color: var(--Primary-500);
+
+  &Disabled {
+    color: var(--Primary-900);
+    cursor: auto;
+  }
+}

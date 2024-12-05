@@ -222,6 +222,7 @@ export const ru = {
       },
       addComment: 'Опубликовать',
       commentPlaceholder: 'Добавить Комментарий',
+      answerPlaceholder: 'Добавить ответ',
       confirmation: {
         modalHeaderTitle: 'Закрыть Публикацию',
         message:
@@ -244,6 +245,16 @@ export const ru = {
   publicButtons: {
     logIn: 'Авторизоваться',
     signUp: 'Зарегистрироваться',
+  },
+  statisticsPage: {
+    title: 'Статистика',
+    like: 'Нравится',
+    publication: 'Просмотры публикации',
+    comments: 'Комментарии',
+    week: 'Неделя',
+    month: 'Месяц',
+    favorites: 'Избранное',
+    favoritesTitle: 'Избранное',
   },
   settingsPage: {
     devices: {

@@ -221,6 +221,7 @@ export const en: LocaleType = {
           errorChange: 'Post description change failed, try again',
         },
       },
+      answerPlaceholder: 'Add an Answer',
       addComment: 'Publish',
       commentPlaceholder: 'Add a Comment',
       confirmation: {
@@ -244,6 +245,16 @@ export const en: LocaleType = {
   publicButtons: {
     logIn: 'Log in',
     signUp: 'Sign up',
+  },
+  statisticsPage: {
+    title: 'Statistics',
+    like: 'Like',
+    publication: 'Publication views',
+    comments: 'Comments',
+    week: 'Week',
+    month: 'Month',
+    favorites: 'Favorites',
+    favoritesTitle: 'Favorites',
   },
   settingsPage: {
     devices: {

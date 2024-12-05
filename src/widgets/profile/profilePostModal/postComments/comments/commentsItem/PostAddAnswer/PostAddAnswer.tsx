@@ -1,32 +1,29 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import {
+  PostCommentFormZodSchema,
+  postCommentFormZodSchema,
+} from '@/widgets/profile/lib/zod/postCommentsFormZodSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TextField, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 
-import s from './PostCommentsAddComment.module.scss'
+import s from './PostAddAnswer.module.scss'
 
-import {
-  PostCommentFormZodSchema,
-  postCommentFormZodSchema,
-} from '../../../lib/zod/postCommentsFormZodSchema'
-
-interface IProps {
-  onCommentChange: (hasComment: boolean) => void
-  onFormSubmit: (data: PostCommentFormZodSchema) => Promise<unknown>
+type Props = {
+  onAddAnswer: (data: PostCommentFormZodSchema) => Promise<unknown>
+  onCloseForm: (values: boolean) => void
 }
 
-export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps) => {
+export const PostAddAnswer = ({ onAddAnswer, onCloseForm }: Props) => {
   const t = useRouterLocaleDefinition()
 
   const {
     formState: { isDirty, isSubmitting, isValid },
     handleSubmit,
     register,
-    reset,
-    watch,
   } = useForm<PostCommentFormZodSchema>({
     defaultValues: {
       comment: '',
@@ -35,21 +32,14 @@ export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps
   })
 
   async function formSubmitHandler(data: PostCommentFormZodSchema) {
-    await onFormSubmit(data)
-    reset()
+    await onAddAnswer(data)
   }
-
-  const comment = watch('comment')
-
-  useEffect(() => {
-    onCommentChange(comment.trim().length > 0)
-  }, [comment, onCommentChange])
 
   const isBtnDisabled = isSubmitting || !isDirty || !isValid
 
   return (
     <>
-      {isSubmitting && <RequestLineLoader />}
+      {isSubmitting && <RequestLineLoader />}{' '}
       <form
         autoComplete={'off'}
         className={s.root}
@@ -58,10 +48,12 @@ export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps
       >
         <TextField
           disabled={isSubmitting}
-          placeholder={`${t.profile.modal.commentPlaceholder}...`}
+          placeholder={`${t.profile.modal.answerPlaceholder}...`}
           {...register('comment')}
           inputClassName={s.input}
+          onBlur={() => !isDirty && onCloseForm(false)}
         />
+
         <Typography
           as={'button'}
           className={clsx(s.button, isBtnDisabled && s.buttonDisabled)}
