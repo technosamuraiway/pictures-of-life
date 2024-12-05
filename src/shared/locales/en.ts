@@ -310,7 +310,7 @@ export const en: LocaleType = {
       successMessage: 'Payment was successful!',
       successStep: 'OK',
       error: 'Error',
-      errorMessage: 'Transaction failed. Please, write to support',
+      errorMessage: 'Transaction failed, please try again',
       errorStep: 'Back to payment',
     },
   },
