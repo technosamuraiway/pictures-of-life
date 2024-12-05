@@ -1,0 +1,17 @@
+.favoritesContent {
+    width: 100%;
+} 
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 столбца */
+    gap: 16px; /* Расстояние между изображениями */
+    margin-top: 20px; /* Отступ от заголовка */
+  }
+  
+  .gridItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }

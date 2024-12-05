@@ -1,3 +1,5 @@
+import { StatisticsCommentsWeek } from './profile/statistics/statisticsComments/StatisticsCommentsWeek'
+
 export { NewPassword } from './auth/newPassword/NewPassword'
 export { ResendLink } from './auth/resendLink/ResendLink'
 
@@ -13,3 +15,9 @@ export { Devices } from './profile/settings/devices/Devices'
 export { GeneralInfo } from './profile/settings/generalInfo/GeneralInfo'
 export { Management } from './profile/settings/management/Management'
 export { Payments } from './profile/settings/payments/Payments'
+export { StatisticsCommentsMonth } from './profile/statistics/statisticsComments/StatisticsCommentsMonth'
+export { StatisticsCommentsWeek } from './profile/statistics/statisticsComments/StatisticsCommentsWeek'
+export { StatisticsLikeMonth } from './profile/statistics/statisticsLike/StatisticsLikeMonth'
+export { StatisticsLikeWeek } from './profile/statistics/statisticsLike/StatisticsLikeWeek'
+export { StatisticsPublicationMonth } from './profile/statistics/statisticsPublication/StatisticsPublicationMonth'
+export { StatisticsPublicationWeek } from './profile/statistics/statisticsPublication/StatisticsPublicationWeek'
