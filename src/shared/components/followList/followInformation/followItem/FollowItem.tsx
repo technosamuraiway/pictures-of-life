@@ -41,6 +41,7 @@ export const FollowItem = ({ isFollowers, item, navigateToProfile }: IProps) => 
         <AvatarWithUserName
           avatar={item?.avatars[1]?.url}
           navigateToProfile={navigateToProfileHandler}
+          textVariant={'regular-text-16'}
           userName={item.userName}
         />
         {isFollowers ? (
