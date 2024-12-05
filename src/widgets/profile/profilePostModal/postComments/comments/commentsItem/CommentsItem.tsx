@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react'
+import { ReactNode, memo, useMemo, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { IComment, useGetAnswersQuery } from '@/services'
@@ -114,7 +114,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   )
 
   /* размер иконки изменялся, решение - обернул span с заданными размерами */
-  function iconWrapper(icon: JSX.Element) {
+  function iconWrapper(icon: ReactNode) {
     return <span style={{ display: 'block', height: '16px', width: '16px' }}>{icon}</span>
   }
 

@@ -32,7 +32,6 @@ export const PostAddAnswer = ({ onAddAnswer, onCloseForm }: Props) => {
   })
 
   async function formSubmitHandler(data: PostCommentFormZodSchema) {
-    console.log('works')
     await onAddAnswer(data)
   }
 
