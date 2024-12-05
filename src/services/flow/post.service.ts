@@ -67,6 +67,7 @@ export const postService = inctagramApi.injectEndpoints({
         },
       }),
       getAnswers: builder.query<GetAnswersResponse, GetAnswersArgs>({
+        providesTags: ['Answers'],
         query: args => {
           const { commentId, postId, ...rest } = args
 
@@ -78,6 +79,7 @@ export const postService = inctagramApi.injectEndpoints({
         },
       }),
       getAnswersLikes: builder.query<GetAnswersLikesResponse, GetAnswersLikesArgs>({
+        providesTags: ['Answers'],
         query: args => {
           const { answerId, commentId, postId, ...rest } = args
 

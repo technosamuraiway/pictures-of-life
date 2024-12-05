@@ -13,17 +13,17 @@ import clsx from 'clsx'
 import s from './PostAddAnswer.module.scss'
 
 type Props = {
-  onFormSubmit: (data: PostCommentFormZodSchema) => Promise<unknown>
+  onAddAnswer: (data: PostCommentFormZodSchema) => Promise<unknown>
+  onCloseForm: (values: boolean) => void
 }
 
-export const PostAddAnswer = ({ onFormSubmit }: Props) => {
+export const PostAddAnswer = ({ onAddAnswer, onCloseForm }: Props) => {
   const t = useRouterLocaleDefinition()
 
   const {
     formState: { isDirty, isSubmitting, isValid },
     handleSubmit,
     register,
-    reset,
   } = useForm<PostCommentFormZodSchema>({
     defaultValues: {
       comment: '',
@@ -32,8 +32,8 @@ export const PostAddAnswer = ({ onFormSubmit }: Props) => {
   })
 
   async function formSubmitHandler(data: PostCommentFormZodSchema) {
-    await onFormSubmit(data)
-    reset()
+    console.log('works')
+    await onAddAnswer(data)
   }
 
   const isBtnDisabled = isSubmitting || !isDirty || !isValid
@@ -52,6 +52,7 @@ export const PostAddAnswer = ({ onFormSubmit }: Props) => {
           placeholder={`${t.profile.modal.answerPlaceholder}...`}
           {...register('comment')}
           inputClassName={s.input}
+          onBlur={() => !isDirty && onCloseForm(false)}
         />
 
         <Typography

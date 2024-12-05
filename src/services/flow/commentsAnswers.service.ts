@@ -1,6 +1,8 @@
 import { inctagramApi } from '@/services'
 
 import {
+  CreateNewAnswerArgs,
+  CreateNewAnswerResponse,
   CreateNewCommentArgs,
   CreateNewCommentResponse,
   UpdateLikeStatusOfCommentArgs,
@@ -9,6 +11,19 @@ import {
 const commentsAnswersService = inctagramApi.injectEndpoints({
   endpoints: builder => {
     return {
+      createNewAnswer: builder.mutation<CreateNewAnswerResponse, CreateNewAnswerArgs>({
+        invalidatesTags: ['Answers'],
+        query: args => {
+          const { commentId, content, postId } = args
+
+          return {
+            body: { content },
+            method: 'POST',
+            url: `/v1/posts/${postId}/comments/${commentId}/answers`,
+          }
+        },
+      }),
+
       createNewComment: builder.mutation<CreateNewCommentResponse, CreateNewCommentArgs>({
         invalidatesTags: ['Comments'],
         query: args => {
@@ -38,5 +53,8 @@ const commentsAnswersService = inctagramApi.injectEndpoints({
   },
 })
 
-export const { useCreateNewCommentMutation, useUpdateLikeStatusOfCommentMutation } =
-  commentsAnswersService
+export const {
+  useCreateNewAnswerMutation,
+  useCreateNewCommentMutation,
+  useUpdateLikeStatusOfCommentMutation,
+} = commentsAnswersService

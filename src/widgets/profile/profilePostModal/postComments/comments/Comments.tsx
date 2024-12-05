@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 
 import { ICommentResponse, useGetPostCommentsByIdQuery } from '@/services'
 import {

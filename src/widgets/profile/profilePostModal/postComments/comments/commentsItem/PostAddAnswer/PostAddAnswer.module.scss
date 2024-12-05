@@ -4,6 +4,11 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+
+  border: 1px solid var(--Dark-100);
+  padding: 0.125rem 0.5rem;
+
+  margin-top: 1rem;
 }
 
 .input.input {
