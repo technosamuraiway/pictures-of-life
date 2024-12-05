@@ -1,7 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { useSignInAdminStore } from '@/services/store/signInAdminStore'
-import { MetaHead, PATH, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import {
+  MetaHead,
+  PATH,
+  RequestLineLoader,
+  useRouterLocaleDefinition,
+  useTabsSwitcher,
+} from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
 import { Photos } from '@/widgets/admin/statistics/photos/Photos'
 import { Users } from '@/widgets/admin/statistics/users/Users'
@@ -22,8 +28,6 @@ const Statistics = () => {
     }
   }, [router, logged])
 
-  const [activeTab, setActiveTab] = useState<null | string>(null)
-
   const tabsData = useMemo<TabType[]>(
     () => [
       { title: t.admin.statistics.users, value: 'users' },
@@ -32,28 +36,7 @@ const Statistics = () => {
     [t.admin.statistics.users, t.admin.statistics.photos]
   )
 
-  useEffect(() => {
-    if (router.isReady) {
-      const tabFromUrl = router.query.tab as string
-      const defaultTab = tabsData[0].value
-      const newActiveTab = tabsData.some(tab => tab.value.includes(tabFromUrl))
-        ? tabFromUrl
-        : defaultTab
-
-      setActiveTab(newActiveTab)
-    }
-  }, [router.isReady, router.query.tab, tabsData])
-
-  const tabChangeHandler = (newValue: string) => {
-    router.push(
-      {
-        pathname: router.pathname,
-        query: { ...router.query, tab: newValue },
-      },
-      undefined,
-      { shallow: true }
-    )
-  }
+  const { activeTab, tabChangeHandler } = useTabsSwitcher(tabsData)
 
   return (
     <>

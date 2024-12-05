@@ -1,3 +1,5 @@
+import { SubscriptionType } from '@/services/graphql/codegen/graphql'
+
 import { LocaleType } from '../locales/ru'
 
 export function TimeAgo(dateString: string, t: LocaleType): string {
@@ -97,5 +99,18 @@ function getYearsForm(years: number, t: LocaleType): string {
     return t.timeAgo.yearsFew
   } else {
     return t.timeAgo.yearsMany
+  }
+}
+
+export const getDaysFromPeriod = (type: SubscriptionType) => {
+  switch (type) {
+    case SubscriptionType.Monthly:
+      return '30 days'
+    case SubscriptionType.Day:
+      return '1 day'
+    case SubscriptionType.Weekly:
+      return '7 days'
+    default:
+      break
   }
 }

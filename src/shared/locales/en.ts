@@ -133,6 +133,7 @@ export const en: LocaleType = {
   pagination: {
     onPage: 'on page',
     show: 'Show',
+    status: 'Pending',
   },
   passwordRecoveryPage: {
     title: 'Password recovery page',
@@ -164,9 +165,30 @@ export const en: LocaleType = {
     info: {
       btn: 'Profile settings',
       stats: {
-        followers: 'Followers',
-        following: 'Following',
+        followers: {
+          title: 'Followers',
+          emptyList: 'You do not have active followers!',
+          follow: 'Follow',
+          delete: 'Delete',
+          deleteFollowing: 'Delete Following',
+          yes: 'Yes',
+          no: 'No',
+          modalText: 'Do you really want to delete a Following ',
+          successDelete: 'You are successfully delete following',
+          successFollowing: 'You are successfully following by',
+        },
+        following: {
+          title: 'Following',
+          emptyList: 'You do not have active following!',
+          yes: 'Yes',
+          no: 'No',
+          follow: 'Follow',
+          unFollow: 'Unfollow',
+          modalText: 'Do you really want to Unfollow from this user ',
+        },
         publications: 'Publications',
+        findNew: 'Find new here🤝',
+        searchPlaceholder: 'Search',
       },
     },
     postsShower: {
@@ -438,9 +460,37 @@ export const en: LocaleType = {
     },
     paymentsList: {
       title: 'Payments List',
+      dateAdded: 'Date added',
+      amount: 'Amount,$',
+      subscription: 'Subscription',
+      paymentMethod: 'Payment Method',
+      autoUpdate: 'Autoupdate',
     },
     postsList: {
       title: 'Posts List',
+      searchPlaceholder: 'Search by userName ...',
+      noUserOrPost: 'Ups🙄Post does not exist!',
+      banUser: 'User was banned!',
+    },
+    userList: {
+      title: 'User Page',
+      backToUsersList: 'Back to Users List',
+      userID: 'User ID',
+      profileCreationDate: 'Profile Creation Date',
+      tabs: {
+        files: { title: 'Uploaded Files', emptyTable: 'User does not have downloaded images' },
+        payments: { title: 'Payments', emptyTable: 'User does not have payments' },
+        followers: { title: 'Followers', emptyTable: 'User does not have followers' },
+        following: {
+          title: 'Following',
+          userIdHead: 'User ID',
+          userNameHead: 'User Name',
+          profileLinkHead: 'Profile Link',
+          subscriptionDate: 'Subscription Date',
+          emptyTable: 'User does not have followings',
+        },
+      },
     },
   },
+  messenger: { title: 'Messenger', profileButton: 'Send Message' },
 }

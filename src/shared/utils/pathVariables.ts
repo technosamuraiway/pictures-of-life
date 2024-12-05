@@ -1,5 +1,10 @@
 export const PATH = {
-  ADMIN: { ADMIN: '/admin', USERSLIST: '/admin/users-list' },
+  ADMIN: {
+    ADMIN: '/admin',
+    ADMINPOSTSLIST: '/admin/admin-posts-list',
+    USERLIST: '/admin/user-list',
+    USERSLIST: '/admin/users-list',
+  },
   AUTH: {
     CREATENEWPASSWORD: '/auth/recovery',
     FORGOTPASSWORD: '/auth/forgotpassword',
@@ -13,6 +18,7 @@ export const PATH = {
   CREATEPOST: '/createpost',
   GITHUB: '/github',
   HOME: '/',
+  MESSENGER: '/messenger',
   PROFILE: {
     BASEPROFILE: '/profile',
     BASEPROFILEWITHQUERY: '/profile/[userId]',
@@ -21,6 +27,7 @@ export const PATH = {
   PUBLIC: '/public',
   PUBLICPOST: '/public/post',
   PUBLICUSER: '/public-user/[userId]',
+  SEARCH: '/search',
 } as const
 
 export const PUBLIC_ROUTES_SET = new Set<string>([

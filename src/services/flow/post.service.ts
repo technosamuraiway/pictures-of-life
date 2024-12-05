@@ -29,6 +29,7 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+
       createPost: builder.mutation<IPostUser, ICreatePostArgs>({
         invalidatesTags: ['Posts'],
 
@@ -61,15 +62,29 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+      getPostById: builder.query<IPostUser, string>({
+        providesTags: ['Posts'],
+        query: postId => {
+          return {
+            method: 'GET',
+            url: `/v1/posts/id/${postId}`,
+          }
+        },
+      }),
       getPostComments: builder.query<
         ICommentResponse,
         { params?: Record<string, any>; postId: number }
       >({
+        providesTags: ['Comments'],
         query: ({ params, postId }) => ({
           method: 'GET',
           params,
           url: `/v1/public-posts/${postId}/comments`,
         }),
+      }),
+      getPostCommentsById: builder.query<{ notReadCount: number } & ICommentResponse, number>({
+        providesTags: ['Comments'],
+        query: postId => ({ url: `/v1/posts/${postId}/comments` }),
       }),
       getPostsByUserName: builder.query<IPostsByNameResponse, IPostsByNameArgs>({
         query: args => {
@@ -116,6 +131,7 @@ export const postService = inctagramApi.injectEndpoints({
           return `${endpointName}-${queryArgs.userId}`
         },
       }),
+
       updatePostLikeStatus: builder.mutation<void, UpdatePostLikeStatusArgs>({
         invalidatesTags: ['Posts'],
         query: args => {
@@ -153,11 +169,13 @@ export const {
   useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
+  // useGetUserProfileByUserNameQuery,
+  useGetPostByIdQuery,
+  useGetPostCommentsByIdQuery,
   useGetPostCommentsQuery,
   useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
   useLazyGetUserPublicPostsQuery,
   useUpdatePostLikeStatusMutation,
   useUploadImagesForPostMutation,
-  // useGetUserProfileByUserNameQuery,
 } = postService

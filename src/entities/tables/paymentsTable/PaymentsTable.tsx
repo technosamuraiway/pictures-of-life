@@ -1,21 +1,26 @@
-import { useGetSubscriptionQuery } from '@/services'
-import { InitLoader, convertDate, useRouterLocaleDefinition } from '@/shared'
+import { IMyPaymentsResponse } from '@/services'
+import {
+  BodyTableCell,
+  HeadTableCell,
+  InitLoader,
+  convertDate,
+  useRouterLocaleDefinition,
+} from '@/shared'
 import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 
-import s from './PaymentsTable.module.scss'
+interface IProps {
+  emptyTableText?: string
+  isLoading?: boolean
+  tableData?: IMyPaymentsResponse[]
+}
 
-import { HeadCell } from './headCell/HeadCell'
-import { TableCell } from './tableCell/TableCell'
-
-export const PaymentsTable = () => {
+export const PaymentsTable = ({ emptyTableText, isLoading, tableData }: IProps) => {
   const t = useRouterLocaleDefinition()
 
-  const { data: paymentsData, isLoading } = useGetSubscriptionQuery()
-
-  if (paymentsData?.length === 0) {
+  if (tableData?.length === 0) {
     return (
-      <Typography as={'h1'} className={s.emptyText} variant={'h1'}>
-        {t.settingsPage.payments.emptyList}
+      <Typography as={'h1'} style={{ textAlign: 'center' }} variant={'h1'}>
+        {emptyTableText}
       </Typography>
     )
   }
@@ -27,23 +32,23 @@ export const PaymentsTable = () => {
       ) : (
         <Tables.Table>
           <Tables.TableHead>
-            <Tables.TableRow className={s.head}>
-              <HeadCell title={t.settingsPage.payments.dateOfPayment} />
-              <HeadCell title={t.settingsPage.payments.endDateOfSubscription} />
-              <HeadCell title={t.settingsPage.payments.price} />
-              <HeadCell title={t.settingsPage.payments.subscriptionType} />
-              <HeadCell title={t.settingsPage.payments.paymentType} />
+            <Tables.TableRow>
+              <HeadTableCell title={t.settingsPage.payments.dateOfPayment} />
+              <HeadTableCell title={t.settingsPage.payments.endDateOfSubscription} />
+              <HeadTableCell title={`${t.settingsPage.payments.price}, $`} />
+              <HeadTableCell title={t.settingsPage.payments.subscriptionType} />
+              <HeadTableCell title={t.settingsPage.payments.paymentType} />
             </Tables.TableRow>
           </Tables.TableHead>
 
           <Tables.TableBody>
-            {paymentsData?.map(el => (
+            {tableData?.map(el => (
               <Tables.TableRow key={el.subscriptionId}>
-                <TableCell value={convertDate(el.dateOfPayment)} />
-                <TableCell value={convertDate(el.endDateOfSubscription)} />
-                <TableCell value={`$${el.price}`} />
-                <TableCell value={el.subscriptionType} />
-                <TableCell value={el.paymentType} />
+                <BodyTableCell value={convertDate(el.dateOfPayment)} />
+                <BodyTableCell value={convertDate(el.endDateOfSubscription)} />
+                <BodyTableCell value={`$${el.price}`} />
+                <BodyTableCell value={el.subscriptionType} />
+                <BodyTableCell value={el.paymentType} />
               </Tables.TableRow>
             ))}
           </Tables.TableBody>

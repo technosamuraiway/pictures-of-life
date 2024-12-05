@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useUpdatePostLikeStatusMutation } from '@/services'
+import { useGetPostByIdQuery, useUpdatePostLikeStatusMutation } from '@/services'
 import { useGetPublicPostByIdQuery } from '@/services/flow/publicPosts.service'
 import { RequestLineLoader, Skeleton, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
@@ -9,7 +9,6 @@ import { BookmarkIcon, FilledLikeIcon, LikeIcon, MessageIcon } from '@public/ico
 import { Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 import Image from 'next/image'
-import mockAvatar from 'public/mockAvatar.png'
 
 import s from './PostsLikes.module.scss'
 
@@ -20,13 +19,23 @@ export const PostsLikes = () => {
 
   const { postId } = query
 
-  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(
+  const { data: post, isLoading: isPostPublicLoading } = useGetPublicPostByIdQuery(
     (postId as string) || '',
     {
       skip: !postId,
     }
   )
+
+  const { data: postAuth, isLoading: isPostAuthLoading } = useGetPostByIdQuery(
+    (postId as string) || '',
+    {
+      skip: !postId || !meData,
+    }
+  )
+
   const [putLike, { isLoading: isPutLikeLoading }] = useUpdatePostLikeStatusMutation()
+
+  const isPostLoading = isPostPublicLoading || isPostAuthLoading
 
   function likeHandler() {
     if (!postId) {
@@ -42,24 +51,28 @@ export const PostsLikes = () => {
     putLike({ likeStatus: 'NONE', postId: Number(postId) })
   }
 
-  const mockImages = [mockAvatar, mockAvatar, mockAvatar]
-
-  // не работает пока
   const avatarsWhoLikes = useMemo(() => {
     return post?.avatarWhoLikes.slice(0, 3)
   }, [post])
 
-  const avatars = !!mockImages?.length && (
+  const avatars = !!avatarsWhoLikes?.length && (
     <div className={s.avatarsBox}>
-      {mockImages?.map((avatar, index) => (
-        <Image alt={`User avatar ${index + 1}`} className={s.avatar} key={index} src={avatar} />
+      {avatarsWhoLikes?.map((avatar, index) => (
+        <Image
+          alt={`User avatar ${index + 1}`}
+          className={s.avatar}
+          height={24}
+          key={index}
+          src={avatar}
+          width={24}
+        />
       ))}
     </div>
   )
 
   const iconsBox = (
     <div className={s.iconsBox}>
-      {post?.isLiked ? (
+      {postAuth?.isLiked ? (
         <FilledLikeIcon
           className={clsx(s.likeIcon, s.likeIconFilled)}
           height={24}
