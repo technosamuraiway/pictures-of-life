@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-import { User } from '@/services/graphql/codegen/graphql'
+import { UserBan } from '@/services/graphql/codegen/graphql'
 import { useRouterLocaleDefinition } from '@/shared'
 import { Button, Modal, Select, Typography } from '@technosamurai/techno-ui-kit'
 import { BUN_REASON_TYPE } from 'src/shared/enums'
@@ -14,7 +14,8 @@ interface IProps {
   onClickPositiveButton: (banReason: BUN_REASON_TYPE) => void
   setIsOpenModal: (isOpenModal: boolean) => void
   textContent: string
-  user: User
+  userBan?: UserBan | null
+  userName?: null | string
 }
 
 export function BanUnbanUserModal({
@@ -24,7 +25,8 @@ export function BanUnbanUserModal({
   onClickPositiveButton,
   setIsOpenModal,
   textContent,
-  user,
+  userBan,
+  userName,
 }: IProps) {
   const t = useRouterLocaleDefinition()
   const [banReason, setBanReason] = useState<BUN_REASON_TYPE>(BUN_REASON_TYPE.BAD_BEHAVIOR)
@@ -40,9 +42,9 @@ export function BanUnbanUserModal({
         <div className={s.childrenWrapper}>
           <Typography variant={'regular-text-16'}>
             {textContent}&nbsp;
-            {user.userName}&nbsp;?
+            {userName}&nbsp;?
           </Typography>
-          {!user.userBan && (
+          {!userBan && (
             <Select
               contentStyle={s.contentStyle}
               currentValue={banReason}
@@ -64,7 +66,7 @@ export function BanUnbanUserModal({
                   value: BUN_REASON_TYPE.ANOTHER_REASON,
                 },
               ]}
-              selectWidth={'250px'}
+              selectWidth={'100%'}
             />
           )}
           <div className={s.buttonsWrapper}>

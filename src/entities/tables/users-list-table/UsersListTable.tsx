@@ -14,11 +14,18 @@ import s from './UsersListTable.module.scss'
 interface IProps {
   handleSortDirection: (sortDirection: SortDirection, sortBy: SORT_BY_TYPE) => void
   refetch: Function
+  sortBy: SORT_BY_TYPE
   sortDirection: SortDirection | null
   users: User[]
 }
 
-export const UsersListTable = ({ handleSortDirection, refetch, sortDirection, users }: IProps) => {
+export const UsersListTable = ({
+  handleSortDirection,
+  refetch,
+  sortBy,
+  sortDirection,
+  users,
+}: IProps) => {
   const t = useRouterLocaleDefinition()
 
   if (users?.length === 0) {
@@ -37,14 +44,14 @@ export const UsersListTable = ({ handleSortDirection, refetch, sortDirection, us
           <HeadCellWithArrow
             handleSortDirection={handleSortDirection}
             sortBy={SORT_BY_TYPE.USERNAME}
-            sortDirection={sortDirection}
+            sortDirection={sortBy === SORT_BY_TYPE.USERNAME ? sortDirection : null}
             title={t.admin.usersList.username}
           />
           <HeadCell title={t.admin.usersList.profileLink} />
           <HeadCellWithArrow
             handleSortDirection={handleSortDirection}
             sortBy={SORT_BY_TYPE.CREATEDAT}
-            sortDirection={sortDirection}
+            sortDirection={sortBy === SORT_BY_TYPE.CREATEDAT ? sortDirection : null}
             title={t.admin.usersList.dateAdded}
           />
           <HeadCell title={''} />

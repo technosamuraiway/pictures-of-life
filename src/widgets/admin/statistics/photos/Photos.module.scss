@@ -1,10 +1,9 @@
 .photosDiv {
-  position: absolute;
-  top: 3.75rem; /* 60px */
   width: 64.375rem; /* 1030px */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 30px;
 }
 
 .textContent {
@@ -41,7 +40,7 @@
 
 .usersChart {
   position: absolute;
-  top: 9.375rem; /* 150px */
+  top: 10rem;
   width: 63.75rem; /* 1020px */
   height: 18.75rem; /* 300px */
 }

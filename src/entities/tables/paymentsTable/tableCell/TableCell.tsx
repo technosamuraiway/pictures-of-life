@@ -3,7 +3,7 @@ import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 import s from './TableCell.module.scss'
 
 interface IProps {
-  value: string
+  value: number | string
 }
 
 export const TableCell = ({ value }: IProps) => {

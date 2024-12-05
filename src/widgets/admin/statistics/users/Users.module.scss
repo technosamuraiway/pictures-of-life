@@ -1,10 +1,9 @@
 .usersDiv {
-  position: absolute;
-  top: 3.75rem; /* 60px */
   width: 64.375rem; /* 1030px */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 30px;
 }
 
 .textContent {
@@ -57,7 +56,7 @@
 
 .paidChart {
   position: absolute;
-  top: 38.125rem; /* 610px */
+  top: 35rem;
   width: 63.75rem; /* 1020px */
   height: 22.5rem; /* 360px */
   padding-bottom: 3.75rem; /* 60px */

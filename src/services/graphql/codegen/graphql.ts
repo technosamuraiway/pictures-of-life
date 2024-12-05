@@ -437,6 +437,34 @@ export type GetPostsQuery = {
   }
 }
 
+export type GetPostsListQueryVariables = Exact<{
+  endCursorPostId?: InputMaybe<Scalars['Int']['input']>
+  searchTerm?: InputMaybe<Scalars['String']['input']>
+  pageSize?: InputMaybe<Scalars['Int']['input']>
+  sortBy?: InputMaybe<Scalars['String']['input']>
+  sortDirection?: InputMaybe<SortDirection>
+}>
+
+export type GetPostsListQuery = {
+  __typename?: 'Query'
+  getPosts: {
+    __typename?: 'PostsPaginationModel'
+    items: Array<{
+      __typename?: 'Post'
+      id: number
+      description: string
+      createdAt: any
+      postOwner: {
+        __typename?: 'PostOwnerModel'
+        userName: string
+        id: number
+        avatars?: Array<{ __typename?: 'Avatar'; url?: string | null }> | null
+      }
+      images?: Array<{ __typename?: 'ImagePost'; id?: number | null; url?: string | null }> | null
+    }>
+  }
+}
+
 export type GetUsersQueryVariables = Exact<{
   pageSize?: InputMaybe<Scalars['Int']['input']>
   pageNumber?: InputMaybe<Scalars['Int']['input']>
@@ -602,6 +630,26 @@ export type GetUserQuery = {
       lastName?: string | null
       avatars?: Array<{ __typename?: 'Avatar'; url?: string | null }> | null
     }
+  }
+}
+
+export type GetPostsSubscriptionSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type GetPostsSubscriptionSubscription = {
+  __typename?: 'Subscription'
+  postAdded: {
+    __typename?: 'Post'
+    id: number
+    ownerId: number
+    description: string
+    createdAt: any
+    postOwner: {
+      __typename?: 'PostOwnerModel'
+      id: number
+      userName: string
+      avatars?: Array<{ __typename?: 'Avatar'; url?: string | null }> | null
+    }
+    images?: Array<{ __typename?: 'ImagePost'; id?: number | null; url?: string | null }> | null
   }
 }
 
@@ -1004,6 +1052,131 @@ export const GetPostsDocument = {
     },
   ],
 } as unknown as DocumentNode<GetPostsQuery, GetPostsQueryVariables>
+export const GetPostsListDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetPostsList' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'endCursorPostId' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'searchTerm' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pageSize' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          defaultValue: { kind: 'IntValue', value: '10' },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sortBy' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          defaultValue: { kind: 'StringValue', value: 'createdAt', block: false },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sortDirection' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'SortDirection' } },
+          defaultValue: { kind: 'EnumValue', value: 'desc' },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getPosts' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'endCursorPostId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'endCursorPostId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'searchTerm' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'searchTerm' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pageSize' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pageSize' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sortBy' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sortBy' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sortDirection' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sortDirection' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'postOwner' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'userName' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'avatars' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'images' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetPostsListQuery, GetPostsListQueryVariables>
 export const GetUsersDocument = {
   kind: 'Document',
   definitions: [
@@ -1601,3 +1774,64 @@ export const GetUserDocument = {
     },
   ],
 } as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>
+export const GetPostsSubscriptionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'subscription',
+      name: { kind: 'Name', value: 'GetPostsSubscription' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'postAdded' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ownerId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'postOwner' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'userName' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'avatars' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'images' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetPostsSubscriptionSubscription,
+  GetPostsSubscriptionSubscriptionVariables
+>
