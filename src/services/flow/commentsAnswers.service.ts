@@ -37,6 +37,22 @@ const commentsAnswersService = inctagramApi.injectEndpoints({
         },
       }),
 
+      updateLikeStatusOfAnswer: builder.mutation<
+        void,
+        { answerId: number } & UpdateLikeStatusOfCommentArgs
+      >({
+        invalidatesTags: ['Answers'],
+        query: args => {
+          const { answerId, commentId, likeStatus, postId } = args
+
+          return {
+            body: { likeStatus },
+            method: 'PUT',
+            url: `/v1/posts/${postId}/comments/${commentId}/answers/${answerId}/like-status`,
+          }
+        },
+      }),
+
       updateLikeStatusOfComment: builder.mutation<void, UpdateLikeStatusOfCommentArgs>({
         invalidatesTags: ['Comments'],
         query: args => {
@@ -56,5 +72,6 @@ const commentsAnswersService = inctagramApi.injectEndpoints({
 export const {
   useCreateNewAnswerMutation,
   useCreateNewCommentMutation,
+  useUpdateLikeStatusOfAnswerMutation,
   useUpdateLikeStatusOfCommentMutation,
 } = commentsAnswersService

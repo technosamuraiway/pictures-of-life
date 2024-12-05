@@ -103,7 +103,7 @@ export type ChangePostDescriptionArgs = {
   postId: number
 }
 
-type Answer = {
+export type Answer = {
   commentId: number
   content: string
   createdAt: string

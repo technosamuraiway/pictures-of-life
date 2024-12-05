@@ -37,6 +37,8 @@
 
 .like {
   cursor: pointer;
+  width: 1rem;
+  height: 1rem;
 }
 
 .answer {
@@ -57,7 +59,14 @@
     left: 0;
   }
 
-  &:hover {
+  button:hover {
     color: var(--Light-700);
   }
+}
+
+.answers {
+  margin-top: 0.8rem;
+  row-gap: 0.8rem;
+  display: flex;
+  flex-flow: column nowrap;
 }

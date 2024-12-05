@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { IComment, useGetAnswersQuery } from '@/services'
@@ -16,7 +16,7 @@ import {
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { PostCommentFormZodSchema } from '@/widgets/profile/lib/zod/postCommentsFormZodSchema'
 import { PostAddAnswer } from '@/widgets/profile/profilePostModal/postComments/comments/commentsItem/PostAddAnswer/PostAddAnswer'
-import { CommentsItemAnswers } from '@/widgets/profile/profilePostModal/postComments/comments/commentsItem/commentsItemAnswers/CommentsItemAnswers'
+import { UserMessageItem } from '@/widgets/profile/profilePostModal/postComments/comments/commentsItem/userMessageItem/UserMessageItem'
 import { FilledLikeIcon, LikeIcon } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
@@ -38,7 +38,6 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     { commentId, postId },
     { skip: !meData }
   )
-  const [createNewAnswer] = useCreateNewAnswerMutation()
 
   // const { data: answersLikes, isLoading: isLoadingAnswersLikes } = useGetAnswersLikesQuery(
   //   {
@@ -49,12 +48,13 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   //   { skip: !answers }
   // )
 
+  const [createNewAnswer, { isLoading: isLoadingCreateAnswer }] = useCreateNewAnswerMutation()
   const [updateLike, { isLoading: isLoadingLike }] = useUpdateLikeStatusOfCommentMutation()
 
   const [isShowAnswers, setIsShowAnswers] = useState(false)
   const [isShowAnswerInput, setIsShowAnswerInput] = useState(false)
 
-  const isLoading = isLoadingAnswers || isLoadingLike
+  const isLoading = isLoadingAnswers || isLoadingLike || isLoadingCreateAnswer
 
   const isOwnComment = meData?.userId === id
   const isShow = !isOwnComment && !!meData
@@ -75,6 +75,14 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     }
   }
 
+  const sortedAnswers = useMemo(() => {
+    return answers?.items
+      ? [...answers.items].sort(
+          (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        )
+      : []
+  }, [answers])
+
   if (!comment) {
     return (
       <li>
@@ -83,26 +91,44 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     )
   }
 
-  const answerUi = (
-    <span className={s.answer} onClick={() => setIsShowAnswers(!isShowAnswers)}>
-      <Typography as={'button'} type={'button'} variant={'small-text'}>
-        {isShowAnswers ? 'Hide' : 'Show'} Answers ({answersCount})
-      </Typography>
-      {isShowAnswers && <CommentsItemAnswers />}
-    </span>
+  const CommentsItemAnswers = (
+    <ul className={s.answers}>
+      {sortedAnswers.map(answer => (
+        <UserMessageItem item={answer} key={answer.id} postId={postId} />
+      ))}
+    </ul>
   )
 
-  const icon = isLiked ? (
-    <FilledLikeIcon
-      className={s.like}
-      height={16}
-      onClick={likeHandler}
-      style={{ color: 'red' }}
-      width={16}
-    />
-  ) : (
-    <LikeIcon className={s.like} height={16} onClick={likeHandler} width={16} />
+  const answerUi = (
+    <div className={s.answer}>
+      <Typography
+        as={'button'}
+        onClick={() => setIsShowAnswers(!isShowAnswers)}
+        type={'button'}
+        variant={'small-text'}
+      >
+        {isShowAnswers ? 'Hide' : 'Show'} Answers ({answersCount})
+      </Typography>
+      {isShowAnswers && CommentsItemAnswers}
+    </div>
   )
+
+  /* размер иконки изменялся, решение - обернул span с заданными размерами */
+  function iconWrapper(icon: JSX.Element) {
+    return <span style={{ display: 'block', height: '16px', width: '16px' }}>{icon}</span>
+  }
+
+  const icon = isLiked
+    ? iconWrapper(
+        <FilledLikeIcon
+          className={s.like}
+          height={16}
+          onClick={likeHandler}
+          style={{ color: 'red' }}
+          width={16}
+        />
+      )
+    : iconWrapper(<LikeIcon className={s.like} height={16} onClick={likeHandler} width={16} />)
 
   const contentItem = (
     <div className={clsx(s.content, !isShow && s.contentWithoutLike)}>
@@ -121,7 +147,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
           <Typography variant={'small-text'}>Likes: {likeCount}</Typography>
         )}
 
-        {isShow && (
+        {!!meData && (
           <Typography
             as={'button'}
             onClick={() => setIsShowAnswerInput(!isShowAnswerInput)}
@@ -132,7 +158,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
           </Typography>
         )}
       </div>
-      {isShow && !!answersCount && answerUi}
+      {!!meData && !!answersCount && answerUi}
       {isShowAnswerInput && (
         <PostAddAnswer onAddAnswer={onAddAnswer} onCloseForm={setIsShowAnswerInput} />
       )}
