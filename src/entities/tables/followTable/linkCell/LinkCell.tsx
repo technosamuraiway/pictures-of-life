@@ -1,3 +1,4 @@
+import { useImagesStore } from '@/shared'
 import { Tables, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
 
@@ -9,9 +10,11 @@ interface IProps {
 }
 
 export const LinkCell = ({ href, value }: IProps) => {
+  const { resetStore } = useImagesStore()
+
   return (
     <Tables.TableBodyCell>
-      <div className={s.wrapper}>
+      <div className={s.wrapper} onClick={resetStore}>
         <Typography as={Link} className={s.text} href={href} variant={'regular-text-14'}>
           {value}
         </Typography>

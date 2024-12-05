@@ -17,6 +17,7 @@ export const ActiveSessions = () => {
   const [deleteDevice] = useDeleteSessionMutation()
   const [deleteDeviceGroup] = useDeleteSessionsGroupMutation()
   const { data } = useRetrieveSessionsQuery()
+
   const deleteDeviceHandler = (deviceId: number) => {
     if (deviceId) {
       deleteDevice(deviceId)
@@ -26,12 +27,10 @@ export const ActiveSessions = () => {
         })
     }
   }
-  const deleteDeviceGroupHandler = () => {
-    deleteDeviceGroup()
-      .unwrap()
-      .then(() => {
-        toast.success(t.settingsPage.devices.deleteSessionsMessage)
-      })
+  const deleteDeviceGroupHandler = async () => {
+    await deleteDeviceGroup()
+
+    toast.success(t.settingsPage.devices.deleteSessionsMessage)
   }
 
   return (

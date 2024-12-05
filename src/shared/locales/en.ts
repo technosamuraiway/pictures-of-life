@@ -174,6 +174,8 @@ export const en: LocaleType = {
           yes: 'Yes',
           no: 'No',
           modalText: 'Do you really want to delete a Following ',
+          successDelete: 'You are successfully delete following',
+          successFollowing: 'You are successfully following by',
         },
         following: {
           title: 'Following',
@@ -242,6 +244,16 @@ export const en: LocaleType = {
   publicButtons: {
     logIn: 'Log in',
     signUp: 'Sign up',
+  },
+  statisticsPage: {
+    title: 'Statistics',
+    like: 'Like',
+    publication: 'Publication views',
+    comments: 'Comments',
+    week: 'Week',
+    month: 'Month',
+    favorites: 'Favorites',
+    favoritesTitle: 'Favorites',
   },
   settingsPage: {
     devices: {
@@ -482,4 +494,5 @@ export const en: LocaleType = {
       },
     },
   },
+  messenger: { title: 'Messenger', profileButton: 'Send Message' },
 }

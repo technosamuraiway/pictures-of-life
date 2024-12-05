@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, Dispatch, SetStateAction } from 'react'
 
-import { Modal, Scrollbar } from '@technosamurai/techno-ui-kit'
+import { Modal } from '@technosamurai/techno-ui-kit'
 
 import s from './FollowersFollowingModal.module.scss'
 
@@ -26,9 +26,7 @@ export const FollowersFollowingModal = ({
       open={openModal}
       {...rest}
     >
-      <Scrollbar maxHeight={500}>
-        <div className={s.padding}>{children}</div>
-      </Scrollbar>
+      <div className={s.padding}>{children}</div>
     </Modal>
   )
 }

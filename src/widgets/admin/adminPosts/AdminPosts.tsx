@@ -8,10 +8,9 @@ import { useGetPosts } from './lib/useGetPosts'
 
 export const AdminPosts = () => {
   const t = useRouterLocaleDefinition()
-  const { getPostsListDataISLoading, postsData, ref, refetch, searchTerm, setSearchTerm } =
-    useGetPosts()
+  const { getPostsListDataISLoading, postsData, ref, searchTerm, setSearchTerm } = useGetPosts()
 
-  const { changeSearchHandler } = useSearchBy(refetch, setSearchTerm)
+  const { changeSearchHandler } = useSearchBy(setSearchTerm)
 
   return (
     <>
