@@ -65,11 +65,18 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     updateLike({ commentId, likeStatus: isLiked ? 'NONE' : 'LIKE', postId })
   }
 
+  function showAnswersWithInput() {
+    setIsShowAnswers(!isShowAnswers)
+    setIsShowAnswerInput(!isShowAnswers)
+  }
+
   async function onAddAnswer(data: PostCommentFormZodSchema) {
     try {
       await createNewAnswer({ commentId, content: data.comment, postId }).unwrap()
-      setIsShowAnswerInput(false)
-      setIsShowAnswers(true)
+
+      if (!isShowAnswers) {
+        showAnswersWithInput()
+      }
     } catch (error) {
       toast.error('ERROR')
     }
@@ -103,7 +110,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     <div className={s.answer}>
       <Typography
         as={'button'}
-        onClick={() => setIsShowAnswers(!isShowAnswers)}
+        onClick={showAnswersWithInput}
         type={'button'}
         variant={'small-text'}
       >
@@ -150,7 +157,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
         {!!meData && (
           <Typography
             as={'button'}
-            onClick={() => setIsShowAnswerInput(!isShowAnswerInput)}
+            onClick={() => !isShowAnswers && setIsShowAnswerInput(!isShowAnswerInput)}
             type={'button'}
             variant={'small-text'}
           >
