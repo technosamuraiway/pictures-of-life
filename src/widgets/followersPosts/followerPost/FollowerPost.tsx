@@ -67,7 +67,7 @@ export const FollowerPost = ({ post }: IProps) => {
           likesCount={post.likesCount}
           setOpenFollowingModal={setOpenFollowingModal}
         />
-        <AllComments />
+        <AllComments postId={post.id} userId={post.ownerId} />
         <PostCommentsAddComment onFormSubmit={addCommitFormSubmit} />
       </div>
       <HomePostLikes
