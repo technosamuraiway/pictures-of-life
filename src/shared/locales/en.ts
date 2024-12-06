@@ -146,6 +146,8 @@ export const en: LocaleType = {
     successfulErrorMesseng: 'Failed to load comments',
     successfulPostLoading: 'Something went wrong...',
     likes: 'Likes',
+    likesPost: 'Likes',
+    emptyList: 'You do not have likes!',
   },
   privacyPolicy: {
     backToProfile: 'Back to Profile Settings',

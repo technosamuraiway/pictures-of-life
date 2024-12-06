@@ -1,40 +1,40 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 
 import { FollowersFollowingModal } from '@/entities'
-import { useGetUserFollowingQuery } from '@/services'
+import { useGetPostLikesByPostIdQuery } from '@/services'
 import { AddNewFriends, FollowList, useRouterLocaleDefinition } from '@/shared'
 
 interface IProps {
   openModal: boolean
+  postId: number
   setOpenModal: Dispatch<SetStateAction<boolean>>
-  userName: string
 }
 
-export const FollowingList = ({ openModal, setOpenModal, userName }: IProps) => {
+export const HomePostLikes = ({ openModal, postId, setOpenModal }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [searchTerm, setSearchTerm] = useState('')
 
-  const { data: getFollowingData } = useGetUserFollowingQuery({
+  const { data: getLikesData } = useGetPostLikesByPostIdQuery({
+    postId,
     search: searchTerm,
-    userName,
   })
 
   return (
     <FollowersFollowingModal
-      headerTitle={`${getFollowingData?.items.length} ${t.profile.info.stats.following.title}`}
+      headerTitle={t.posts.likesPost}
       openModal={openModal}
       setOpenModal={setOpenModal}
     >
-      {getFollowingData?.items.length ? (
+      {getLikesData?.items.length ? (
         <FollowList
-          data={getFollowingData?.items}
+          data={getLikesData?.items}
           isFollowers={false}
           searchTerm={searchTerm}
           setOpenModal={setOpenModal}
           setSearchTerm={setSearchTerm}
         />
       ) : (
-        <AddNewFriends title={t.profile.info.stats.following.emptyList} />
+        <AddNewFriends isWithButton={false} title={t.posts.emptyList} />
       )}
     </FollowersFollowingModal>
   )

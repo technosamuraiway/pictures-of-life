@@ -1,4 +1,7 @@
+import { Dispatch, SetStateAction } from 'react'
+
 import { useRouterLocaleDefinition } from '@/shared'
+import testImg from '@public/mockAvatar.png'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
 
@@ -7,15 +10,16 @@ import s from './WhoLiked.module.scss'
 interface IProps {
   avatarWhoLikes?: string[]
   likesCount?: number
+  setOpenFollowingModal: Dispatch<SetStateAction<boolean>>
 }
 
-export const WhoLiked = ({ avatarWhoLikes, likesCount }: IProps) => {
+export const WhoLiked = ({ avatarWhoLikes, likesCount, setOpenFollowingModal }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   const avatars = avatarWhoLikes?.slice(0, 3)
 
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper} onClick={() => setOpenFollowingModal(true)}>
       {!!avatars?.length && (
         <div className={s.avatarsBox}>
           {avatars?.map((avatar, index) => (
@@ -25,7 +29,7 @@ export const WhoLiked = ({ avatarWhoLikes, likesCount }: IProps) => {
               height={24}
               key={index}
               priority
-              src={avatar}
+              src={avatar || testImg.src}
               width={24}
             />
           ))}

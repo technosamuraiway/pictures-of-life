@@ -8,6 +8,8 @@ import {
   ICommentResponse,
   ICreatePostArgs,
   IGetUserPublicPostsArgs,
+  IPostLikesArgs,
+  IPostLikesResponse,
   IPostParams,
   IPostPublicResponse,
   IPostUser,
@@ -114,6 +116,20 @@ export const postService = inctagramApi.injectEndpoints({
         providesTags: ['Comments'],
         query: postId => ({ url: `/v1/posts/${postId}/comments` }),
       }),
+      getPostLikesByPostId: builder.query<IPostLikesResponse, IPostLikesArgs>({
+        providesTags: ['Followers', 'Posts'],
+
+        query: args => {
+          const { postId, ...params } = args
+
+          return {
+            method: 'GET',
+            params: params,
+            url: `/v1/posts/${postId}/likes`,
+          }
+        },
+      }),
+
       getPostsByUserName: builder.query<IPostsByNameResponse, IPostsByNameArgs>({
         query: args => {
           const { pageNumber, pageSize, sortBy, sortDirection, userName } = args
@@ -160,7 +176,6 @@ export const postService = inctagramApi.injectEndpoints({
           return `${endpointName}-${queryArgs.userId}`
         },
       }),
-
       updatePostLikeStatus: builder.mutation<void, UpdatePostLikeStatusArgs>({
         invalidatesTags: ['Posts', 'Followers'],
         query: args => {
@@ -173,6 +188,7 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+
       uploadImagesForPost: builder.mutation<IUploadPostImagesResponse, IUploadPostImagesArgs>({
         query: ({ files }) => {
           const formData = new FormData()
@@ -203,6 +219,7 @@ export const {
   useGetPostByIdQuery,
   useGetPostCommentsByIdQuery,
   useGetPostCommentsQuery,
+  useGetPostLikesByPostIdQuery,
   useGetPostsByUserNameQuery,
   useGetUserPublicPostsQuery,
   useLazyGetUserPublicPostsQuery,

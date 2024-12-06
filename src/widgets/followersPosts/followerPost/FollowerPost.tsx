@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { HomePost } from '@/services'
@@ -13,6 +14,7 @@ import s from './FollowerPost.module.scss'
 import { AllComments } from './allComments/AllComments'
 import { FollowerPostHeader } from './followerPostHeader/FollowerPostHeader'
 import { FollowerPostIcons } from './followerPostIcons/FollowerPostIcons'
+import { HomePostLikes } from './homePostLikes/HomePostLikes'
 import { WhoLiked } from './whoLiked/WhoLiked'
 
 interface IProps {
@@ -21,6 +23,7 @@ interface IProps {
 
 export const FollowerPost = ({ post }: IProps) => {
   const t = useRouterLocaleDefinition()
+  const [openFollowingModal, setOpenFollowingModal] = useState(false)
   const [createComment] = useCreateNewCommentMutation()
 
   async function addCommitFormSubmit(data: PostCommentFormZodSchema) {
@@ -34,32 +37,44 @@ export const FollowerPost = ({ post }: IProps) => {
   }
 
   return (
-    <div className={s.wrapper}>
-      <FollowerPostHeader
-        avatarSrc={post.avatarOwner}
-        createdAt={post.createdAt}
+    <>
+      <div className={s.wrapper}>
+        <FollowerPostHeader
+          avatarSrc={post.avatarOwner}
+          createdAt={post.createdAt}
+          postId={post.id}
+          userId={post.ownerId}
+          userName={post.userName}
+        />
+        <PostsItem
+          iSClick={false}
+          images={post.images}
+          imgHeight={504}
+          imgWidth={490}
+          postId={Number(post.id)}
+        />
+        <FollowerPostIcons isLiked={post.isLiked} postId={post.id} />
+        <PostDescription
+          avatar={post.avatarOwner}
+          description={post.description}
+          isWithDate={false}
+          updatedAt={post.updatedAt}
+          userId={post.ownerId}
+          userName={post.userName}
+        />
+        <WhoLiked
+          avatarWhoLikes={post.avatarWhoLikes}
+          likesCount={post.likesCount}
+          setOpenFollowingModal={setOpenFollowingModal}
+        />
+        <AllComments />
+        <PostCommentsAddComment onFormSubmit={addCommitFormSubmit} />
+      </div>
+      <HomePostLikes
+        openModal={openFollowingModal}
         postId={post.id}
-        userId={post.ownerId}
-        userName={post.userName}
+        setOpenModal={setOpenFollowingModal}
       />
-      <PostsItem
-        iSClick={false}
-        images={post.images}
-        imgHeight={504}
-        imgWidth={490}
-        postId={Number(post.id)}
-      />
-      <FollowerPostIcons isLiked={post.isLiked} postId={post.id} />
-      <PostDescription
-        avatar={post.avatarOwner}
-        description={post.description}
-        isWithDate={false}
-        updatedAt={post.updatedAt}
-        userName={post.userName}
-      />
-      <WhoLiked avatarWhoLikes={post.avatarWhoLikes} likesCount={post.likesCount} />
-      <AllComments />
-      <PostCommentsAddComment onFormSubmit={addCommitFormSubmit} />
-    </div>
+    </>
   )
 }

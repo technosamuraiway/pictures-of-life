@@ -145,6 +145,8 @@ export const ru = {
     successfulErrorMesseng: 'Не удалось загрузить комментарии',
     successfulPostLoading: 'Что-то пошло не так...',
     likes: 'Лайков',
+    likesPost: 'Лайки',
+    emptyList: 'У вас нет лайков!',
   },
   privacyPolicy: {
     backToProfile: 'Вернуться к заполнению профиля',

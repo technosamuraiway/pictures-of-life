@@ -1,7 +1,6 @@
 import { AvatarWithUserName, PATH, TimeAgo, useRouterLocaleDefinition } from '@/shared'
 import { PostModalHeaderDropdownDotsMenu } from '@/widgets/profile/profilePostModal/postComments/postCommentsHeader/postModalHeaderDropdownDotsMenu/PostModalHeaderDropdownDotsMenu'
 import { Typography } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
 
 import s from './FollowerPostHeader.module.scss'
 
@@ -15,11 +14,6 @@ interface IProps {
 
 export const FollowerPostHeader = ({ avatarSrc, createdAt, postId, userId, userName }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const { push } = useRouter()
-
-  const navigateToProfileHandler = () => {
-    push(`${PATH.PROFILE.BASEPROFILE}/${userId}`)
-  }
 
   return (
     <div className={s.wrapper}>
@@ -27,8 +21,8 @@ export const FollowerPostHeader = ({ avatarSrc, createdAt, postId, userId, userN
         <AvatarWithUserName
           avatar={avatarSrc}
           className={s.circle}
-          navigateToProfile={navigateToProfileHandler}
           textVariant={'h3'}
+          userId={userId}
           userName={userName}
         />
         <Typography className={s.createdAt} variant={'small-text'}>

@@ -17,10 +17,9 @@ import { FollowingButtons } from './followingButtons/FollowingButtons'
 interface IProps {
   isFollowers: boolean
   item: UserFollowItems
-  navigateToProfile: (id: string) => void
 }
 
-export const FollowItem = ({ isFollowers, item, navigateToProfile }: IProps) => {
+export const FollowItem = ({ isFollowers, item }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [openUnfollowModal, setOpenUnfollowModal] = useState(false)
 
@@ -30,18 +29,14 @@ export const FollowItem = ({ isFollowers, item, navigateToProfile }: IProps) => 
     setOpenUnfollowModal
   )
 
-  const navigateToProfileHandler = () => {
-    navigateToProfile(String(item.userId))
-  }
-
   return (
     <>
       {isLoadingFollowUnfollow && <RequestLineLoader />}
       <div className={s.infoWrapper}>
         <AvatarWithUserName
           avatar={item?.avatars[1]?.url}
-          navigateToProfile={navigateToProfileHandler}
           textVariant={'regular-text-16'}
+          userId={item.userId}
           userName={item.userName}
         />
         {isFollowers ? (
@@ -57,6 +52,7 @@ export const FollowItem = ({ isFollowers, item, navigateToProfile }: IProps) => 
             isFollowing={item.isFollowing}
             isLoading={isLoadingFollowUnfollow}
             setOpenModal={setOpenUnfollowModal}
+            userId={item.userId}
           />
         )}
       </div>
