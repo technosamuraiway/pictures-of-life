@@ -1,5 +1,6 @@
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 
+import { useGetNotificationsQuery } from '@/services/flow/notofocations.service'
 import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
 import { io } from 'socket.io-client'
@@ -18,6 +19,12 @@ export function useSocket(isAuthenticated: boolean) {
   const notifications = useWsNotificationsStore(state => state.notifications)
   const setNotifications = useWsNotificationsStore(state => state.setNotifications)
 
+  const { data: getNotificationData } = useGetNotificationsQuery()
+
+  useEffect(() => {
+    setNotifications(getNotificationData?.items || [])
+  }, [getNotificationData])
+
   function onConnect() {
     console.warn('🟢🟢🟢 CONNECTED')
   }
@@ -34,6 +41,11 @@ export function useSocket(isAuthenticated: boolean) {
     console.warn('🟣🟣🟣 NOTIFICATIONS')
     setNotifications([...notifications, notification])
   }
+
+  /*
+   * что нужно передать в header?
+   * is read, id, message, when
+   * */
 
   function sendMessage(body: MessageSendRequest) {
     socket.emit(WS_EVENT_PATH.MESSAGE_SENT, body)

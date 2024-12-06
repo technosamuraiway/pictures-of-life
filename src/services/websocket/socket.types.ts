@@ -36,10 +36,12 @@ export type Message = {
 
 export type Notification = {
   clientId: string
+  createdAt: Date
+  eventType: number
   id: number
   isRead: boolean
   message: string
-  notifyAt: string
+  notifyAt: Date
 }
 
 export type SocketError = {
