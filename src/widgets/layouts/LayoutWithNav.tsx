@@ -1,5 +1,6 @@
 import { PropsWithChildren, ReactElement } from 'react'
 
+import { useSocket } from '@/services/websocket/useSocket'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { NextPage } from 'next'
 
@@ -10,6 +11,8 @@ import { NavBar } from './components/navBar/NavBar'
 
 const LayoutWithNav: NextPage<PropsWithChildren> = ({ children }) => {
   const { meData } = useMeWithRouter()
+
+  useSocket()
 
   return (
     <Layout>
