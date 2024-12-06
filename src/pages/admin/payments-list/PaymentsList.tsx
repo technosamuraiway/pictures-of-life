@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { PaymentsListTable } from '@/entities/tables/payments-list-table/PaymentsListTable'
 import { SortDirection } from '@/services/graphql/codegen/graphql'
@@ -9,6 +9,7 @@ import { SORT_BY_TYPE } from '@/shared/enums'
 import { getLayoutWithNav } from '@/widgets'
 import { useQuery } from '@apollo/client'
 import { Checkbox, Pagination, TextField } from '@technosamurai/techno-ui-kit'
+import { debounce } from 'lodash'
 import { useRouter } from 'next/router'
 
 import s from './PaymentsList.module.scss'
@@ -22,8 +23,7 @@ function PaymentsList() {
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [autoUpdate, setAutoUpdate] = useState(false)
-  // eslint-disable-next-line no-undef
-  const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
+  const [perPage, setPerPage] = useState<number>(10)
 
   useEffect(() => {
     // Проверка верификации администратора
@@ -37,8 +37,7 @@ function PaymentsList() {
     pollInterval: autoUpdate ? 5000 : 0,
     variables: {
       pageNumber: currentPage,
-      pageSize: 10,
-      searchTerm,
+      pageSize: perPage,
       sortBy,
       sortDirection,
     },
@@ -59,19 +58,22 @@ function PaymentsList() {
   }
 
   // Дебаунс для поиска
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-
-    setSearchTerm(value)
-
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current)
-    }
-
-    debounceTimeout.current = setTimeout(() => {
-      refetch() // Выполнить запрос после дебаунса
-    }, 1000) // Задержка в 300 мс
+  const handleSearchRefetch = (newSearchTerm: string) => {
+    refetch({ searchTerm: newSearchTerm })
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceFn = useCallback(debounce(handleSearchRefetch, 1000), [])
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event?.target?.value)
+  }
+
+  useEffect(() => {
+    debounceFn(searchTerm)
+
+    return () => debounceFn.cancel()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm])
 
   return (
     <div className={s.container}>
@@ -84,7 +86,7 @@ function PaymentsList() {
       </div>
       <div className={s.inputSelectBlock}>
         <TextField
-          onChange={handleSearchChange} // Обработчик изменения поля ввода
+          onChange={handleSearchChange}
           placeholder={t.admin.usersList.search}
           type={'search'}
         />
@@ -106,9 +108,11 @@ function PaymentsList() {
           count={data?.getPayments?.pagesCount ?? 0}
           onChange={handlePageChange}
           onPageTitle={t.pagination.onPage}
-          onPerPageChange={() => {}}
+          onPerPageChange={(itemPerPage: number) => {
+            setPerPage(Number(itemPerPage))
+          }}
           page={currentPage}
-          perPage={5}
+          perPage={perPage}
           perPageOptions={[5, 10, 20]}
           showTitle={t.pagination.show}
         />

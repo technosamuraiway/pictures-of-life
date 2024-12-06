@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { UsersListTable } from '@/entities/tables/users-list-table/UsersListTable'
 import { SortDirection, UserBlockStatus } from '@/services/graphql/codegen/graphql'
@@ -9,6 +9,7 @@ import { SORT_BY_TYPE } from '@/shared/enums'
 import { getLayoutWithNav } from '@/widgets'
 import { useQuery } from '@apollo/client'
 import { Pagination, Select, TextField } from '@technosamurai/techno-ui-kit'
+import { debounce } from 'lodash'
 import { useRouter } from 'next/router'
 
 import s from './UsersList.module.scss'
@@ -22,8 +23,7 @@ function UsersList() {
   const [sortDirection, setSortDirection] = useState<SortDirection | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  // eslint-disable-next-line no-undef
-  const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
+  const [perPage, setPerPage] = useState<number>(10)
 
   useEffect(() => {
     // Проверка верификации администратора
@@ -36,8 +36,7 @@ function UsersList() {
   const { data, loading, refetch } = useQuery(GET_USERS, {
     variables: {
       pageNumber: currentPage,
-      pageSize: 10,
-      searchTerm,
+      pageSize: perPage,
       sortBy,
       sortDirection,
       statusFilter: filterByUserStatus,
@@ -54,25 +53,28 @@ function UsersList() {
   }
 
   // Дебаунс для поиска
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-
-    setSearchTerm(value)
-
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current)
-    }
-
-    debounceTimeout.current = setTimeout(() => {
-      refetch() // Выполнить запрос после дебаунса
-    }, 1000) // Задержка в 300 мс
+  const handleSearchRefetch = (newSearchTerm: string) => {
+    refetch({ searchTerm: newSearchTerm })
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceFn = useCallback(debounce(handleSearchRefetch, 1000), [])
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event?.target?.value)
+  }
+
+  useEffect(() => {
+    debounceFn(searchTerm)
+
+    return () => debounceFn.cancel()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm])
 
   return (
     <div className={s.container}>
       <div className={s.inputSelectBlock}>
         <TextField
-          onChange={handleSearchChange} // Обработчик изменения поля ввода
+          onChange={handleSearchChange}
           placeholder={t.admin.usersList.search}
           type={'search'}
           value={searchTerm}
@@ -118,9 +120,14 @@ function UsersList() {
         <Pagination
           count={data?.getUsers?.pagination?.pagesCount ?? 0}
           onChange={handlePageChange}
-          onPageTitle={''}
+          onPageTitle={t.pagination.onPage}
+          onPerPageChange={(itemPerPage: number) => {
+            setPerPage(Number(itemPerPage))
+          }}
           page={currentPage}
-          showTitle={'Show'}
+          perPage={perPage}
+          perPageOptions={[5, 10, 20]}
+          showTitle={t.pagination.show}
         />
       )}
     </div>

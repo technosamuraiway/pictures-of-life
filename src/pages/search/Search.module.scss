@@ -5,3 +5,54 @@
   align-items: start;
   gap: 1rem;
 }
+.usersWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.userNameWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.text {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.greyText {
+  color: #8d9094;
+}
+.lightgreyText {
+  color: #bdc1c7;
+}
+.empty {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatarPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  background: var(--Primary-300);
+  border-radius: 50%;
+}
