@@ -1,7 +1,11 @@
-import { memo } from 'react'
+import { ReactNode, memo, useMemo, useState } from 'react'
+import { toast } from 'react-toastify'
 
-import { IComment } from '@/services'
-import { useUpdateLikeStatusOfCommentMutation } from '@/services/flow/commentsAnswers.service'
+import { IComment, useGetAnswersQuery } from '@/services'
+import {
+  useCreateNewAnswerMutation,
+  useUpdateLikeStatusOfCommentMutation,
+} from '@/services/flow/commentsAnswers.service'
 import {
   CircleAvatar,
   RequestLineLoader,
@@ -10,6 +14,9 @@ import {
   useRouterLocaleDefinition,
 } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
+import { PostCommentFormZodSchema } from '@/widgets/profile/lib/zod/postCommentsFormZodSchema'
+import { PostAddAnswer } from '@/widgets/profile/profilePostModal/postComments/comments/commentsItem/PostAddAnswer/PostAddAnswer'
+import { UserMessageItem } from '@/widgets/profile/profilePostModal/postComments/comments/commentsItem/userMessageItem/UserMessageItem'
 import { FilledLikeIcon, LikeIcon } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
@@ -27,18 +34,54 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
   const { content, createdAt, from, id: commentId, isLiked, likeCount, postId } = comment
   const { avatars, id, username } = from
 
+  const { data: answers, isLoading: isLoadingAnswers } = useGetAnswersQuery(
+    { commentId, postId },
+    { skip: !meData }
+  )
+
+  // const { data: answersLikes, isLoading: isLoadingAnswersLikes } = useGetAnswersLikesQuery(
+  //   {
+  //     answerId: answers?.items[0].id || NaN,
+  //     commentId,
+  //     postId,
+  //   },
+  //   { skip: !answers }
+  // )
+
+  const [createNewAnswer, { isLoading: isLoadingCreateAnswer }] = useCreateNewAnswerMutation()
+  const [updateLike, { isLoading: isLoadingLike }] = useUpdateLikeStatusOfCommentMutation()
+
+  const [isShowAnswers, setIsShowAnswers] = useState(false)
+  const [isShowAnswerInput, setIsShowAnswerInput] = useState(false)
+
+  const isLoading = isLoadingAnswers || isLoadingLike || isLoadingCreateAnswer
+
   const isOwnComment = meData?.userId === id
   const isShow = !isOwnComment && !!meData
 
-  const [updateLike, { isLoading: isLoadingLike }] = useUpdateLikeStatusOfCommentMutation()
+  const answersCount = answers?.items.length
 
   function likeHandler() {
-    updateLike({ commentId, likeStatus: 'LIKE', postId })
+    updateLike({ commentId, likeStatus: isLiked ? 'NONE' : 'LIKE', postId })
   }
 
-  function unLikeHandler() {
-    updateLike({ commentId, likeStatus: 'NONE', postId })
+  async function onAddAnswer(data: PostCommentFormZodSchema) {
+    try {
+      await createNewAnswer({ commentId, content: data.comment, postId }).unwrap()
+      setIsShowAnswerInput(false)
+      setIsShowAnswers(true)
+    } catch (error) {
+      toast.error('ERROR')
+    }
   }
+
+  const sortedAnswers = useMemo(() => {
+    return answers?.items
+      ? [...answers.items].sort(
+          (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        )
+      : []
+  }, [answers])
 
   if (!comment) {
     return (
@@ -48,38 +91,83 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     )
   }
 
-  const icon = isLiked ? (
-    <FilledLikeIcon height={16} onClick={unLikeHandler} style={{ color: 'red' }} width={16} />
-  ) : (
-    <LikeIcon height={16} onClick={likeHandler} width={16} />
+  const CommentsItemAnswers = (
+    <ul className={s.answers}>
+      {sortedAnswers.map(answer => (
+        <UserMessageItem item={answer} key={answer.id} postId={postId} />
+      ))}
+    </ul>
   )
+
+  const answerUi = (
+    <div className={s.answer}>
+      <Typography
+        as={'button'}
+        onClick={() => setIsShowAnswers(!isShowAnswers)}
+        type={'button'}
+        variant={'small-text'}
+      >
+        {isShowAnswers ? 'Hide' : 'Show'} Answers ({answersCount})
+      </Typography>
+      {isShowAnswers && CommentsItemAnswers}
+    </div>
+  )
+
+  /* размер иконки изменялся, решение - обернул span с заданными размерами */
+  function iconWrapper(icon: ReactNode) {
+    return <span style={{ display: 'block', height: '16px', width: '16px' }}>{icon}</span>
+  }
+
+  const icon = isLiked
+    ? iconWrapper(
+        <FilledLikeIcon
+          className={s.like}
+          height={16}
+          onClick={likeHandler}
+          style={{ color: 'red' }}
+          width={16}
+        />
+      )
+    : iconWrapper(<LikeIcon className={s.like} height={16} onClick={likeHandler} width={16} />)
 
   const contentItem = (
     <div className={clsx(s.content, !isShow && s.contentWithoutLike)}>
       <div className={s.text}>
         <Typography className={s.username} variant={'bold-text-14'}>
           {username}
-        </Typography>{' '}
+        </Typography>
+        :{' '}
         <Typography className={s.content} variant={'medium-text-14'}>
           {content}
         </Typography>
       </div>
       <div className={s.info}>
         <Typography variant={'small-text'}>{TimeAgo(createdAt, t)}</Typography>
-        {!!meData && <Typography variant={'small-text'}>Likes: {likeCount}</Typography>}
+        {!!meData && !!likeCount && (
+          <Typography variant={'small-text'}>Likes: {likeCount}</Typography>
+        )}
 
-        {isShow && (
-          <Typography as={'button'} type={'button'} variant={'small-text'}>
+        {!!meData && (
+          <Typography
+            as={'button'}
+            onClick={() => setIsShowAnswerInput(!isShowAnswerInput)}
+            type={'button'}
+            variant={'small-text'}
+          >
             Answer
           </Typography>
         )}
       </div>
+      {!!meData && !!answersCount && answerUi}
+      {isShowAnswerInput && (
+        <PostAddAnswer onAddAnswer={onAddAnswer} onCloseForm={setIsShowAnswerInput} />
+      )}
     </div>
   )
 
   return (
     <>
-      {isLoadingLike && <RequestLineLoader />}
+      {isLoading && <RequestLineLoader />}
       <li className={clsx(className, s.root)}>
         <CircleAvatar src={avatars[0].url} />
         {contentItem}

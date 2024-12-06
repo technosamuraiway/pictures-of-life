@@ -225,6 +225,7 @@ export const ru = {
       showAllComments: 'Показать все комментарии',
       hideAllComments: 'Скрыть все комментарии',
       commentPlaceholder: 'Добавить Комментарий',
+      answerPlaceholder: 'Добавить ответ',
       confirmation: {
         modalHeaderTitle: 'Закрыть Публикацию',
         message:

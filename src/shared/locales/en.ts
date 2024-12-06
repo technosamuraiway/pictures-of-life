@@ -222,6 +222,7 @@ export const en: LocaleType = {
           errorChange: 'Post description change failed, try again',
         },
       },
+      answerPlaceholder: 'Add an Answer',
       addComment: 'Publish',
       showAllComments: 'View All Comments',
       hideAllComments: 'Hide All Comments',
