@@ -236,6 +236,13 @@ export const en: LocaleType = {
           error: 'Create comment failed',
         },
       },
+      answers: {
+        answer: 'Answer',
+        answers: 'Answers',
+        hide: 'Hide',
+        show: 'Show',
+        likes: 'Likes',
+      },
     },
   },
   profilePage: {
