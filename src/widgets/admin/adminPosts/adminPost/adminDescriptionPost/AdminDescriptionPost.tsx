@@ -10,6 +10,7 @@ interface IProps {
   description: null | string
   expandedPosts: Record<string, boolean>
   id: null | number
+  isWithDate?: boolean
   setExpandedPosts: Dispatch<SetStateAction<Record<string, boolean>>>
 }
 
@@ -18,6 +19,7 @@ export const AdminDescriptionPost = ({
   description,
   expandedPosts,
   id,
+  isWithDate = true,
   setExpandedPosts,
 }: IProps) => {
   const t = useRouterLocaleDefinition()
@@ -35,9 +37,11 @@ export const AdminDescriptionPost = ({
 
   return (
     <>
-      <Typography className={s.createdAt} variant={'small-text'}>
-        {TimeAgo(createdAt || '', t)}
-      </Typography>
+      {isWithDate && (
+        <Typography className={s.createdAt} variant={'small-text'}>
+          {TimeAgo(createdAt || '', t)}
+        </Typography>
+      )}
       <>
         <Typography
           className={expandedPosts[id || 0] ? s.fullText : s.descText}

@@ -6,16 +6,17 @@ import { SwiperSlider } from '@/shared'
 import { PostsItemJustSlide } from './postsItemJustSlide/PostsItemJustSlide'
 
 interface IProps {
+  iSClick?: boolean
   images: IPostImage[]
   imgHeight: number
   imgWidth: number
   postId: number
 }
 
-export const PostsItemSlider = memo(({ images, imgHeight, imgWidth, postId }: IProps) => {
+export const PostsItemSlider = memo(({ iSClick, images, imgHeight, imgWidth, postId }: IProps) => {
   const firstImage = images[0]
 
-  const commonProps = { imgHeight, imgWidth, postId }
+  const commonProps = { iSClick, imgHeight, imgWidth, postId }
 
   const postsGroupWithSwiper = (
     <SwiperSlider

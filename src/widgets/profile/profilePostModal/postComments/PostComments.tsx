@@ -1,10 +1,11 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { useCreateNewCommentMutation } from '@/services/flow/commentsAnswers.service'
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
+import { HomePostLikes } from '@/widgets/followersPosts/followerPost/homePostLikes/HomePostLikes'
 import clsx from 'clsx'
 
 import s from './PostComments.module.scss'
@@ -22,6 +23,7 @@ interface iProps {
 
 export const PostComments = memo(({ className, onCommentChange }: iProps) => {
   const t = useRouterLocaleDefinition()
+  const [openFollowingModal, setOpenFollowingModal] = useState(false)
   const { isOwnProfile, meData, router } = useMeWithRouter()
 
   const { postId, userId } = router.query
@@ -41,25 +43,32 @@ export const PostComments = memo(({ className, onCommentChange }: iProps) => {
   }
 
   return (
-    <div className={clsx(s.root, className)}>
-      {isCreatingComment && <RequestLineLoader />}
-      <PostCommentsHeader
-        avatar={profileData?.avatars[0]?.url || ''}
-        isAuthorized={isAuthorized}
-        isOwnProfile={isOwnProfile}
-        userName={profileData?.userName || ''}
-      />
-
-      <Comments />
-
-      <PostsLikes />
-
-      {isAuthorized && (
-        <PostCommentsAddComment
-          onCommentChange={onCommentChange}
-          onFormSubmit={addCommitFormSubmit}
+    <>
+      <div className={clsx(s.root, className)}>
+        {isCreatingComment && <RequestLineLoader />}
+        <PostCommentsHeader
+          avatar={profileData?.avatars[0]?.url || ''}
+          isAuthorized={isAuthorized}
+          isOwnProfile={isOwnProfile}
+          userName={profileData?.userName || ''}
         />
-      )}
-    </div>
+
+        <Comments />
+
+        <PostsLikes setOpenModal={setOpenFollowingModal} />
+
+        {isAuthorized && (
+          <PostCommentsAddComment
+            onCommentChange={onCommentChange}
+            onFormSubmit={addCommitFormSubmit}
+          />
+        )}
+      </div>
+      <HomePostLikes
+        openModal={openFollowingModal}
+        postId={Number(postId)}
+        setOpenModal={setOpenFollowingModal}
+      />
+    </>
   )
 })

@@ -10,6 +10,7 @@ interface IProps {
   confirmMessage: string
   headerTitle: string
   isCloseToPrevious?: boolean
+  isRedirect?: boolean
   onOpenChange: (open: boolean) => void
   open: boolean
   overlayClassName?: string
@@ -21,6 +22,7 @@ export const ConfirmationModal = memo(
     confirmMessage,
     headerTitle,
     isCloseToPrevious,
+    isRedirect = true,
     onOpenChange,
     open,
     overlayClassName,
@@ -37,8 +39,9 @@ export const ConfirmationModal = memo(
       if (isCloseToPrevious) {
         return
       }
-
-      push({ pathname: `${PATH.PROFILE.BASEPROFILE}/${query.userId}` })
+      {
+        isRedirect && push({ pathname: `${PATH.PROFILE.BASEPROFILE}/${query.userId}` })
+      }
     }
 
     return (
