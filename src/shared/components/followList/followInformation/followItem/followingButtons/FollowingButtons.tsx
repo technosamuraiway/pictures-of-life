@@ -11,7 +11,7 @@ interface IProps {
   isFollowing?: boolean
   isLoading: boolean
   setOpenModal: Dispatch<SetStateAction<boolean>>
-  userId: number
+  userId?: number
 }
 
 export const FollowingButtons = ({

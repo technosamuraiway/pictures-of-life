@@ -199,6 +199,7 @@ export const ru = {
     modal: {
       headerDropdownDotsMenu: {
         unfollow: 'Отписаться',
+        follow: 'Подписаться',
         copyLink: 'Скопировать ссылку',
         successLinkCopied: 'Ссылка скопирована',
         unfollowConfirmation: 'Вы действительно хотите отписаться от пользователя',

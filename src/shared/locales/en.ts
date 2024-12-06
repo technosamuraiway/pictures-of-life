@@ -200,6 +200,7 @@ export const en: LocaleType = {
     modal: {
       headerDropdownDotsMenu: {
         unfollow: 'Unfollow',
+        follow: 'Follow',
         copyLink: 'Copy link',
         successLinkCopied: 'Link copied',
         unfollowConfirmation: 'Do you really want to Unfollow from this user',

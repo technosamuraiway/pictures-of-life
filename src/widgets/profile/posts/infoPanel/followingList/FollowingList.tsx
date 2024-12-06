@@ -30,7 +30,6 @@ export const FollowingList = ({ openModal, setOpenModal, userName }: IProps) => 
           data={getFollowingData?.items}
           isFollowers={false}
           searchTerm={searchTerm}
-          setOpenModal={setOpenModal}
           setSearchTerm={setSearchTerm}
         />
       ) : (

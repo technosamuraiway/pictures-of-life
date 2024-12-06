@@ -30,7 +30,6 @@ export const HomePostLikes = ({ openModal, postId, setOpenModal }: IProps) => {
           data={getLikesData?.items}
           isFollowers={false}
           searchTerm={searchTerm}
-          setOpenModal={setOpenModal}
           setSearchTerm={setSearchTerm}
         />
       ) : (
