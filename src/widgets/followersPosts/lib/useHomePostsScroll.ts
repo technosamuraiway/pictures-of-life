@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import { HomePost, useGetPostForHomeQuery } from '@/services'
@@ -12,21 +12,24 @@ export const useHomePostsScroll = () => {
     endCursorPostId: endCursorId,
   })
 
-  const updateHomePosts = useCallback((newPosts: HomePost[]) => {
-    setHomePosts(prev => {
-      const uniqueNewPosts = newPosts.filter(
-        newPost => !prev.some(existingPost => existingPost.id === newPost.id)
-      )
-
-      return [...prev, ...uniqueNewPosts]
-    })
-  }, [])
-
   useEffect(() => {
     if (getHomePostsData?.items) {
-      updateHomePosts(getHomePostsData.items)
+      setHomePosts(prevPosts => {
+        const updatedPosts = prevPosts.map(existingPost => {
+          const updatedPost = getHomePostsData.items.find(newPost => newPost.id === existingPost.id)
+
+          return updatedPost || existingPost
+        })
+
+        const newPosts = getHomePostsData.items.filter(
+          newPost => !prevPosts.some(existingPost => existingPost.id === newPost.id)
+        )
+
+        return [...updatedPosts, ...newPosts]
+      })
     }
-  }, [getHomePostsData, updateHomePosts])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getHomePostsData, endCursorId])
 
   useEffect(() => {
     if (
@@ -35,7 +38,7 @@ export const useHomePostsScroll = () => {
       homePosts.length > 0 &&
       homePosts.length < getHomePostsData?.totalCount
     ) {
-      const lastImageId = homePosts[homePosts.length - 1].id
+      const lastImageId = getHomePostsData.nextCursor
 
       if (endCursorId !== lastImageId) {
         setEndCursorId(lastImageId)

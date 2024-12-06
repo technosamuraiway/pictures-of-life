@@ -13,10 +13,17 @@ import s from './PostModalHeaderDropdownDotsMenu.module.scss'
 
 interface IProps {
   copyUrl?: string
+  isRedirect?: boolean
+  userIdProp?: number
   userName: string
 }
 
-export const PostModalHeaderDropdownDotsMenu = ({ copyUrl, userName }: IProps) => {
+export const PostModalHeaderDropdownDotsMenu = ({
+  copyUrl,
+  isRedirect,
+  userIdProp,
+  userName,
+}: IProps) => {
   const t = useRouterLocaleDefinition()
   const { query } = useRouter()
   const { userId } = query
@@ -37,12 +44,8 @@ export const PostModalHeaderDropdownDotsMenu = ({ copyUrl, userName }: IProps) =
   }
 
   async function unfollowRequestHandler() {
-    if (!userId) {
-      return
-    }
-
     try {
-      await unfollow({ userId: Number(userId) }).unwrap()
+      await unfollow({ userId: userIdProp ?? Number(userId) })
       toast.success(t.profile.modal.headerDropdownDotsMenu.unfollowSuccess)
     } catch (error) {
       toast.error(t.profile.modal.headerDropdownDotsMenu.unfollowError)
@@ -81,6 +84,7 @@ export const PostModalHeaderDropdownDotsMenu = ({ copyUrl, userName }: IProps) =
         cbOnConfirm={unfollowRequestHandler}
         confirmMessage={headerTitle}
         headerTitle={t.profile.modal.headerDropdownDotsMenu.unfollowModalTitle}
+        isRedirect={isRedirect}
         onOpenChange={setIsConfirmationModalOpen}
         open={isConfirmationModalOpen}
         overlayClassName={s.confirmationModalOverlay}

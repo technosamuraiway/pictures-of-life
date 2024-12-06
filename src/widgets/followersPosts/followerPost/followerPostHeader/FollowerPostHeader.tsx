@@ -37,6 +37,8 @@ export const FollowerPostHeader = ({ avatarSrc, createdAt, postId, userId, userN
       </div>
       <PostModalHeaderDropdownDotsMenu
         copyUrl={`${process.env.NEXT_PUBLIC_BASE_URL}${PATH.PROFILE.BASEPROFILE}/${userId}?postId=${postId}`}
+        isRedirect={false}
+        userIdProp={userId}
         userName={userName}
       />
     </div>
