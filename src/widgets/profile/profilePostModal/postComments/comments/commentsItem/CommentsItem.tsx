@@ -114,7 +114,8 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
         type={'button'}
         variant={'small-text'}
       >
-        {isShowAnswers ? 'Hide' : 'Show'} Answers ({answersCount})
+        {isShowAnswers ? t.profile.modal.answers.hide : t.profile.modal.answers.show}{' '}
+        {t.profile.modal.answers.answers} ({answersCount})
       </Typography>
       {isShowAnswers && CommentsItemAnswers}
     </div>
@@ -151,7 +152,9 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
       <div className={s.info}>
         <Typography variant={'small-text'}>{TimeAgo(createdAt, t)}</Typography>
         {!!meData && !!likeCount && (
-          <Typography variant={'small-text'}>Likes: {likeCount}</Typography>
+          <Typography variant={'small-text'}>
+            {t.profile.modal.answers.likes}: {likeCount}
+          </Typography>
         )}
 
         {!!meData && (
@@ -161,7 +164,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
             type={'button'}
             variant={'small-text'}
           >
-            Answer
+            {t.profile.modal.answers.answer}
           </Typography>
         )}
       </div>

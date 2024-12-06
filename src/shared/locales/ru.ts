@@ -236,6 +236,13 @@ export const ru = {
           error: 'Произошла ошибка при создании комментария',
         },
       },
+      answers: {
+        answer: 'Ответить',
+        answers: 'Ответы',
+        hide: 'Скрыть',
+        show: 'Показать',
+        likes: 'Лайки',
+      },
     },
   },
   profilePage: {

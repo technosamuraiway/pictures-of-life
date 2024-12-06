@@ -17,7 +17,7 @@ type Props = {
   onCloseForm: (values: boolean) => void
 }
 
-export const PostAddAnswer = ({ onAddAnswer, onCloseForm }: Props) => {
+export const PostAddAnswer = ({ onAddAnswer }: Props) => {
   const t = useRouterLocaleDefinition()
 
   const {
