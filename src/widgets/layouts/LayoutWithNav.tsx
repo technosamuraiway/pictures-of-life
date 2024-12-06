@@ -12,7 +12,7 @@ import { NavBar } from './components/navBar/NavBar'
 const LayoutWithNav: NextPage<PropsWithChildren> = ({ children }) => {
   const { meData } = useMeWithRouter()
 
-  useSocket()
+  useSocket(!!meData)
 
   return (
     <Layout>
