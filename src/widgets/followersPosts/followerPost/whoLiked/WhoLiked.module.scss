@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.avatarsBox {
+  display: flex;
+}
+
+.avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+
+  margin-right: -0.6rem;
+
+  &:not(:first-child) {
+    margin-left: 0;
+  }
+}

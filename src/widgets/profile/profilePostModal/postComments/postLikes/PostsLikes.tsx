@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { Dispatch, SetStateAction, useMemo } from 'react'
 
 import { useGetPostByIdQuery, useUpdatePostLikeStatusMutation } from '@/services'
 import { useGetPublicPostByIdQuery } from '@/services/flow/publicPosts.service'
@@ -12,7 +12,11 @@ import Image from 'next/image'
 
 import s from './PostsLikes.module.scss'
 
-export const PostsLikes = () => {
+interface IProps {
+  setOpenModal: Dispatch<SetStateAction<boolean>>
+}
+
+export const PostsLikes = ({ setOpenModal }: IProps) => {
   const t = useRouterLocaleDefinition()
   const { meData, router } = useMeWithRouter()
   const { query } = router
@@ -90,7 +94,7 @@ export const PostsLikes = () => {
 
   const contentBox = (
     <div className={s.contentBox}>
-      <div className={s.likes}>
+      <div className={s.likes} onClick={() => setOpenModal(true)}>
         {isPostLoading ? <Skeleton height={20} width={60} /> : avatars}
 
         {isPostLoading ? (

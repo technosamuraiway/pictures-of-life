@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 
 import { ICommentResponse, useGetPostCommentsByIdQuery } from '@/services'
 import {
@@ -14,25 +14,33 @@ import s from './Comments.module.scss'
 import { CommentsItem } from './commentsItem/CommentsItem'
 import { PostDescription } from './postDescription/PostDescription'
 
-export const Comments = () => {
+interface IProps {
+  postIdProps?: number
+  userIdProps?: number
+}
+
+export const Comments = ({ postIdProps, userIdProps }: IProps) => {
   const { meData, router } = useMeWithRouter()
   const { query } = router
 
   const { postId, userId } = query
 
-  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(postId as string, {
-    skip: !postId,
+  const idPost = postIdProps ?? postId
+  const idUser = userIdProps ?? userId
+
+  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(idPost as string, {
+    skip: !idPost,
   })
 
   const { data: commentsPublic, isLoading: isCommentsPublicLoading } =
     useGetPublicPostCommentsByIdQuery(
-      { postId: Number(postId) ?? null },
-      { skip: !postId || !!meData }
+      { postId: Number(idPost) ?? null },
+      { skip: !idPost || !!meData }
     )
 
   const { data: commentsAuth, isLoading: isCommentsAuthLoading } = useGetPostCommentsByIdQuery(
-    Number(postId) ?? null,
-    { skip: !postId || !meData }
+    Number(idPost) ?? null,
+    { skip: !idPost || !meData }
   )
 
   const comments = commentsAuth || commentsPublic
@@ -44,7 +52,7 @@ export const Comments = () => {
       return undefined
     }
 
-    const currentUserId = Number(userId)
+    const currentUserId = Number(idUser)
 
     const sortedItems = [...comments.items].sort((a, b) => {
       // Сначала сортируем по принадлежности текущему пользователю
@@ -60,7 +68,7 @@ export const Comments = () => {
     })
 
     return { ...comments, items: sortedItems }
-  }, [comments, userId])
+  }, [comments, idUser])
 
   return (
     <>

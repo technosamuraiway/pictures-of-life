@@ -20,6 +20,12 @@
 .description {
   display: inline-block;
 }
+.username {
+  &:hover {
+    cursor: pointer;
+    color: var(--Primary-300);
+  }
+}
 
 .date {
   color: var(--Light-900);

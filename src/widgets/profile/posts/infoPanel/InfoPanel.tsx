@@ -100,13 +100,11 @@ export const InfoPanel = memo(
         <FollowersList
           openModal={openFollowersModal}
           setOpenModal={setOpenFollowersModal}
-          userFollowers={getFollowersData?.items.length || userFollowers}
           userName={userName}
         />
         <FollowingList
           openModal={openFollowingModal}
           setOpenModal={setOpenFollowingModal}
-          userFollowing={getFollowingData?.items.length || userFollowing}
           userName={userName}
         />
         <ActionConfirmationModal

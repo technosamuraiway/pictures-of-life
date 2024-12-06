@@ -26,6 +26,7 @@ export const FriendButtons = ({ followUser, isLoading, setOpenModal, userName }:
         isFollowing={getUserData?.isFollowing}
         isLoading={isLoading}
         setOpenModal={setOpenModal}
+        userId={getUserData?.id}
       />
       <Button as={Link} disabled={isLoading} href={PATH.MESSENGER} variant={'secondary'}>
         {t.messenger.profileButton}
