@@ -18,6 +18,7 @@ import {
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
   UpdatePostLikeStatusArgs,
+  UserProfileResponse,
 } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
@@ -142,36 +143,51 @@ export const postService = inctagramApi.injectEndpoints({
         },
       }),
 
+      getUserProfile: builder.query<UserProfileResponse, number>({
+        query: userId => ({
+          method: 'GET',
+          url: `/v1/public-user/profile/${userId}`,
+        }),
+      }),
+
       getUserPublicPosts: builder.query<IPostPublicResponse, IGetUserPublicPostsArgs>({
-        merge: (currentCache, newItems, { arg }) => {
-          if (arg.endCursorPostId === undefined) {
-            // Если endCursorPostId не определен, это новый запрос, поэтому заменяем кеш
+        forceRefetch({ currentArg, previousArg }) {
+          return currentArg?.endCursorPostId !== previousArg?.endCursorPostId
+        },
+
+        merge: (currentCache, newItems) => {
+          if (!currentCache) {
             return newItems
           }
 
-          if (currentCache) {
-            return {
-              ...currentCache,
-              items: [...currentCache.items, ...newItems.items],
-              totalCount: newItems.totalCount,
-            }
+          return {
+            ...currentCache,
+            items: [...currentCache.items, ...newItems.items],
+            totalCount: newItems.totalCount,
           }
         },
-        query: ({ userId, ...params }) => {
-          const url = params.endCursorPostId
-            ? `v1/public-posts/user/${userId}/${params.endCursorPostId}`
+        query: ({
+          endCursorPostId,
+          pageSize = 8,
+          sortBy = 'createdAt',
+          sortDirection = 'desc',
+          userId,
+        }) => {
+          const url = endCursorPostId
+            ? `v1/public-posts/user/${userId}/${endCursorPostId}`
             : `v1/public-posts/user/${userId}`
 
           return {
             method: 'GET',
             params: {
-              pageSize: params.pageSize || 8,
-              sortBy: params.sortBy || 'createdAt',
-              sortDirection: params.sortDirection || 'desc',
+              pageSize,
+              sortBy,
+              sortDirection,
             },
             url,
           }
         },
+
         serializeQueryArgs: ({ endpointName, queryArgs }) => {
           return `${endpointName}-${queryArgs.userId}`
         },
@@ -221,6 +237,7 @@ export const {
   useGetPostCommentsQuery,
   useGetPostLikesByPostIdQuery,
   useGetPostsByUserNameQuery,
+  useGetUserProfileQuery,
   useGetUserPublicPostsQuery,
   useLazyGetUserPublicPostsQuery,
   useUpdatePostLikeStatusMutation,

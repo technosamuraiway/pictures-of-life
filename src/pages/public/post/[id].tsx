@@ -1,9 +1,10 @@
-import { memo, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 
 import { PostModal } from '@/entities/modals/publicPostModal/PostModal'
-import { useGetUserPublicPostsQuery } from '@/services/flow/post.service'
+import { useGetUserProfileQuery } from '@/services/flow/post.service'
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { getBaseLayout } from '@/widgets'
+import { useUserPostsScroll } from '@/widgets/publikUserPosts/lib/useUserPostsScroll'
 import { ImageNotFound } from '@public/ImageNotFound'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
@@ -20,105 +21,128 @@ interface iSlideItem {
 
 const SlideItem = memo(({ alt, onClick, src }: iSlideItem) => {
   return (
-    <div className={s.postImage}  onClick={onClick}>
-      <Image alt={alt} height={100} layout={"responsive"} src={src} width={230} />
+    <div className={s.postImage} onClick={onClick}>
+      <Image alt={alt} height={100} src={src} style={{ height: 'auto', width: '100%' }} width={230} />
     </div>
   )
 })
 
+
+
 const PublicPostPage = () => {
-  const router = useRouter()
+  const router = useRouter() 
+
+
   const { id, userId } = router.query
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const t = useRouterLocaleDefinition()
+  const userIdNumber = Number(userId)
+  const userIdString = Array.isArray(userId) ? userId[0] : userId || ''
 
-  const { data: userPosts, isLoading: isLoadingPosts } = useGetUserPublicPostsQuery({
-    userId: Number(userId),
-  })
+  const { isLoadingUserPosts, ref, totalCount, userPosts } = useUserPostsScroll(userIdNumber)
 
-  const totalCount = userPosts?.totalCount
-
+  const { data: userProfile } = useGetUserProfileQuery(userIdNumber)
 
   const post = useMemo(() => {
-    const isPost = userPosts?.items.find(p => p.id === Number(id))
-
-    setIsModalOpen(true)
-
-    return isPost
+    return userPosts.find(p => p.id === Number(id))
   }, [userPosts, id])
+
+  useEffect(() => {
+    if (post) {
+      setIsModalOpen(true)
+    }
+  }, [post])
 
   const handleModalClose = () => {
     setIsModalOpen(false)
   }
 
-  const t = useRouterLocaleDefinition()
-
   return (
     <div>
-      {isLoadingPosts && <RequestLineLoader />}
+      {isLoadingUserPosts && <RequestLineLoader />}
       <MetaHead title={'Public User Page'} />
       <div className={s.container}>
-
         {post && (
           <div className={s.postContent}>
             <div className={s.avaDescr}>
-            <div className={s.avatarImgDiv}>
-            {post.avatarOwner ? (
-                    <Image alt={'Avatar'} className={s.avatarImg} height={240} src={post.avatarOwner} width={240} />
-                  ) : (
-                    <div className={s.avatarPlaceholderPost}>
-                      {post.userName.charAt(0).toUpperCase()}
-                    </div>
-                  )}
+              <div className={s.avatarImgDiv}>
+                {post.avatarOwner ? (
+                  <Image alt={'Avatar'} className={s.avatarImg} height={240} src={post.avatarOwner} width={240} />
+                ) : (
+                  <div className={s.avatarPlaceholderPost}>
+                    {post.userName.charAt(0).toUpperCase()}
                   </div>
-                 <div>
-            <Typography className={s.username} variant={'h1'}>{post.userName}</Typography>
-            <div className={s.follPublic}>
-            <div>
-              <Typography variant={'bold-text-14'}>500</Typography>
-              <Typography variant={'regular-text-14'}>{t.profile.info.stats.following.title}</Typography>
+                )}
+              </div>
+              <div>
+                <Typography className={s.username} variant={'h1'}>
+                  {post.userName}
+                </Typography>
+                <div className={s.follPublic}>
+                  <div>
+                    <Typography variant={'bold-text-14'}>
+                      {userProfile?.userMetadata?.following || 0}
+                    </Typography>
+                    <Typography variant={'regular-text-14'}>
+                      {t.profile.info.stats.following.title}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant={'bold-text-14'}>
+                      {userProfile?.userMetadata?.followers || 0}
+                    </Typography>
+                    <Typography variant={'regular-text-14'}>
+                      {t.profile.info.stats.followers.title}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant={'bold-text-14'}>{totalCount}</Typography>
+                    <Typography variant={'regular-text-14'}>
+                      {t.profile.info.stats.publications}
+                    </Typography>
+                  </div>
+                </div>
+                {userProfile?.aboutMe && (
+                  <Typography className={s.description} variant={'regular-text-14'}>
+                    {userProfile?.aboutMe}
+                  </Typography>
+                )}
+              </div>
             </div>
-            <div>
-              <Typography variant={'bold-text-14'}>700</Typography>
-              <Typography variant={'regular-text-14'}>{t.profile.info.stats.followers.title}</Typography>
-            </div>
-            {totalCount !== undefined && (
-          <div>
-            <Typography variant={'bold-text-14'}> {totalCount}</Typography>
-            <Typography variant={'regular-text-14'}>{t.profile.info.stats.publications}</Typography>
-          </div>
-        )}
-        </div>
-         <Typography className={s.description} variant={'regular-text-14'}>{post.description}</Typography>
-         </div>
-         </div>
             <div className={s.imageContainer}>
-            {post.images && post.images.length > 0 ? (
-                post.images.map((image, index) => (
+              {userPosts.map((post, index) =>
+                post.images?.length > 0 ? (
                   <SlideItem
                     alt={`post-image-${index}`}
                     key={uuid()}
-                    onClick={() => setIsModalOpen(true)}
-                    src={image.url}
+                    onClick={() => {
+                      setIsModalOpen(true)
+                    }}
+                    src={post.images[0].url}
                   />
-                ))
-              ) : (
-                <ImageNotFound className={s.imgNF} onClick={() => setIsModalOpen(true)} />
+                ) : (
+                  <ImageNotFound className={s.imgNF} key={uuid()} />
+                )
               )}
             </div>
-
-
+            <div ref={ref} style={{ height: '30px', width: '100%' }} />
           </div>
         )}
 
-
         {post && (
-          <PostModal isOpen={isModalOpen} onRequestClose={handleModalClose} post={post} />
+          <PostModal
+            isOpen={isModalOpen}
+            onRequestClose={handleModalClose}
+            post={post}
+            userId={userIdString}
+          />
         )}
       </div>
     </div>
-  )
-}
+  );
+};
+
 
 PublicPostPage.getLayout = getBaseLayout
 export default PublicPostPage
