@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import { useMeCurInfoQuery } from '@/services'
 import { useRouterLocaleDefinition } from '@/shared'
+import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { Button } from '@technosamurai/techno-ui-kit'
 
 import s from './FollowingButtons.module.scss'
@@ -22,11 +22,11 @@ export const FollowingButtons = ({
   userId,
 }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const { data } = useMeCurInfoQuery()
+  const { meData: meRequestData } = useMeWithRouter()
 
   return (
     <div className={s.buttonsWrapper}>
-      {userId !== data?.userId && (
+      {userId !== meRequestData?.userId && (
         <Button
           disabled={isLoading}
           onClick={isFollowing ? () => setOpenModal(true) : followUser}
