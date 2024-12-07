@@ -1,11 +1,12 @@
 import { User } from '@/services/graphql/codegen/graphql'
+import { UserSearch } from '@/services/types/users.types'
 import { create } from 'zustand'
 
 type userSearchState = {
-  recentUsers: User[]
+  recentUsers: UserSearch[]
   reset: () => void
   searchInput: string
-  setRecentUsers: (users: User[]) => void
+  setRecentUsers: (users: UserSearch[]) => void
   setSearchInput: (searchInput: string) => void
 }
 

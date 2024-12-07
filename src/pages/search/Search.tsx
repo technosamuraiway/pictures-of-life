@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { GET_USERS } from '@/services/graphql/queries/user'
+import { useGetUserSearchQuery } from '@/services/flow/users.service'
 import { useUserSearchStore } from '@/services/store/userSearchStore'
 import { useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
-import { useQuery } from '@apollo/client'
 import { TextField, Typography } from '@technosamurai/techno-ui-kit'
 import { debounce } from 'lodash'
 import Image from 'next/image'
@@ -15,44 +14,31 @@ import s from './Search.module.scss'
 const Search = () => {
   const t = useRouterLocaleDefinition()
 
+  const [inputValue, setInputValue] = useState('')
+
   const { recentUsers, searchInput, setRecentUsers, setSearchInput } = useUserSearchStore()
 
-  const { data, loading, refetch } = useQuery(GET_USERS, {
-    onCompleted: data => {
-      if (data.getUsers?.users && searchInput !== '') {
-        setRecentUsers(data.getUsers.users)
-      }
-    },
-    skip: searchInput === '',
-    variables: {
-      pageNumber: 1,
-      pageSize: 10,
-    },
-  })
-
-  const handleSearchRefetch = (newSearchTerm: string) => {
-    refetch({ searchTerm: newSearchTerm })
+  const { data, isLoading } = useGetUserSearchQuery(
+    { search: searchInput },
+    { skip: searchInput === '' }
+  )
+  const handleDebounceFn = (inputValue: any) => {
+    setSearchInput(inputValue)
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debounceFn = useCallback(debounce(handleSearchRefetch, 1000), [])
+  const debounceFn = useCallback(debounce(handleDebounceFn, 1000), [])
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(event?.target?.value)
+  const handleChangeInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event?.target?.value)
+    debounceFn(event?.target?.value)
   }
 
   useEffect(() => {
-    debounceFn(searchInput)
-
-    return () => debounceFn.cancel()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchInput])
-
-  useEffect(() => {
-    if (!loading && data && searchInput) {
-      setRecentUsers(data.getUsers.users)
+    if (!isLoading && data && searchInput) {
+      setRecentUsers(data?.items)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, data, searchInput])
+  }, [isLoading, data, searchInput])
 
   return (
     <div className={s.wrapper}>
@@ -60,10 +46,10 @@ const Search = () => {
         {t.searchPage.search}
       </Typography>
       <TextField
-        onChange={handleSearchChange}
+        onChange={handleChangeInputValue}
         placeholder={t.admin.usersList.search}
         type={'search'}
-        value={searchInput}
+        value={inputValue}
       />
       <Typography as={'h3'} variant={'h3'}>
         Recent requests
@@ -72,14 +58,14 @@ const Search = () => {
         {
           // eslint-disable-next-line no-nested-ternary
           searchInput ? (
-            data?.getUsers?.users?.map(user => (
+            data?.items?.map(user => (
               <div className={s.iconWrapper} key={user.id}>
-                {user?.profile?.avatars?.[0]?.url ? (
+                {user?.avatars?.[0]?.url ? (
                   <Image
                     alt={'Avatar'}
                     className={s.avatar}
                     height={48}
-                    src={user?.profile?.avatars?.[0]?.url}
+                    src={user?.avatars?.[0]?.url}
                     width={48}
                   />
                 ) : (
@@ -88,11 +74,11 @@ const Search = () => {
                 <div className={s.userNameWrapper}>
                   <Link href={`/profile/${user.id}`}>
                     <Typography className={s.text} variant={'bold-text-14'}>
-                      {user?.profile?.userName}
+                      {user?.userName}
                     </Typography>
                   </Link>
                   <Typography className={s.greyText} variant={'regular-text-14'}>
-                    {user?.profile?.firstName}&nbsp;{user?.profile?.lastName}
+                    {user?.firstName}&nbsp;{user?.lastName}
                   </Typography>
                 </div>
               </div>
@@ -100,12 +86,12 @@ const Search = () => {
           ) : recentUsers?.length > 0 ? (
             recentUsers?.map(user => (
               <div className={s.iconWrapper} key={user.id}>
-                {user?.profile?.avatars?.[0]?.url ? (
+                {user?.avatars?.[0]?.url ? (
                   <Image
                     alt={'Avatar'}
                     className={s.avatar}
                     height={48}
-                    src={user?.profile?.avatars?.[0]?.url}
+                    src={user?.avatars?.[0]?.url}
                     width={48}
                   />
                 ) : (
@@ -114,11 +100,11 @@ const Search = () => {
                 <div className={s.userNameWrapper}>
                   <Link href={`/profile/${user.id}`}>
                     <Typography className={s.text} variant={'bold-text-14'}>
-                      {user?.profile?.userName}
+                      {user?.userName}
                     </Typography>
                   </Link>
                   <Typography className={s.greyText} variant={'regular-text-14'}>
-                    {user?.profile?.firstName}&nbsp;{user?.profile?.lastName}
+                    {user?.firstName}&nbsp;{user?.lastName}
                   </Typography>
                 </div>
               </div>
