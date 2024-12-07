@@ -54,7 +54,7 @@ function Profile({ post }: IProps) {
 
       <InfoPanel
         about={userData?.aboutMe || 'no info'}
-        avatar={userData?.avatars[0].url || ''}
+        avatar={userData?.avatars?.[0]?.url || ''}
         isWithSettingsBtn={isOwnProfile}
         userFollowers={userData?.followersCount || 0}
         userFollowing={userData?.followingCount || 0}
