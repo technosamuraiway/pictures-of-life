@@ -4,6 +4,8 @@ export { AdminPosts } from './admin/adminPosts/AdminPosts'
 export { NewPassword } from './auth/newPassword/NewPassword'
 export { ResendLink } from './auth/resendLink/ResendLink'
 
+export { FollowersPosts } from './followersPosts/FollowersPosts'
+
 export { getBaseLayout } from './layouts/BaseLayout'
 export { getLayoutWithNav } from './layouts/LayoutWithNav'
 

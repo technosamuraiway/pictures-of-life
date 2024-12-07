@@ -144,6 +144,9 @@ export const ru = {
     successfulDeletePost: 'Вы успешно удалили этот пост',
     successfulErrorMesseng: 'Не удалось загрузить комментарии',
     successfulPostLoading: 'Что-то пошло не так...',
+    likes: 'Лайков',
+    likesPost: 'Лайки',
+    emptyList: 'У вас нет лайков!',
   },
   privacyPolicy: {
     backToProfile: 'Вернуться к заполнению профиля',
@@ -196,6 +199,7 @@ export const ru = {
     modal: {
       headerDropdownDotsMenu: {
         unfollow: 'Отписаться',
+        follow: 'Подписаться',
         copyLink: 'Скопировать ссылку',
         successLinkCopied: 'Ссылка скопирована',
         unfollowConfirmation: 'Вы действительно хотите отписаться от пользователя',
@@ -221,7 +225,10 @@ export const ru = {
         },
       },
       addComment: 'Опубликовать',
+      showAllComments: 'Показать все комментарии',
+      hideAllComments: 'Скрыть все комментарии',
       commentPlaceholder: 'Добавить Комментарий',
+      answerPlaceholder: 'Добавить ответ',
       confirmation: {
         modalHeaderTitle: 'Закрыть Публикацию',
         message:
@@ -234,6 +241,13 @@ export const ru = {
           success: 'Комментарий успешно создан',
           error: 'Произошла ошибка при создании комментария',
         },
+      },
+      answers: {
+        answer: 'Ответить',
+        answers: 'Ответы',
+        hide: 'Скрыть',
+        show: 'Показать',
+        likes: 'Лайки',
       },
     },
   },

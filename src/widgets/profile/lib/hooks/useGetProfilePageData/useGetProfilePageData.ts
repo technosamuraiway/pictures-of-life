@@ -1,22 +1,15 @@
-import {
-  GetPublicUserProfileByIdResponse,
-  IPostPublicResponse,
-  useLazyGetUserPublicPostsQuery,
-} from '@/services'
+import { useLazyGetUserPublicPostsQuery } from '@/services'
 import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 
-export const useGetProfilePageData = (
-  user: GetPublicUserProfileByIdResponse,
-  posts: IPostPublicResponse
-) => {
+export const useGetProfilePageData = () => {
   const { isOwnProfile, meData: meRequestData } = useMeWithRouter()
 
   const isAuthorized = !!meRequestData
 
   const { data: userData, isLoading: isUserDataLoading } = useGetUserByUserNameQuery(
-    user?.userName ?? '',
-    { skip: !user || !isAuthorized }
+    meRequestData?.userName ?? '',
+    { skip: !isAuthorized }
   )
 
   const [
@@ -37,7 +30,7 @@ export const useGetProfilePageData = (
     !isPostsLoading &&
     !!originalArgsGetPostsTrigger?.endCursorPostId
 
-  const postsData = postsGetData || posts
+  const postsData = postsGetData
 
   return {
     getPostsTrigger,

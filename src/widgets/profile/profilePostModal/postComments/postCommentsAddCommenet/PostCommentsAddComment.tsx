@@ -14,7 +14,7 @@ import {
 } from '../../../lib/zod/postCommentsFormZodSchema'
 
 interface IProps {
-  onCommentChange: (hasComment: boolean) => void
+  onCommentChange?: (hasComment: boolean) => void
   onFormSubmit: (data: PostCommentFormZodSchema) => Promise<unknown>
 }
 
@@ -34,7 +34,7 @@ export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps
     resolver: zodResolver(postCommentFormZodSchema),
   })
 
-  async function onFormSubmitHandler(data: PostCommentFormZodSchema) {
+  async function formSubmitHandler(data: PostCommentFormZodSchema) {
     await onFormSubmit(data)
     reset()
   }
@@ -42,7 +42,7 @@ export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps
   const comment = watch('comment')
 
   useEffect(() => {
-    onCommentChange(comment.trim().length > 0)
+    onCommentChange && onCommentChange(comment.trim().length > 0)
   }, [comment, onCommentChange])
 
   const isBtnDisabled = isSubmitting || !isDirty || !isValid
@@ -54,7 +54,7 @@ export const PostCommentsAddComment = ({ onCommentChange, onFormSubmit }: IProps
         autoComplete={'off'}
         className={s.root}
         noValidate
-        onSubmit={handleSubmit(onFormSubmitHandler)}
+        onSubmit={handleSubmit(formSubmitHandler)}
       >
         <TextField
           disabled={isSubmitting}

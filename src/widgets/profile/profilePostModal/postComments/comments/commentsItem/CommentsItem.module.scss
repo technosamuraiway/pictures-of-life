@@ -34,3 +34,39 @@
   column-gap: 0.75rem;
   color: var(--Light-900);
 }
+
+.like {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.answer {
+  color: var(--Light-900);
+  cursor: pointer;
+  position: relative;
+
+  padding-left: 1.7rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 1.3rem;
+    height: 2px;
+    background-color: var(--Light-900);
+    top: 0.725rem;
+    left: 0;
+  }
+
+  button:hover {
+    color: var(--Light-700);
+  }
+}
+
+.answers {
+  margin-top: 0.8rem;
+  row-gap: 0.8rem;
+  display: flex;
+  flex-flow: column nowrap;
+}

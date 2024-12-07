@@ -3,35 +3,37 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { FollowersFollowingModal } from '@/entities'
 import { useGetUserFollowingQuery } from '@/services'
 import { AddNewFriends, FollowList, useRouterLocaleDefinition } from '@/shared'
+import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 
 interface IProps {
   openModal: boolean
   setOpenModal: Dispatch<SetStateAction<boolean>>
-  userFollowing: number
   userName: string
 }
 
-export const FollowingList = ({ openModal, setOpenModal, userFollowing, userName }: IProps) => {
+export const FollowingList = ({ openModal, setOpenModal, userName }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [searchTerm, setSearchTerm] = useState('')
-
-  const { data: getFollowingData } = useGetUserFollowingQuery({
-    search: searchTerm,
-    userName,
-  })
+  const { meData: meRequestData } = useMeWithRouter()
+  const { data: getFollowingData } = useGetUserFollowingQuery(
+    {
+      search: searchTerm,
+      userName,
+    },
+    { skip: !meRequestData }
+  )
 
   return (
     <FollowersFollowingModal
-      headerTitle={`${userFollowing} ${t.profile.info.stats.following.title}`}
+      headerTitle={`${getFollowingData?.items.length} ${t.profile.info.stats.following.title}`}
       openModal={openModal}
       setOpenModal={setOpenModal}
     >
-      {userFollowing ? (
+      {getFollowingData?.items.length ? (
         <FollowList
           data={getFollowingData?.items}
           isFollowers={false}
           searchTerm={searchTerm}
-          setOpenModal={setOpenModal}
           setSearchTerm={setSearchTerm}
         />
       ) : (

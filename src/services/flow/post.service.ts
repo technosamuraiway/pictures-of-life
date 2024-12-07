@@ -1,9 +1,15 @@
 import { inctagramApi } from '../api/inctagram.api'
 import {
   ChangePostDescriptionArgs,
+  GetAnswersArgs,
+  GetAnswersLikesArgs,
+  GetAnswersLikesResponse,
+  GetAnswersResponse,
   ICommentResponse,
   ICreatePostArgs,
   IGetUserPublicPostsArgs,
+  IPostLikesArgs,
+  IPostLikesResponse,
   IPostParams,
   IPostPublicResponse,
   IPostUser,
@@ -12,6 +18,7 @@ import {
   IUploadPostImagesArgs,
   IUploadPostImagesResponse,
   UpdatePostLikeStatusArgs,
+  UserProfileResponse,
 } from '../types/post.types'
 
 export const postService = inctagramApi.injectEndpoints({
@@ -62,6 +69,30 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+      getAnswers: builder.query<GetAnswersResponse, GetAnswersArgs>({
+        providesTags: ['Answers'],
+        query: args => {
+          const { commentId, postId, ...rest } = args
+
+          return {
+            method: 'GET',
+            params: { rest },
+            url: `v1/posts/${postId}/comments/${commentId}/answers`,
+          }
+        },
+      }),
+      getAnswersLikes: builder.query<GetAnswersLikesResponse, GetAnswersLikesArgs>({
+        providesTags: ['Answers'],
+        query: args => {
+          const { answerId, commentId, postId, ...rest } = args
+
+          return {
+            method: 'GET',
+            params: { rest },
+            url: `v1/posts/${postId}/comments/${commentId}/answers/${answerId}}/likes`,
+          }
+        },
+      }),
       getPostById: builder.query<IPostUser, string>({
         providesTags: ['Posts'],
         query: postId => {
@@ -86,6 +117,20 @@ export const postService = inctagramApi.injectEndpoints({
         providesTags: ['Comments'],
         query: postId => ({ url: `/v1/posts/${postId}/comments` }),
       }),
+      getPostLikesByPostId: builder.query<IPostLikesResponse, IPostLikesArgs>({
+        providesTags: ['Followers', 'Posts'],
+
+        query: args => {
+          const { postId, ...params } = args
+
+          return {
+            method: 'GET',
+            params: params,
+            url: `/v1/posts/${postId}/likes`,
+          }
+        },
+      }),
+
       getPostsByUserName: builder.query<IPostsByNameResponse, IPostsByNameArgs>({
         query: args => {
           const { pageNumber, pageSize, sortBy, sortDirection, userName } = args
@@ -97,43 +142,58 @@ export const postService = inctagramApi.injectEndpoints({
           }
         },
       }),
+
+      getUserProfile: builder.query<UserProfileResponse, number>({
+        query: userId => ({
+          method: 'GET',
+          url: `/v1/public-user/profile/${userId}`,
+        }),
+      }),
+
       getUserPublicPosts: builder.query<IPostPublicResponse, IGetUserPublicPostsArgs>({
-        merge: (currentCache, newItems, { arg }) => {
-          if (arg.endCursorPostId === undefined) {
-            // Если endCursorPostId не определен, это новый запрос, поэтому заменяем кеш
+        forceRefetch({ currentArg, previousArg }) {
+          return currentArg?.endCursorPostId !== previousArg?.endCursorPostId
+        },
+
+        merge: (currentCache, newItems) => {
+          if (!currentCache) {
             return newItems
           }
 
-          if (currentCache) {
-            return {
-              ...currentCache,
-              items: [...currentCache.items, ...newItems.items],
-              totalCount: newItems.totalCount,
-            }
+          return {
+            ...currentCache,
+            items: [...currentCache.items, ...newItems.items],
+            totalCount: newItems.totalCount,
           }
         },
-        query: ({ userId, ...params }) => {
-          const url = params.endCursorPostId
-            ? `v1/public-posts/user/${userId}/${params.endCursorPostId}`
+        query: ({
+          endCursorPostId,
+          pageSize = 8,
+          sortBy = 'createdAt',
+          sortDirection = 'desc',
+          userId,
+        }) => {
+          const url = endCursorPostId
+            ? `v1/public-posts/user/${userId}/${endCursorPostId}`
             : `v1/public-posts/user/${userId}`
 
           return {
             method: 'GET',
             params: {
-              pageSize: params.pageSize || 8,
-              sortBy: params.sortBy || 'createdAt',
-              sortDirection: params.sortDirection || 'desc',
+              pageSize,
+              sortBy,
+              sortDirection,
             },
             url,
           }
         },
+
         serializeQueryArgs: ({ endpointName, queryArgs }) => {
           return `${endpointName}-${queryArgs.userId}`
         },
       }),
-
       updatePostLikeStatus: builder.mutation<void, UpdatePostLikeStatusArgs>({
-        invalidatesTags: ['Posts'],
+        invalidatesTags: ['Posts', 'Followers'],
         query: args => {
           const { likeStatus, postId } = args
 
@@ -169,11 +229,15 @@ export const {
   useCreatePostMutation,
   useDeletePostMutation,
   useGetAllPublicPostsQuery,
+  useGetAnswersLikesQuery,
+  useGetAnswersQuery,
   // useGetUserProfileByUserNameQuery,
   useGetPostByIdQuery,
   useGetPostCommentsByIdQuery,
   useGetPostCommentsQuery,
+  useGetPostLikesByPostIdQuery,
   useGetPostsByUserNameQuery,
+  useGetUserProfileQuery,
   useGetUserPublicPostsQuery,
   useLazyGetUserPublicPostsQuery,
   useUpdatePostLikeStatusMutation,

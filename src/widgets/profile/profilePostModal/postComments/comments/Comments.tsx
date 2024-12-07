@@ -1,4 +1,6 @@
-import { useGetPostCommentsByIdQuery } from '@/services'
+import { useMemo } from 'react'
+
+import { ICommentResponse, useGetPostCommentsByIdQuery } from '@/services'
 import {
   useGetPublicPostByIdQuery,
   useGetPublicPostCommentsByIdQuery,
@@ -12,30 +14,61 @@ import s from './Comments.module.scss'
 import { CommentsItem } from './commentsItem/CommentsItem'
 import { PostDescription } from './postDescription/PostDescription'
 
-export const Comments = () => {
+interface IProps {
+  postIdProps?: number
+  userIdProps?: number
+}
+
+export const Comments = ({ postIdProps, userIdProps }: IProps) => {
   const { meData, router } = useMeWithRouter()
   const { query } = router
 
-  const { postId } = query
+  const { postId, userId } = query
 
-  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(postId as string, {
-    skip: !postId,
+  const idPost = postIdProps ?? postId
+  const idUser = userIdProps ?? userId
+
+  const { data: post, isLoading: isPostLoading } = useGetPublicPostByIdQuery(idPost as string, {
+    skip: !idPost,
   })
 
   const { data: commentsPublic, isLoading: isCommentsPublicLoading } =
     useGetPublicPostCommentsByIdQuery(
-      { postId: Number(postId) ?? null },
-      { skip: !postId || !!meData }
+      { postId: Number(idPost) ?? null },
+      { skip: !idPost || !!meData }
     )
 
   const { data: commentsAuth, isLoading: isCommentsAuthLoading } = useGetPostCommentsByIdQuery(
-    Number(postId) ?? null,
-    { skip: !postId || !meData }
+    Number(idPost) ?? null,
+    { skip: !idPost || !meData }
   )
 
   const comments = commentsAuth || commentsPublic
 
   const isLoading = isPostLoading || isCommentsPublicLoading || isCommentsAuthLoading
+
+  const sortedComments = useMemo<ICommentResponse | undefined>(() => {
+    if (!comments || !comments.items) {
+      return undefined
+    }
+
+    const currentUserId = Number(idUser)
+
+    const sortedItems = [...comments.items].sort((a, b) => {
+      // Сначала сортируем по принадлежности текущему пользователю
+      if (a.from.id === currentUserId && b.from.id !== currentUserId) {
+        return -1
+      }
+      if (a.from.id !== currentUserId && b.from.id === currentUserId) {
+        return 1
+      }
+
+      // Затем сортируем по дате (от новых к старым)
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
+
+    return { ...comments, items: sortedItems }
+  }, [comments, idUser])
 
   return (
     <>
@@ -52,7 +85,7 @@ export const Comments = () => {
 
         <ul className={s.list}>
           {!isLoading &&
-            comments?.items?.map(item => <CommentsItem comment={item} key={item.id} />)}
+            sortedComments?.items?.map(item => <CommentsItem comment={item} key={item.id} />)}
           {isLoading && [1, 2, 3].map(skeleton => <Skeleton height={50} key={skeleton} />)}
         </ul>
       </Scrollbar>

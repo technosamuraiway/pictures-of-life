@@ -7,6 +7,7 @@ import { openProfilePostModalFnc } from '../../lib/utils/openProfilePostModalFnc
 import { PostsItemSlider } from './postsItemSlider/PostsItemSlider'
 
 interface IProps {
+  iSClick?: boolean
   images: IPostImage[]
   imgHeight: number
   imgWidth: number
@@ -14,24 +15,32 @@ interface IProps {
   rootCN?: string
 }
 
-export const PostsItem = memo(({ images, imgHeight, imgWidth, postId, rootCN }: IProps) => {
-  const isWithImages = images?.length > 0
+export const PostsItem = memo(
+  ({ iSClick, images, imgHeight, imgWidth, postId, rootCN }: IProps) => {
+    const isWithImages = images?.length > 0
 
-  const imagesWithSlider = (
-    <PostsItemSlider images={images} imgHeight={imgHeight} imgWidth={imgWidth} postId={postId} />
-  )
+    const imagesWithSlider = (
+      <PostsItemSlider
+        iSClick={iSClick}
+        images={images}
+        imgHeight={imgHeight}
+        imgWidth={imgWidth}
+        postId={postId}
+      />
+    )
 
-  const noImage = (
-    <ImageNotFound
-      height={imgHeight}
-      onClick={openProfilePostModalFnc(String(postId))}
-      width={imgWidth}
-    />
-  )
+    const noImage = (
+      <ImageNotFound
+        height={imgHeight}
+        onClick={iSClick ? openProfilePostModalFnc(String(postId)) : () => {}}
+        width={imgWidth}
+      />
+    )
 
-  return (
-    <div className={rootCN} style={{ height: imgHeight, width: imgWidth }}>
-      {isWithImages ? imagesWithSlider : noImage}
-    </div>
-  )
-})
+    return (
+      <div className={rootCN} style={{ height: imgHeight, width: imgWidth }}>
+        {isWithImages ? imagesWithSlider : noImage}
+      </div>
+    )
+  }
+)

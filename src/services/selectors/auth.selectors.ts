@@ -1,4 +1,4 @@
-import { authService } from '@/services'
+import { authService } from '@/services/flow/auth.service'
 import { createSelector } from 'reselect'
 
 const meSelector = authService.endpoints.meCurInfo.select()

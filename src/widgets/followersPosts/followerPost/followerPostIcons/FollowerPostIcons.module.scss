@@ -1,0 +1,23 @@
+.wrapper {
+  column-gap: 1.5rem;
+  display: flex;
+  flex-flow: row nowrap;
+
+  margin-bottom: 1.1875rem;
+
+  & :last-child {
+    margin-left: auto;
+  }
+}
+
+.icon {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--Warning-700);
+  }
+}
+
+.likeIconFilled {
+  color: var(--Danger-700);
+}
