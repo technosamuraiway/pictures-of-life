@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { toast } from 'react-toastify'
 
-import { useGetPostCommentsQuery } from '@/services/flow/post.service'
+import { useGetPostCommentsQuery, useGetUserPublicPostsQuery } from '@/services/flow/post.service'
 import { IPostUser } from '@/services/types/post.types'
 import { RequestLineLoader, SwiperSlider, TimeAgo, useRouterLocaleDefinition } from '@/shared'
 import { formatDate } from '@/shared/utils/dateFormatter'
@@ -17,6 +17,7 @@ interface PostModalProps {
   isOpen: boolean
   onRequestClose: () => void
   post: IPostUser
+  userId: string
 }
 
 interface iSlideItem {
@@ -52,9 +53,11 @@ const SlideGroup = memo(({ images }: iSlideGroup) => {
   return <>{images.length > 1 ? postsGroupWithSwiper : onlyOnePost}</>
 })
 
-export const PostModal = ({ isOpen, onRequestClose, post }: PostModalProps) => {
+export const PostModal = ({ isOpen, onRequestClose, post, userId }: PostModalProps) => {
   const t = useRouterLocaleDefinition()
-
+  const { data: userPosts, isLoading: isLoadingPosts } = useGetUserPublicPostsQuery({
+    userId: Number(userId),
+  })
   const {
     data: commentsData,
     isError,
@@ -71,8 +74,9 @@ export const PostModal = ({ isOpen, onRequestClose, post }: PostModalProps) => {
     return toast.success(t.posts.successfulErrorMesseng)
   }
 
-  const likedImages = post.images.slice(0, 3)
-  const totalLikes = commentsData?.items?.reduce((total, comment) => total + comment.likeCount, 0)
+  const likedImages =
+    userPosts?.items.find(p => p.id === post.id)?.avatarWhoLikes?.slice(0, 3) || []
+  const currentPostLikes = userPosts?.items.find(p => p.id === post.id)?.likesCount || 0
 
   return (
     <>
@@ -112,29 +116,33 @@ export const PostModal = ({ isOpen, onRequestClose, post }: PostModalProps) => {
                 <CloseIcon />
               </button>
             </div>
-            <div>
-              <div className={s.description}>
-                {post.avatarOwner ? (
-                  <Image
-                    alt={'Avatar'}
-                    className={s.avatarImg}
-                    height={36}
-                    src={post.avatarOwner}
-                    width={36}
-                  />
-                ) : (
-                  <div className={s.avatarPlaceholder}>{post.userName.charAt(0).toUpperCase()}</div>
-                )}
-                <Scrollbar className={s.scrollbar} maxHeight={78}>
-                  <Typography className={s.textDescr} variant={'regular-text-14'}>
-                    <strong>{post.userName} </strong> {post.description}
-                  </Typography>
-                </Scrollbar>
+            {post.description && (
+              <div>
+                <div className={s.description}>
+                  {post.avatarOwner ? (
+                    <Image
+                      alt={'Avatar'}
+                      className={s.avatarImg}
+                      height={36}
+                      src={post.avatarOwner}
+                      width={36}
+                    />
+                  ) : (
+                    <div className={s.avatarPlaceholder}>
+                      {post.userName.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <Scrollbar className={s.scrollbar} maxHeight={78}>
+                    <Typography className={s.textDescr} variant={'regular-text-14'}>
+                      <strong>{post.userName} </strong> {post.description}
+                    </Typography>
+                  </Scrollbar>
+                </div>
+                <Typography className={s.created} variant={'small-text'}>
+                  {TimeAgo(post.createdAt, t)}
+                </Typography>
               </div>
-              <Typography className={s.created} variant={'small-text'}>
-                {TimeAgo(post.createdAt, t)}
-              </Typography>
-            </div>
+            )}
 
             <div className={s.descComDiv}>
               <Scrollbar className={s.scrollbarComment} maxHeight={300} maxWidth={490}>
@@ -177,7 +185,7 @@ export const PostModal = ({ isOpen, onRequestClose, post }: PostModalProps) => {
               </Scrollbar>
             </div>
             <div className={s.likeImgLike}>
-              {likedImages.length > 0 && (
+              {likedImages?.length > 0 && (
                 <div className={s.likedImagesContainer}>
                   <div className={s.likedImages}>
                     {likedImages.map((image, index: number) => {
@@ -187,7 +195,7 @@ export const PostModal = ({ isOpen, onRequestClose, post }: PostModalProps) => {
                           className={s.likedImage}
                           height={24}
                           key={uuid()}
-                          src={image.url}
+                          src={image}
                           width={24}
                         />
                       )
@@ -197,7 +205,7 @@ export const PostModal = ({ isOpen, onRequestClose, post }: PostModalProps) => {
               )}
 
               <Typography variant={'regular-text-14'}>
-                {totalLikes} <strong> &quot;Like&quot; </strong>
+                {currentPostLikes} <strong> &quot;Like&quot; </strong>
               </Typography>
             </div>
             <Typography className={s.createdPost} variant={'small-text'}>
