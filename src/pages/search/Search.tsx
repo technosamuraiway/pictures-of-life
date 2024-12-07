@@ -4,10 +4,11 @@ import { useGetUserSearchQuery } from '@/services/flow/users.service'
 import { useUserSearchStore } from '@/services/store/userSearchStore'
 import { useRouterLocaleDefinition } from '@/shared'
 import { getLayoutWithNav } from '@/widgets'
+import RecentUsers from '@/widgets/recentUsers/RecentUsers'
+import SearchingEmpty from '@/widgets/searchingEmpty/SearchingEmpty'
+import SearchingUsers from '@/widgets/searchingUsers/SearchingUsers'
 import { TextField, Typography } from '@technosamurai/techno-ui-kit'
 import { debounce } from 'lodash'
-import Image from 'next/image'
-import Link from 'next/link'
 
 import s from './Search.module.scss'
 
@@ -58,66 +59,11 @@ const Search = () => {
         {
           // eslint-disable-next-line no-nested-ternary
           searchInput ? (
-            data?.items?.map(user => (
-              <div className={s.iconWrapper} key={user.id}>
-                {user?.avatars?.[0]?.url ? (
-                  <Image
-                    alt={'Avatar'}
-                    className={s.avatar}
-                    height={48}
-                    src={user?.avatars?.[0]?.url}
-                    width={48}
-                  />
-                ) : (
-                  <div className={s.avatarPlaceholder}>{user.userName.charAt(0).toUpperCase()}</div>
-                )}
-                <div className={s.userNameWrapper}>
-                  <Link href={`/profile/${user.id}`}>
-                    <Typography className={s.text} variant={'bold-text-14'}>
-                      {user?.userName}
-                    </Typography>
-                  </Link>
-                  <Typography className={s.greyText} variant={'regular-text-14'}>
-                    {user?.firstName}&nbsp;{user?.lastName}
-                  </Typography>
-                </div>
-              </div>
-            ))
+            <SearchingUsers users={data?.items ?? []} />
           ) : recentUsers?.length > 0 ? (
-            recentUsers?.map(user => (
-              <div className={s.iconWrapper} key={user.id}>
-                {user?.avatars?.[0]?.url ? (
-                  <Image
-                    alt={'Avatar'}
-                    className={s.avatar}
-                    height={48}
-                    src={user?.avatars?.[0]?.url}
-                    width={48}
-                  />
-                ) : (
-                  <div className={s.avatarPlaceholder}>{user.userName.charAt(0).toUpperCase()}</div>
-                )}
-                <div className={s.userNameWrapper}>
-                  <Link href={`/profile/${user.id}`}>
-                    <Typography className={s.text} variant={'bold-text-14'}>
-                      {user?.userName}
-                    </Typography>
-                  </Link>
-                  <Typography className={s.greyText} variant={'regular-text-14'}>
-                    {user?.firstName}&nbsp;{user?.lastName}
-                  </Typography>
-                </div>
-              </div>
-            ))
+            <RecentUsers recentUsers={recentUsers} />
           ) : (
-            <div className={s.empty}>
-              <Typography className={s.lightgreyText} variant={'bold-text-14'}>
-                Oops! This place looks empty!
-              </Typography>
-              <Typography className={s.greyText} variant={'small-text'}>
-                No recent requests
-              </Typography>
-            </div>
+            <SearchingEmpty />
           )
         }
       </div>
