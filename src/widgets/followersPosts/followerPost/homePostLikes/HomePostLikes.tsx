@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { FollowersFollowingModal } from '@/entities'
 import { useGetPostLikesByPostIdQuery } from '@/services'
 import { AddNewFriends, FollowList, useRouterLocaleDefinition } from '@/shared'
+import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 
 interface IProps {
   openModal: boolean
@@ -13,11 +14,14 @@ interface IProps {
 export const HomePostLikes = ({ openModal, postId, setOpenModal }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [searchTerm, setSearchTerm] = useState('')
-
-  const { data: getLikesData } = useGetPostLikesByPostIdQuery({
-    postId,
-    search: searchTerm,
-  })
+  const { meData: meRequestData } = useMeWithRouter()
+  const { data: getLikesData } = useGetPostLikesByPostIdQuery(
+    {
+      postId,
+      search: searchTerm,
+    },
+    { skip: !meRequestData }
+  )
 
   return (
     <FollowersFollowingModal

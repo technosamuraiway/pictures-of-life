@@ -1,4 +1,4 @@
-import { GetPublicUserProfileByIdResponse, IPostPublicResponse, IPostUser } from '@/services'
+import { IPostUser } from '@/services'
 import { InitLoader, MetaHead, RequestLineLoader } from '@/shared'
 import {
   InfoPanel,
@@ -11,25 +11,24 @@ import { GetServerSideProps } from 'next'
 
 interface IProps {
   post: IPostUser
-  posts: IPostPublicResponse
-  user: GetPublicUserProfileByIdResponse
+  //user: GetPublicUserProfileByIdResponse
 }
 
 export const getServerSideProps: GetServerSideProps<IProps> = async ({ query }) => {
   const { postId, userId } = query
 
-  const userResponse = await fetch(`https://inctagram.work/api/v1/public-user/profile/${userId}`)
-  const postsResponse = await fetch(`https://inctagram.work/api/v1/public-posts/user/${userId}`)
+  //const userResponse = await fetch(`https://inctagram.work/api/v1/public-user/profile/${userId}`)
+  // const postsResponse = await fetch(`https://inctagram.work/api/v1/public-posts/user/${userId}`)
   const postResponse = await fetch(`https://inctagram.work/api/v1/public-posts/${postId}`)
 
   const post: IPostUser = await postResponse.json()
-  const posts: IPostPublicResponse = await postsResponse.json()
-  const user: GetPublicUserProfileByIdResponse = await userResponse.json()
+  // const posts: IPostPublicResponse = await postsResponse.json()
+  //const user: GetPublicUserProfileByIdResponse = await userResponse.json()
 
-  return { props: { post, posts, user } }
+  return { props: { post } }
 }
 
-function Profile({ post, posts, user }: IProps) {
+function Profile({ post }: IProps) {
   const {
     isOwnProfile,
     isPostsLoading,
@@ -40,7 +39,7 @@ function Profile({ post, posts, user }: IProps) {
     postsImagesAssociativeArray,
     ref,
     userData,
-  } = useProfilePage(user, posts)
+  } = useProfilePage()
 
   // !при scroll-posts-fetching => isPostsLoading все ровно false
   if (isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
@@ -54,12 +53,12 @@ function Profile({ post, posts, user }: IProps) {
       {isPostsLoadingWithScroll && <RequestLineLoader />}
 
       <InfoPanel
-        about={user?.aboutMe || 'no info'}
-        avatar={user?.avatars[0]?.url || ''}
+        about={userData?.aboutMe || 'no info'}
+        avatar={userData?.avatars[0].url || ''}
         isWithSettingsBtn={isOwnProfile}
         userFollowers={userData?.followersCount || 0}
         userFollowing={userData?.followingCount || 0}
-        userName={user?.userName || 'no info'}
+        userName={userData?.userName || 'no info'}
         userPublications={userData?.publicationsCount || 0}
       />
 
