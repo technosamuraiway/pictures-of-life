@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
 
-import { GetPublicUserProfileByIdResponse, IPostPublicResponse } from '@/services'
 import { PostsAssociativeArray } from '@/widgets'
 import { useRouter } from 'next/router'
 
 import { useGetProfilePageData } from './useGetProfilePageData/useGetProfilePageData'
 import { usePostsScrollObserver } from './usePostsScrollObserver/usePostsScrollObserver'
 
-export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IPostPublicResponse) {
+export function useProfilePage() {
   const { query } = useRouter()
 
   const userId = query.userId as string
@@ -22,7 +21,7 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
     isUserDataLoading,
     postsData,
     userData,
-  } = useGetProfilePageData(user, posts)
+  } = useGetProfilePageData()
 
   const { ref } = usePostsScrollObserver(
     userId,

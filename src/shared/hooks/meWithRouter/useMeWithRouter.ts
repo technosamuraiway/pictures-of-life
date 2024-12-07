@@ -1,5 +1,5 @@
-import { useAppSelector } from '@/services'
 import { meSelectorData } from '@/services/selectors/auth.selectors'
+import { useAppSelector } from '@/services/store'
 import { useRouter } from 'next/router'
 
 /**
