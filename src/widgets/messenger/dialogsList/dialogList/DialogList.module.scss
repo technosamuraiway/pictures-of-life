@@ -1,0 +1,11 @@
+.wrapper {
+  padding: 0.75rem;
+}
+
+.wrapper:not(:last-child) {
+  border-bottom: 0.0625rem solid var(--Dark-300);
+}
+
+.active {
+  background-color: var(--Dark-300);
+}

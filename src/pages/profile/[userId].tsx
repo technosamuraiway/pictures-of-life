@@ -1,5 +1,5 @@
 import { IPostUser } from '@/services'
-import { InitLoader, MetaHead, RequestLineLoader } from '@/shared'
+import { InitLoader, MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import {
   InfoPanel,
   PostsShower,
@@ -29,6 +29,7 @@ export const getServerSideProps: GetServerSideProps<IProps> = async ({ query }) 
 }
 
 function Profile({ post }: IProps) {
+  const t = useRouterLocaleDefinition()
   const {
     isOwnProfile,
     isPostsLoading,
@@ -48,7 +49,7 @@ function Profile({ post }: IProps) {
 
   return (
     <>
-      <MetaHead title={'Profile info'} />
+      <MetaHead title={t.profilePage.title} />
 
       {isPostsLoadingWithScroll && <RequestLineLoader />}
 
