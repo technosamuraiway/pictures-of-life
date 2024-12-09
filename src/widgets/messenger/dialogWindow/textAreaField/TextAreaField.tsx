@@ -6,9 +6,12 @@ import { Button, TextArea } from '@technosamurai/techno-ui-kit'
 
 import s from './TextAreaField.module.scss'
 
+import { useResizeTextArea } from './lib/useResizeTextArea'
+
 export const TextAreaField = () => {
   const t = useRouterLocaleDefinition()
   const [messageField, setMessageField] = useState('')
+  const { adjustHeight, textAreaRef } = useResizeTextArea(messageField)
 
   const changeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value
@@ -19,7 +22,6 @@ export const TextAreaField = () => {
   const sendMessageHandler = () => {
     if (messageField.trim()) {
       toast.success(`${messageField} was sent`)
-
       setMessageField('')
     }
   }
@@ -40,8 +42,10 @@ export const TextAreaField = () => {
       <TextArea
         className={s.textArea}
         onChange={changeMessageHandler}
+        onInput={adjustHeight}
         onKeyDown={onKeyPressHandler}
         placeholder={t.messenger.messageInput}
+        ref={textAreaRef}
         value={messageField}
         wrapperCN={s.textAreaWrapper}
       />

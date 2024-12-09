@@ -1,8 +1,9 @@
-import { DefaultMessage } from '@/widgets/messenger/dialogWindow/defaultMessage/DefaultMessage'
 import mockImage from '@public/mockAvatar.png'
 import Image from 'next/image'
 
 import s from './FriendMessage.module.scss'
+
+import { DefaultMessage } from '../defaultMessage/DefaultMessage'
 
 interface IProps {
   avatar: string

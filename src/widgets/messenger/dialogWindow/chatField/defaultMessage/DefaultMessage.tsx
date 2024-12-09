@@ -13,6 +13,12 @@ interface IProps {
 }
 
 export const DefaultMessage = ({ createdAt, isMine = false, isRead, message }: IProps) => {
+  const arrowDecider = isRead ? (
+    <ReadMessage height={16} width={16} />
+  ) : (
+    <NotReadMessage height={16} width={16} />
+  )
+
   return (
     <div className={clsx(s.wrapper, isMine ? s.blueWrapper : s.greyWrapper)}>
       <Typography as={'p'} variant={'regular-text-14'}>
@@ -24,12 +30,7 @@ export const DefaultMessage = ({ createdAt, isMine = false, isRead, message }: I
         variant={'small-text'}
       >
         {formatDateToTime(createdAt)}
-        {isMine &&
-          (isRead ? (
-            <ReadMessage height={16} width={16} />
-          ) : (
-            <NotReadMessage height={16} width={16} />
-          ))}
+        {isMine && arrowDecider}
       </Typography>
     </div>
   )

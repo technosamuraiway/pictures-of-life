@@ -13,14 +13,21 @@
   border: none;
   padding-right: 10rem;
   padding-left: 2.5rem;
+  font-size: 1rem;
+  min-height: 2.125rem;
+  max-height: 10rem;
+  overflow-y: auto;
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sendButton.sendButton {
   position: absolute;
   border: none;
-  top: 50%;
+  bottom: 0;
   right: 0;
-  transform: translateY(-50%);
+  transform: translateY(-10%);
 
   padding-right: 0;
   margin-right: 1.5rem;
@@ -32,9 +39,9 @@
 
 .clearMessageButton.clearMessageButton {
   position: absolute;
-  top: 50%;
+  bottom: 0;
   left: 0.375rem;
-  transform: translateY(-50%);
+  transform: translateY(-40%);
 
   background-color: var(--Primary-300);
   width: 1.5rem;
