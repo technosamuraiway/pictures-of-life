@@ -512,5 +512,6 @@ export const en: LocaleType = {
     profileButton: 'Send Message',
     noDialogList: 'Choose who you would like to talk to',
     you: 'You',
+    messageInput: 'Type message',
   },
 }

@@ -518,6 +518,7 @@ export const ru = {
     profileButton: 'Отправить сообщение',
     noDialogList: 'Выберите того, с кем хотите общаться',
     searchInput: 'Введите имя',
+    messageInput: 'Введите сообщение',
     you: 'Вы',
   },
 }
