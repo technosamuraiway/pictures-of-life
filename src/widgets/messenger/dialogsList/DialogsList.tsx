@@ -18,7 +18,7 @@ export const DialogsList = ({ dialogs }: IProps) => {
   const { changeSearchHandler } = useSearchBy(setSearchTerm)
 
   return (
-    <ul className={s.wrapper}>
+    <div className={s.wrapper}>
       <TextField
         className={s.search}
         onChange={changeSearchHandler}
@@ -27,8 +27,10 @@ export const DialogsList = ({ dialogs }: IProps) => {
         value={searchTerm}
       />
       <Scrollbar maxHeight={574}>
-        {dialogs?.map(dialog => <DialogList dialog={dialog} key={dialog.id} />)}
+        <ul className={s.listWrapper}>
+          {dialogs?.map(dialog => <DialogList dialog={dialog} key={dialog.id} />)}
+        </ul>
       </Scrollbar>
-    </ul>
+    </div>
   )
 }

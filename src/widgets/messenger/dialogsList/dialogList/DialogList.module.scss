@@ -1,11 +1,50 @@
 .wrapper {
   padding: 0.75rem;
-}
-
-.wrapper:not(:last-child) {
   border-bottom: 0.0625rem solid var(--Dark-300);
+
+  &:hover {
+    background-color: var(--Dark-300);
+  }
 }
 
 .active {
   background-color: var(--Dark-300);
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.root {
+  border-radius: 50%;
+}
+
+.profileInfo {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.usernameInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date.date {
+  color: var(--Light-900);
+}
+
+.text.text {
+  color: var(--Light-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 95%;
 }
