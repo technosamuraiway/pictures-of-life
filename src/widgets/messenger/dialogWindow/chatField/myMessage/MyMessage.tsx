@@ -7,5 +7,13 @@ interface IProps {
 }
 
 export const MyMessage = ({ createdAt, isRead, message }: IProps) => {
-  return <DefaultMessage createdAt={createdAt} isMine isRead={isRead} message={message} />
+  return (
+    <DefaultMessage
+      createdAt={createdAt}
+      isMine
+      isRead={isRead}
+      message={message}
+      style={{ marginBottom: '24px' }}
+    />
+  )
 }

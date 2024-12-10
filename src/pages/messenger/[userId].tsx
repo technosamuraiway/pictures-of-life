@@ -9,6 +9,7 @@ import MessengerLayout from './messengerLayout/MessengerLayout'
 
 const userName = 'Hello'
 const avatarSrc = ''
+
 const Messenger = () => {
   const t = useRouterLocaleDefinition()
   const { query } = useRouter()

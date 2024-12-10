@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react'
+
 import { formatDateToTime } from '@/shared'
 import { NotReadMessage, ReadMessage } from '@public/icons'
 import { Typography } from '@technosamurai/techno-ui-kit'
@@ -10,9 +12,10 @@ interface IProps {
   isMine?: boolean
   isRead?: boolean
   message: string
+  style?: CSSProperties
 }
 
-export const DefaultMessage = ({ createdAt, isMine = false, isRead, message }: IProps) => {
+export const DefaultMessage = ({ createdAt, isMine = false, isRead, message, style }: IProps) => {
   const arrowDecider = isRead ? (
     <ReadMessage height={16} width={16} />
   ) : (
@@ -20,7 +23,7 @@ export const DefaultMessage = ({ createdAt, isMine = false, isRead, message }: I
   )
 
   return (
-    <div className={clsx(s.wrapper, isMine ? s.blueWrapper : s.greyWrapper)}>
+    <div className={clsx(s.wrapper, isMine ? s.blueWrapper : s.greyWrapper)} style={style}>
       <Typography as={'p'} variant={'regular-text-14'}>
         {message}
       </Typography>
