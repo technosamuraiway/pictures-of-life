@@ -8,10 +8,14 @@ import s from './TextAreaField.module.scss'
 
 import { useResizeTextArea } from './lib/useResizeTextArea'
 
-export const TextAreaField = () => {
+interface IProps {
+  onHeightChange: (height: number) => void
+}
+
+export const TextAreaField = ({ onHeightChange }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [messageField, setMessageField] = useState('')
-  const { adjustHeight, textAreaRef } = useResizeTextArea(messageField)
+  const { adjustHeight, textAreaRef } = useResizeTextArea(messageField, onHeightChange)
 
   const changeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value

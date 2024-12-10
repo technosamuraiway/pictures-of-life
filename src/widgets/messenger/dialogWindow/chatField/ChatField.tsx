@@ -54,17 +54,22 @@ const messageArray = [
   },
 ]
 
+const SCROLL_HEIGHT = 515
+
 interface IProps {
   avatar: string
+  textAreaHeight: number
   userId?: string | string[]
 }
 
-export const ChatField = ({ avatar, userId }: IProps) => {
+export const ChatField = ({ avatar, textAreaHeight, userId }: IProps) => {
   const { meData: meRequestData } = useMeWithRouter()
+
+  const scrollHeight = SCROLL_HEIGHT - textAreaHeight
 
   return (
     <div className={s.content}>
-      <Scrollbar maxHeight={480}>
+      <Scrollbar maxHeight={scrollHeight}>
         {messageArray?.map(message => {
           if (meRequestData?.userId === message.ownerId) {
             return (
