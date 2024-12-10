@@ -4,11 +4,12 @@ import { useInView } from 'react-intersection-observer'
 import { useGetUserSearchQuery } from '@/services/flow/users.service'
 import { useUserSearchStore } from '@/services/store/userSearchStore'
 import { UserSearch } from '@/services/types/users.types'
-import { useRouterLocaleDefinition } from '@/shared'
+import { InitLoader, useRouterLocaleDefinition } from '@/shared'
+import { getUniqueItemsById } from '@/shared/utils/search'
 import { getLayoutWithNav } from '@/widgets'
 import SearchingEmpty from '@/widgets/search/searchingEmpty/SearchingEmpty'
 import SearchingUsers from '@/widgets/search/searchingUsers/SearchingUsers'
-import { TextField, Typography } from '@technosamurai/techno-ui-kit'
+import { Scrollbar, TextField, Typography } from '@technosamurai/techno-ui-kit'
 import { debounce } from 'lodash'
 
 import s from './Search.module.scss'
@@ -34,29 +35,19 @@ const Search = () => {
       if (cursorId === 0) {
         setUsersCurrent(getUsersListData.items)
       } else {
-        setUsersCurrent(prevPosts => {
-          const updatedPosts = prevPosts.map(existingPost => {
-            const updatedPost = getUsersListData.items.find(
-              newUser => newUser.id === existingPost.id
-            )
+        setUsersCurrent(prevUsers => {
+          const combinedUsers = [...prevUsers, ...getUsersListData.items]
 
-            return updatedPost || existingPost
-          })
-
-          const newPosts = getUsersListData.items.filter(
-            newPost => !prevPosts.some(existingPost => existingPost.id === newPost.id)
-          )
-
-          return [...updatedPosts, ...newPosts]
+          return getUniqueItemsById(combinedUsers)
         })
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getUsersListData, cursorId])
+  }, [getUsersListData])
 
   useEffect(() => {
-    if (getUsersListData && inView && usersCurrent.length > 0) {
-      const lastImageId = usersCurrent[usersCurrent.length - 1].id
+    if (getUsersListData && inView && usersCurrent?.length > 0) {
+      const lastImageId = usersCurrent[usersCurrent?.length - 1].id
 
       if (cursorId !== lastImageId) {
         setCursorId(lastImageId)
@@ -64,11 +55,11 @@ const Search = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursorId, inView])
-
   // ----------------------------------------------------------------------------
   const handleDebounceFn = (inputValue: any) => {
     setSearchInput(inputValue)
     setCursorId(0)
+    setUsersCurrent([] as UserSearch[])
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceFn = useCallback(debounce(handleDebounceFn, 1000), [])
@@ -79,15 +70,15 @@ const Search = () => {
   }
 
   useEffect(() => {
-    if (!isLoading && getUsersListData && searchInput) {
-      setRecentUsers(getUsersListData?.items)
+    if (!isLoading && usersCurrent && searchInput) {
+      setRecentUsers(usersCurrent)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, getUsersListData, searchInput])
+  }, [isLoading, usersCurrent, searchInput])
 
   const renderContent = () => {
     if (searchInput) {
-      return usersCurrent.length > 0 ? <SearchingUsers users={usersCurrent} /> : <SearchingEmpty />
+      return usersCurrent?.length > 0 ? <SearchingUsers users={usersCurrent} /> : <SearchingEmpty />
     } else {
       return recentUsers.length > 0 ? <SearchingUsers users={recentUsers} /> : <SearchingEmpty />
     }
@@ -105,10 +96,14 @@ const Search = () => {
         value={inputValue}
       />
       <Typography as={'h3'} variant={'h3'}>
-        Recent requests
+        {t.searchPage.recentRequests}
       </Typography>
-      <div className={s.usersWrapper}>{renderContent()}</div>
-      <div ref={ref} style={{ height: '30px', width: '100%' }} />
+      <div className={s.scrollbarWrapper}>
+        <Scrollbar maxHeight={650}>
+          {isLoading ? <InitLoader /> : <div className={s.usersWrapper}>{renderContent()}</div>}
+          <div ref={ref} style={{ height: '30px', width: '100%' }} />
+        </Scrollbar>
+      </div>
     </div>
   )
 }

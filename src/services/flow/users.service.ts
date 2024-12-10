@@ -1,5 +1,4 @@
-import { inctagramApi } from '@/services'
-
+import { inctagramApi } from '../api/inctagram.api'
 import { GetUserSearchRequest, UserProfile, UserSearchResponse } from './../types/users.types'
 
 export const usersService = inctagramApi.injectEndpoints({

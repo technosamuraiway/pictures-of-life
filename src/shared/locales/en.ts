@@ -434,7 +434,12 @@ export const en: LocaleType = {
     show: 'Show more',
     hide: 'Hide',
   },
-  searchPage: { search: 'Search' },
+  searchPage: {
+    search: 'Search',
+    recentRequests: 'Recent requests',
+    emptyPlace: ' Oops! This place looks empty!',
+    noRecentRequests: 'No recent requests',
+  },
   admin: {
     statistics: {
       title: 'Statistics',

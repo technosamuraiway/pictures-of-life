@@ -1,8 +1,9 @@
 import { UserSearch } from '@/services/types/users.types'
+import { getUniqueItemsById } from '@/shared/utils/search'
 import { create } from 'zustand'
 
-// Ограничиваем 10 пользователями
-const RECENT_USER_LENGTH = 10
+// Ограничиваем 5 пользователями
+const RECENT_USER_LENGTH = 5
 
 type userSearchState = {
   recentUsers: UserSearch[]
@@ -17,13 +18,6 @@ export const useUserSearchStore = create<userSearchState>(set => ({
   reset: () => set({ recentUsers: [], searchInput: '' }),
   searchInput: '',
   setRecentUsers: users =>
-    set(state => {
-      const combinedUsers = users.concat(state.recentUsers)
-      const uniqueUsers = Array.from(
-        new Map(combinedUsers.map(user => [JSON.stringify(user), user])).values()
-      )
-
-      return { recentUsers: uniqueUsers.slice(0, RECENT_USER_LENGTH) }
-    }),
+    set({ recentUsers: getUniqueItemsById(users).slice(0, RECENT_USER_LENGTH) }),
   setSearchInput: searchInput => set({ searchInput }),
 }))

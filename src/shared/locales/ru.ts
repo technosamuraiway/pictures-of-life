@@ -434,7 +434,12 @@ export const ru = {
     show: 'Показать',
     hide: 'Скрыть',
   },
-  searchPage: { search: 'Поиск' },
+  searchPage: {
+    search: 'Поиск',
+    recentRequests: 'Последние запросы',
+    emptyPlace: 'Ой! Это место выглядит пустым!',
+    noRecentRequests: 'Нет последних запросов',
+  },
   admin: {
     statistics: {
       title: 'Статистика',
