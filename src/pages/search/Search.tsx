@@ -15,22 +15,60 @@ import s from './Search.module.scss'
 
 const Search = () => {
   const t = useRouterLocaleDefinition()
-
-  //infinity scroll
-  const { inView, ref } = useInView()
-  const [endCursorId, setEndCursorId] = useState<number>(0)
-  const [inputValue, setInputValue] = useState('')
-
-  const [searchingUsers, setSearchingUsers] = useState<UserSearch[]>([])
-
   const { recentUsers, searchInput, setRecentUsers, setSearchInput } = useUserSearchStore()
 
-  const { data, isLoading } = useGetUserSearchQuery(
-    { cursor: endCursorId, search: searchInput },
+  const [inputValue, setInputValue] = useState('')
+
+  // ----------------------------------------------------------------------------
+  const { inView, ref } = useInView()
+  const [cursorId, setCursorId] = useState<number | undefined>(0)
+  const [usersCurrent, setUsersCurrent] = useState<UserSearch[]>([])
+
+  const { data: getUsersListData, isLoading } = useGetUserSearchQuery(
+    { cursor: cursorId, search: searchInput },
     { skip: searchInput === '' }
   )
+
+  useEffect(() => {
+    if (getUsersListData && getUsersListData.items) {
+      if (cursorId === 0) {
+        setUsersCurrent(getUsersListData.items)
+      } else {
+        setUsersCurrent(prevPosts => {
+          const updatedPosts = prevPosts.map(existingPost => {
+            const updatedPost = getUsersListData.items.find(
+              newUser => newUser.id === existingPost.id
+            )
+
+            return updatedPost || existingPost
+          })
+
+          const newPosts = getUsersListData.items.filter(
+            newPost => !prevPosts.some(existingPost => existingPost.id === newPost.id)
+          )
+
+          return [...updatedPosts, ...newPosts]
+        })
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getUsersListData, cursorId])
+
+  useEffect(() => {
+    if (getUsersListData && inView && usersCurrent.length > 0) {
+      const lastImageId = usersCurrent[usersCurrent.length - 1].id
+
+      if (cursorId !== lastImageId) {
+        setCursorId(lastImageId)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cursorId, inView])
+
+  // ----------------------------------------------------------------------------
   const handleDebounceFn = (inputValue: any) => {
     setSearchInput(inputValue)
+    setCursorId(0)
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceFn = useCallback(debounce(handleDebounceFn, 1000), [])
@@ -41,38 +79,19 @@ const Search = () => {
   }
 
   useEffect(() => {
-    if (data && data.items) {
-      if (endCursorId === 0) {
-        setSearchingUsers(data.items)
-      } else {
-        setSearchingUsers(prevData => [...prevData, ...data.items])
-      }
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, endCursorId])
-
-  useEffect(() => {
-    if (data && inView && searchingUsers.length > 0) {
-      const lastImageId = searchingUsers[searchingUsers.length - 1].id
-
-      if (endCursorId !== lastImageId) {
-        setEndCursorId(lastImageId)
-      }
+    if (!isLoading && getUsersListData && searchInput) {
+      setRecentUsers(getUsersListData?.items)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [endCursorId, inView])
+  }, [isLoading, getUsersListData, searchInput])
 
-  useEffect(() => {
-    if (data?.items.length === 0 || searchInput === '') {
-      setSearchingUsers([])
+  const renderContent = () => {
+    if (searchInput) {
+      return usersCurrent.length > 0 ? <SearchingUsers users={usersCurrent} /> : <SearchingEmpty />
+    } else {
+      return recentUsers.length > 0 ? <RecentUsers recentUsers={recentUsers} /> : <SearchingEmpty />
     }
-    if (data && data.items) {
-      setEndCursorId(0)
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchInput])
+  }
 
   return (
     <div className={s.wrapper}>
@@ -88,25 +107,8 @@ const Search = () => {
       <Typography as={'h3'} variant={'h3'}>
         Recent requests
       </Typography>
-      <div className={s.usersWrapper}>
-        {
-          // eslint-disable-next-line no-nested-ternary
-          searchInput !== '' ? (
-            <>
-              <SearchingUsers users={searchingUsers} />
-              <div ref={ref} style={{ height: '30px', width: '100%' }} />
-            </>
-          ) : (
-            <SearchingEmpty />
-          )
-
-          //     recentUsers?.length > 0 ? (
-          //   <SearchingUsers users={recentUsers} />
-          // ) : (
-          //   <SearchingEmpty />
-          // )
-        }
-      </div>
+      <div className={s.usersWrapper}>{renderContent()}</div>
+      <div ref={ref} style={{ height: '30px', width: '100%' }} />
     </div>
   )
 }
