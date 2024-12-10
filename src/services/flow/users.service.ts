@@ -1,6 +1,5 @@
-import { inctagramApi } from '@/services'
-
-import { UserProfile } from './../types/users.types'
+import { inctagramApi } from '../api/inctagram.api'
+import { GetUserSearchRequest, UserProfile, UserSearchResponse } from './../types/users.types'
 
 export const usersService = inctagramApi.injectEndpoints({
   endpoints: builder => {
@@ -14,8 +13,20 @@ export const usersService = inctagramApi.injectEndpoints({
           }
         },
       }),
+      getUserSearch: builder.query<UserSearchResponse, GetUserSearchRequest>({
+        providesTags: ['Followers'],
+        query: args => {
+          const { ...params } = args
+
+          return {
+            method: 'GET',
+            params: params,
+            url: `v1/users`,
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useGetUserByUserNameQuery } = usersService
+export const { useGetUserByUserNameQuery, useGetUserSearchQuery } = usersService

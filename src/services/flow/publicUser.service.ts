@@ -1,5 +1,4 @@
-import { inctagramApi } from '@/services'
-
+import { inctagramApi } from '../api/inctagram.api'
 import { GetPublicUserProfileByIdResponse } from '../types/publicUser.type'
 
 const publicUserService = inctagramApi.injectEndpoints({

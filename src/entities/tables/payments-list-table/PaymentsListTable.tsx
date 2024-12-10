@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { HeadCell } from '@/entities/tables/paymentsTable/headCell/HeadCell'
 import { TableCell } from '@/entities/tables/paymentsTable/tableCell/TableCell'
 import { HeadCellWithArrow } from '@/entities/tables/users-list-table/headCellUsersList/HeadCellWithArrow'
@@ -70,7 +72,13 @@ export const PaymentsListTable = ({
           <Tables.TableRow key={payment.id}>
             <TableCellUsersList
               icon={
-                <img alt={'Avatar'} className={s.avatar} src={payment.avatars?.[0]?.url ?? ''} />
+                payment.avatars?.[0]?.url ? (
+                  <img alt={'Avatar'} className={s.avatar} src={payment.avatars?.[0]?.url ?? ''} />
+                ) : (
+                  <div className={s.avatarPlaceholder}>
+                    {payment.userName.charAt(0).toUpperCase()}
+                  </div>
+                )
               }
               value={payment.userName}
             />

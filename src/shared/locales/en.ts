@@ -342,6 +342,7 @@ export const en: LocaleType = {
     errorLogIn:
       'Unfortunately, you did not pass the administrator authorization. Please check the entered data and try again.',
   },
+
   signInPage: {
     accountQuestion: 'Don’t have an account?',
     email: 'Email',
@@ -432,6 +433,12 @@ export const en: LocaleType = {
   postText: {
     show: 'Show more',
     hide: 'Hide',
+  },
+  searchPage: {
+    search: 'Search',
+    recentRequests: 'Recent requests',
+    emptyPlace: ' Oops! This place looks empty!',
+    noRecentRequests: 'No recent requests',
   },
   admin: {
     statistics: {
