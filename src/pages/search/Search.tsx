@@ -89,7 +89,7 @@ const Search = () => {
     if (searchInput) {
       return usersCurrent.length > 0 ? <SearchingUsers users={usersCurrent} /> : <SearchingEmpty />
     } else {
-      return recentUsers.length > 0 ? <RecentUsers recentUsers={recentUsers} /> : <SearchingEmpty />
+      return recentUsers.length > 0 ? <SearchingUsers users={recentUsers} /> : <SearchingEmpty />
     }
   }
 
