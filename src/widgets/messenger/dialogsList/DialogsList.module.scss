@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.search {
+  padding: 1rem;
+  background-color: var(--Dark-500);
+  border-right: 0.0625rem solid var(--Dark-300);
+  border-left: 0.0625rem solid var(--Dark-300);
+  border-top: 0.0625rem solid var(--Dark-300);
+}
+
+.listWrapper {
+  width: 16.875rem;
+  background-color: var(--Dark-500);
+  border: 0.0625rem solid var(--Dark-300);
+  height: 35.875rem;
+}

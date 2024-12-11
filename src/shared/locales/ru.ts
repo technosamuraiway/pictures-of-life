@@ -513,7 +513,14 @@ export const ru = {
       },
     },
   },
-  messenger: { title: 'Чат', profileButton: 'Отправить сообщение' },
+  messenger: {
+    title: 'Чат',
+    profileButton: 'Отправить сообщение',
+    noDialogList: 'Выберите того, с кем хотите общаться',
+    searchInput: 'Введите имя',
+    messageInput: 'Введите сообщение',
+    you: 'Вы',
+  },
 }
 
 export type LocaleType = typeof ru

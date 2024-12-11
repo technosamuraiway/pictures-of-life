@@ -18,10 +18,12 @@ export function useProfilePage() {
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsData,
+    profileData,
     userData,
-  } = useGetProfilePageData()
+  } = useGetProfilePageData(userId)
 
   const { ref } = usePostsScrollObserver(
     userId,
@@ -60,9 +62,11 @@ export function useProfilePage() {
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsArray,
     postsImagesAssociativeArray,
+    profileData,
     ref,
     userData,
   }
