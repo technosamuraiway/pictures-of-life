@@ -1,4 +1,4 @@
-type NotificationItem = {
+export type NotificationItem = {
   createdAt: Date
   id: number
   isRead: boolean

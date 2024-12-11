@@ -1,5 +1,6 @@
 import { PropsWithChildren, useMemo, useState } from 'react'
 
+import { NotificationItem } from '@/services/types/notifications.type'
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
 import { PATH, PUBLIC_ROUTES_SET_WITH_BTN, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
@@ -21,13 +22,16 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const isWithButtons = !meRequestData && PUBLIC_ROUTES_SET_WITH_BTN.has(pathname)
 
   const notifications = useWsNotificationsStore(state => state.notifications)
-  const notificationsNumber = useMemo(() => {
-    return notifications.filter(item => !item.isRead).length
-  }, [notifications])
 
-  console.log('🔵', notifications.length)
-  console.log('🟢', notificationsNumber)
-  console.log(notifications)
+  const notificationsToShow = useMemo(() => {
+    return notifications.map(notification => ({
+      createdAt: notification.createdAt,
+      id: notification.id,
+      isRead: notification.isRead,
+      message: notification.message,
+      notifyAt: notification.notifyAt,
+    }))
+  }, [notifications])
 
   /* Управление стейтом кнопки выбора языка.
    *  Начальное значение берется из uri-params

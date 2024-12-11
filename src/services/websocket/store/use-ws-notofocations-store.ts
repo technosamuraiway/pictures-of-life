@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 type Notification = {
   clientId?: string
-  createdAt?: Date
+  createdAt: Date
   eventType?: number
   id: number
   isRead: boolean
