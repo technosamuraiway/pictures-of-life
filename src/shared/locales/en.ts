@@ -513,5 +513,12 @@ export const en: LocaleType = {
       },
     },
   },
-  messenger: { title: 'Messenger', profileButton: 'Send Message' },
+  messenger: {
+    title: 'Messenger',
+    searchInput: 'Input Name',
+    profileButton: 'Send Message',
+    noDialogList: 'Choose who you would like to talk to',
+    you: 'You',
+    messageInput: 'Type message',
+  },
 }

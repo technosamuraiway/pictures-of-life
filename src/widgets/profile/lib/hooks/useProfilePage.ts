@@ -18,10 +18,12 @@ export function useProfilePage() {
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsData,
+    profileData,
     userData,
-  } = useGetProfilePageData()
+  } = useGetProfilePageData(userId)
 
   const { ref } = usePostsScrollObserver(
     userId,
@@ -32,6 +34,7 @@ export function useProfilePage() {
   )
 
   // кешированный массив постов
+
   const postsArray = useMemo(() => {
     const posts = postsData?.items?.map(item => ({ id: item.id, images: item.images })) || []
 
@@ -60,9 +63,11 @@ export function useProfilePage() {
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsArray,
     postsImagesAssociativeArray,
+    profileData,
     ref,
     userData,
   }

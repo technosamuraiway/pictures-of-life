@@ -1,0 +1,2 @@
+export const INITIAL_TEXT_FIELD_HEIGHT = 34
+export const MAX_TEXT_FIELD_HEIGHT = 160

@@ -1,5 +1,5 @@
 import { IPostUser } from '@/services'
-import { InitLoader, MetaHead, RequestLineLoader } from '@/shared'
+import { InitLoader, MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import {
   InfoPanel,
   PostsShower,
@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const getServerSideProps: GetServerSideProps<IProps> = async ({ query }) => {
-  const { postId, userId } = query
+  const { postId } = query
 
   //const userResponse = await fetch(`https://inctagram.work/api/v1/public-user/profile/${userId}`)
   // const postsResponse = await fetch(`https://inctagram.work/api/v1/public-posts/user/${userId}`)
@@ -29,36 +29,39 @@ export const getServerSideProps: GetServerSideProps<IProps> = async ({ query }) 
 }
 
 function Profile({ post }: IProps) {
+  const t = useRouterLocaleDefinition()
   const {
     isOwnProfile,
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsArray,
     postsImagesAssociativeArray,
+    profileData,
     ref,
     userData,
   } = useProfilePage()
 
   // !при scroll-posts-fetching => isPostsLoading все ровно false
-  if (isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
+  if (isProfileLoading || isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
     return <InitLoader />
   }
 
   return (
     <>
-      <MetaHead title={'Profile info'} />
+      <MetaHead title={t.profilePage.title} />
 
       {isPostsLoadingWithScroll && <RequestLineLoader />}
 
       <InfoPanel
-        about={userData?.aboutMe || 'no info'}
-        avatar={userData?.avatars?.[0]?.url || ''}
+        about={profileData?.aboutMe || 'no info'}
+        avatar={profileData?.avatars[0]?.url || ''}
         isWithSettingsBtn={isOwnProfile}
         userFollowers={userData?.followersCount || 0}
         userFollowing={userData?.followingCount || 0}
-        userName={userData?.userName || 'no info'}
+        userName={profileData?.userName || 'no info'}
         userPublications={userData?.publicationsCount || 0}
       />
 

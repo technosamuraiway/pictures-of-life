@@ -1,0 +1,9 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 0.0625rem solid var(--Dark-300);
+  border-top: 0.0625rem solid var(--Dark-300);
+  border-right: 0.0625rem solid var(--Dark-300);
+}

@@ -168,6 +168,10 @@ export function NavBar() {
       return router.pathname.startsWith('/admin/users-list')
     }
 
+    if (itemPath === PATH.MESSENGER) {
+      return router.pathname.startsWith(PATH.MESSENGER)
+    }
+
     // Default to exact match
     return router.pathname === itemPath
   }
