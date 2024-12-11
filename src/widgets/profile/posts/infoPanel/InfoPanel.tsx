@@ -9,6 +9,7 @@ import {
   useGetUserIdFromParams,
   useRouterLocaleDefinition,
 } from '@/shared'
+import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { Button, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
 
@@ -41,19 +42,37 @@ export const InfoPanel = memo(
   }: IProps) => {
     const t = useRouterLocaleDefinition()
     const { userId } = useGetUserIdFromParams()
-
+    const { meData: meRequestData } = useMeWithRouter()
     const [openFollowersModal, setOpenFollowersModal] = useState(false)
     const [openFollowingModal, setOpenFollowingModal] = useState(false)
     const [openUnfollowModal, setOpenUnfollowModal] = useState(false)
 
-    const { data: getFollowersData } = useGetUserFollowersQuery({ userName })
-    const { data: getFollowingData } = useGetUserFollowingQuery({ userName })
+    const { data: getFollowersData } = useGetUserFollowersQuery(
+      { userName },
+      { skip: !meRequestData }
+    )
+    const { data: getFollowingData } = useGetUserFollowingQuery(
+      { userName },
+      { skip: !meRequestData }
+    )
 
     const { followUserHandler, isLoadingFollowUnfollow, unfollowUserHandler } = useFollowUnfollow(
       Number(userId),
       userName,
       setOpenUnfollowModal
     )
+
+    const openFollowersHandler = () => {
+      if (getFollowersData) {
+        setOpenFollowersModal(true)
+      }
+    }
+
+    const openFollowingHandler = () => {
+      if (getFollowingData) {
+        setOpenFollowingModal(true)
+      }
+    }
 
     const settingsButton = (
       <Button as={Link} href={PATH.PROFILE.SETTINGS} variant={'secondary'}>
@@ -83,13 +102,15 @@ export const InfoPanel = memo(
             </div>
             <div className={s.infoMiddle}>
               <StatsInfoItem
+                isHover={!!getFollowersData}
                 num={getFollowingData?.items.length || userFollowing}
-                onClick={() => setOpenFollowingModal(true)}
+                onClick={openFollowingHandler}
                 title={t.profile.info.stats.following.title}
               />
               <StatsInfoItem
+                isHover={!!getFollowersData}
                 num={getFollowersData?.items.length || userFollowers}
-                onClick={() => setOpenFollowersModal(true)}
+                onClick={openFollowersHandler}
                 title={t.profile.info.stats.followers.title}
               />
               <StatsInfoItem num={userPublications} title={t.profile.info.stats.publications} />

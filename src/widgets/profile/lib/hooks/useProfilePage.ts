@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
 
-import { GetPublicUserProfileByIdResponse, IPostPublicResponse } from '@/services'
 import { PostsAssociativeArray } from '@/widgets'
 import { useRouter } from 'next/router'
 
 import { useGetProfilePageData } from './useGetProfilePageData/useGetProfilePageData'
 import { usePostsScrollObserver } from './usePostsScrollObserver/usePostsScrollObserver'
 
-export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IPostPublicResponse) {
+export function useProfilePage() {
   const { query } = useRouter()
 
   const userId = query.userId as string
@@ -19,10 +18,12 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsData,
+    profileData,
     userData,
-  } = useGetProfilePageData(user, posts)
+  } = useGetProfilePageData(userId)
 
   const { ref } = usePostsScrollObserver(
     userId,
@@ -33,6 +34,7 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
   )
 
   // кешированный массив постов
+
   const postsArray = useMemo(() => {
     const posts = postsData?.items?.map(item => ({ id: item.id, images: item.images })) || []
 
@@ -61,9 +63,11 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsArray,
     postsImagesAssociativeArray,
+    profileData,
     ref,
     userData,
   }

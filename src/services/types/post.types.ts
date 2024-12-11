@@ -19,6 +19,7 @@ export type IPostsByNameArgs = { pageNumber?: number; userName: string } & Omit<
 
 export interface IPostUser {
   avatarOwner: string
+  avatarWhoLikes: []
   createdAt: string
   description: string
   id: number
@@ -30,6 +31,24 @@ export interface IPostUser {
   ownerId: number
   totalCount: number
   updatedAt: string
+  userName: string
+}
+
+export interface UserProfileResponse {
+  aboutMe?: string
+  avatars?: {
+    createdAt: string
+    fileSize: number
+    height: number
+    url: string
+    width: number
+  }[]
+  id: number
+  userMetadata?: {
+    followers: number
+    following: number
+    publications: number
+  }
   userName: string
 }
 

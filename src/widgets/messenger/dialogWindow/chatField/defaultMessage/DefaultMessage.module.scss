@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  max-width: 31.25rem;
+  width: fit-content;
+}
+
+.greyWrapper {
+  background-color: var(--Dark-300);
+}
+
+.blueWrapper {
+  margin: 0 0.75rem 0 auto;
+  background-color: var(--Primary-900);
+}
+
+.date.date {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.greyDate.greyDate {
+  color: var(--Light-900);
+}
+
+.blueDate.blueDate {
+  color: var(--Primary-100);
+}
