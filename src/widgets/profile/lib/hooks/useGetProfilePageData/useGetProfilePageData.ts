@@ -1,7 +1,10 @@
+import { useMemo } from 'react'
+
 import { useLazyGetUserPublicPostsQuery } from '@/services'
 import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
 import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
+import { uniqBy } from 'lodash'
 
 export const useGetProfilePageData = (userId: string) => {
   const { isOwnProfile, meData: meRequestData } = useMeWithRouter()
@@ -19,12 +22,23 @@ export const useGetProfilePageData = (userId: string) => {
   const [
     getPostsTrigger,
     {
-      data: postsGetData,
+      data: rawPostsData,
       isLoading: isPostsLoading,
       originalArgs: originalArgsGetPostsTrigger,
       status: postsFetchingStatus,
     },
   ] = useLazyGetUserPublicPostsQuery()
+
+  const postsData = useMemo(() => {
+    if (!rawPostsData) {
+      return undefined
+    }
+
+    return {
+      ...rawPostsData,
+      items: uniqBy(rawPostsData.items, 'id'),
+    }
+  }, [rawPostsData])
 
   const isPostsLoadingInitial =
     postsFetchingStatus === 'pending' && !originalArgsGetPostsTrigger?.endCursorPostId
@@ -33,8 +47,6 @@ export const useGetProfilePageData = (userId: string) => {
     postsFetchingStatus === 'pending' &&
     !isPostsLoading &&
     !!originalArgsGetPostsTrigger?.endCursorPostId
-
-  const postsData = postsGetData
 
   return {
     getPostsTrigger,

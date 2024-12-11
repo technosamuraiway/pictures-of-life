@@ -34,6 +34,7 @@ export function useProfilePage() {
   )
 
   // кешированный массив постов
+
   const postsArray = useMemo(() => {
     const posts = postsData?.items?.map(item => ({ id: item.id, images: item.images })) || []
 

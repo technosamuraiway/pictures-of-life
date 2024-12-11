@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const getServerSideProps: GetServerSideProps<IProps> = async ({ query }) => {
-  const { postId, userId } = query
+  const { postId } = query
 
   //const userResponse = await fetch(`https://inctagram.work/api/v1/public-user/profile/${userId}`)
   // const postsResponse = await fetch(`https://inctagram.work/api/v1/public-posts/user/${userId}`)
@@ -57,7 +57,7 @@ function Profile({ post }: IProps) {
 
       <InfoPanel
         about={profileData?.aboutMe || 'no info'}
-        avatar={profileData?.avatars[0].url || ''}
+        avatar={profileData?.avatars[0]?.url || ''}
         isWithSettingsBtn={isOwnProfile}
         userFollowers={userData?.followersCount || 0}
         userFollowing={userData?.followingCount || 0}
