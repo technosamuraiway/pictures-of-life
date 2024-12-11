@@ -35,15 +35,17 @@ function Profile({ post }: IProps) {
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsArray,
     postsImagesAssociativeArray,
+    profileData,
     ref,
     userData,
   } = useProfilePage()
 
   // !при scroll-posts-fetching => isPostsLoading все ровно false
-  if (isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
+  if (isProfileLoading || isUserDataLoading || isPostsLoading || isPostsLoadingInitial) {
     return <InitLoader />
   }
 
@@ -54,12 +56,12 @@ function Profile({ post }: IProps) {
       {isPostsLoadingWithScroll && <RequestLineLoader />}
 
       <InfoPanel
-        about={userData?.aboutMe || 'no info'}
-        avatar={userData?.avatars[0].url || ''}
+        about={profileData?.aboutMe || 'no info'}
+        avatar={profileData?.avatars[0].url || ''}
         isWithSettingsBtn={isOwnProfile}
         userFollowers={userData?.followersCount || 0}
         userFollowing={userData?.followingCount || 0}
-        userName={userData?.userName || 'no info'}
+        userName={profileData?.userName || 'no info'}
         userPublications={userData?.publicationsCount || 0}
       />
 

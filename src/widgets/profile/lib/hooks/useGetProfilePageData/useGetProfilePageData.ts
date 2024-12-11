@@ -1,15 +1,19 @@
 import { useLazyGetUserPublicPostsQuery } from '@/services'
+import { useGetPublicUserProfileByIdQuery } from '@/services/flow/publicUser.service'
 import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 
-export const useGetProfilePageData = () => {
+export const useGetProfilePageData = (userId: string) => {
   const { isOwnProfile, meData: meRequestData } = useMeWithRouter()
 
   const isAuthorized = !!meRequestData
 
+  const { data: profileData, isLoading: isProfileLoading } =
+    useGetPublicUserProfileByIdQuery(userId)
+
   const { data: userData, isLoading: isUserDataLoading } = useGetUserByUserNameQuery(
-    meRequestData?.userName ?? '',
-    { skip: !isAuthorized }
+    profileData?.userName ?? '',
+    { skip: !profileData || !isAuthorized }
   )
 
   const [
@@ -39,8 +43,10 @@ export const useGetProfilePageData = () => {
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsData,
+    profileData,
     userData,
   }
 }

@@ -25,6 +25,8 @@ export const useResizeTextArea = (
     window.addEventListener('resize', adjustHeight)
 
     return () => window.removeEventListener('resize', adjustHeight)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageField])
 
   return { adjustHeight, textAreaRef }
