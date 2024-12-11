@@ -1,6 +1,7 @@
 import { memo, useEffect, useMemo, useState } from 'react'
 
 import { PostModal } from '@/entities/modals/publicPostModal/PostModal'
+import { IPostUser } from '@/services'
 import { useGetUserProfileQuery } from '@/services/flow/post.service'
 import { MetaHead, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { getBaseLayout } from '@/widgets'
@@ -35,6 +36,7 @@ const PublicPostPage = () => {
 
   const { id, userId } = router.query
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedPost, setSelectedPost] = useState<IPostUser | null>(null)
 
   const t = useRouterLocaleDefinition()
   const userIdNumber = Number(userId)
@@ -50,12 +52,18 @@ const PublicPostPage = () => {
 
   useEffect(() => {
     if (post) {
+      setSelectedPost(post)
       setIsModalOpen(true)
     }
   }, [post])
 
   const handleModalClose = () => {
     setIsModalOpen(false)
+    setSelectedPost(null)
+  }
+  const handlePostClick = (post: IPostUser) => {
+    setSelectedPost(post)
+    setIsModalOpen(true)
   }
 
   return (
@@ -116,9 +124,7 @@ const PublicPostPage = () => {
                   <SlideItem
                     alt={`post-image-${index}`}
                     key={uuid()}
-                    onClick={() => {
-                      setIsModalOpen(true)
-                    }}
+                    onClick={() => handlePostClick(post)}
                     src={post.images[0].url}
                   />
                 ) : (
@@ -130,11 +136,11 @@ const PublicPostPage = () => {
           </div>
         )}
 
-        {post && (
+        {selectedPost &&  (
           <PostModal
             isOpen={isModalOpen}
             onRequestClose={handleModalClose}
-            post={post}
+            post={selectedPost}
             userId={userIdString}
           />
         )}
