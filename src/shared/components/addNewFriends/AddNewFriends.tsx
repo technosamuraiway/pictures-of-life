@@ -5,10 +5,11 @@ import Link from 'next/link'
 import s from './AddNewFriends.module.scss'
 
 interface IProps {
+  isWithButton?: boolean
   title: string
 }
 
-export const AddNewFriends = ({ title }: IProps) => {
+export const AddNewFriends = ({ isWithButton = true, title }: IProps) => {
   const t = useRouterLocaleDefinition()
 
   return (
@@ -16,9 +17,11 @@ export const AddNewFriends = ({ title }: IProps) => {
       <Typography as={'h2'} variant={'h2'}>
         {title}
       </Typography>
-      <Button as={Link} href={PATH.SEARCH} variant={'primary'}>
-        {t.profile.info.stats.findNew}
-      </Button>
+      {isWithButton && (
+        <Button as={Link} href={PATH.SEARCH} variant={'primary'}>
+          {t.profile.info.stats.findNew}
+        </Button>
+      )}
     </div>
   )
 }

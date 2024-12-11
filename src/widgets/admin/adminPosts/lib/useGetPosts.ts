@@ -62,5 +62,13 @@ export const useGetPosts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subscriptionData])
 
-  return { getPostsListDataISLoading, postsData, ref, refetch, searchTerm, setSearchTerm }
+  return {
+    getPostsListDataISLoading,
+    postsData,
+    ref,
+    refetch,
+    searchTerm,
+    setEndCursorPostId,
+    setSearchTerm,
+  }
 }

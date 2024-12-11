@@ -19,6 +19,7 @@ export type IPostsByNameArgs = { pageNumber?: number; userName: string } & Omit<
 
 export interface IPostUser {
   avatarOwner: string
+  avatarWhoLikes: []
   createdAt: string
   description: string
   id: number
@@ -30,6 +31,24 @@ export interface IPostUser {
   ownerId: number
   totalCount: number
   updatedAt: string
+  userName: string
+}
+
+export interface UserProfileResponse {
+  aboutMe?: string
+  avatars?: {
+    createdAt: string
+    fileSize: number
+    height: number
+    url: string
+    width: number
+  }[]
+  id: number
+  userMetadata?: {
+    followers: number
+    following: number
+    publications: number
+  }
   userName: string
 }
 
@@ -158,4 +177,37 @@ export type GetAnswersLikesArgs = {
   pageSize?: string
   postId: number
   search?: string
+}
+
+export interface IPostLikesArgs {
+  cursor?: string
+  pageNumber?: number
+  pageSize?: string
+  postId: number
+  search?: string
+}
+
+type Avatar = {
+  createdAt: string
+  fileSize: number
+  height: number
+  url: string
+  width: number
+}
+
+type PostLikesItem = {
+  avatars: Avatar[]
+  createdAt: string
+  id: number
+  isFollowedBy: boolean
+  isFollowing: boolean
+  userId: number
+  userName: string
+}
+
+export interface IPostLikesResponse {
+  items: PostLikesItem[]
+  notReadCount: number
+  pageSize: number
+  totalCount: number
 }

@@ -4,8 +4,13 @@ export { AdminPosts } from './admin/adminPosts/AdminPosts'
 export { NewPassword } from './auth/newPassword/NewPassword'
 export { ResendLink } from './auth/resendLink/ResendLink'
 
+export { FollowersPosts } from './followersPosts/FollowersPosts'
+
 export { getBaseLayout } from './layouts/BaseLayout'
 export { getLayoutWithNav } from './layouts/LayoutWithNav'
+
+export { DialogWindow } from './messenger/dialogWindow/DialogWindow'
+export { DialogsList } from './messenger/dialogsList/DialogsList'
 
 export { useProfilePage } from './profile/lib/hooks/useProfilePage'
 export type { PostWithId, PostsAssociativeArray } from './profile/lib/types/profileTypes'

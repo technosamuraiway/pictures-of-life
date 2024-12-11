@@ -1,27 +1,42 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { useUnfollowByUserIdMutation } from '@/services/flow/followers.service'
-import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { useGetUserByUserNameQuery } from '@/services/flow/users.service'
+import { RequestLineLoader, useFollowUnfollow, useRouterLocaleDefinition } from '@/shared'
 import { ConfirmationModal } from '@/widgets/profile/components/confirmationModal/confirmationModal'
 import { DropdownDotsIcon } from '@public/DropdownDotsIcon'
-import { CopyLinkIcon, UnfollowIcon } from '@public/icons'
+import { CopyLinkIcon, FollowIcon, UnfollowIcon } from '@public/icons'
 import { Dropdown, Typography } from '@technosamurai/techno-ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './PostModalHeaderDropdownDotsMenu.module.scss'
 
 interface IProps {
+  copyUrl?: string
+  isRedirect?: boolean
+  userIdProp?: number
   userName: string
 }
 
-export const PostModalHeaderDropdownDotsMenu = ({ userName }: IProps) => {
+export const PostModalHeaderDropdownDotsMenu = ({
+  copyUrl,
+  isRedirect,
+  userIdProp,
+  userName,
+}: IProps) => {
   const t = useRouterLocaleDefinition()
   const { query } = useRouter()
   const { userId } = query
   const [isOpen, setIsOPen] = useState(false)
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false)
-  const [unfollow, { isLoading: isLoadingUnfollow }] = useUnfollowByUserIdMutation()
+
+  const { followUserHandler, isLoadingFollowUnfollow, unfollowUserHandler } = useFollowUnfollow(
+    userIdProp ?? Number(userId),
+    userName,
+    setIsConfirmationModalOpen
+  )
+
+  const { data: userByUserNameData } = useGetUserByUserNameQuery(String(userName))
 
   function unfollowHandler() {
     setIsConfirmationModalOpen(true)
@@ -30,22 +45,9 @@ export const PostModalHeaderDropdownDotsMenu = ({ userName }: IProps) => {
   function copyLinkHandler() {
     const currentUrl = window.location.href
 
-    navigator.clipboard.writeText(currentUrl)
+    navigator.clipboard.writeText(copyUrl ? copyUrl : currentUrl)
 
     toast.success(t.profile.modal.headerDropdownDotsMenu.successLinkCopied)
-  }
-
-  async function unfollowRequestHandler() {
-    if (!userId) {
-      return
-    }
-
-    try {
-      await unfollow({ userId: Number(userId) }).unwrap()
-      toast.success(t.profile.modal.headerDropdownDotsMenu.unfollowSuccess)
-    } catch (error) {
-      toast.error(t.profile.modal.headerDropdownDotsMenu.unfollowError)
-    }
   }
 
   const headerTitle =
@@ -53,7 +55,7 @@ export const PostModalHeaderDropdownDotsMenu = ({ userName }: IProps) => {
 
   return (
     <>
-      {isLoadingUnfollow && <RequestLineLoader />}
+      {isLoadingFollowUnfollow && <RequestLineLoader />}
 
       <Dropdown.Root
         contentCN={s.root}
@@ -62,11 +64,25 @@ export const PostModalHeaderDropdownDotsMenu = ({ userName }: IProps) => {
         trigger={<DropdownDotsIcon />}
         withArrow={false}
       >
-        <Dropdown.Item className={s.item} onClick={unfollowHandler}>
-          <UnfollowIcon />
-          <Typography variant={'regular-text-14'}>
-            {t.profile.modal.headerDropdownDotsMenu.unfollow}
-          </Typography>
+        <Dropdown.Item
+          className={s.item}
+          onClick={userByUserNameData?.isFollowing ? unfollowHandler : followUserHandler}
+        >
+          {userByUserNameData?.isFollowing ? (
+            <>
+              <UnfollowIcon />
+              <Typography variant={'regular-text-14'}>
+                {t.profile.modal.headerDropdownDotsMenu.unfollow}
+              </Typography>
+            </>
+          ) : (
+            <>
+              <FollowIcon height={24} width={24} />
+              <Typography variant={'regular-text-14'}>
+                {t.profile.modal.headerDropdownDotsMenu.follow}
+              </Typography>
+            </>
+          )}
         </Dropdown.Item>
         <Dropdown.Item className={s.item} onClick={copyLinkHandler}>
           <CopyLinkIcon />
@@ -77,9 +93,10 @@ export const PostModalHeaderDropdownDotsMenu = ({ userName }: IProps) => {
       </Dropdown.Root>
 
       <ConfirmationModal
-        cbOnConfirm={unfollowRequestHandler}
+        cbOnConfirm={unfollowUserHandler}
         confirmMessage={headerTitle}
         headerTitle={t.profile.modal.headerDropdownDotsMenu.unfollowModalTitle}
+        isRedirect={isRedirect}
         onOpenChange={setIsConfirmationModalOpen}
         open={isConfirmationModalOpen}
         overlayClassName={s.confirmationModalOverlay}

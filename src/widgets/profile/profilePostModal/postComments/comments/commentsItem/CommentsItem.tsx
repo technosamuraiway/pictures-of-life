@@ -65,11 +65,18 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     updateLike({ commentId, likeStatus: isLiked ? 'NONE' : 'LIKE', postId })
   }
 
+  function showAnswersWithInput() {
+    setIsShowAnswers(!isShowAnswers)
+    setIsShowAnswerInput(!isShowAnswers)
+  }
+
   async function onAddAnswer(data: PostCommentFormZodSchema) {
     try {
       await createNewAnswer({ commentId, content: data.comment, postId }).unwrap()
-      setIsShowAnswerInput(false)
-      setIsShowAnswers(true)
+
+      if (!isShowAnswers) {
+        showAnswersWithInput()
+      }
     } catch (error) {
       toast.error('ERROR')
     }
@@ -103,11 +110,12 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     <div className={s.answer}>
       <Typography
         as={'button'}
-        onClick={() => setIsShowAnswers(!isShowAnswers)}
+        onClick={showAnswersWithInput}
         type={'button'}
         variant={'small-text'}
       >
-        {isShowAnswers ? 'Hide' : 'Show'} Answers ({answersCount})
+        {isShowAnswers ? t.profile.modal.answers.hide : t.profile.modal.answers.show}{' '}
+        {t.profile.modal.answers.answers} ({answersCount})
       </Typography>
       {isShowAnswers && CommentsItemAnswers}
     </div>
@@ -144,17 +152,19 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
       <div className={s.info}>
         <Typography variant={'small-text'}>{TimeAgo(createdAt, t)}</Typography>
         {!!meData && !!likeCount && (
-          <Typography variant={'small-text'}>Likes: {likeCount}</Typography>
+          <Typography variant={'small-text'}>
+            {t.profile.modal.answers.likes}: {likeCount}
+          </Typography>
         )}
 
         {!!meData && (
           <Typography
             as={'button'}
-            onClick={() => setIsShowAnswerInput(!isShowAnswerInput)}
+            onClick={() => !isShowAnswers && setIsShowAnswerInput(!isShowAnswerInput)}
             type={'button'}
             variant={'small-text'}
           >
-            Answer
+            {t.profile.modal.answers.answer}
           </Typography>
         )}
       </div>
@@ -169,7 +179,7 @@ export const CommentsItem = memo(({ className, comment }: IProps) => {
     <>
       {isLoading && <RequestLineLoader />}
       <li className={clsx(className, s.root)}>
-        <CircleAvatar src={avatars[0].url} />
+        <CircleAvatar src={avatars[0]?.url} />
         {contentItem}
         {isShow && icon}
       </li>

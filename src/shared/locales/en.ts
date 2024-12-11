@@ -145,6 +145,9 @@ export const en: LocaleType = {
     successfulDeletePost: 'You have successfully deleted this post',
     successfulErrorMesseng: 'Failed to load comments',
     successfulPostLoading: 'Something went wrong...',
+    likes: 'Likes',
+    likesPost: 'Likes',
+    emptyList: 'You do not have likes!',
   },
   privacyPolicy: {
     backToProfile: 'Back to Profile Settings',
@@ -197,6 +200,7 @@ export const en: LocaleType = {
     modal: {
       headerDropdownDotsMenu: {
         unfollow: 'Unfollow',
+        follow: 'Follow',
         copyLink: 'Copy link',
         successLinkCopied: 'Link copied',
         unfollowConfirmation: 'Do you really want to Unfollow from this user',
@@ -223,6 +227,8 @@ export const en: LocaleType = {
       },
       answerPlaceholder: 'Add an Answer',
       addComment: 'Publish',
+      showAllComments: 'View All Comments',
+      hideAllComments: 'Hide All Comments',
       commentPlaceholder: 'Add a Comment',
       confirmation: {
         modalHeaderTitle: 'Close Post',
@@ -235,6 +241,13 @@ export const en: LocaleType = {
           success: 'Comment successfully created.',
           error: 'Create comment failed',
         },
+      },
+      answers: {
+        answer: 'Answer',
+        answers: 'Answers',
+        hide: 'Hide',
+        show: 'Show',
+        likes: 'Likes',
       },
     },
   },
@@ -321,7 +334,7 @@ export const en: LocaleType = {
       successMessage: 'Payment was successful!',
       successStep: 'OK',
       error: 'Error',
-      errorMessage: 'Transaction failed. Please, write to support',
+      errorMessage: 'Transaction failed, please try again',
       errorStep: 'Back to payment',
     },
   },
@@ -493,5 +506,12 @@ export const en: LocaleType = {
       },
     },
   },
-  messenger: { title: 'Messenger', profileButton: 'Send Message' },
+  messenger: {
+    title: 'Messenger',
+    searchInput: 'Input Name',
+    profileButton: 'Send Message',
+    noDialogList: 'Choose who you would like to talk to',
+    you: 'You',
+    messageInput: 'Type message',
+  },
 }

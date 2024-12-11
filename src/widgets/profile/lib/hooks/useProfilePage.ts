@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
 
-import { GetPublicUserProfileByIdResponse, IPostPublicResponse } from '@/services'
 import { PostsAssociativeArray } from '@/widgets'
 import { useRouter } from 'next/router'
 
 import { useGetProfilePageData } from './useGetProfilePageData/useGetProfilePageData'
 import { usePostsScrollObserver } from './usePostsScrollObserver/usePostsScrollObserver'
 
-export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IPostPublicResponse) {
+export function useProfilePage() {
   const { query } = useRouter()
 
   const userId = query.userId as string
@@ -19,10 +18,12 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsData,
+    profileData,
     userData,
-  } = useGetProfilePageData(user, posts)
+  } = useGetProfilePageData(userId)
 
   const { ref } = usePostsScrollObserver(
     userId,
@@ -34,7 +35,7 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
 
   // кешированный массив постов
   const postsArray = useMemo(() => {
-    const posts = postsData?.items.map(item => ({ id: item.id, images: item.images })) || []
+    const posts = postsData?.items?.map(item => ({ id: item.id, images: item.images })) || []
 
     /* при удалении нужно будет валидировать посты, но мы запрашиваем их по событию,
      * поэтому нужно будет делать повторный запрос, а для этого нужно знать сколько постов подтягивать
@@ -48,7 +49,7 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
   // кешированный ассоциативный массив
   const postsImagesAssociativeArray = useMemo(() => {
     return (
-      postsData?.items.reduce((acc, post) => {
+      postsData?.items?.reduce((acc, post) => {
         acc[post.id] = post.images
 
         return acc
@@ -61,9 +62,11 @@ export function useProfilePage(user: GetPublicUserProfileByIdResponse, posts: IP
     isPostsLoading,
     isPostsLoadingInitial,
     isPostsLoadingWithScroll,
+    isProfileLoading,
     isUserDataLoading,
     postsArray,
     postsImagesAssociativeArray,
+    profileData,
     ref,
     userData,
   }
