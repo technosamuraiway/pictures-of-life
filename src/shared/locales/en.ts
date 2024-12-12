@@ -516,5 +516,7 @@ export const en: LocaleType = {
   },
   notifications: {
     notifications: 'Notifications',
+    newNotification: 'Notification!',
+    new: 'New',
   },
 }

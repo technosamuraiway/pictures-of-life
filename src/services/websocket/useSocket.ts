@@ -42,11 +42,6 @@ export function useSocket(isAuthenticated: boolean) {
     setNotifications([...notifications, notification])
   }
 
-  /*
-   * что нужно передать в header?
-   * is read, id, message, when
-   * */
-
   function sendMessage(body: MessageSendRequest) {
     socket.emit(WS_EVENT_PATH.MESSAGE_SENT, body)
   }

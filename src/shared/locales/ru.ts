@@ -523,6 +523,8 @@ export const ru = {
   },
   notifications: {
     notifications: 'Уведомления',
+    newNotification: 'Уведомление',
+    new: 'Новое',
   },
 }
 

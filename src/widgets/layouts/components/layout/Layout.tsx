@@ -24,13 +24,15 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const notifications = useWsNotificationsStore(state => state.notifications)
 
   const notificationsToShow = useMemo(() => {
-    return notifications.map(notification => ({
-      createdAt: notification.createdAt,
-      id: notification.id,
-      isRead: notification.isRead,
-      message: notification.message,
-      notifyAt: notification.notifyAt,
-    }))
+    return notifications
+      .map(notification => ({
+        createdAt: notification.createdAt,
+        id: notification.id,
+        isRead: notification.isRead,
+        message: notification.message,
+        notifyAt: notification.notifyAt,
+      }))
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   }, [notifications])
 
   /* Управление стейтом кнопки выбора языка.
