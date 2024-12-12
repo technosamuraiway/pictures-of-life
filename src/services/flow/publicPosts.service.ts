@@ -1,5 +1,6 @@
-import { ICommentResponse, inctagramApi } from '@/services'
+import { ICommentResponse } from '@/services'
 
+import { inctagramApi } from '../api/inctagram.api'
 import {
   GetPublicPostCommentsByIdRequest,
   GetPublicUserPostByIdResponse,

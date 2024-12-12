@@ -4,7 +4,8 @@ import {
   IMyCurrentSubscriptionsResponse,
   IMyPaymentsResponse,
 } from '@/services'
-import { inctagramApi } from '@/services/api/inctagram.api'
+
+import { inctagramApi } from '../api/inctagram.api'
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL
 
 const paymentService = inctagramApi.injectEndpoints({

@@ -1,5 +1,6 @@
 import { ISessionList } from '@/services'
-import { inctagramApi } from '@/services/api/inctagram.api'
+
+import { inctagramApi } from '../api/inctagram.api'
 
 const sessionsService = inctagramApi.injectEndpoints({
   endpoints: builder => ({
