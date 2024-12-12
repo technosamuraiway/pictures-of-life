@@ -1,12 +1,13 @@
-import { MetaHead, useGoogleAuth } from '@/shared'
+import { MetaHead, useGoogleAuth, useRouterLocaleDefinition } from '@/shared'
 import { FollowersPosts, getLayoutWithNav } from '@/widgets'
 
 function Home() {
   useGoogleAuth()
+  const t = useRouterLocaleDefinition()
 
   return (
     <>
-      <MetaHead title={'Pictures-Of-Life'} />
+      <MetaHead title={t.home.title} />
       <FollowersPosts />
     </>
   )

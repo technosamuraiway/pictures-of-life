@@ -416,7 +416,10 @@ export const ru = {
     yearsFew: 'года',
     yearsMany: 'лет',
   },
-  title: 'Главная страница',
+  home: {
+    title: 'Главная страница',
+    noPosts: 'Вы ещё не подписаны ни на одного человека?',
+  },
   validationSchemes: {
     aboutMe: 'Поле о себе должно состоять из',
     confirmPassword: 'Пароли должны совпадать',

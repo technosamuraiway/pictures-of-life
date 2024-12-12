@@ -416,7 +416,10 @@ export const en: LocaleType = {
     yearsFew: 'years',
     yearsMany: 'years',
   },
-  title: 'Main page',
+  home: {
+    title: 'Main page',
+    noPosts: 'You do not have any followers yet?',
+  },
   validationSchemes: {
     aboutMe: 'Field about me must contain',
     confirmPassword: 'Passwords must match',
