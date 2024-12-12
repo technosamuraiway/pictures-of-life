@@ -13,6 +13,6 @@ export type GetNotifications = {
   totalCount: number
 }
 
-export type MarkAsRead = {
+export type MarkAsReadArgs = {
   ids: number[]
 }

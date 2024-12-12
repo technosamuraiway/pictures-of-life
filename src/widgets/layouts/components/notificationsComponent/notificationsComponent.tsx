@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { useMarkAsReadMutation } from '@/services/flow/notofocations.service'
 import { NotificationItem } from '@/services/types/notifications.type'
-import { TimeAgo, useRouterLocaleDefinition } from '@/shared'
+import { RequestLineLoader, TimeAgo, useRouterLocaleDefinition } from '@/shared'
 import { DefaultNotifications, Scrollbar, Typography } from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 
@@ -15,6 +16,7 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
   const t = useRouterLocaleDefinition()
   const [isOpen, setIsOpen] = useState<boolean>(true)
   const rootRef = useRef<HTMLDivElement>(null)
+  const [markAsRead, { isLoading }] = useMarkAsReadMutation()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,8 +35,12 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
   function notification(item: NotificationItem) {
     const { createdAt, id, isRead, message } = item
 
+    function markAsRedMessage() {
+      markAsRead({ ids: [id] })
+    }
+
     return (
-      <li className={s.item} key={id}>
+      <li className={s.item} key={id} onClick={markAsRedMessage}>
         <div className={s.itemTitleContainer}>
           <Typography variant={'bold-text-14'}>{t.notifications.newNotification}</Typography>
           {!isRead && (
@@ -53,6 +59,8 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
 
   return (
     <>
+      {isLoading && <RequestLineLoader />}
+
       <DefaultNotifications
         className={clsx(s.trigger, isOpen && s.triggerHovered)}
         onClick={() => setIsOpen(!isOpen)}
