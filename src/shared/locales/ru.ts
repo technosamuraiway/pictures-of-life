@@ -416,7 +416,10 @@ export const ru = {
     yearsFew: 'года',
     yearsMany: 'лет',
   },
-  title: 'Главная страница',
+  home: {
+    title: 'Главная страница',
+    noPosts: 'Вы ещё не подписаны ни на одного человека?',
+  },
   validationSchemes: {
     aboutMe: 'Поле о себе должно состоять из',
     confirmPassword: 'Пароли должны совпадать',
@@ -433,6 +436,12 @@ export const ru = {
   postText: {
     show: 'Показать',
     hide: 'Скрыть',
+  },
+  searchPage: {
+    search: 'Поиск',
+    recentRequests: 'Последние запросы',
+    emptyPlace: 'Ой! Это место выглядит пустым!',
+    noRecentRequests: 'Нет последних запросов',
   },
   admin: {
     statistics: {

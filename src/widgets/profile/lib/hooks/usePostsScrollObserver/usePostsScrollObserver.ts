@@ -32,6 +32,7 @@ export const usePostsScrollObserver = (
     if (userIdStore !== userId) {
       // запрос для другого профиля
       setUserIdStore(userId)
+
       getPostsTrigger(getPostsArgs)
     } else {
       // запрос для своего профиля, так как при переходе на любую другую страницу измениться userId

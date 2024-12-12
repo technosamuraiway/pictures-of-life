@@ -17,3 +17,34 @@ export type UserProfile = {
   region?: string
   userName: string
 }
+export type GetUserSearchRequest = {
+  cursor?: number
+  pageNumber?: number
+  pageSize?: number
+  search?: string
+}
+export type UserSearchResponse = {
+  items: UserSearch[]
+  nextCursor: number
+  page: number
+  pageSize: number
+  pagesCount: number
+  prevCursor: number
+  totalCount: number
+}
+export type UserSearch = {
+  avatars: [
+    {
+      createdAt: string
+      fileSize: number
+      height: number
+      url: string
+      width: number
+    },
+  ]
+  createdAt: string
+  firstName: string
+  id: number
+  lastName: string
+  userName: string
+}
