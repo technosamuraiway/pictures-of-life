@@ -1,9 +1,9 @@
 import { PropsWithChildren, useMemo, useState } from 'react'
 
-import { NotificationItem } from '@/services/types/notifications.type'
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
 import { PATH, PUBLIC_ROUTES_SET_WITH_BTN, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
+import { NotificationsComponent } from '@/widgets/layouts/components/notificationsComponent/notificationsComponent'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
 
@@ -66,7 +66,8 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         changeLanguageBtnOptions={languageSelectOptions}
         className={s.header}
         logInBtnChildren={t.publicButtons.logIn}
-        // notificationsNumber={notificationsNumber}
+        notificationComponent={<NotificationsComponent notifications={notificationsToShow} />}
+        notificationNumber={notificationsToShow.length}
         onLogInClick={logInClickHandler}
         onLogoClick={logoClickHandler}
         onSignUpClick={signUpClickHandler}

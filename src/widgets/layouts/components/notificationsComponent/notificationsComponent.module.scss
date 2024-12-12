@@ -1,0 +1,16 @@
+.root {
+  width: 355px;
+  padding: 12px;
+}
+
+.trigger {
+  &:focus-visible:not(:hover) {
+    outline: none;
+    color: inherit;
+  }
+
+  &:hover,
+  &Hovered {
+    color: var(--Primary-500);
+  }
+}
