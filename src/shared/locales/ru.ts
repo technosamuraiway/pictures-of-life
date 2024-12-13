@@ -534,6 +534,7 @@ export const ru = {
     notifications: 'Уведомления',
     newNotification: 'Уведомление',
     new: 'Новое',
+    delete: 'Удалить',
   },
 }
 
