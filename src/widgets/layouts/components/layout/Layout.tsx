@@ -35,6 +35,11 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   }, [notifications])
 
+  const newNotificationsToShow = useMemo(
+    () => notificationsToShow.filter(item => !item.isRead).length,
+    [notificationsToShow]
+  )
+
   /* Управление стейтом кнопки выбора языка.
    *  Начальное значение берется из uri-params
    *  */
@@ -69,7 +74,7 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         className={s.header}
         logInBtnChildren={t.publicButtons.logIn}
         notificationComponent={<NotificationsComponent notifications={notificationsToShow} />}
-        notificationNumber={notificationsToShow.length}
+        notificationNumber={newNotificationsToShow}
         onLogInClick={logInClickHandler}
         onLogoClick={logoClickHandler}
         onSignUpClick={signUpClickHandler}

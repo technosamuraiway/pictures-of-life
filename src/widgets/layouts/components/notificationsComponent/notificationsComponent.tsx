@@ -14,7 +14,7 @@ interface IProps {
 
 export const NotificationsComponent = ({ notifications }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const [markAsRead, { isLoading }] = useMarkAsReadMutation()
 
