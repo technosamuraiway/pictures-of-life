@@ -23,6 +23,7 @@ export function useSocket(isAuthenticated: boolean) {
 
   useEffect(() => {
     setNotifications(getNotificationData?.items || [])
+    // eslint-disable-next-line
   }, [getNotificationData])
 
   function onConnect() {
@@ -65,5 +66,6 @@ export function useSocket(isAuthenticated: boolean) {
       socket.off(WS_EVENT_PATH.RECEIVE_MESSAGE, onReceiveMessage)
       socket.off(WS_EVENT_PATH.NOTIFICATIONS, onReceiveNotification)
     }
+    // eslint-disable-next-line
   }, [])
 }
