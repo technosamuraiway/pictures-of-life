@@ -530,6 +530,12 @@ export const ru = {
     messageInput: 'Введите сообщение',
     you: 'Вы',
   },
+  notifications: {
+    notifications: 'Уведомления',
+    newNotification: 'Уведомление',
+    new: 'Новое',
+    delete: 'Удалить',
+  },
 }
 
 export type LocaleType = typeof ru

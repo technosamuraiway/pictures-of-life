@@ -524,4 +524,10 @@ export const en: LocaleType = {
     you: 'You',
     messageInput: 'Type message',
   },
+  notifications: {
+    notifications: 'Notifications',
+    newNotification: 'Notification!',
+    new: 'New',
+    delete: 'Delete',
+  },
 }
