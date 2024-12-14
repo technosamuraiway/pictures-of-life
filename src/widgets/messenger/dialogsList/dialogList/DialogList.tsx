@@ -1,4 +1,5 @@
-import { IDialogList, PATH, TimeAgo, useRouterLocaleDefinition } from '@/shared'
+import { MessageItem } from '@/services'
+import { PATH, TimeAgo, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import mockImage from '@public/mockAvatar.png'
 import { Typography } from '@technosamurai/techno-ui-kit'
@@ -10,13 +11,14 @@ import { useRouter } from 'next/router'
 import s from './DialogList.module.scss'
 
 interface IProps {
-  dialog: IDialogList
+  dialog: MessageItem
 }
 export const DialogList = ({ dialog }: IProps) => {
   const t = useRouterLocaleDefinition()
   const { query } = useRouter()
   const { userId } = query
   const { meData: meRequestData } = useMeWithRouter()
+
   const activeDialog = Number(userId) === dialog.ownerId || Number(userId) === dialog.receiverId
 
   const myMessage = dialog.ownerId === meRequestData?.userId
@@ -31,13 +33,13 @@ export const DialogList = ({ dialog }: IProps) => {
           className={s.root}
           height={48}
           priority
-          src={dialog.src || mockImage}
+          src={dialog.avatars[0]?.url || mockImage}
           width={48}
         />
 
         <div className={s.profileInfo}>
           <div className={s.usernameInfo}>
-            <Typography variant={'regular-text-14'}>{dialog.name}</Typography>
+            <Typography variant={'regular-text-14'}>{dialog.userName}</Typography>
             <Typography className={s.date} variant={'small-text'}>
               {TimeAgo(dialog.createdAt || '', t)}
             </Typography>
@@ -45,7 +47,7 @@ export const DialogList = ({ dialog }: IProps) => {
 
           <Typography className={s.text} variant={'small-text'}>
             {myMessage ? `${t.messenger.you}: ` : ''}
-            {dialog.lastMessage}
+            {dialog.messageText}
           </Typography>
         </div>
       </Link>

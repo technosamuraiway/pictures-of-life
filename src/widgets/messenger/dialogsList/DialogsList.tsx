@@ -1,21 +1,21 @@
-import { useState } from 'react'
-
-import { IDialogList, useRouterLocaleDefinition, useSearchBy } from '@/shared'
+import { useGetLatestMessengersQuery } from '@/services'
+import { useRouterLocaleDefinition, useSearchBySearchName } from '@/shared'
 import { Scrollbar, TextField } from '@technosamurai/techno-ui-kit'
 
 import s from './DialogsList.module.scss'
 
 import { DialogList } from './dialogList/DialogList'
 
-interface IProps {
-  dialogs: IDialogList[]
-}
+const PAGE_SIZE = 50
 
-export const DialogsList = ({ dialogs }: IProps) => {
+export const DialogsList = () => {
   const t = useRouterLocaleDefinition()
+  const { changeSearchHandler, searchTerm } = useSearchBySearchName()
 
-  const [searchTerm, setSearchTerm] = useState('')
-  const { changeSearchHandler } = useSearchBy(setSearchTerm)
+  const { data: getLatestMessengersData } = useGetLatestMessengersQuery({
+    pageSize: PAGE_SIZE,
+    searchName: searchTerm,
+  })
 
   return (
     <div className={s.wrapper}>
@@ -28,7 +28,9 @@ export const DialogsList = ({ dialogs }: IProps) => {
       />
       <Scrollbar maxHeight={574}>
         <ul className={s.listWrapper}>
-          {dialogs?.map(dialog => <DialogList dialog={dialog} key={dialog.id} />)}
+          {getLatestMessengersData?.items.map(dialog => (
+            <DialogList dialog={dialog} key={dialog.id} />
+          ))}
         </ul>
       </Scrollbar>
     </div>

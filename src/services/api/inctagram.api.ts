@@ -15,5 +15,6 @@ export const inctagramApi = createApi({
     'Followers',
     'Answers',
     'Notification',
+    'Messages',
   ],
 })
