@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { useMarkAsReadMutation } from '@/services/flow/notofocations.service'
+import {
+  useDeleteNotificationMutation,
+  useMarkAsReadMutation,
+} from '@/services/flow/notofocations.service'
 import { NotificationItem } from '@/services/types/notifications.type'
 import { RequestLineLoader, TimeAgo, useRouterLocaleDefinition } from '@/shared'
 import { DefaultNotifications, Scrollbar, Typography } from '@technosamurai/techno-ui-kit'
@@ -14,9 +17,10 @@ interface IProps {
 
 export const NotificationsComponent = ({ notifications }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const rootRef = useRef<HTMLDivElement>(null)
-  const [markAsRead, { isLoading }] = useMarkAsReadMutation()
+  const [markAsRead, { isLoading: isMarkingAsRead }] = useMarkAsReadMutation()
+  const [deleteNotification, { isLoading: isDeleting }] = useDeleteNotificationMutation()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -35,12 +39,16 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
   function notification(item: NotificationItem) {
     const { createdAt, id, isRead, message } = item
 
-    function markAsRedMessage() {
+    function onMarkAsRedMessage() {
       markAsRead({ ids: [id] })
     }
 
+    function onDeleteMessage() {
+      deleteNotification(id)
+    }
+
     return (
-      <li className={s.item} key={id} onClick={markAsRedMessage}>
+      <li className={s.item} key={id} onClick={onMarkAsRedMessage}>
         <div className={s.itemTitleContainer}>
           <Typography variant={'bold-text-14'}>{t.notifications.newNotification}</Typography>
           {!isRead && (
@@ -53,9 +61,19 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
         <Typography className={s.itemDate} variant={'small-text'}>
           {TimeAgo(String(createdAt), t)}
         </Typography>
+        <Typography
+          as={'button'}
+          className={s.itemDeleteBtn}
+          onClick={onDeleteMessage}
+          variant={'small-text'}
+        >
+          {t.notifications.delete}
+        </Typography>
       </li>
     )
   }
+
+  const isLoading = isMarkingAsRead || isDeleting
 
   return (
     <>

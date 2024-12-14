@@ -37,6 +37,8 @@
   border-top: 1px solid var(--Dark-100);
   padding: 15px 5px;
 
+  row-gap: 5px;
+
   display: flex;
   flex-flow: column nowrap;
 
@@ -59,5 +61,17 @@
 
   &Date {
     color: var(--Light-900);
+  }
+
+  &DeleteBtn {
+    color: var(--Danger-100);
+    border: 1px solid var(--Danger-100);
+    padding: 2px 5px;
+    align-self: flex-start;
+
+    &:hover {
+      color: var(--Danger-300);
+      border-color: var(--Danger-300);
+    }
   }
 }
