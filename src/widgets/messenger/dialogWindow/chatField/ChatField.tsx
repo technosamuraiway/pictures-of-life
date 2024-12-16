@@ -14,32 +14,58 @@ interface IProps {
 
 export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
   const { meRequestData, scrollHeight, scrollbarRef } = useChatField(textAreaHeight)
-  const { messages } = useWsMessagesStore()
+  const { messageGroups } = useWsMessagesStore()
 
   return (
     <div className={s.content}>
       <Scrollbar maxHeight={scrollHeight} ref={scrollbarRef}>
-        {messages?.map(message => {
-          if (meRequestData?.userId === message.ownerId) {
-            return (
-              <MyMessage
-                createdAt={message.createdAt}
-                isRead
-                key={message.id}
-                message={message.messageText}
-              />
-            )
-          } else {
-            return (
-              <FriendMessage
-                avatar={avatar}
-                createdAt={message.createdAt}
-                key={message.id}
-                message={message.messageText}
-              />
-            )
-          }
-        })}
+        {messageGroups.map((group, index) => (
+          <div key={index}>
+            <div className={'date-separator'}>{group.date}</div>
+            {group.messages.map(message => {
+              if (meRequestData?.userId === message.ownerId) {
+                return (
+                  <MyMessage
+                    createdAt={message.createdAt}
+                    isRead
+                    key={message.id}
+                    message={message.messageText}
+                  />
+                )
+              } else {
+                return (
+                  <FriendMessage
+                    avatar={avatar}
+                    createdAt={message.createdAt}
+                    key={message.id}
+                    message={message.messageText}
+                  />
+                )
+              }
+            })}
+          </div>
+        ))}
+        {/*{messages?.map(message => {*/}
+        {/*  if (meRequestData?.userId === message.ownerId) {*/}
+        {/*    return (*/}
+        {/*      <MyMessage*/}
+        {/*        createdAt={message.createdAt}*/}
+        {/*        isRead*/}
+        {/*        key={message.id}*/}
+        {/*        message={message.messageText}*/}
+        {/*      />*/}
+        {/*    )*/}
+        {/*  } else {*/}
+        {/*    return (*/}
+        {/*      <FriendMessage*/}
+        {/*        avatar={avatar}*/}
+        {/*        createdAt={message.createdAt}*/}
+        {/*        key={message.id}*/}
+        {/*        message={message.messageText}*/}
+        {/*      />*/}
+        {/*    )*/}
+        {/*  }*/}
+        {/*})}*/}
       </Scrollbar>
     </div>
   )
