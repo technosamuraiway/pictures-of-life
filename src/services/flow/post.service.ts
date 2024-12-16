@@ -166,9 +166,13 @@ export const postService = inctagramApi.injectEndpoints({
 
           sessionStorage.removeItem('deletedPostId')
 
+          const posts = [...filteredCacheItems, ...newItems.items].sort((a, b) => {
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          })
+
           return {
             ...currentCache,
-            items: [...filteredCacheItems, ...newItems.items],
+            items: posts,
             totalCount: newItems.totalCount,
           }
         },
