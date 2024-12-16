@@ -1,12 +1,11 @@
 import { MessageItem } from '@/services'
-import { PATH, TimeAgo, useRouterLocaleDefinition } from '@/shared'
+import { PATH, TimeAgo, useRouterLocaleDefinition, useUserIdFromParams } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import mockImage from '@public/mockAvatar.png'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import s from './DialogList.module.scss'
 
@@ -15,8 +14,8 @@ interface IProps {
 }
 export const DialogList = ({ dialog }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const { query } = useRouter()
-  const { userId } = query
+  const { userId } = useUserIdFromParams()
+
   const { meData: meRequestData } = useMeWithRouter()
 
   const activeDialog = Number(userId) === dialog.ownerId || Number(userId) === dialog.receiverId

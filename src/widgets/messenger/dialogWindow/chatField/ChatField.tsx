@@ -1,3 +1,4 @@
+import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { Scrollbar } from '@technosamurai/techno-ui-kit'
 
 import s from './ChatField.module.scss'
@@ -12,13 +13,13 @@ interface IProps {
 }
 
 export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
-  const { getUserMessagesData, meRequestData, scrollHeight, scrollbarRef } =
-    useChatField(textAreaHeight)
+  const { meRequestData, scrollHeight, scrollbarRef } = useChatField(textAreaHeight)
+  const { messages } = useWsMessagesStore()
 
   return (
     <div className={s.content}>
       <Scrollbar maxHeight={scrollHeight} ref={scrollbarRef}>
-        {getUserMessagesData?.items.map(message => {
+        {messages?.map(message => {
           if (meRequestData?.userId === message.ownerId) {
             return (
               <MyMessage

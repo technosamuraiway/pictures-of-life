@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 
+import { MessagesByIdItem } from '@/services'
 import { useGetNotificationsQuery } from '@/services/flow/notofocations.service'
 import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
 import { io } from 'socket.io-client'
 
-import { Message, MessageSendRequest, Notification, WS_EVENT_PATH } from './socket.types'
+import { MessageSendRequest, Notification, WS_EVENT_PATH } from './socket.types'
 
 const url = 'https://inctagram.work'
 
@@ -34,7 +35,8 @@ export function useSocket(isAuthenticated: boolean) {
     console.warn('🔴🔴🔴 DIS-CONNECTED')
   }
 
-  function onReceiveMessage(newMessage: Message) {
+  function onReceiveMessage(newMessage: MessagesByIdItem) {
+    console.warn('🟡🟡🟡 RECEIVE')
     setMessages([...messages, newMessage])
   }
 
@@ -44,6 +46,7 @@ export function useSocket(isAuthenticated: boolean) {
   }
 
   function sendMessage(body: MessageSendRequest) {
+    console.warn('🟣🟣🟣 SEND')
     socket.emit(WS_EVENT_PATH.MESSAGE_SENT, body)
   }
 

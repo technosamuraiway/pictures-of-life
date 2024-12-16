@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { useGetUserMessagesByUserIDQuery } from '@/services'
+import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { useUserIdFromParams } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 
@@ -10,14 +11,19 @@ export const useChatField = (textAreaHeight: number) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const scrollbarRef = useRef<HTMLDivElement | null>(null)
   const { userId } = useUserIdFromParams()
+  const { meData: meRequestData } = useMeWithRouter()
+  const { setMessages } = useWsMessagesStore()
 
   const { data: getUserMessagesData, isLoading: getUserMessagesDataIsLoading } =
     useGetUserMessagesByUserIDQuery({
       dialoguePartnerId: Number(userId),
     })
-  const { meData: meRequestData } = useMeWithRouter()
 
   useEffect(() => {
+    if (getUserMessagesData) {
+      setMessages(getUserMessagesData.items)
+    }
+
     if (!getUserMessagesDataIsLoading && getUserMessagesData && isInitialLoad) {
       if (scrollbarRef.current) {
         const viewport = scrollbarRef.current.querySelector('[data-radix-scroll-area-viewport]')
@@ -32,5 +38,5 @@ export const useChatField = (textAreaHeight: number) => {
 
   const scrollHeight = SCROLL_HEIGHT - textAreaHeight
 
-  return { getUserMessagesData, meRequestData, scrollHeight, scrollbarRef }
+  return { meRequestData, scrollHeight, scrollbarRef }
 }

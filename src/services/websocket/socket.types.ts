@@ -1,3 +1,5 @@
+import { MESSAGE_STATUS, MESSAGE_TYPE } from '@/shared'
+
 export enum MessageStatus {
   READ = 'READ',
   RECEIVED = 'RECEIVED',
@@ -7,7 +9,7 @@ export enum MessageStatus {
 export enum WS_EVENT_PATH {
   ERROR = 'error',
   MESSAGE_DELETED = 'message-deleted',
-  MESSAGE_SENT = 'message-sent',
+  MESSAGE_SENT = 'receive-message',
   NOTIFICATIONS = 'notifications',
   RECEIVE_MESSAGE = 'receive-message',
   UPDATE_MESSAGE = 'update-message',
