@@ -12,6 +12,7 @@ import { TextAreaField } from './textAreaField/TextAreaField'
 
 export const DialogWindow = () => {
   const { userId } = useUserIdFromParams()
+
   const [textAreaHeight, setTextAreaHeight] = useState(INITIAL_TEXT_FIELD_HEIGHT)
 
   const { data: getPublicUserProfile, isLoading: getPublicUserProfileIsLoading } =
