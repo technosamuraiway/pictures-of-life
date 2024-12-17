@@ -3,6 +3,7 @@ import {
   IGetLatestMessengersResponse,
   IGetUserMessagesByUserIdArgs,
   IGetUserMessagesByUserIdResponse,
+  MarkAsReadMessageArgs,
 } from '@/services'
 
 import { inctagramApi } from '../api/inctagram.api'
@@ -36,7 +37,19 @@ const messengerService = inctagramApi.injectEndpoints({
         }
       },
     }),
+    markAsReadMessage: builder.mutation<void, MarkAsReadMessageArgs>({
+      invalidatesTags: () => ['Messages'],
+      query: args => ({
+        body: args,
+        method: 'PUT',
+        url: '/v1/messanger',
+      }),
+    }),
   }),
 })
 
-export const { useGetLatestMessengersQuery, useGetUserMessagesByUserIDQuery } = messengerService
+export const {
+  useGetLatestMessengersQuery,
+  useGetUserMessagesByUserIDQuery,
+  useMarkAsReadMessageMutation,
+} = messengerService

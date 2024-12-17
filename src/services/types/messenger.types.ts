@@ -55,3 +55,7 @@ type Avatars = {
   url: string
   width: number
 }
+
+export type MarkAsReadMessageArgs = {
+  ids: number[]
+}

@@ -1,4 +1,4 @@
-import { formatDateToToday, useRouterLocaleDefinition } from '@/shared'
+import { MESSAGE_STATUS, formatDateToToday, useRouterLocaleDefinition } from '@/shared'
 import { Scrollbar, Typography } from '@technosamurai/techno-ui-kit'
 
 import s from './ChatField.module.scss'
@@ -29,7 +29,7 @@ export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
                 return (
                   <MyMessage
                     createdAt={message.createdAt}
-                    isRead
+                    isRead={message.status === MESSAGE_STATUS.READ}
                     key={message.id}
                     message={message.messageText}
                   />
