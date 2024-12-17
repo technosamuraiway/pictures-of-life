@@ -1,10 +1,5 @@
+import { MessagesByIdItem } from '@/services'
 import { MESSAGE_STATUS, MESSAGE_TYPE } from '@/shared'
-
-export enum MessageStatus {
-  READ = 'READ',
-  RECEIVED = 'RECEIVED',
-  SENT = 'SENT',
-}
 
 export enum WS_EVENT_PATH {
   ERROR = 'error',
@@ -25,14 +20,21 @@ export type MessageUpdateRequest = {
   message: string
 }
 
+export type MessageGroup = {
+  date: string
+  messages: MessagesByIdItem[]
+}
+
+export type SendMessage = (body: MessageSendRequest) => void
+
 export type Message = {
   createdAt: string
   id: number
   messageText: string
-  messageType: string
+  messageType: MESSAGE_TYPE
   ownerId: number
   receiverId: number
-  status: 'READ' | 'RECEIVED' | 'SENT'
+  status: MESSAGE_STATUS
   updatedAt: string
 }
 
