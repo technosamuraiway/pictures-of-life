@@ -21,7 +21,7 @@ export const useChatField = (textAreaHeight: number) => {
 
   useEffect(() => {
     if (getUserMessagesData) {
-      setMessages(getUserMessagesData.items)
+      setMessages(() => getUserMessagesData.items)
     }
 
     if (!getUserMessagesDataIsLoading && getUserMessagesData && isInitialLoad) {
@@ -34,6 +34,7 @@ export const useChatField = (textAreaHeight: number) => {
       }
       setIsInitialLoad(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getUserMessagesData, getUserMessagesDataIsLoading, isInitialLoad])
 
   const scrollHeight = SCROLL_HEIGHT - textAreaHeight
