@@ -5,15 +5,15 @@ import { useHomePostsScroll } from './lib/useHomePostsScroll'
 
 export const FollowersPosts = () => {
   const t = useRouterLocaleDefinition()
-  const { endCursorId, homePosts, isLoadingGetHomePosts, ref } = useHomePostsScroll()
+  const { homePosts, ref } = useHomePostsScroll()
 
-  if (isLoadingGetHomePosts || (homePosts.length === 0 && endCursorId === 0)) {
+  if (homePosts === undefined) {
     return <InitLoader />
   }
 
   return (
     <>
-      {homePosts.length > 0 ? (
+      {homePosts && homePosts?.length > 0 ? (
         homePosts.map(post => {
           return <FollowerPost key={post.id} post={post} />
         })
