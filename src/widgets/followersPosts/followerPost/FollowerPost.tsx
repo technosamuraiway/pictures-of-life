@@ -53,7 +53,7 @@ export const FollowerPost = ({ post }: IProps) => {
           imgWidth={490}
           postId={Number(post.id)}
         />
-        <FollowerPostIcons isLiked={post.isLiked} postId={post.id} />
+        <FollowerPostIcons isLiked={post.isLiked} postId={post.id} userId={post.ownerId} />
         <PostDescription
           avatar={post.avatarOwner}
           description={post.description}

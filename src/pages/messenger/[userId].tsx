@@ -1,19 +1,14 @@
-import { MetaHead, useRouterLocaleDefinition } from '@/shared'
+import { MetaHead, useRouterLocaleDefinition, useUserIdFromParams } from '@/shared'
 import { DialogWindow, getLayoutWithNav } from '@/widgets'
 import { Typography } from '@technosamurai/techno-ui-kit'
-import { useRouter } from 'next/router'
 
 import s from './[userId].module.scss'
 
 import MessengerLayout from './messengerLayout/MessengerLayout'
 
-const userName = 'Hello'
-const avatarSrc = ''
-
 const Messenger = () => {
   const t = useRouterLocaleDefinition()
-  const { query } = useRouter()
-  const { userId } = query
+  const { userId } = useUserIdFromParams()
 
   return (
     <>
@@ -25,7 +20,7 @@ const Messenger = () => {
       </div>
       <MessengerLayout>
         {userId ? (
-          <DialogWindow avatar={avatarSrc} userId={userId} userName={userName} />
+          <DialogWindow />
         ) : (
           <div className={s.wrapper}>
             <Typography className={s.noContent} variant={'medium-text-14'}>

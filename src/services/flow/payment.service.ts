@@ -17,6 +17,25 @@ const paymentService = inctagramApi.injectEndpoints({
         url: `v1/subscriptions/canceled-auto-renewal`,
       }),
     }),
+    createPaypalSubscription: builder.mutation<
+      ICreateSubscriptionResponse,
+      ICreateSubscriptionArgs
+    >({
+      invalidatesTags: ['Payment'],
+      query: ({ amount, typeSubscription }) => ({
+        body: JSON.stringify({
+          amount,
+          baseUrl: `${baseURL}/profile/settings?tab=account+management&`,
+          paymentType: 'PAYPAL',
+          typeSubscription,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        url: `v1/subscriptions`,
+      }),
+    }),
     createSubscription: builder.mutation<ICreateSubscriptionResponse, ICreateSubscriptionArgs>({
       invalidatesTags: ['Payment'],
       query: ({ amount, typeSubscription }) => ({
@@ -52,6 +71,7 @@ const paymentService = inctagramApi.injectEndpoints({
 
 export const {
   useCancelAutoRenewalMutation,
+  useCreatePaypalSubscriptionMutation,
   useCreateSubscriptionMutation,
   useGetCurrentSubscriptionQuery,
   useGetSubscriptionQuery,

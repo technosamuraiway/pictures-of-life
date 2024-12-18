@@ -523,5 +523,12 @@ export const en: LocaleType = {
     noDialogList: 'Choose who you would like to talk to',
     you: 'You',
     messageInput: 'Type message',
+    today: 'Today',
+  },
+  notifications: {
+    notifications: 'Notifications',
+    newNotification: 'Notification!',
+    new: 'New',
+    delete: 'Delete',
   },
 }

@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 
 import { InformativeModal } from '@/entities'
-import { useCreateSubscriptionMutation } from '@/services/flow/payment.service'
+import {
+  useCreatePaypalSubscriptionMutation,
+  useCreateSubscriptionMutation,
+  useGetSubscriptionQuery,
+} from '@/services/flow/payment.service'
 import { RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
 import { RadioCard } from '@/widgets/profile/components/radioCard/RadioCard'
 import { PayPalIcon } from '@public/managment/PayPalIcon'
@@ -21,7 +25,9 @@ export const Management = ({ value }: IProps) => {
   const router = useRouter()
   const t = useRouterLocaleDefinition()
   const [createSubscription, { data, isLoading }] = useCreateSubscriptionMutation()
-
+  const [createPaypalSubscription, { data: dataPaypal, isLoading: isLoadingPaypal }] =
+    useCreatePaypalSubscriptionMutation()
+  const { refetch } = useGetSubscriptionQuery()
   const [selectedAccountType, setSelectedAccountType] = useState<string>('personal')
   const [selectedSubscriptionType, setSelectedSubscriptionType] = useState<string>('DAY')
   const [successPaymentModal, setSuccessPaymentModal] = useState<boolean>(false)
@@ -50,6 +56,26 @@ export const Management = ({ value }: IProps) => {
   const onPayHandler = (payType: 'PAYPAL' | 'STRIPE') => {
     if (payType === 'PAYPAL') {
       // Implement PayPal payment logic here
+      let amount
+
+      switch (selectedSubscriptionType) {
+        case 'DAY':
+          amount = 10
+          break
+        case 'WEEKLY':
+          amount = 50
+          break
+        case 'MONTHLY':
+          amount = 100
+          break
+        default:
+          amount = 0
+      }
+
+      createPaypalSubscription({
+        amount,
+        typeSubscription: selectedSubscriptionType,
+      })
     } else if (payType === 'STRIPE') {
       let amount
 
@@ -77,6 +103,7 @@ export const Management = ({ value }: IProps) => {
   const onCloseHandler = () => {
     setSuccessPaymentModal(false)
     setFailurePaymentModal(false)
+    refetch()
   }
 
   useEffect(() => {
@@ -84,6 +111,12 @@ export const Management = ({ value }: IProps) => {
       window.location.href = data.url
     }
   }, [data])
+
+  useEffect(() => {
+    if (dataPaypal) {
+      window.location.href = dataPaypal.url
+    }
+  }, [dataPaypal])
 
   useEffect(() => {
     if (!router.isReady) {
@@ -165,7 +198,11 @@ export const Management = ({ value }: IProps) => {
             />
             <div className={s.payContainer}>
               <div className={s.pay}>
-                <button disabled={isLoading} onClick={() => onPayHandler('PAYPAL')} type={'button'}>
+                <button
+                  disabled={isLoadingPaypal}
+                  onClick={() => onPayHandler('PAYPAL')}
+                  type={'button'}
+                >
                   <PayPalIcon />
                 </button>
                 <Typography className={s.text} variant={'regular-text-14'}>
@@ -178,7 +215,7 @@ export const Management = ({ value }: IProps) => {
             </div>
           </>
         )}
-        {isLoading && <RequestLineLoader />}
+        {(isLoadingPaypal || isLoading) && <RequestLineLoader />}
       </Tabs.Content>
       {informativeModal()}
     </>

@@ -529,6 +529,13 @@ export const ru = {
     searchInput: 'Введите имя',
     messageInput: 'Введите сообщение',
     you: 'Вы',
+    today: 'Сегодня',
+  },
+  notifications: {
+    notifications: 'Уведомления',
+    newNotification: 'Уведомление',
+    new: 'Новое',
+    delete: 'Удалить',
   },
 }
 

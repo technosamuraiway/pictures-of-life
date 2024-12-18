@@ -1,0 +1,77 @@
+.trigger {
+  &:focus-visible:not(:hover) {
+    outline: none;
+    color: inherit;
+  }
+
+  &:hover,
+  &Hovered {
+    color: var(--Primary-500);
+  }
+}
+
+.root {
+  position: absolute;
+  left: -330px;
+  width: 355px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--Dark-100);
+
+  background-color: var(--Dark-500);
+
+  cursor: auto;
+}
+
+.title {
+  margin-bottom: 12px;
+}
+
+.list {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.item {
+  width: 96%;
+  border-top: 1px solid var(--Dark-100);
+  padding: 15px 5px;
+
+  row-gap: 5px;
+
+  display: flex;
+  flex-flow: column nowrap;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--Dark-100);
+  }
+
+  &TitleContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 10px;
+    align-items: center;
+  }
+
+  &New {
+    color: var(--Primary-500);
+  }
+
+  &Date {
+    color: var(--Light-900);
+  }
+
+  &DeleteBtn {
+    color: var(--Danger-100);
+    border: 1px solid var(--Danger-100);
+    padding: 2px 5px;
+    align-self: flex-start;
+
+    &:hover {
+      color: var(--Danger-300);
+      border-color: var(--Danger-300);
+    }
+  }
+}
