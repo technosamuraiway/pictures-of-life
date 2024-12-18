@@ -1,16 +1,18 @@
-import { AddNewFriends, RequestLineLoader, useRouterLocaleDefinition } from '@/shared'
+import { AddNewFriends, InitLoader, useRouterLocaleDefinition } from '@/shared'
 
 import { FollowerPost } from './followerPost/FollowerPost'
 import { useHomePostsScroll } from './lib/useHomePostsScroll'
 
 export const FollowersPosts = () => {
   const t = useRouterLocaleDefinition()
-  const { homePosts, isLoadingGetHomePosts, ref } = useHomePostsScroll()
+  const { endCursorId, homePosts, isLoadingGetHomePosts, ref } = useHomePostsScroll()
+
+  if (isLoadingGetHomePosts || (homePosts.length === 0 && endCursorId === 0)) {
+    return <InitLoader />
+  }
 
   return (
     <>
-      {isLoadingGetHomePosts && <RequestLineLoader />}
-
       {homePosts.length > 0 ? (
         homePosts.map(post => {
           return <FollowerPost key={post.id} post={post} />

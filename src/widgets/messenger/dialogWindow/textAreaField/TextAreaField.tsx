@@ -1,7 +1,8 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react'
-import { toast } from 'react-toastify'
 
-import { useRouterLocaleDefinition } from '@/shared'
+import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
+import { useRouterLocaleDefinition, useUserIdFromParams } from '@/shared'
+import { useDialogListStore } from '@/shared/hooks/zustand/useDialogListStore'
 import { Button, TextArea } from '@technosamurai/techno-ui-kit'
 
 import s from './TextAreaField.module.scss'
@@ -14,9 +15,11 @@ interface IProps {
 
 export const TextAreaField = ({ onHeightChange }: IProps) => {
   const t = useRouterLocaleDefinition()
+  const { userId } = useUserIdFromParams()
   const [messageField, setMessageField] = useState('')
   const { adjustHeight, textAreaRef } = useResizeTextArea(messageField, onHeightChange)
-
+  const { sendMessage } = useWsMessagesStore()
+  const { switchDialogListRefetchingTrue } = useDialogListStore()
   const changeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value
 
@@ -24,8 +27,10 @@ export const TextAreaField = ({ onHeightChange }: IProps) => {
   }
 
   const sendMessageHandler = () => {
-    if (messageField.trim()) {
-      toast.success(`${messageField} was sent`)
+    if (messageField.trim() && sendMessage) {
+      sendMessage({ message: messageField, receiverId: Number(userId) })
+      switchDialogListRefetchingTrue()
+
       setMessageField('')
     }
   }

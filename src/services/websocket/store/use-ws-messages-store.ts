@@ -1,18 +1,25 @@
-import { Message, MessageSendRequest } from '@/services/websocket/socket.types'
+import { MessagesByIdItem } from '@/services'
+import { MessageGroup, SendMessage } from '@/services/websocket/socket.types'
 import { create } from 'zustand'
 
-type SendMessage = (body: MessageSendRequest) => void
+import { groupMessagesByDate } from '../lib/groupMessagesByDate'
 
 type UseWsMessagesStore = {
-  messages: Message[]
+  messageGroups: MessageGroup[]
   sendMessage: SendMessage | null
-  setMessages: (messages: Message[]) => void
+  setMessages: (updater: (prevMessages: MessagesByIdItem[]) => MessagesByIdItem[]) => void
   setSendMessage: (foo: SendMessage) => void
 }
 
 export const useWsMessagesStore = create<UseWsMessagesStore>(set => ({
-  messages: [],
+  messageGroups: [],
   sendMessage: null,
-  setMessages: (messages: Message[]) => set({ messages }),
+  setMessages: updater =>
+    set(state => {
+      const updatedMessages = updater(state.messageGroups.flatMap(group => group.messages))
+      const groups = groupMessagesByDate(updatedMessages)
+
+      return { messageGroups: groups }
+    }),
   setSendMessage: (foo: SendMessage) => set({ sendMessage: foo }),
 }))

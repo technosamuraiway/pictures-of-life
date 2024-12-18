@@ -1,18 +1,20 @@
 import { useEffect } from 'react'
 
+import { MessagesByIdItem } from '@/services'
 import { useGetNotificationsQuery } from '@/services/flow/notofocations.service'
 import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
+import { MESSAGE_STATUS, MESSAGE_TYPE } from '@/shared'
+import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { io } from 'socket.io-client'
 
-import { Message, MessageSendRequest, Notification, WS_EVENT_PATH } from './socket.types'
+import { MessageSendRequest, Notification, WS_EVENT_PATH } from './socket.types'
 
 const url = 'https://inctagram.work'
 
 export function useSocket(isAuthenticated: boolean) {
   const socket = io(url, { query: { accessToken: localStorage.getItem('accessToken') } })
-
-  const messages = useWsMessagesStore(state => state.messages)
+  const { meData: meRequestData } = useMeWithRouter()
   const setMessages = useWsMessagesStore(state => state.setMessages)
   const setSendMessage = useWsMessagesStore(state => state.setSendMessage)
 
@@ -23,7 +25,7 @@ export function useSocket(isAuthenticated: boolean) {
 
   useEffect(() => {
     setNotifications(getNotificationData?.items || [])
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getNotificationData])
 
   function onConnect() {
@@ -34,8 +36,9 @@ export function useSocket(isAuthenticated: boolean) {
     console.warn('🔴🔴🔴 DIS-CONNECTED')
   }
 
-  function onReceiveMessage(newMessage: Message) {
-    setMessages([...messages, newMessage])
+  function onReceiveMessage(newMessage: MessagesByIdItem) {
+    console.warn('🟡🟡🟡 RECEIVE')
+    setMessages(prevMessages => [...prevMessages, newMessage])
   }
 
   function onReceiveNotification(notification: Notification) {
@@ -44,7 +47,23 @@ export function useSocket(isAuthenticated: boolean) {
   }
 
   function sendMessage(body: MessageSendRequest) {
+    console.warn('🟣🟣🟣 SEND')
     socket.emit(WS_EVENT_PATH.MESSAGE_SENT, body)
+
+    if (meRequestData) {
+      const newMessage: MessagesByIdItem = {
+        createdAt: new Date().toISOString(),
+        id: Number(Date.now().toString()),
+        messageText: body.message,
+        messageType: MESSAGE_TYPE.TEXT,
+        ownerId: meRequestData.userId,
+        receiverId: body.receiverId,
+        status: MESSAGE_STATUS.SENT,
+        updatedAt: new Date().toISOString(),
+      }
+
+      setMessages(prevMessages => [...prevMessages, newMessage])
+    }
   }
 
   socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, onReceiveMessage)
@@ -66,6 +85,6 @@ export function useSocket(isAuthenticated: boolean) {
       socket.off(WS_EVENT_PATH.RECEIVE_MESSAGE, onReceiveMessage)
       socket.off(WS_EVENT_PATH.NOTIFICATIONS, onReceiveNotification)
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }
