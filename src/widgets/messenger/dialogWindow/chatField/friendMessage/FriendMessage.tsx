@@ -6,7 +6,7 @@ import s from './FriendMessage.module.scss'
 import { DefaultMessage } from '../defaultMessage/DefaultMessage'
 
 interface IProps {
-  avatar: string
+  avatar?: string
   createdAt: string
   message: string
 }

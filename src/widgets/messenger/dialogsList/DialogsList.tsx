@@ -1,21 +1,34 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 
-import { IDialogList, useRouterLocaleDefinition, useSearchBy } from '@/shared'
+import { useGetLatestMessengersQuery } from '@/services'
+import { useRouterLocaleDefinition, useSearchBySearchName } from '@/shared'
+import { useDialogListStore } from '@/shared/hooks/zustand/useDialogListStore'
 import { Scrollbar, TextField } from '@technosamurai/techno-ui-kit'
 
 import s from './DialogsList.module.scss'
 
 import { DialogList } from './dialogList/DialogList'
 
-interface IProps {
-  dialogs: IDialogList[]
-}
+const PAGE_SIZE = 50
+const SCROLL_BAR_HEIGHT = 574
 
-export const DialogsList = ({ dialogs }: IProps) => {
+export const DialogsList = () => {
   const t = useRouterLocaleDefinition()
+  const { changeSearchHandler, searchTerm } = useSearchBySearchName()
+  const { isDialogListRefetching, switchDialogListRefetchingFalse } = useDialogListStore()
 
-  const [searchTerm, setSearchTerm] = useState('')
-  const { changeSearchHandler } = useSearchBy(setSearchTerm)
+  const { data: getLatestMessengersData, refetch } = useGetLatestMessengersQuery({
+    pageSize: PAGE_SIZE,
+    searchName: searchTerm,
+  })
+
+  useEffect(() => {
+    if (isDialogListRefetching) {
+      refetch()
+      switchDialogListRefetchingFalse()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDialogListRefetching])
 
   return (
     <div className={s.wrapper}>
@@ -26,9 +39,11 @@ export const DialogsList = ({ dialogs }: IProps) => {
         type={'search'}
         value={searchTerm}
       />
-      <Scrollbar maxHeight={574}>
+      <Scrollbar maxHeight={SCROLL_BAR_HEIGHT}>
         <ul className={s.listWrapper}>
-          {dialogs?.map(dialog => <DialogList dialog={dialog} key={dialog.id} />)}
+          {getLatestMessengersData?.items.map(dialog => (
+            <DialogList dialog={dialog} key={dialog.id} />
+          ))}
         </ul>
       </Scrollbar>
     </div>

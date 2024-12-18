@@ -21,6 +21,8 @@ export function useHeaderOwnDropdownDotsMenu() {
     try {
       await deletePost(Number(postId))
 
+      sessionStorage.setItem('deletedPostId', postId as string)
+
       if (allPostsLength) {
         await getPostsTrigger({ pageSize: Number(allPostsLength), userId: Number(userId) })
       }

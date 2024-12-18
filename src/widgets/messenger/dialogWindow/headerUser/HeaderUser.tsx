@@ -1,4 +1,4 @@
-import { PATH } from '@/shared'
+import { PATH, useUserIdFromParams } from '@/shared'
 import mockImage from '@public/mockAvatar.png'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import Image from 'next/image'
@@ -7,12 +7,13 @@ import Link from 'next/link'
 import s from './HeaderUser.module.scss'
 
 interface IProps {
-  avatar: string
-  userId?: string | string[]
-  userName: string
+  avatar?: string
+  userName?: string
 }
 
-export const HeaderUser = ({ avatar, userId, userName }: IProps) => {
+export const HeaderUser = ({ avatar, userName }: IProps) => {
+  const { userId } = useUserIdFromParams()
+
   return (
     <div className={s.wrapper}>
       <Link className={s.linkAva} href={`${PATH.PROFILE.BASEPROFILE}/${userId}`}>

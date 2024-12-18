@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { inctagramApi, useLogOutMutation } from '@/services'
 import { useAppDispatch } from '@/services/store'
 import { useSignInAdminStore } from '@/services/store/signInAdminStore'
+import { useUserSearchStore } from '@/services/store/userSearchStore'
 import { useRouter } from 'next/router'
 
 import { useRouterLocaleDefinition } from '../useRouterLocaleDefinition'
@@ -15,6 +16,7 @@ export function useLogout() {
   const t = useRouterLocaleDefinition()
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const { reset } = useUserSearchStore()
   const { setLogged } = useSignInAdminStore()
   const [
     logOut,
@@ -49,6 +51,7 @@ export function useLogout() {
     try {
       await logOut().unwrap()
       logoutPurification()
+      reset()
     } catch (error: unknown) {
       const serverError = error as serverError
 

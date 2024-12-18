@@ -47,5 +47,5 @@ export const useHomePostsScroll = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endCursorId, inView])
 
-  return { homePosts, isLoadingGetHomePosts, ref }
+  return { endCursorId, homePosts, isLoadingGetHomePosts, ref }
 }

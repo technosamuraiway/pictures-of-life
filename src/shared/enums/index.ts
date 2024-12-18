@@ -9,3 +9,12 @@ export enum SORT_BY_TYPE {
   PAYMENT_METHOD = 'paymentMethod',
   USERNAME = 'userName',
 }
+
+export enum MESSAGE_TYPE {
+  TEXT = 'TEXT',
+}
+export enum MESSAGE_STATUS {
+  READ = 'READ',
+  RECEIVED = 'RECEIVED',
+  SENT = 'SENT',
+}

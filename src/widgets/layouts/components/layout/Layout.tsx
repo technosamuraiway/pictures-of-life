@@ -1,7 +1,9 @@
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useMemo, useState } from 'react'
 
+import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
 import { PATH, PUBLIC_ROUTES_SET_WITH_BTN, useRouterLocaleDefinition } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
+import { NotificationsComponent } from '@/widgets/layouts/components/notificationsComponent/notificationsComponent'
 import { Header } from '@technosamurai/techno-ui-kit'
 import { NextPage } from 'next'
 
@@ -18,6 +20,25 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const t = useRouterLocaleDefinition()
 
   const isWithButtons = !meRequestData && PUBLIC_ROUTES_SET_WITH_BTN.has(pathname)
+
+  const notifications = useWsNotificationsStore(state => state.notifications)
+
+  const notificationsToShow = useMemo(() => {
+    return notifications
+      .map(notification => ({
+        createdAt: notification.createdAt,
+        id: notification.id,
+        isRead: notification.isRead,
+        message: notification.message,
+        notifyAt: notification.notifyAt,
+      }))
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+  }, [notifications])
+
+  const newNotificationsToShow = useMemo(
+    () => notificationsToShow.filter(item => !item.isRead).length,
+    [notificationsToShow]
+  )
 
   /* Управление стейтом кнопки выбора языка.
    *  Начальное значение берется из uri-params
@@ -52,11 +73,14 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         changeLanguageBtnOptions={languageSelectOptions}
         className={s.header}
         logInBtnChildren={t.publicButtons.logIn}
+        notificationComponent={<NotificationsComponent notifications={notificationsToShow} />}
+        notificationNumber={newNotificationsToShow}
         onLogInClick={logInClickHandler}
         onLogoClick={logoClickHandler}
         onSignUpClick={signUpClickHandler}
         signUpBtnChildren={t.publicButtons.signUp}
         withAuthButtons={isWithButtons}
+        withNotifications={!isWithButtons}
       />
       <div className={s.scrollContainer}>
         <div className={s.container}>{children}</div>
