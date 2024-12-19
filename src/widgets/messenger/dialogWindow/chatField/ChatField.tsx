@@ -19,8 +19,8 @@ export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
   return (
     <div className={s.content}>
       <Scrollbar maxHeight={scrollHeight}>
-        {messageGroups.map(group => (
-          <div key={group.date.toString()}>
+        {messageGroups.map((group, index) => (
+          <div key={index}>
             <Typography as={'h4'} className={s.dateSeparator} variant={'regular-text-14'}>
               {formatDateToToday(group.date, t.messenger.today)}
             </Typography>
@@ -30,7 +30,7 @@ export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
                   <MyMessage
                     createdAt={message.createdAt}
                     isRead={message.status === MESSAGE_STATUS.READ}
-                    key={message.id}
+                    key={`${message.id}-my`}
                     message={message.messageText}
                   />
                 )
@@ -39,7 +39,7 @@ export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
                   <FriendMessage
                     avatar={avatar}
                     createdAt={message.createdAt}
-                    key={message.id}
+                    key={`${message.id}-not my`}
                     message={message.messageText}
                   />
                 )

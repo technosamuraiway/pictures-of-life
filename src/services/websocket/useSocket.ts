@@ -56,7 +56,7 @@ export function useSocket(isAuthenticated: boolean) {
   }
 
   function sendMessage(body: MessageSendRequest) {
-    console.warn('🟣🟣🟣 SEND MESSAGE')
+    console.warn('⚪⚪⚪ SEND MESSAGE')
     socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, body)
   }
 
@@ -64,6 +64,7 @@ export function useSocket(isAuthenticated: boolean) {
     if (isAuthenticated) {
       socket.on('connect', onConnect)
       socket.on('disconnect', onDisconnect)
+
       socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, onReceiveMessage)
       socket.on(WS_EVENT_PATH.MESSAGE_SENT, onMessageSent)
       socket.on(WS_EVENT_PATH.NOTIFICATIONS, onReceiveNotification)

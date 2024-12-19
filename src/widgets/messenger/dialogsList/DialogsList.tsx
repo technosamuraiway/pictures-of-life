@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 
 import { useGetLatestMessengersQuery } from '@/services'
-import { useRouterLocaleDefinition, useSearchBySearchName } from '@/shared'
-import { useDialogListStore } from '@/shared/hooks/zustand/useDialogListStore'
+import { useDialogListStore, useRouterLocaleDefinition, useSearchBySearchName } from '@/shared'
 import { Scrollbar, TextField } from '@technosamurai/techno-ui-kit'
 
 import s from './DialogsList.module.scss'
