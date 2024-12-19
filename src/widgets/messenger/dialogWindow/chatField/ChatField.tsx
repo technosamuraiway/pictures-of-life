@@ -19,8 +19,8 @@ export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
   return (
     <div className={s.content}>
       <Scrollbar maxHeight={scrollHeight}>
-        {messageGroups.map((group, index) => (
-          <div key={index}>
+        {messageGroups.map(group => (
+          <div key={group.date.toString()}>
             <Typography as={'h4'} className={s.dateSeparator} variant={'regular-text-14'}>
               {formatDateToToday(group.date, t.messenger.today)}
             </Typography>

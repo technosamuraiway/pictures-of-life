@@ -4,7 +4,6 @@ import { MessagesByIdItem } from '@/services'
 import { useGetNotificationsQuery } from '@/services/flow/notofocations.service'
 import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
-import { MESSAGE_STATUS, MESSAGE_TYPE } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { io } from 'socket.io-client'
 
@@ -25,8 +24,7 @@ export function useSocket(isAuthenticated: boolean) {
 
   useEffect(() => {
     setNotifications(getNotificationData?.items || [])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getNotificationData])
+  }, [getNotificationData, setNotifications])
 
   function onConnect() {
     console.warn('🟢🟢🟢 CONNECTED')
@@ -39,6 +37,17 @@ export function useSocket(isAuthenticated: boolean) {
   function onReceiveMessage(newMessage: MessagesByIdItem) {
     console.warn('🟡🟡🟡 RECEIVE')
     setMessages(prevMessages => [...prevMessages, newMessage])
+
+    // Отправляем подтверждение получения сообщения
+    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, {
+      message: newMessage,
+      receiverId: meRequestData?.userId,
+    })
+  }
+
+  function onMessageSent(newMessage: MessagesByIdItem) {
+    console.warn('🟤🟤🟤 SENT TO RECEIVER')
+    setMessages(prevMessages => [...prevMessages, newMessage])
   }
 
   function onReceiveNotification(notification: Notification) {
@@ -47,44 +56,30 @@ export function useSocket(isAuthenticated: boolean) {
   }
 
   function sendMessage(body: MessageSendRequest) {
-    console.warn('🟣🟣🟣 SEND')
-    socket.emit(WS_EVENT_PATH.MESSAGE_SENT, body)
-
-    if (meRequestData) {
-      const newMessage: MessagesByIdItem = {
-        createdAt: new Date().toISOString(),
-        id: Number(Date.now().toString()),
-        messageText: body.message,
-        messageType: MESSAGE_TYPE.TEXT,
-        ownerId: meRequestData.userId,
-        receiverId: body.receiverId,
-        status: MESSAGE_STATUS.SENT,
-        updatedAt: new Date().toISOString(),
-      }
-
-      setMessages(prevMessages => [...prevMessages, newMessage])
-    }
+    console.warn('🟣🟣🟣 SEND MESSAGE')
+    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, body)
   }
 
-  socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, onReceiveMessage)
-  socket.on(WS_EVENT_PATH.NOTIFICATIONS, onReceiveNotification)
-
   useEffect(() => {
-    if (!isAuthenticated) {
-      return
-    }
+    if (isAuthenticated) {
+      socket.on('connect', onConnect)
+      socket.on('disconnect', onDisconnect)
+      socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, onReceiveMessage)
+      socket.on(WS_EVENT_PATH.MESSAGE_SENT, onMessageSent)
+      socket.on(WS_EVENT_PATH.NOTIFICATIONS, onReceiveNotification)
 
-    setSendMessage(sendMessage)
+      setSendMessage(sendMessage)
 
-    socket.on('connect', onConnect)
-    socket.on('disconnect', onDisconnect)
-
-    return () => {
-      socket.off('connect', onConnect)
-      socket.off('disconnect', onDisconnect)
-      socket.off(WS_EVENT_PATH.RECEIVE_MESSAGE, onReceiveMessage)
-      socket.off(WS_EVENT_PATH.NOTIFICATIONS, onReceiveNotification)
+      return () => {
+        socket.off('connect', onConnect)
+        socket.off('disconnect', onDisconnect)
+        socket.off(WS_EVENT_PATH.RECEIVE_MESSAGE, onReceiveMessage)
+        socket.off(WS_EVENT_PATH.MESSAGE_SENT, onMessageSent)
+        socket.off(WS_EVENT_PATH.NOTIFICATIONS, onReceiveNotification)
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isAuthenticated, socket, setSendMessage])
+
+  return { sendMessage }
 }
