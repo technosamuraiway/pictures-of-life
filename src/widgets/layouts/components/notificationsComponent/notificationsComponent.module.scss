@@ -42,12 +42,6 @@
   display: flex;
   flex-flow: column nowrap;
 
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--Dark-100);
-  }
-
   &TitleContainer {
     display: flex;
     flex-flow: row nowrap;
@@ -63,15 +57,33 @@
     color: var(--Light-900);
   }
 
-  &DeleteBtn {
-    color: var(--Danger-100);
-    border: 1px solid var(--Danger-100);
-    padding: 2px 5px;
-    align-self: flex-start;
+  &BtnWrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 20px;
 
-    &:hover {
-      color: var(--Danger-300);
-      border-color: var(--Danger-300);
+    &DeleteBtn {
+      color: var(--Danger-100);
+      border: 1px solid var(--Danger-100);
+      padding: 2px 5px;
+      align-self: flex-start;
+
+      &:hover {
+        color: var(--Danger-300);
+        border-color: var(--Danger-300);
+      }
+    }
+
+    &MarkAsReadBtn {
+      color: var(--Success-100);
+      border: 1px solid var(--Success-100);
+      padding: 2px 5px;
+      align-self: flex-start;
+
+      &:hover {
+        color: var(--Success-300);
+        border-color: var(--Success-300);
+      }
     }
   }
 }

@@ -24,7 +24,12 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   const notifications = useWsNotificationsStore(state => state.notifications)
 
   const notificationsToShow = useMemo(() => {
+    const oneMonthAgo = new Date()
+
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
+
     return notifications
+      .filter(notification => new Date(notification.createdAt) >= oneMonthAgo)
       .map(notification => ({
         createdAt: notification.createdAt,
         id: notification.id,

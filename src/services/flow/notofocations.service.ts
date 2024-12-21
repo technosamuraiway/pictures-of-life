@@ -1,5 +1,9 @@
 import { inctagramApi } from '@/services'
-import { GetNotifications, MarkAsReadArgs } from '@/services/types/notifications.type'
+import {
+  GetNotificationsArgs,
+  GetNotificationsResponse,
+  MarkAsReadArgs,
+} from '@/services/types/notifications.type'
 
 const notifications = inctagramApi.injectEndpoints({
   endpoints: builder => ({
@@ -11,9 +15,10 @@ const notifications = inctagramApi.injectEndpoints({
       }),
     }),
 
-    getNotifications: builder.query<GetNotifications, void>({
+    getNotifications: builder.query<GetNotificationsResponse, GetNotificationsArgs>({
       providesTags: () => ['Notification'],
-      query: () => ({
+      query: args => ({
+        params: args,
         url: 'v1/notifications',
       }),
     }),
