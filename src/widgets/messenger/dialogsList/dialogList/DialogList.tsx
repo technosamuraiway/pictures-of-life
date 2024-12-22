@@ -1,6 +1,14 @@
 import { MessageItem } from '@/services'
-import { PATH, TimeAgo, useRouterLocaleDefinition, useUserIdFromParams } from '@/shared'
+import {
+  MESSAGE_STATUS,
+  MESSAGE_TYPE,
+  PATH,
+  TimeAgo,
+  useRouterLocaleDefinition,
+  useUserIdFromParams,
+} from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
+import { NewMessageIcon } from '@public/NewMessageIcon'
 import mockImage from '@public/mockAvatar.png'
 import { Typography } from '@technosamurai/techno-ui-kit'
 import { clsx } from 'clsx'
@@ -48,6 +56,9 @@ export const DialogList = ({ dialog }: IProps) => {
             {myMessage ? `${t.messenger.you}: ` : ''}
             {dialog.messageText}
           </Typography>
+          {dialog.status === MESSAGE_STATUS.RECEIVED && (
+            <NewMessageIcon className={s.newIcon} height={16} width={16} />
+          )}
         </div>
       </Link>
     </li>
