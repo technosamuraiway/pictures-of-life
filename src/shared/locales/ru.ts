@@ -536,6 +536,7 @@ export const ru = {
     newNotification: 'Уведомление',
     new: 'Новое',
     delete: 'Удалить',
+    markAsRead: 'Прочитано',
   },
 }
 

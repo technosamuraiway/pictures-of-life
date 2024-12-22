@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MessagesByIdItem } from '@/services'
 import { useGetNotificationsQuery } from '@/services/flow/notofocations.service'
@@ -20,11 +20,22 @@ export function useSocket(isAuthenticated: boolean) {
   const notifications = useWsNotificationsStore(state => state.notifications)
   const setNotifications = useWsNotificationsStore(state => state.setNotifications)
 
-  const { data: getNotificationData } = useGetNotificationsQuery()
+  const [initialNotificationsSize, setInitialNotificationsSize] = useState(100)
+  const { data: getNotificationData } = useGetNotificationsQuery({
+    pageSize: initialNotificationsSize,
+  })
 
   useEffect(() => {
+    // нужно получить все notifications, но мы не знаем сколько их при первом запрсое
+    if (!!getNotificationData && initialNotificationsSize < getNotificationData.totalCount) {
+      setInitialNotificationsSize(getNotificationData.totalCount)
+
+      return
+    }
+
     setNotifications(getNotificationData?.items || [])
-  }, [getNotificationData, setNotifications])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getNotificationData, initialNotificationsSize])
 
   function onConnect() {
     console.warn('🟢🟢🟢 CONNECTED')

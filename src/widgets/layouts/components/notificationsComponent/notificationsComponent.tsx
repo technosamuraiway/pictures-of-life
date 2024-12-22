@@ -48,7 +48,7 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
     }
 
     return (
-      <li className={s.item} key={id} onClick={onMarkAsRedMessage}>
+      <li className={s.item} key={id}>
         <div className={s.itemTitleContainer}>
           <Typography variant={'bold-text-14'}>{t.notifications.newNotification}</Typography>
           {!isRead && (
@@ -61,14 +61,27 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
         <Typography className={s.itemDate} variant={'small-text'}>
           {TimeAgo(String(createdAt), t)}
         </Typography>
-        <Typography
-          as={'button'}
-          className={s.itemDeleteBtn}
-          onClick={onDeleteMessage}
-          variant={'small-text'}
-        >
-          {t.notifications.delete}
-        </Typography>
+        <div className={s.itemBtnWrapper}>
+          <Typography
+            as={'button'}
+            className={s.itemBtnWrapperDeleteBtn}
+            onClick={onDeleteMessage}
+            variant={'small-text'}
+          >
+            {t.notifications.delete}
+          </Typography>
+
+          {!isRead && (
+            <Typography
+              as={'button'}
+              className={s.itemBtnWrapperMarkAsReadBtn}
+              onClick={onMarkAsRedMessage}
+              variant={'small-text'}
+            >
+              {t.notifications.markAsRead}
+            </Typography>
+          )}
+        </div>
       </li>
     )
   }
