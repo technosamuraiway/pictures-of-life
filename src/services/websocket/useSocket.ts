@@ -4,6 +4,7 @@ import { MessagesByIdItem } from '@/services'
 import { useGetNotificationsQuery } from '@/services/flow/notofocations.service'
 import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
+import { MESSAGE_STATUS, useUserIdFromParams } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { io } from 'socket.io-client'
 
@@ -12,6 +13,7 @@ import { MessageSendRequest, Notification, WS_EVENT_PATH } from './socket.types'
 const url = 'https://inctagram.work'
 
 export function useSocket(isAuthenticated: boolean) {
+  const { userId } = useUserIdFromParams()
   const socket = io(url, { query: { accessToken: localStorage.getItem('accessToken') } })
   const { meData: meRequestData } = useMeWithRouter()
   const setMessages = useWsMessagesStore(state => state.setMessages)
@@ -57,8 +59,16 @@ export function useSocket(isAuthenticated: boolean) {
   }
 
   function onMessageSent(newMessage: MessagesByIdItem) {
-    console.warn('🟤🟤🟤 SENT TO RECEIVER')
-    setMessages(prevMessages => [...prevMessages, newMessage])
+    console.warn('🟤🟤🟤 RECEIVER GET MESSAGE')
+
+    const updatedMessage = {
+      ...newMessage,
+      status: MESSAGE_STATUS.RECEIVED,
+    }
+
+    if (updatedMessage.ownerId === Number(userId)) {
+      setMessages(prevMessages => [...prevMessages, updatedMessage])
+    }
   }
 
   function onReceiveNotification(notification: Notification) {
