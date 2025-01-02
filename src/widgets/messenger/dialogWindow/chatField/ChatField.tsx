@@ -23,27 +23,29 @@ export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
           messageGroups.map((group, index) => (
             <div key={index}>
               <Typography as={'h4'} className={s.dateSeparator} variant={'regular-text-14'}>
-                {!isNaN(+group.date) && formatDateToToday(group.date, t.messenger.today)}
+                {isNaN(+group.date) && formatDateToToday(group.date, t.messenger.today)}
               </Typography>
               {group.messages.map(message => {
-                if (message && meRequestData?.userId === message.ownerId) {
-                  return (
-                    <MyMessage
-                      createdAt={message.createdAt}
-                      isRead={message.status === MESSAGE_STATUS.READ}
-                      key={`${message.id}-my`}
-                      message={message.messageText}
-                    />
-                  )
-                } else {
-                  return (
-                    <FriendMessage
-                      avatar={avatar}
-                      createdAt={message.createdAt}
-                      key={`${message.id}-not my`}
-                      message={message.messageText}
-                    />
-                  )
+                if (message.messageText) {
+                  if (meRequestData?.userId === message.ownerId) {
+                    return (
+                      <MyMessage
+                        createdAt={message.createdAt}
+                        isRead={message.status === MESSAGE_STATUS.READ}
+                        key={`${message.id}-my`}
+                        message={message.messageText}
+                      />
+                    )
+                  } else {
+                    return (
+                      <FriendMessage
+                        avatar={avatar}
+                        createdAt={message.createdAt}
+                        key={`${message.id}-not my`}
+                        message={message.messageText}
+                      />
+                    )
+                  }
                 }
               })}
             </div>

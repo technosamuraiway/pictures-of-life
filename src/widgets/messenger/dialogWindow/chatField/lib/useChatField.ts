@@ -1,6 +1,10 @@
 import { useEffect } from 'react'
 
-import { useGetUserMessagesByUserIDQuery, useMarkAsReadMessageMutation } from '@/services'
+import {
+  useGetUserMessagesByUserIDQuery,
+  useLazyGetUserMessagesByUserIDQuery,
+  useMarkAsReadMessageMutation,
+} from '@/services'
 import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { MESSAGE_STATUS, useUserIdFromParams } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
@@ -9,6 +13,7 @@ const SCROLL_HEIGHT = 515
 
 export const useChatField = (textAreaHeight: number) => {
   const { userId } = useUserIdFromParams()
+
   const { meData: meRequestData } = useMeWithRouter()
   const { messageGroups, setMessages } = useWsMessagesStore()
   const [markAsReadMessage] = useMarkAsReadMessageMutation()
@@ -17,7 +22,11 @@ export const useChatField = (textAreaHeight: number) => {
     dialoguePartnerId: Number(userId),
   })
 
+  const [lazyGetMessages] = useLazyGetUserMessagesByUserIDQuery()
+
   useEffect(() => {
+    lazyGetMessages({ dialoguePartnerId: Number(userId) })
+
     if (getUserMessagesData) {
       setMessages(() => getUserMessagesData.items)
 
