@@ -14,16 +14,17 @@ interface IProps {
 
 export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
   const t = useRouterLocaleDefinition()
-  const { meRequestData, messageGroups, scrollHeight } = useChatField(textAreaHeight)
+  const { meRequestData, messageGroups, scrollContentRef, scrollHeight } =
+    useChatField(textAreaHeight)
 
   return (
     <div className={s.content}>
-      <Scrollbar maxHeight={scrollHeight}>
+      <Scrollbar maxHeight={scrollHeight} ref={scrollContentRef}>
         {messageGroups &&
           messageGroups.map((group, index) => (
             <div key={index}>
               <Typography as={'h4'} className={s.dateSeparator} variant={'regular-text-14'}>
-                {isNaN(+group.date) && formatDateToToday(group.date, t.messenger.today)}
+                {group.date && formatDateToToday(group.date, t.messenger.today)}
               </Typography>
               {group.messages.map(message => {
                 if (message.messageText) {

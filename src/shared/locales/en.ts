@@ -524,6 +524,7 @@ export const en: LocaleType = {
     you: 'You',
     messageInput: 'Type message',
     today: 'Today',
+    newMessage: 'You have got new message!',
   },
   notifications: {
     notifications: 'Notifications',

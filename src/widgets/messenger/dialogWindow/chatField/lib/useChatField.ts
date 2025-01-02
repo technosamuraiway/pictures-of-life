@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import {
   useGetUserMessagesByUserIDQuery,
@@ -20,6 +20,7 @@ export const useChatField = (textAreaHeight: number) => {
 
   const { data: getUserMessagesData } = useGetUserMessagesByUserIDQuery({
     dialoguePartnerId: Number(userId),
+    pageSize: 50,
   })
 
   const [lazyGetMessages] = useLazyGetUserMessagesByUserIDQuery()
@@ -43,5 +44,24 @@ export const useChatField = (textAreaHeight: number) => {
 
   const scrollHeight = SCROLL_HEIGHT - textAreaHeight
 
-  return { meRequestData, messageGroups, scrollHeight }
+  const scrollContentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (scrollContentRef.current) {
+      const scrollElement = scrollContentRef.current.querySelector(
+        '[data-radix-scroll-area-viewport]'
+      ) as HTMLDivElement | null
+
+      if (scrollElement) {
+        setTimeout(() => {
+          scrollElement.scrollTo({
+            behavior: 'smooth',
+            top: scrollElement.scrollHeight,
+          })
+        }, 0)
+      }
+    }
+  }, [messageGroups])
+
+  return { meRequestData, messageGroups, scrollContentRef, scrollHeight }
 }

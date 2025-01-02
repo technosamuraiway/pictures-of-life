@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { MessagesByIdItem } from '@/services'
 import { useGetNotificationsQuery } from '@/services/flow/notofocations.service'
 import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
-import { MESSAGE_STATUS, useUserIdFromParams } from '@/shared'
+import {
+  MESSAGE_STATUS,
+  useDialogListStore,
+  useRouterLocaleDefinition,
+  useUserIdFromParams,
+} from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 import { io } from 'socket.io-client'
 
@@ -13,9 +19,11 @@ import { MessageSendRequest, Notification, WS_EVENT_PATH } from './socket.types'
 const url = 'https://inctagram.work'
 
 export function useSocket(isAuthenticated: boolean) {
+  const t = useRouterLocaleDefinition()
   const { userId } = useUserIdFromParams()
   const socket = io(url, { query: { accessToken: localStorage.getItem('accessToken') } })
   const { meData: meRequestData } = useMeWithRouter()
+  const { switchDialogListRefetchingTrue } = useDialogListStore()
   const setMessages = useWsMessagesStore(state => state.setMessages)
   const setSendMessage = useWsMessagesStore(state => state.setSendMessage)
 
@@ -60,6 +68,10 @@ export function useSocket(isAuthenticated: boolean) {
 
   function onMessageSent(newMessage: MessagesByIdItem) {
     console.warn('🟤🟤🟤 RECEIVER GET MESSAGE')
+
+    toast.info(t.messenger.newMessage)
+
+    switchDialogListRefetchingTrue()
 
     const updatedMessage = {
       ...newMessage,
