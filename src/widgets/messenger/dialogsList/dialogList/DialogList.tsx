@@ -1,12 +1,5 @@
 import { MessageItem } from '@/services'
-import {
-  MESSAGE_STATUS,
-  PATH,
-  TimeAgo,
-  useRouterLocaleDefinition,
-  useUserIdFromParams,
-} from '@/shared'
-import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
+import { MESSAGE_STATUS, PATH, TimeAgo } from '@/shared'
 import { NewMessageIcon } from '@public/NewMessageIcon'
 import mockImage from '@public/mockAvatar.png'
 import { Typography } from '@technosamurai/techno-ui-kit'
@@ -16,20 +9,13 @@ import Link from 'next/link'
 
 import s from './DialogList.module.scss'
 
+import { useIdDeciders } from '../lib/useIdDeciders'
+
 interface IProps {
   dialog: MessageItem
 }
 export const DialogList = ({ dialog }: IProps) => {
-  const t = useRouterLocaleDefinition()
-  const { userId } = useUserIdFromParams()
-
-  const { meData: meRequestData } = useMeWithRouter()
-
-  const activeDialog = Number(userId) === dialog.ownerId || Number(userId) === dialog.receiverId
-
-  const myMessage = dialog.ownerId === meRequestData?.userId
-
-  const idDecider = dialog.ownerId === meRequestData?.userId ? dialog.receiverId : dialog.ownerId
+  const { activeDialog, idDecider, myMessage, t } = useIdDeciders(dialog)
 
   return (
     <li className={clsx(s.wrapper, activeDialog && s.active)}>
@@ -45,7 +31,9 @@ export const DialogList = ({ dialog }: IProps) => {
 
         <div className={s.profileInfo}>
           <div className={s.usernameInfo}>
-            <Typography variant={'regular-text-14'}>{dialog.userName}</Typography>
+            <Typography className={s.name} variant={'regular-text-14'}>
+              {dialog.userName}
+            </Typography>
             <Typography className={s.date} variant={'small-text'}>
               {TimeAgo(dialog.createdAt || '', t)}
             </Typography>

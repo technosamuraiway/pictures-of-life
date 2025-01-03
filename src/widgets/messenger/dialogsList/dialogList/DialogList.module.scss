@@ -39,6 +39,13 @@
   align-items: center;
 }
 
+.name.name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 60%;
+}
+
 .date.date {
   color: var(--Light-900);
 }
