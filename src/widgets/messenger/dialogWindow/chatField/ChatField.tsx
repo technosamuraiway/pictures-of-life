@@ -24,7 +24,9 @@ export const ChatField = ({ avatar, textAreaHeight }: IProps) => {
           messageGroups.map((group, index) => (
             <div key={index}>
               <Typography as={'h4'} className={s.dateSeparator} variant={'regular-text-14'}>
-                {group.date && formatDateToToday(group.date, t.messenger.today)}
+                {group.date &&
+                  !isNaN(new Date(group.date).getTime()) &&
+                  formatDateToToday(group.date, t.messenger.today)}
               </Typography>
               {group.messages.map(message => {
                 if (message.messageText) {

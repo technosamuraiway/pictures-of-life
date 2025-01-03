@@ -7,6 +7,7 @@ import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-s
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
 import {
   MESSAGE_STATUS,
+  MESSAGE_TYPE,
   useDialogListStore,
   useRouterLocaleDefinition,
   useUserIdFromParams,
@@ -91,6 +92,21 @@ export function useSocket(isAuthenticated: boolean) {
   function sendMessage(body: MessageSendRequest) {
     console.warn('⚪⚪⚪ SEND MESSAGE')
     socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, body)
+
+    if (meRequestData) {
+      const newMessage: MessagesByIdItem = {
+        createdAt: new Date().toISOString(),
+        id: Number(Date.now().toString()),
+        messageText: body.message,
+        messageType: MESSAGE_TYPE.TEXT,
+        ownerId: meRequestData.userId,
+        receiverId: body.receiverId,
+        status: MESSAGE_STATUS.SENT,
+        updatedAt: new Date().toISOString(),
+      }
+
+      setMessages(prevMessages => [...prevMessages, newMessage])
+    }
   }
 
   useEffect(() => {
@@ -114,6 +130,4 @@ export function useSocket(isAuthenticated: boolean) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, socket, setSendMessage])
-
-  return { sendMessage }
 }

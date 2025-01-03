@@ -1,15 +1,12 @@
 import { useEffect, useRef } from 'react'
 
-import {
-  useGetUserMessagesByUserIDQuery,
-  useLazyGetUserMessagesByUserIDQuery,
-  useMarkAsReadMessageMutation,
-} from '@/services'
+import { useLazyGetUserMessagesByUserIDQuery, useMarkAsReadMessageMutation } from '@/services'
 import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-store'
 import { MESSAGE_STATUS, useUserIdFromParams } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
 
 const SCROLL_HEIGHT = 515
+const PAGE_SIZE = 50
 
 export const useChatField = (textAreaHeight: number) => {
   const { userId } = useUserIdFromParams()
@@ -18,20 +15,23 @@ export const useChatField = (textAreaHeight: number) => {
   const { messageGroups, setMessages } = useWsMessagesStore()
   const [markAsReadMessage] = useMarkAsReadMessageMutation()
 
-  const { data: getUserMessagesData } = useGetUserMessagesByUserIDQuery({
-    dialoguePartnerId: Number(userId),
-    pageSize: 50,
-  })
+  // const { data: getUserMessagesData } = useGetUserMessagesByUserIDQuery({
+  //   dialoguePartnerId: Number(userId),
+  //   pageSize: 50,
+  // })
 
-  const [lazyGetMessages] = useLazyGetUserMessagesByUserIDQuery()
+  const [lazyGetMessages, { data: lazyData }] = useLazyGetUserMessagesByUserIDQuery()
 
   useEffect(() => {
-    lazyGetMessages({ dialoguePartnerId: Number(userId) })
+    lazyGetMessages({
+      dialoguePartnerId: Number(userId),
+      pageSize: PAGE_SIZE,
+    })
 
-    if (getUserMessagesData) {
-      setMessages(() => getUserMessagesData.items)
+    if (lazyData) {
+      setMessages(() => lazyData.items)
 
-      const unreadPartnerMessages = getUserMessagesData.items
+      const unreadPartnerMessages = lazyData.items
         .filter(msg => msg.ownerId === Number(userId) && msg.status !== MESSAGE_STATUS.READ)
         .map(msg => msg.id)
 
@@ -40,7 +40,7 @@ export const useChatField = (textAreaHeight: number) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getUserMessagesData, userId, markAsReadMessage])
+  }, [lazyData, userId, markAsReadMessage])
 
   const scrollHeight = SCROLL_HEIGHT - textAreaHeight
 
