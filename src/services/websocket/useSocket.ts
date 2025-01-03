@@ -28,6 +28,8 @@ export function useSocket(isAuthenticated: boolean) {
   const setMessages = useWsMessagesStore(state => state.setMessages)
   const setSendMessage = useWsMessagesStore(state => state.setSendMessage)
 
+  const { updateMessage } = useDialogListStore()
+
   const notifications = useWsNotificationsStore(state => state.notifications)
   const setNotifications = useWsNotificationsStore(state => state.setNotifications)
 
@@ -37,7 +39,7 @@ export function useSocket(isAuthenticated: boolean) {
   })
 
   useEffect(() => {
-    // нужно получить все notifications, но мы не знаем сколько их при первом запрсое
+    // нужно получить все notifications, но мы не знаем сколько их при первом запросе
     if (!!getNotificationData && initialNotificationsSize < getNotificationData.totalCount) {
       setInitialNotificationsSize(getNotificationData.totalCount)
 
@@ -78,6 +80,8 @@ export function useSocket(isAuthenticated: boolean) {
       ...newMessage,
       status: MESSAGE_STATUS.RECEIVED,
     }
+
+    updateMessage(newMessage.ownerId, newMessage.messageText, MESSAGE_STATUS.RECEIVED)
 
     if (updatedMessage.ownerId === Number(userId)) {
       setMessages(prevMessages => [...prevMessages, updatedMessage])

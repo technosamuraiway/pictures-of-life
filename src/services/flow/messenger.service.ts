@@ -50,7 +50,6 @@ const messengerService = inctagramApi.injectEndpoints({
 
 export const {
   useGetLatestMessengersQuery,
-  useGetUserMessagesByUserIDQuery,
   useLazyGetUserMessagesByUserIDQuery,
   useMarkAsReadMessageMutation,
 } = messengerService

@@ -1,7 +1,6 @@
 import { MessageItem } from '@/services'
 import {
   MESSAGE_STATUS,
-  MESSAGE_TYPE,
   PATH,
   TimeAgo,
   useRouterLocaleDefinition,

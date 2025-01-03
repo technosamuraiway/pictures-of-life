@@ -15,11 +15,6 @@ export const useChatField = (textAreaHeight: number) => {
   const { messageGroups, setMessages } = useWsMessagesStore()
   const [markAsReadMessage] = useMarkAsReadMessageMutation()
 
-  // const { data: getUserMessagesData } = useGetUserMessagesByUserIDQuery({
-  //   dialoguePartnerId: Number(userId),
-  //   pageSize: 50,
-  // })
-
   const [lazyGetMessages, { data: lazyData }] = useLazyGetUserMessagesByUserIDQuery()
 
   useEffect(() => {
