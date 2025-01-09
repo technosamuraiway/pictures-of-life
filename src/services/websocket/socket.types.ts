@@ -4,7 +4,7 @@ import { MESSAGE_STATUS, MESSAGE_TYPE } from '@/shared'
 export enum WS_EVENT_PATH {
   ERROR = 'error',
   MESSAGE_DELETED = 'message-deleted',
-  MESSAGE_SENT = 'receive-message',
+  MESSAGE_SENT = 'message-sent',
   NOTIFICATIONS = 'notifications',
   RECEIVE_MESSAGE = 'receive-message',
   UPDATE_MESSAGE = 'update-message',

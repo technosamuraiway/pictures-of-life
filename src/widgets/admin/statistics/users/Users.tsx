@@ -6,7 +6,7 @@ import { GET_USERS } from '@/services/graphql/queries/user'
 import { InitLoader, useRouterLocaleDefinition } from '@/shared'
 import LineChart from '@/shared/components/lineChart/lineChart'
 import { useQuery } from '@apollo/client'
-import { DateValue } from '@internationalized/date'
+import { DateValue as ReactDateValue } from '@react-types/datepicker'
 import { Calendar, Tabs, Typography } from '@technosamurai/techno-ui-kit'
 import { endOfMonth, startOfMonth, subMonths } from 'date-fns'
 
@@ -110,7 +110,7 @@ export const Users = ({ value }: IProps) => {
     })
   }, [userDateRange, previousMonthUsers, labels, monthData])
 
-  const handleRangeChangeUser = (range: { end: DateValue; start: DateValue }) => {
+  const handleRangeChangeUser = (range: { end: ReactDateValue; start: ReactDateValue }) => {
     const start = range.start ? new Date(range.start.toString()) : null
     const end = range.end ? new Date(range.end.toString()) : null
 
@@ -122,7 +122,7 @@ export const Users = ({ value }: IProps) => {
     }
   }
 
-  const handleRangeChangePayment = (range: { end: DateValue; start: DateValue }) => {
+  const handleRangeChangePayment = (range: { end: ReactDateValue; start: ReactDateValue }) => {
     const start = range.start ? new Date(range.start.toString()) : null
     const end = range.end ? new Date(range.end.toString()) : null
 

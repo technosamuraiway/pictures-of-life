@@ -11,4 +11,5 @@ export { useFollowUnfollow } from './useFollowUnfollow/useFollowUnfollow'
 export { useRouterLocaleDefinition } from './useRouterLocaleDefinition'
 
 export { useTabsSwitcher } from './useTabsSwitcher'
+export * from './zustand/useDialogListStore'
 export * from './zustand/useImagesStore'
