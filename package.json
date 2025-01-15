@@ -17,7 +17,7 @@
     "@hookform/resolvers": "3.9.0",
     "@internationalized/date": "3.5.6",
     "@reduxjs/toolkit": "2.2.7",
-    "@technosamurai/techno-ui-kit": "0.0.57",
+    "@technosamurai/techno-ui-kit": "0.0.59",
     "@types/lodash": "4.17.13",
     "@types/react-google-recaptcha": "2.1.9",
     "@types/socket.io-client": "3.0.0",
