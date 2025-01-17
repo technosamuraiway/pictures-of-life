@@ -7,7 +7,6 @@ import { useWsMessagesStore } from '@/services/websocket/store/use-ws-messages-s
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
 import {
   MESSAGE_STATUS,
-  MESSAGE_TYPE,
   useDialogListStore,
   useRouterLocaleDefinition,
   useUserIdFromParams,
@@ -39,7 +38,6 @@ export function useSocket(isAuthenticated: boolean) {
     pageSize: initialNotificationsSize,
   })
 
-  console.log(getNotificationData)
   useEffect(() => {
     if (isAuthenticated && !socketRef.current) {
       socketRef.current = io(url, { query: { accessToken: localStorage.getItem('accessToken') } })
