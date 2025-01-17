@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { MessagesByIdItem } from '@/services'
@@ -13,7 +13,7 @@ import {
   useUserIdFromParams,
 } from '@/shared'
 import { useMeWithRouter } from '@/shared/hooks/meWithRouter/useMeWithRouter'
-import { io } from 'socket.io-client'
+import { Socket, io } from 'socket.io-client'
 
 import { MessageSendRequest, Notification, WS_EVENT_PATH } from './socket.types'
 
@@ -22,7 +22,8 @@ const url = 'https://inctagram.work'
 export function useSocket(isAuthenticated: boolean) {
   const t = useRouterLocaleDefinition()
   const { userId } = useUserIdFromParams()
-  const socket = io(url, { query: { accessToken: localStorage.getItem('accessToken') } })
+
+  const socketRef = useRef<Socket | null>(null)
   const { meData: meRequestData } = useMeWithRouter()
   const { switchDialogListRefetchingTrue } = useDialogListStore()
   const setMessages = useWsMessagesStore(state => state.setMessages)
@@ -37,6 +38,21 @@ export function useSocket(isAuthenticated: boolean) {
   const { data: getNotificationData } = useGetNotificationsQuery({
     pageSize: initialNotificationsSize,
   })
+
+  console.log(getNotificationData)
+  useEffect(() => {
+    if (isAuthenticated && !socketRef.current) {
+      socketRef.current = io(url, { query: { accessToken: localStorage.getItem('accessToken') } })
+    }
+
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect()
+        socketRef.current = null
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated])
 
   useEffect(() => {
     // нужно получить все notifications, но мы не знаем сколько их при первом запросе
@@ -60,13 +76,16 @@ export function useSocket(isAuthenticated: boolean) {
 
   function onReceiveMessage(newMessage: MessagesByIdItem) {
     console.warn('🟡🟡🟡 RECEIVE')
+
     setMessages(prevMessages => [...prevMessages, newMessage])
 
-    // Отправляем подтверждение получения сообщения
-    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, {
-      message: newMessage,
-      receiverId: meRequestData?.userId,
-    })
+    if (socketRef.current) {
+      // Отправляем подтверждение получения сообщения
+      socketRef.current.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, {
+        message: newMessage,
+        receiverId: meRequestData?.userId,
+      })
+    }
   }
 
   function onMessageSent(newMessage: MessagesByIdItem) {
@@ -95,33 +114,35 @@ export function useSocket(isAuthenticated: boolean) {
 
   function sendMessage(body: MessageSendRequest) {
     console.warn('⚪⚪⚪ SEND MESSAGE')
-    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, body)
-
-    if (meRequestData) {
-      const newMessage: MessagesByIdItem = {
-        createdAt: new Date().toISOString(),
-        id: Number(Date.now().toString()),
-        messageText: body.message,
-        messageType: MESSAGE_TYPE.TEXT,
-        ownerId: meRequestData.userId,
-        receiverId: body.receiverId,
-        status: MESSAGE_STATUS.SENT,
-        updatedAt: new Date().toISOString(),
-      }
-
-      setMessages(prevMessages => [...prevMessages, newMessage])
+    if (socketRef.current) {
+      socketRef.current.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, body)
     }
+
+    // if (meRequestData) {
+    //   const newMessage: MessagesByIdItem = {
+    //     createdAt: new Date().toISOString(),
+    //     id: Number(Date.now().toString()),
+    //     messageText: body.message,
+    //     messageType: MESSAGE_TYPE.TEXT,
+    //     ownerId: meRequestData.userId,
+    //     receiverId: body.receiverId,
+    //     status: MESSAGE_STATUS.SENT,
+    //     updatedAt: new Date().toISOString(),
+    //   }
+    //
+    //   setMessages(prevMessages => [...prevMessages, newMessage])
+    // }
   }
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (socketRef.current) {
+      const socket = socketRef.current
+
       socket.on('connect', onConnect)
       socket.on('disconnect', onDisconnect)
-
       socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, onReceiveMessage)
       socket.on(WS_EVENT_PATH.MESSAGE_SENT, onMessageSent)
       socket.on(WS_EVENT_PATH.NOTIFICATIONS, onReceiveNotification)
-
       setSendMessage(sendMessage)
 
       return () => {
@@ -133,5 +154,5 @@ export function useSocket(isAuthenticated: boolean) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, socket, setSendMessage])
+  }, [])
 }
