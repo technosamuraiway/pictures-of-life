@@ -1,4 +1,4 @@
-import { PropsWithChildren, useMemo, useState } from 'react'
+import { PropsWithChildren, useEffect, useMemo, useState } from 'react'
 
 import { useWsNotificationsStore } from '@/services/websocket/store/use-ws-notofocations-store'
 import { PATH, PUBLIC_ROUTES_SET_WITH_BTN, useRouterLocaleDefinition } from '@/shared'
@@ -80,7 +80,7 @@ export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
         onSignUpClick={signUpClickHandler}
         signUpBtnChildren={t.publicButtons.signUp}
         withAuthButtons={isWithButtons}
-        withNotifications={!isWithButtons}
+        withNotifications={!!meRequestData}
       />
       <div className={s.scrollContainer}>
         <div className={s.container}>{children}</div>

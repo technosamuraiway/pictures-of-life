@@ -8,6 +8,11 @@
   &Hovered {
     color: var(--Primary-500);
   }
+  @media (max-width: 767px) {
+    margin-top: 5px !important;
+    width: 17px !important;
+    height: 17px !important;
+  }
 }
 
 .root {
