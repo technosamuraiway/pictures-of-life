@@ -6,7 +6,12 @@ import {
 } from '@/services/flow/notofocations.service'
 import { NotificationItem } from '@/services/types/notifications.type'
 import { RequestLineLoader, TimeAgo, useRouterLocaleDefinition } from '@/shared'
-import { DefaultNotifications, Scrollbar, Typography } from '@technosamurai/techno-ui-kit'
+import {
+  CloseIcon,
+  DefaultNotifications,
+  Scrollbar,
+  Typography,
+} from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 
 import s from './notificationsComponent.module.scss'
@@ -101,6 +106,7 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
         <div className={s.root} ref={rootRef}>
           <Typography className={s.title} variant={'bold-text-16'}>
             {t.notifications.notifications}
+            <CloseIcon className={s.closeIcon} onClick={() => setIsOpen(false)} />
           </Typography>
           <Scrollbar maxHeight={420}>
             <ul className={s.list}>{notifications.map(item => notification(item))}</ul>

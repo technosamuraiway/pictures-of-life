@@ -8,6 +8,11 @@
   &Hovered {
     color: var(--Primary-500);
   }
+  @media (max-width: 767px) {
+    margin-top: 5px !important;
+    width: 17px !important;
+    height: 17px !important;
+  }
 }
 
 .root {
@@ -21,10 +26,26 @@
   background-color: var(--Dark-500);
 
   cursor: auto;
-}
 
+  @media (max-width: 767px) {
+    left: -200px;
+    width: 350px;
+  }
+}
+.closeIcon {
+  width: 17px !important;
+  height: 17px !important;
+  @media (min-width: 767px) {
+    display: none;
+  }
+}
 .title {
   margin-bottom: 12px;
+  @media (max-width: 767px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .list {
