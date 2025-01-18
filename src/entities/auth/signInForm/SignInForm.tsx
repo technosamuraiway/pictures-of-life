@@ -49,6 +49,7 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError 
     <form className={s.formWrapper} noValidate onSubmit={handleSubmit(onSubmitSignInForm)}>
       <ControlledTextField
         autoComplete={'email'}
+        className={s.input}
         control={control}
         error={textFieldError}
         label={t.signInPage.email}
@@ -58,6 +59,7 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError 
       />
       <ControlledTextField
         autoComplete={'current-password'}
+        className={s.input}
         control={control}
         error={textFieldError}
         label={t.signInPage.password}
@@ -74,11 +76,7 @@ export const SignInForm = ({ buttonDisabled, onSubmitSignInForm, textFieldError 
         {t.signInPage.forgotPassword}
       </Typography>
 
-      <Button
-        className={s.submitButton}
-        disabled={buttonDisabled || !isValid || !isDirty}
-        type={'submit'}
-      >
+      <Button className={s.input} disabled={buttonDisabled || !isValid || !isDirty} type={'submit'}>
         {t.signInPage.signInButton}
       </Button>
     </form>
