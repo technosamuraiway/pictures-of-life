@@ -524,11 +524,14 @@ export const en: LocaleType = {
     you: 'You',
     messageInput: 'Type message',
     today: 'Today',
+    newMessage: 'You have got new message!',
   },
   notifications: {
     notifications: 'Notifications',
     newNotification: 'Notification!',
     new: 'New',
     delete: 'Delete',
+    markAsRead: 'Mark as read',
+    emptyList: 'Empty Notifications List',
   },
 }

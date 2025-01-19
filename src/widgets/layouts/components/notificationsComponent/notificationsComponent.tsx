@@ -6,7 +6,12 @@ import {
 } from '@/services/flow/notofocations.service'
 import { NotificationItem } from '@/services/types/notifications.type'
 import { RequestLineLoader, TimeAgo, useRouterLocaleDefinition } from '@/shared'
-import { DefaultNotifications, Scrollbar, Typography } from '@technosamurai/techno-ui-kit'
+import {
+  CloseIcon,
+  DefaultNotifications,
+  Scrollbar,
+  Typography,
+} from '@technosamurai/techno-ui-kit'
 import clsx from 'clsx'
 
 import s from './notificationsComponent.module.scss'
@@ -48,7 +53,7 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
     }
 
     return (
-      <li className={s.item} key={id} onClick={onMarkAsRedMessage}>
+      <li className={s.item} key={id}>
         <div className={s.itemTitleContainer}>
           <Typography variant={'bold-text-14'}>{t.notifications.newNotification}</Typography>
           {!isRead && (
@@ -61,14 +66,27 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
         <Typography className={s.itemDate} variant={'small-text'}>
           {TimeAgo(String(createdAt), t)}
         </Typography>
-        <Typography
-          as={'button'}
-          className={s.itemDeleteBtn}
-          onClick={onDeleteMessage}
-          variant={'small-text'}
-        >
-          {t.notifications.delete}
-        </Typography>
+        <div className={s.itemBtnWrapper}>
+          <Typography
+            as={'button'}
+            className={s.itemBtnWrapperDeleteBtn}
+            onClick={onDeleteMessage}
+            variant={'small-text'}
+          >
+            {t.notifications.delete}
+          </Typography>
+
+          {!isRead && (
+            <Typography
+              as={'button'}
+              className={s.itemBtnWrapperMarkAsReadBtn}
+              onClick={onMarkAsRedMessage}
+              variant={'small-text'}
+            >
+              {t.notifications.markAsRead}
+            </Typography>
+          )}
+        </div>
       </li>
     )
   }
@@ -88,9 +106,14 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
         <div className={s.root} ref={rootRef}>
           <Typography className={s.title} variant={'bold-text-16'}>
             {t.notifications.notifications}
+            <CloseIcon className={s.closeIcon} onClick={() => setIsOpen(false)} />
           </Typography>
           <Scrollbar maxHeight={420}>
-            <ul className={s.list}>{notifications.map(item => notification(item))}</ul>
+            {notifications.length > 0 ? (
+              <ul className={s.list}>{notifications.map(item => notification(item))}</ul>
+            ) : (
+              <Typography variant={'bold-text-14'}>{t.notifications.emptyList}</Typography>
+            )}
           </Scrollbar>
         </div>
       )}

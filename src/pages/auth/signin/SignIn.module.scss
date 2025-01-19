@@ -1,4 +1,12 @@
 .cardContainer {
   width: 23.6rem;
   padding: 1.5rem;
+  @media (max-width: 767px) {
+    background-color: var(--Dark-700);
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }

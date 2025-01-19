@@ -6,7 +6,7 @@ import {
   convertDateValueToDate,
   useRouterLocaleDefinition,
 } from '@/shared'
-import { DateValue } from '@internationalized/date'
+import { DateValue as ReactDateValue } from '@react-types/datepicker'
 import { Calendar, CalendarProps, Typography } from '@technosamurai/techno-ui-kit'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -51,7 +51,7 @@ export const ControlledSingleCalendar = <T extends FieldValues>({
     return age
   }
 
-  const onValueChangeHandler = (date: DateValue) => {
+  const onValueChangeHandler = (date: ReactDateValue) => {
     const singleDate = convertDateValueToDate(date)
     const age = checkAge(singleDate)
 

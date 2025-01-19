@@ -6,11 +6,15 @@ export type NotificationItem = {
   notifyAt: Date
 }
 
-export type GetNotifications = {
+export type GetNotificationsResponse = {
   items: NotificationItem[]
   notReadCount: number
   pageSize: number
   totalCount: number
+}
+
+export type GetNotificationsArgs = {
+  pageSize: number
 }
 
 export type MarkAsReadArgs = {

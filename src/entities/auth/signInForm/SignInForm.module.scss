@@ -3,9 +3,15 @@
   flex-direction: column;
   gap: 1.625rem;
   margin-bottom: 1.125rem;
+  @media (max-width: 767px) {
+    align-items: center;
+  }
 }
 
 .forgotPassword {
   margin-left: auto;
   color: var(--Light-900) !important;
+}
+.input {
+  min-width: 300px !important;
 }

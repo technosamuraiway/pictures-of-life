@@ -530,12 +530,15 @@ export const ru = {
     messageInput: 'Введите сообщение',
     you: 'Вы',
     today: 'Сегодня',
+    newMessage: 'Вы получили новое сообщение!',
   },
   notifications: {
     notifications: 'Уведомления',
     newNotification: 'Уведомление',
     new: 'Новое',
     delete: 'Удалить',
+    markAsRead: 'Прочитано',
+    emptyList: 'Уведомлений нет',
   },
 }
 

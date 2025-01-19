@@ -27,6 +27,7 @@ export const DefaultMessage = ({ createdAt, isMine = false, isRead, message, sty
       <Typography as={'p'} variant={'regular-text-14'}>
         {message}
       </Typography>
+
       <Typography
         as={'span'}
         className={clsx(s.date, isMine ? s.blueDate : s.greyDate)}
