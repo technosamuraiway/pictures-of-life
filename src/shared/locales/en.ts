@@ -532,5 +532,6 @@ export const en: LocaleType = {
     new: 'New',
     delete: 'Delete',
     markAsRead: 'Mark as read',
+    emptyList: 'Empty Notifications List',
   },
 }

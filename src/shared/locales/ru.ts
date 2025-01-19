@@ -538,6 +538,7 @@ export const ru = {
     new: 'Новое',
     delete: 'Удалить',
     markAsRead: 'Прочитано',
+    emptyList: 'Уведомлений нет',
   },
 }
 

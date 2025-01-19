@@ -109,7 +109,11 @@ export const NotificationsComponent = ({ notifications }: IProps) => {
             <CloseIcon className={s.closeIcon} onClick={() => setIsOpen(false)} />
           </Typography>
           <Scrollbar maxHeight={420}>
-            <ul className={s.list}>{notifications.map(item => notification(item))}</ul>
+            {notifications.length > 0 ? (
+              <ul className={s.list}>{notifications.map(item => notification(item))}</ul>
+            ) : (
+              <Typography variant={'bold-text-14'}>{t.notifications.emptyList}</Typography>
+            )}
           </Scrollbar>
         </div>
       )}
